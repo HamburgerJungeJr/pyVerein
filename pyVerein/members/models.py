@@ -3,9 +3,9 @@ from django.db import models
 #Member model.
 class Member(models.Model):
     # Lastname
-    last_name = models.CharField(max-length=50)
+    last_name = models.CharField(max_length=50)
     # Firstname
-    first_name = models.CharField(max-length=50)
+    first_name = models.CharField(max_length=50)
     # Street
     street = models.CharField(blank=True, max_length=200)
     # Zipcode
@@ -14,4 +14,3 @@ class Member(models.Model):
     city = models.CharField(blank=True, max_length=100)
     # Birthday
     birthday = models.DateField()
-    
