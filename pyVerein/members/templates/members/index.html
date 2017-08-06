@@ -1,1 +1,11 @@
-Members
+{% if members %}
+  <ul>
+    {% for member in members %}
+      <li>
+        <a href="{% url 'detail' member.id %}">{{member.get_full_name}}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No members available.</p>
+{% endif %}
