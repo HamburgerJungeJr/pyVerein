@@ -14,3 +14,11 @@ class Member(models.Model):
     city = models.CharField(blank=True, null=True, max_length=100)
     # Birthday
     birthday = models.DateField(blank=True, null=True)
+
+    # Return full name
+    def get_full_name(self):
+        return '{0} {1}'.format(self.first_name, self.last_name)
+
+    # Return full name as string representation
+    def __str__(self):
+        return self.get_full_name()
