@@ -13,4 +13,4 @@ class Member(models.Model):
     # City
     city = models.CharField(blank=True, max_length=100)
     # Birthday
-    birthday = models.DateField()
+    birthday = models.DateField(blank=True)
