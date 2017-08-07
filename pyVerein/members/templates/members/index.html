@@ -1,11 +1,48 @@
-{% if members %}
-  <ul>
-    {% for member in members %}
-      <li>
-        <a  href="#" onclick="ajax_get('{% url 'members:detail' member.id %}')">{{member.get_full_name}}</a>
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No members available.</p>
-{% endif %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+
+      </div>
+      <div class="box-body">
+        <table id="memberslist" class="table table-bordered table-striped dataTable" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>Last name</th>
+              <th>First name</th>
+              <th>Street</th>
+              <th>Zipcode</th>
+              <th>City</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Last name</th>
+              <th>First name</th>
+              <th>Street</th>
+              <th>Zipcode</th>
+              <th>City</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+    $('#memberslist').on('processing.dt', function ( e, settings, processing ) {
+      $('#memberslist').css('opacity', processing ? '0.3' : '1.0');
+    }).DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": "{% url 'members:apiList' %}",
+        "dom": '<"row"<"col-sm-6"l><"col-sm-6"f"a">><"row"<"col-sm-12"tr>><"row"<"col-sm-6"i><"col-sm-6"p>>',
+        "language": {
+          "processing": "<i class='fa fa-spin fa-spinner fa-3x'></i>"
+        },
+        "processing": true
+    });
+    $('.dataTables_wrapper select, .dataTables_wrapper :input').addClass("form-control input-sm");
+} );
+</script>
