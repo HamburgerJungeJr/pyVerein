@@ -107,6 +107,17 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-user"></i> <span>Members</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a class="ajaxlink" href="{% url 'members:index' %}"><i class="fa fa-list"></i>List</a></li>
+              </ul>
+            </li>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -127,7 +138,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" id="maincontent">
 
         </section>
         <!-- /.content -->
@@ -171,5 +182,23 @@
     <script src="{% static 'app/dist/js/adminlte.min.js' %}"></script>
     <!-- SlimScroll -->
     <script src="{% static 'app/bower_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- Ajax content call -->
+    <script type="text/javascript">
+      var last_link;
+      $(".ajaxlink").on("click", function(e){
+        e.preventDefault();
+        last_link = $(this);
+        var request = $.get(
+          last_link.attr("href");
+        );
+        request.done(
+          function(response){
+            $("#maincontent").html(response);
+            console.log(last_link);
+            last_link.parent("li").addClass("active");
+          }
+        );
+      });
+    </script>
   </body>
 </html>
