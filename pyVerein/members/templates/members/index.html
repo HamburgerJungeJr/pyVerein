@@ -5,7 +5,7 @@
 
       </div>
       <div class="box-body">
-        <table id="memberslist" class="table table-bordered table-striped dataTable" cellspacing="0" width="100%">
+        <table id="memberslist" class="table table-bordered table-striped table-hover dataTable" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>Last name</th>
@@ -40,8 +40,21 @@ $(document).ready(function() {
         "language": {
           "processing": "<i class='fa fa-spin fa-spinner fa-3x'></i>"
         },
-        "processing": true
+        "processing": true,
+        "columns": [
+            {"data": "last_name"},
+            {"data": "first_name"},
+            {"data": "street"},
+            {"data": "zipcode"},
+            {"data": "city"}
+        ],
+        "createdRow": function(row, data, index){
+            $(row).data('href', data.detail_url);
+            $(row).click(function(){
+              ajaxlink($(this));
+            });
+        }
     });
-    $('.dataTables_wrapper select, .dataTables_wrapper :input').addClass("form-control input-sm");
+    $(".dataTables_wrapper select, .dataTables_wrapper :input").addClass("form-control input-sm");
 } );
 </script>

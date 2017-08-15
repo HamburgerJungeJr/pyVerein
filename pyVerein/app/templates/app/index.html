@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>pyVerein</title>
@@ -16,10 +16,14 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'app/dist/css/AdminLTE.min.css' %}">
     <!-- DataTables -->
-    <link rel="stylesheet" href="{% static 'app/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'app/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{% static 'app/dist/css/skins/_all-skins.min.css' %}">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'app/styles.css' %}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,112 +35,113 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  </head>
-  <body class="hold-transition skin-red sidebar-mini">
-    <div class="wrapper">
+</head>
+<body class="hold-transition skin-red sidebar-mini">
+<div class="wrapper">
 
-      <header class="main-header">
+    <header class="main-header">
 
         <!-- Logo -->
         <a href="index2.html" class="logo">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>py</b>V</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>py</b>Verein</span>
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>py</b>V</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>py</b>Verein</span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-          <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <!-- User Account: style can be found in dropdown.less -->
-              <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="{% static 'app/images/user.png' %}" class="user-image" alt="User Image">
-                  <span class="hidden-xs">User</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <!-- User image -->
-                  <li class="user-header">
-                    <img src="{% static 'app/images/user.png' %}" class="img-circle" alt="User Image">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{% static 'app/images/user.png' %}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">User</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="{% static 'app/images/user.png' %}" class="img-circle" alt="User Image">
 
-                    <p>
-                      User
-                      <small>Usertitle</small>
-                    </p>
-                  </li>
-                  <!-- Menu Footer-->
-                  <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                    </div>
-                  </li>
+                                <p>
+                                    User
+                                    <small>Usertitle</small>
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
                 </ul>
-              </li>
-              <!-- Control Sidebar Toggle Button -->
-              <li>
-                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-              </li>
-            </ul>
-          </div>
+            </div>
 
         </nav>
-      </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-          <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
                     <button type="submit" name="search" id="search-btn" class="btn btn-flat">
                       <i class="fa fa-search"></i>
                     </button>
                   </span>
-            </div>
-          </form>
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-user"></i> <span>Members</span>
-                <span class="pull-right-container">
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user"></i> <span>Members</span>
+                        <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
-              </a>
-              <ul class="treeview-menu" style="display: none;">
-                <li><a class="ajaxlink" href="{% url 'members:index' %}"><i class="fa fa-list"></i>List</a></li>
-              </ul>
-            </li>
-          </ul>
+                    </a>
+                    <ul class="treeview-menu" style="display: none;">
+                        <li><a href="javascript:void(0);" onclick="ajaxlink($(this))"
+                               data-href="{% url 'members:index' %}"><i class="fa fa-list"></i>List</a></li>
+                    </ul>
+                </li>
+            </ul>
         </section>
         <!-- /.sidebar -->
-      </aside>
+    </aside>
 
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-            Dashboard
-            <small>Version 2.0</small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
-          </ol>
+            <h1>
+                Dashboard
+                <small>Version 2.0</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
         </section>
 
         <!-- Main content -->
@@ -144,71 +149,70 @@
 
         </section>
         <!-- /.content -->
-      </div>
-      <!-- /.content-wrapper -->
+    </div>
+    <!-- /.content-wrapper -->
 
-      <footer class="main-footer">
+    <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> 2.4.0
+            <b>Version</b> 2.4.0
         </div>
         <strong>Copyright &copy; 2017 </strong>
-      </footer>
+    </footer>
 
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-          <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          <!-- /.tab-pane -->
+            <!-- /.tab-pane -->
         </div>
-      </aside>
-      <!-- /.control-sidebar -->
-      <!-- Add the sidebar's background. This div must be placed
-           immediately after the control sidebar -->
-      <div class="control-sidebar-bg"></div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
 
-    </div>
-    <!-- ./wrapper -->
+</div>
+<!-- ./wrapper -->
 
-    <!-- jQuery 3 -->
-    <script src="{% static 'app/bower_components/jquery/dist/jquery.min.js' %}"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="{% static 'app/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <!-- FastClick -->
-    <script src="{% static 'app/bower_components/fastclick/lib/fastclick.js' %}"></script>
-    <!-- AdminLTE App -->
-    <script src="{% static 'app/dist/js/adminlte.min.js' %}"></script>
-    <!-- SlimScroll -->
-    <script src="{% static 'app/bower_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-    <!-- DataTables -->
-    <script src="{% static 'app/bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'app/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
-    <!-- Ajax content call -->
-    <script type="text/javascript">
-      var link;
-      var last_link;
+<!-- jQuery 3 -->
+<script src="{% static 'app/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="{% static 'app/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<!-- FastClick -->
+<script src="{% static 'app/bower_components/fastclick/lib/fastclick.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'app/dist/js/adminlte.min.js' %}"></script>
+<!-- SlimScroll -->
+<script src="{% static 'app/bower_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+<!-- DataTables -->
+<script src="{% static 'app/bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'app/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+<!-- Ajax content call -->
+<script type="text/javascript">
+    var link;
+    var last_link;
 
-      $(".ajaxlink").click(function(e){
-        e.preventDefault();
-        link = $(this);
+    function ajaxlink(sender) {
+        link = sender;
         var request = $.get(
-          link.attr("href")
+            link.data("href")
         );
         request.done(
-          function(response){
-            if(last_link){
-              last_link.parents("li").removeClass("active")
+            function (response) {
+                if (last_link) {
+                    last_link.parents("li").removeClass("active")
+                }
+                link.parents("li").addClass("active");
+                last_link = link;
+                $("#maincontent").html(response);
             }
-            link.parents("li").addClass("active");
-            last_link = link;
-            $("#maincontent").html(response);
-          }
         );
-      });
-    </script>
-  </body>
+    }
+</script>
+</body>
 </html>
