@@ -113,7 +113,7 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="treeview">
+                <li id="members" class="treeview">
                     <a href="#">
                         <i class="fa fa-user"></i> <span>Members</span>
                         <span class="pull-right-container">
@@ -134,9 +134,8 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Dashboard
-                <small>Version 2.0</small>
+            <h1 id="title">
+
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -207,9 +206,16 @@
                 if (last_link) {
                     last_link.parents("li").removeClass("active")
                 }
-                link.parents("li").addClass("active");
+                $("#maincontent").html(atob(response.data));
+                                if(response.parent_menu){
+                    $("#"+ response.parent_menu).addClass("active");
+                }else{
+                    link.parents("li").addClass("active");
+                }
+                $("#title").html(response.title ? response.title : "")
+
                 last_link = link;
-                $("#maincontent").html(response);
+
             }
         );
     }
