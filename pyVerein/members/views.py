@@ -8,22 +8,22 @@ from .models import Member
 from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
 from django.db.models import Q
-# Import DetailView
-from django.views.generic.detail import DetailView
+# Import ajax helper
+from utils.views import render_ajax
 
-
+from django.http import HttpResponse
 # Index-View.
 def index(request):
-    # Set Context.
-    context = {}
-
     # Return rendered template.
-    return render(request, 'members/index.html', context)
-
+    return render_ajax(request, 'members/index.html', {}, {'title': 'Member-List'})
 
 # Detail-View.
-class MemberDetailView(DetailView):
-    model = Member
+def detail(request, member_id):
+    # Get member.
+    member = get(Member, pk=member_id)
+
+    # Return rendered template.
+    return render_ajax(request, 'members/detail.html', {'member': member}, {'parent_menu': 'members', 'title': 'Member-Detail'})
 
 # Datatable api view.
 class DatatableAPI(BaseDatatableView):
