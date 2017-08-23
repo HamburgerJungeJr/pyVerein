@@ -8,6 +8,8 @@ from .models import Member
 from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
 from django.db.models import Q
+# Import DetailView
+from django.views.generic.detail import DetailView
 
 
 # Index-View.
@@ -20,13 +22,8 @@ def index(request):
 
 
 # Detail-View.
-def detail(request, member_id):
-    # Get member.
-    member = get(Member, pk=member_id)
-
-    # Return rendered template.
-    return render(request, 'members/detail.html', {'member': member})
-
+class MemberDetailView(DetailView):
+    model = Member
 
 # Datatable api view.
 class DatatableAPI(BaseDatatableView):
