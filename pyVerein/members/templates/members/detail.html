@@ -1,12 +1,93 @@
 <div class="row">
-  <div class="col-xs-12">
-    <div class="box">
-      <div class="box-header">
-        {{member.get_full_name}}
-      </div>
-      <div class="box-body">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h1>{{ member.get_full_name }}</h1>
+            </div>
+            <div class="box-body data">
+                <div class="page-header">
+                    Personal Data
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Salutation</div>
+                    <div class="col-md-8 value">{{ member.get_salutation_display }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Firstname</div>
+                    <div class="col-md-8 value">{{ member.first_name|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Lastname</div>
+                    <div class="col-md-8 value">{{ member.last_name|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Birthday</div>
+                    <div class="col-md-8 value">{{ member.birthday|default_if_none:"" }}</div>
+                </div>
 
-      </div>
+                <div class="page-header">
+                    Address
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Street</div>
+                    <div class="col-md-8 value">{{ member.street|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Zip-Code</div>
+                    <div class="col-md-8 value">{{ member.zipcode|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">City</div>
+                    <div class="col-md-8 value">{{ member.city|default_if_none:"" }}</div>
+                </div>
+
+                <div class="page-header">
+                    Membership
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Membership number</div>
+                    <div class="col-md-8 value">{{ member.membership_number|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Joined at</div>
+                    <div class="col-md-8 value">{{ member.joined_at|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Terminated at</div>
+                    <div class="col-md-8 value">{{ member.terminated_at|default_if_none:"" }}</div>
+                </div>
+
+                <div class="page-header">
+                    Payment
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Method</div>
+                    <div class="col-md-8 value">{{ member.get_payment_method_display }}</div>
+                </div>
+                {% if member.payment_method == 'DE' %}
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">IBAN</div>
+                    <div class="col-md-8 value">{{ member.iban|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">BIC</div>
+                    <div class="col-md-8 value">{{ member.bic|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Direct debit mandate granted at</div>
+                    <div class="col-md-8 value">{{ member.debit_mandate_at|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Direct debit reference</div>
+                    <div class="col-md-8 value">{{ member.debit_reference|default_if_none:"" }}</div>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-2 field-title">Membership paid</div>
+                    <div class="col-md-8 value"></div>
+                </div>
+
+            </div>
+        </div>
     </div>
-  </div>
 </div>
