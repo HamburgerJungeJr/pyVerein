@@ -1,4 +1,6 @@
 from django.db import models
+# Import localization
+from django.utils.translation import ugettext_lazy as _
 
 # Member model.
 class Member(models.Model):
@@ -6,8 +8,8 @@ class Member(models.Model):
     MR = 'MR'
     MRS = 'MRS'
     SALUTATIONS = (
-        (MR, 'Mr.'),
-        (MRS, 'Mrs.')
+        (MR, _('Mr.')),
+        (MRS, _('Mrs.'))
     )
     # Salutation
     salutation = models.CharField(choices=SALUTATIONS, max_length=3, default=MR)
@@ -47,9 +49,9 @@ class Member(models.Model):
     REMITTANCE = 'RE'
     DEBIT = 'DE'
     PAYMENT_METHODS = (
-        (CASH, 'Cash'),
-        (REMITTANCE, 'Remittance'),
-        (DEBIT, 'Direct Debit')
+        (CASH, _('Cash')),
+        (REMITTANCE, _('Remittance')),
+        (DEBIT, _('Direct Debit'))
     )
     # Payment method
     payment_method = models.CharField(choices=PAYMENT_METHODS, max_length=2, default=DEBIT)

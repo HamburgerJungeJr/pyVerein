@@ -10,12 +10,14 @@ from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.db.models import Q
 # Import ajax helper
 from utils.views import render_ajax
+# Import localization
+from django.utils.translation import ugettext_lazy as _
 
-from django.http import HttpResponse
+
 # Index-View.
 def index(request):
     # Return rendered template.
-    return render_ajax(request, 'members/index.html', {}, {'title': 'Member-List'})
+    return render_ajax(request, 'members/index.html', {}, {'title': str(_('Member-List'))})
 
 # Detail-View.
 def detail(request, member_id):
@@ -23,7 +25,7 @@ def detail(request, member_id):
     member = get(Member, pk=member_id)
 
     # Return rendered template.
-    return render_ajax(request, 'members/detail.html', {'member': member}, {'parent_menu': 'members', 'title': 'Member-Detail'})
+    return render_ajax(request, 'members/detail.html', {'member': member}, {'parent_menu': 'members', 'title': str(_('Member-Detail'))})
 
 # Datatable api view.
 class DatatableAPI(BaseDatatableView):

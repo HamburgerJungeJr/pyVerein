@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -6,85 +7,85 @@
             </div>
             <div class="box-body data">
                 <div class="page-header">
-                    Personal Data
+                    {% trans 'Personal Data' %}
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Salutation</div>
-                    <div class="col-md-8 value">{{ member.get_salutation_display }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Salutation' %}</div>
+                    <div class="col-md-9 value">{{ member.get_salutation_display }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Firstname</div>
-                    <div class="col-md-8 value">{{ member.first_name|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Firstname' %}</div>
+                    <div class="col-md-9 value">{{ member.first_name|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Lastname</div>
-                    <div class="col-md-8 value">{{ member.last_name|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Lastname' %}</div>
+                    <div class="col-md-9 value">{{ member.last_name|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Birthday</div>
-                    <div class="col-md-8 value">{{ member.birthday|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Birthday' %}</div>
+                    <div class="col-md-9 value">{{ member.birthday|default_if_none:"" }}</div>
                 </div>
 
                 <div class="page-header">
-                    Address
+                    {% trans 'Address' %}
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Street</div>
-                    <div class="col-md-8 value">{{ member.street|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Street' %}</div>
+                    <div class="col-md-9 value">{{ member.street|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Zip-Code</div>
-                    <div class="col-md-8 value">{{ member.zipcode|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Zip-Code' %}</div>
+                    <div class="col-md-9 value">{{ member.zipcode|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">City</div>
-                    <div class="col-md-8 value">{{ member.city|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'City' %}</div>
+                    <div class="col-md-9 value">{{ member.city|default_if_none:"" }}</div>
                 </div>
 
                 <div class="page-header">
-                    Membership
+                    {% trans 'Membership' %}
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Membership number</div>
-                    <div class="col-md-8 value">{{ member.membership_number|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Membership number' %}</div>
+                    <div class="col-md-9 value">{{ member.membership_number|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Joined at</div>
-                    <div class="col-md-8 value">{{ member.joined_at|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Joined at' %}</div>
+                    <div class="col-md-9 value">{{ member.joined_at|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Terminated at</div>
-                    <div class="col-md-8 value">{{ member.terminated_at|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Terminated at' %}</div>
+                    <div class="col-md-9 value">{{ member.terminated_at|default_if_none:"" }}</div>
                 </div>
 
                 <div class="page-header">
-                    Payment
+                    {% trans 'Payment' %}
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Method</div>
-                    <div class="col-md-8 value">{{ member.get_payment_method_display }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Method' %}</div>
+                    <div class="col-md-9 value">{{ member.get_payment_method_display }}</div>
                 </div>
                 {% if member.payment_method == 'DE' %}
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">IBAN</div>
-                    <div class="col-md-8 value">{{ member.iban|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'IBAN' %}</div>
+                    <div class="col-md-9 value">{{ member.iban|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">BIC</div>
-                    <div class="col-md-8 value">{{ member.bic|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'BIC' %}</div>
+                    <div class="col-md-9 value">{{ member.bic|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Direct debit mandate granted at</div>
-                    <div class="col-md-8 value">{{ member.debit_mandate_at|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Direct debit mandate granted at' %}</div>
+                    <div class="col-md-9 value">{{ member.debit_mandate_at|default_if_none:"" }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Direct debit reference</div>
-                    <div class="col-md-8 value">{{ member.debit_reference|default_if_none:"" }}</div>
+                    <div class="col-md-3 field-title">{% trans 'Direct debit reference' %}</div>
+                    <div class="col-md-9 value">{{ member.debit_reference|default_if_none:"" }}</div>
                 </div>
                 {% endif %}
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2 field-title">Membership paid</div>
-                    <div class="col-md-8 value"></div>
+                    <div class="col-md-3 field-title">{% trans 'Membership paid' %}</div>
+                    <div class="col-md-9 value"></div>
                 </div>
 
             </div>

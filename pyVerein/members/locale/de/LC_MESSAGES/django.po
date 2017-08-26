@@ -1,0 +1,127 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-26 20:41+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: members/models.py:11
+msgid "Mr."
+msgstr "Herr"
+
+#: members/models.py:12
+msgid "Mrs."
+msgstr "Frau"
+
+#: members/models.py:52
+msgid "Cash"
+msgstr "Bar"
+
+#: members/models.py:53
+msgid "Remittance"
+msgstr "Überweisung"
+
+#: members/models.py:54
+msgid "Direct Debit"
+msgstr "SEPA Lastschrift"
+
+#: members/templates/members/detail.html:10
+msgid "Personal Data"
+msgstr "Persönliche Daten"
+
+#: members/templates/members/detail.html:13
+msgid "Salutation"
+msgstr "Anrede"
+
+#: members/templates/members/detail.html:17
+msgid "Firstname"
+msgstr "Vorname"
+
+#: members/templates/members/detail.html:21
+msgid "Lastname"
+msgstr "Nachname"
+
+#: members/templates/members/detail.html:25
+msgid "Birthday"
+msgstr "Geburtstag"
+
+#: members/templates/members/detail.html:30
+msgid "Address"
+msgstr "Adresse"
+
+#: members/templates/members/detail.html:33
+msgid "Street"
+msgstr "Straße"
+
+#: members/templates/members/detail.html:37
+msgid "Zip-Code"
+msgstr "PLZ"
+
+#: members/templates/members/detail.html:41
+msgid "City"
+msgstr "Stadt"
+
+#: members/templates/members/detail.html:46
+msgid "Membership"
+msgstr "Mitgliedschaft"
+
+#: members/templates/members/detail.html:49
+msgid "Membership number"
+msgstr "Mitgliedsnummer"
+
+#: members/templates/members/detail.html:53
+msgid "Joined at"
+msgstr "Eingetreten am"
+
+#: members/templates/members/detail.html:57
+msgid "Terminated at"
+msgstr "Ausgetreten am"
+
+#: members/templates/members/detail.html:62
+msgid "Payment"
+msgstr "Bezahlung"
+
+#: members/templates/members/detail.html:65
+msgid "Method"
+msgstr "Zahlungsmethode"
+
+#: members/templates/members/detail.html:70
+msgid "IBAN"
+msgstr "IBAN"
+
+#: members/templates/members/detail.html:74
+msgid "BIC"
+msgstr "BIC"
+
+#: members/templates/members/detail.html:78
+msgid "Direct debit mandate granted at"
+msgstr "SEPA Lastschriftmandat erteilt am"
+
+#: members/templates/members/detail.html:82
+msgid "Direct debit reference"
+msgstr "SEPA Lastschrift Referenz"
+
+#: members/templates/members/detail.html:87
+msgid "Membership paid"
+msgstr "Mitgliedsbeitrag bezahlt"
+
+#: members/views.py:20
+msgid "Member-List"
+msgstr "Mitgliederliste"
+
+#: members/views.py:28
+msgid "Member-Detail"
+msgstr "Mitgliedsdetails"
