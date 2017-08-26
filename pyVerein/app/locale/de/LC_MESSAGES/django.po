@@ -16,11 +16,27 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: app/templates/app/index.html:56
+msgid "Toggle navigation"
+msgstr "Menü ein-/ausblenden"
 
-#: pyVerein/settings.py:126
-msgid "English"
-msgstr "Englisch"
+#: app/templates/app/index.html:80
+msgid "Profile"
+msgstr "Profil"
 
-#: pyVerein/settings.py:127
-msgid "German"
-msgstr "Deutsch"
+#: app/templates/app/index.html:84
+msgid "Sign out"
+msgstr "Abmelden"
+
+#: app/templates/app/index.html:116
+msgid "MAIN NAVIGATION"
+msgstr "NAVIGATION"
+
+#: app/templates/app/index.html:120
+msgid "Members"
+msgstr "Mitglieder"
+
+#: app/templates/app/index.html:130
+msgid "List"
+msgstr "Liste"

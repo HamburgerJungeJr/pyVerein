@@ -1,8 +1,9 @@
 {% load static %}
+{%  load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>pyVerein</title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -53,7 +54,7 @@
         <nav class="navbar navbar-static-top">
             <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">{% trans 'Toggle navigation' %}</span>
             </a>
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
@@ -77,10 +78,11 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="#" class="btn btn-default btn-flat">{% trans 'Profile' %}</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{%  url  'logout' %}" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{% url  'logout' %}"
+                                       class="btn btn-default btn-flat">{% trans 'Sign out' %}</a>
                                 </div>
                             </li>
                         </ul>
@@ -112,17 +114,23 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MAIN NAVIGATION</li>
+                <li class="header">{% trans 'MAIN NAVIGATION' %}</li>
                 <li id="members" class="treeview">
                     <a href="#">
-                        <i class="fa fa-user"></i> <span>Members</span>
+                        <i class="fa fa-user"></i>
+                        <span>{% trans 'Members' %}</span>
                         <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
                     <ul class="treeview-menu" style="display: none;">
-                        <li><a href="javascript:void(0);" onclick="ajaxlink($(this))"
-                               data-href="{% url 'members:index' %}"><i class="fa fa-list"></i>List</a></li>
+                        <li>
+                            <a href="javascript:void(0);" onclick="ajaxlink($(this))"
+                               data-href="{% url 'members:index' %}">
+                                <i class="fa fa-list"></i>
+                                {% trans 'List' %}
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -137,11 +145,6 @@
             <h1 id="title">
 
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
 
         <!-- Main content -->
         <section class="content" id="maincontent">
@@ -210,9 +213,9 @@
                 }
                 console.log(atob(response.data));
                 $("#maincontent").html(Base64.decode(response.data));
-                                if(response.parent_menu){
-                    $("#"+ response.parent_menu).addClass("active");
-                }else{
+                if (response.parent_menu) {
+                    $("#" + response.parent_menu).addClass("active");
+                } else {
                     link.parents("li").addClass("active");
                 }
                 $("#title").html(response.title ? response.title : "")
