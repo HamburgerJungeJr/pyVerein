@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>pyVerein</title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{% static 'app/dist/css/skins/_all-skins.min.css' %}">
 
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="{% static 'app/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'app/app.css' %}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,7 +62,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{% static 'app/images/user.png' %}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">User</span>
+                            <span class="hidden-xs">{{ user.get_full_name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -70,7 +70,7 @@
                                 <img src="{% static 'app/images/user.png' %}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    User
+                                    {{ user.get_full_name }}
                                     <small>Usertitle</small>
                                 </p>
                             </li>
@@ -80,7 +80,7 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{%  url  'logout' %}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -190,7 +190,9 @@
 <script src="{% static 'app/bower_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
 <!-- DataTables -->
 <script src="{% static 'app/bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'app/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+<!-- Base64 -->
+<script src="{% static 'app/plugins/base64.js' %}"></script>
+
 <!-- Ajax content call -->
 <script type="text/javascript">
     var link;
@@ -206,7 +208,8 @@
                 if (last_link) {
                     last_link.parents("li").removeClass("active")
                 }
-                $("#maincontent").html(atob(response.data));
+                console.log(atob(response.data));
+                $("#maincontent").html(Base64.decode(response.data));
                                 if(response.parent_menu){
                     $("#"+ response.parent_menu).addClass("active");
                 }else{
