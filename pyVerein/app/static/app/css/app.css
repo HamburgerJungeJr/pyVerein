@@ -1,0 +1,17 @@
+body{
+    font-size:large;
+}
+
+.sidebar-collapse .treeview .pull-right-container .fa-angle-left{
+    display: none;
+}
+.table-hover>tbody>tr:hover{
+    cursor: pointer;
+}
+
+.data .row{
+    margin-bottom: 5px;
+}
+.data .field-title{
+    text-align: right;
+}

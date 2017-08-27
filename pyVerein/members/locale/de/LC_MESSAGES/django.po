@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-27 00:13+0200\n"
+"POT-Creation-Date: 2017-08-27 13:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,6 +63,8 @@ msgid "Address"
 msgstr "Adresse"
 
 #: members/templates/members/detail.html:33
+#: members/templates/members/index.html:12
+#: members/templates/members/index.html:21
 msgid "Street"
 msgstr "Straße"
 
@@ -71,6 +73,8 @@ msgid "Zip-Code"
 msgstr "PLZ"
 
 #: members/templates/members/detail.html:41
+#: members/templates/members/index.html:14
+#: members/templates/members/index.html:23
 msgid "City"
 msgstr "Stadt"
 
@@ -117,6 +121,70 @@ msgstr "SEPA Lastschrift Referenz"
 #: members/templates/members/detail.html:87
 msgid "Membership paid"
 msgstr "Mitgliedsbeitrag bezahlt"
+
+#: members/templates/members/index.html:41
+msgid "sEmptyTable"
+msgstr "Keine Daten in der Tabelle vorhanden."
+
+#: members/templates/members/index.html:42
+msgid "sInfo"
+msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
+
+#: members/templates/members/index.html:43
+msgid "sInfoEmpty"
+msgstr "0 bis 0 von 0 Einträgen"
+
+#: members/templates/members/index.html:44
+msgid "sInfoFiltered"
+msgstr "(gefiltert von _MAX_ Einträgen)"
+
+#: members/templates/members/index.html:45
+msgid "sInfoPostfix"
+msgstr " "
+
+#: members/templates/members/index.html:46
+msgid "sInfoThousands"
+msgstr "."
+
+#: members/templates/members/index.html:47
+msgid "sLengthMenu"
+msgstr "_MENU_ Einträge anzeigen"
+
+#: members/templates/members/index.html:48
+msgid "sLoadingRecords"
+msgstr "Wird geladen..."
+
+#: members/templates/members/index.html:49
+msgid "sSearch"
+msgstr "Suchen"
+
+#: members/templates/members/index.html:50
+msgid "sZeroRecords"
+msgstr "Keine Einträge vorhanden."
+
+#: members/templates/members/index.html:52
+msgid "sFirst"
+msgstr "Erste"
+
+#: members/templates/members/index.html:53
+msgid "sLast"
+msgstr "Letzte"
+
+#: members/templates/members/index.html:54
+msgid "sNext"
+msgstr "Nächste"
+
+#: members/templates/members/index.html:55
+msgid "sPrevious"
+msgstr "Vorherige"
+
+#: members/templates/members/index.html:58
+msgid "sSortAscending"
+msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
+
+#: members/templates/members/index.html:59
+msgid "sSortDescending"
+msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
 #: members/views.py:20
 msgid "Member-List"

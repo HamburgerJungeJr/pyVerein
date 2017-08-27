@@ -1,60 +1,84 @@
+{%  load i18n %}
 <div class="row">
-  <div class="col-xs-12">
-    <div class="box">
-      <div class="box-header">
-
-      </div>
-      <div class="box-body">
-        <table id="memberslist" class="table table-bordered table-striped table-hover dataTable" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>Last name</th>
-              <th>First name</th>
-              <th>Street</th>
-              <th>Zipcode</th>
-              <th>City</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <th>Last name</th>
-              <th>First name</th>
-              <th>Street</th>
-              <th>Zipcode</th>
-              <th>City</th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+    <div class="col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <table id="memberslist" class="table table-bordered table-striped table-hover dataTable" cellspacing="0"
+                       width="100%">
+                    <thead>
+                    <tr>
+                        <th>{% trans 'Lastname' %}</th>
+                        <th>{% trans 'Firstname' %}</th>
+                        <th>{% trans 'Street' %}</th>
+                        <th>{% trans 'Zip-Code' %}</th>
+                        <th>{% trans 'City' %}</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>{% trans 'Lastname' %}</th>
+                        <th>{% trans 'Firstname' %}</th>
+                        <th>{% trans 'Street' %}</th>
+                        <th>{% trans 'Zip-Code' %}</th>
+                        <th>{% trans 'City' %}</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <script>
-$(document).ready(function() {
-    $('#memberslist').on('processing.dt', function ( e, settings, processing ) {
-      $('#memberslist').css('opacity', processing ? '0.3' : '1.0');
-    }).DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "ajax": "{% url 'members:apiList' %}",
-        "language": {
-          "processing": "<i class='fa fa-spin fa-spinner fa-3x'></i>"
-        },
-        "processing": true,
-        "columns": [
-            {"data": "last_name"},
-            {"data": "first_name"},
-            {"data": "street"},
-            {"data": "zipcode"},
-            {"data": "city"}
-        ],
-        "createdRow": function(row, data, index){
-            $(row).data('href', data.detail_url);
-            $(row).click(function(){
-              ajaxlink($(this));
-            });
-        }
-    });
-    $(".dataTables_wrapper select, .dataTables_wrapper :input").addClass("form-control input-sm");
-} );
+    $(document).ready(function () {
+        $('#memberslist').on('processing.dt', function (e, settings, processing) {
+            $('#memberslist').css('opacity', processing ? '0.3' : '1.0');
+        }).DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{% url 'members:apiList' %}",
+            "language": {
+                "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
+                "sEmptyTable": "{% trans 'sEmptyTable' %}",
+                "sInfo": "{% trans 'sInfo' %}",
+                "sInfoEmpty": "{% trans 'sInfoEmpty' %}",
+                "sInfoFiltered": "{% trans 'sInfoFiltered' %}",
+                "sInfoPostFix": "{% trans 'sInfoPostfix' %}",
+                "sInfoThousands": "{% trans 'sInfoThousands' %}",
+                "sLengthMenu": "{% trans 'sLengthMenu' %}",
+                "sLoadingRecords": "{% trans 'sLoadingRecords' %}",
+                "sSearch": "{% trans 'sSearch' %}",
+                "sZeroRecords": "{% trans 'sZeroRecords' %}",
+                "oPaginate": {
+                    "sFirst": "{% trans 'sFirst' %}",
+                    "sLast": "{% trans 'sLast' %}",
+                    "sNext": "{% trans 'sNext' %}",
+                    "sPrevious": "{% trans 'sPrevious' %}"
+                },
+                "oAria": {
+                    "sSortAscending": "{% trans 'sSortAscending' %}",
+                    "sSortDescending": "{% trans 'sSortDescending' %}"
+                }
+            },
+            "processing":
+                true,
+            "columns":
+                [
+                    {"data": "last_name"},
+                    {"data": "first_name"},
+                    {"data": "street"},
+                    {"data": "zipcode"},
+                    {"data": "city"}
+                ],
+            "createdRow":
+
+                function (row, data, index) {
+                    $(row).data('href', data.detail_url);
+                    $(row).click(function () {
+                        ajaxlink($(this));
+                    });
+                }
+        });
+        $(".dataTables_wrapper select, .dataTables_wrapper :input").addClass("form-control input-sm");
+    })
+    ;
 </script>
