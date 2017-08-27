@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404 as get
 # Import reverse.
 from django.urls import reverse, reverse_lazy
 # Import members.
-from django.views.generic import TemplateView, DetailView, UpdateView
+from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 
 from .models import Member
 # Import datatablesview.
@@ -27,12 +27,23 @@ class MemberDetailView(DetailView):
     context_object_name = 'member'
 
 
-# Detail-View.
+# Edit-View.
 class MemberEditView(UpdateView):
     model = Member
     fields = ['first_name']
     context_object_name = 'member'
     template_name = 'members/member_edit.html'
+
+    def get_success_url(self):
+        return reverse_lazy('members:detail', args={self.object.pk})
+
+
+# Edit-View.
+class MemberCreateView(CreateView):
+    model = Member
+    fields = ['first_name']
+    context_object_name = 'member'
+    template_name = 'members/member_create.html'
 
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
