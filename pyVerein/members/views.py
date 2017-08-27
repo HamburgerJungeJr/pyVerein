@@ -1,8 +1,10 @@
 # Import django render shortcut.
 from django.shortcuts import render, get_object_or_404 as get
 # Import reverse.
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 # Import members.
+from django.views.generic import TemplateView, DetailView, UpdateView
+
 from .models import Member
 # Import datatablesview.
 from django_datatables_view.base_datatable_view import BaseDatatableView
@@ -15,20 +17,29 @@ from django.utils.translation import ugettext_lazy as _
 
 
 # Index-View.
-def index(request):
-    # Return rendered template.
-    return render_ajax(request, 'members/index.html', {}, {'title': str(_('Member-List'))})
+class MemberIndexView(TemplateView):
+    template_name = 'members/member_list.html'
+
 
 # Detail-View.
-def detail(request, member_id):
-    # Get member.
-    member = get(Member, pk=member_id)
+class MemberDetailView(DetailView):
+    model = Member
+    context_object_name = 'member'
 
-    # Return rendered template.
-    return render_ajax(request, 'members/detail.html', {'member': member}, {'parent_menu': 'members', 'title': str(_('Member-Detail'))})
+
+# Detail-View.
+class MemberEditView(UpdateView):
+    model = Member
+    fields = ['first_name']
+    context_object_name = 'member'
+    template_name = 'members/member_edit.html'
+
+    def get_success_url(self):
+        return reverse_lazy('members:detail', args={self.object.pk})
+
 
 # Datatable api view.
-class DatatableAPI(BaseDatatableView):
+class MemberDatatableView(BaseDatatableView):
     # Use Membermodel
     model = Member
 

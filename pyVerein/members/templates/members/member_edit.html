@@ -1,0 +1,17 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_content data">
+                <form action="{% url 'members:edit' member.pk %}" method="POST">
+                    {% include 'members/member_form_fields.html' %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

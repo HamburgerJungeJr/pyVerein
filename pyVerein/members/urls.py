@@ -7,7 +7,8 @@ from . import views
 app_name = 'members'
 # Set url-patterns
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^api/list$', views.DatatableAPI.as_view(), name='apiList'),
-    url(r'^(?P<member_id>[0-9]+)/$', views.detail, name='detail')
+    url(r'^$', views.MemberIndexView.as_view(), name='list'),
+    url(r'^data/$', views.MemberDatatableView.as_view(), name='apiList'),
+    url(r'^(?P<pk>[0-9]+)/$', views.MemberDetailView.as_view(), name='detail'),
+    url(r'^edit/(?P<pk>[0-9]+)/$', views.MemberEditView.as_view(), name='edit')
 ]
