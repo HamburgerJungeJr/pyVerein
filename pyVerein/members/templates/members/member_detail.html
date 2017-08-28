@@ -1,5 +1,11 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
+{% load static %}
+
+{% block head %}
+    <!-- Members style -->
+    <link rel="stylesheet" href="{% static 'members/members.css' %}">
+{% endblock %}
 
 {% block title %}
     {% trans 'Member-Detail' %}
