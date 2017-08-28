@@ -41,9 +41,9 @@ class MemberEditView(UpdateView):
 # Edit-View.
 class MemberCreateView(CreateView):
     model = Member
-    fields = ['first_name']
     context_object_name = 'member'
     template_name = 'members/member_create.html'
+    form_class = MemberForm
 
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
