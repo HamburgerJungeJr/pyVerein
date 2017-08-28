@@ -1,6 +1,9 @@
 from django.db import models
 # Import localization
 from django.utils.translation import ugettext_lazy as _
+# Import datetime
+from datetime import datetime
+
 
 # Member model.
 class Member(models.Model):
@@ -81,7 +84,10 @@ class Member(models.Model):
 
     # Return true if membership is terminated
     def is_terminated(self):
-        return self.terminated_at is not None
+        if self.terminated_at is not None:
+            return self.terminated_at <= datetime.now().date()
+        else:
+            return False
 
     # Return full name as string representation
     def __str__(self):
