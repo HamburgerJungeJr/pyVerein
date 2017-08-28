@@ -51,6 +51,26 @@
                     </div>
 
                     <div class="page-header">
+                        {% trans 'Contact' %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 field-title">{% trans 'Phone' %}</div>
+                        <div class="col-md-9 value">{{ member.phone|default_if_none:"" }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 field-title">{% trans 'Mobile' %}</div>
+                        <div class="col-md-9 value">{{ member.mobile|default_if_none:"" }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 field-title">{% trans 'Fax' %}</div>
+                        <div class="col-md-9 value">{{ member.fax|default_if_none:"" }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 field-title">{% trans 'EMail' %}</div>
+                        <div class="col-md-9 value">{{ member.email|default_if_none:"" }}</div>
+                    </div>
+
+                    <div class="page-header">
                         {% trans 'Membership' %}
                     </div>
                     <div class="row">
