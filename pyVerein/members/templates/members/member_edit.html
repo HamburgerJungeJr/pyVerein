@@ -1,17 +1,56 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block head %}
+    <!-- DateRangePicker style -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datepicker/css/bootstrap-datepicker3.css' %}">
+    <!-- iCheck style -->
+    <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/square/blue.css' %}">
+{% endblock %}
+
+{% block title %}
+    {% trans 'Edit member' %}
+{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="x_panel">
-            <div class="x_content data">
-                <form action="{% url 'members:edit' member.pk %}" method="POST">
-                    {% include 'members/member_form_fields.html' %}
-                </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_content data">
+                    <form action="{% url 'members:edit' member.pk %}" method="POST" class="form-horizontal"
+                          data-toggle="validator">
+                        {% include 'members/member_form_fields.html' %}
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+{% endblock %}
+
+{% block foot %}
+    <!-- DatePicker -->
+    <script src="{% static 'app/vendors/datepicker/js/bootstrap-datepicker.js' %}"></script>
+        <script src="{% static 'app/vendors/datepicker/locales/bootstrap-datepicker.'|add:request.LANGUAGE_CODE|add:'.min.js' %}"></script>
+    <!-- Validator -->
+    <script src="{% static 'app/vendors/bootstrap-validator/dist/validator.min.js' %}"></script>
+    <!-- icheck -->
+    <script src="{% static 'app/vendors/iCheck/icheck.js' %}"></script>
+
+    <script type="application/javascript">
+
+        $('.input-group.date').datepicker({
+            language: "{{ request.LANGUAGE_CODE }}",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square',
+            increaseArea: '20%',
+            radioClass: 'iradio_square-blue',
+
+        });
+    </script>
 {% endblock %}

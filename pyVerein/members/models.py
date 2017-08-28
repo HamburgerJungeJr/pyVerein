@@ -12,11 +12,11 @@ class Member(models.Model):
         (MRS, _('Mrs.'))
     )
     # Salutation
-    salutation = models.CharField(choices=SALUTATIONS, max_length=3, default=MR)
+    salutation = models.CharField(blank=False, null=False, choices=SALUTATIONS, max_length=3, default=MR)
     # Lastname
-    last_name = models.CharField(max_length=50)
+    last_name = models.CharField(blank=False, null=False, max_length=50)
     # Firstname
-    first_name = models.CharField(max_length=50)
+    first_name = models.CharField(blank=False, null=False, max_length=50)
 
     # Street
     street = models.CharField(blank=True, null=True, max_length=200)

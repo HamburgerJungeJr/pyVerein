@@ -5,78 +5,103 @@
 <div class="page-header">
     {% trans 'Personal Data' %}
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Salutation' %}</div>
-    <div class="col-md-9 value">{{ member.get_salutation_display }}</div>
+    <div class="col-md-5 value">
+        {% for radio in form.salutation %}
+            {{ radio.tag }} {{ radio.choice_label }}
+        {% endfor %}
+    </div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Firstname' %}</div>
-    <div class="col-md-9 value">{% render_field form.first_name class+="form-control" %}</div>
+    <div class="col-md-5 value ">{% render_field form.first_name class+="form-control" %}<span class="help-block with-errors"></span></div>
+
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Lastname' %}</div>
-    <div class="col-md-9 value">{{ member.last_name|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.last_name class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Birthday' %}</div>
-    <div class="col-md-9 value">{{ member.birthday|default_if_none:"" }}</div>
+    <div class="col-md-5 value date"><div class="input-group date">{% render_field form.birthday class+="form-control"%}<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span></div></div>
 </div>
 
 <div class="page-header">
     {% trans 'Address' %}
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Street' %}</div>
-    <div class="col-md-9 value">{{ member.street|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.street class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Zip-Code' %}</div>
-    <div class="col-md-9 value">{{ member.zipcode|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.zipcode class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'City' %}</div>
-    <div class="col-md-9 value">{{ member.city|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.city class+="form-control" %}<span class="help-block with-errors"></span></div>
+</div>
+
+<div class="page-header">
+    {% trans 'Contact' %}
+</div>
+<div class="form-group">
+    <div class="col-md-3 field-title">{% trans 'Phone' %}</div>
+    <div class="col-md-5 value">{% render_field form.phone class+="form-control" %}<span class="help-block with-errors"></span></div>
+</div>
+<div class="form-group">
+    <div class="col-md-3 field-title">{% trans 'Mobile' %}</div>
+    <div class="col-md-5 value">{% render_field form.mobile class+="form-control" %}<span class="help-block with-errors"></span></div>
+</div>
+<div class="form-group">
+    <div class="col-md-3 field-title">{% trans 'Fax' %}</div>
+    <div class="col-md-5 value">{% render_field form.fax class+="form-control" %}<span class="help-block with-errors"></span></div>
+</div>
+<div class="form-group">
+    <div class="col-md-3 field-title">{% trans 'Email' %}</div>
+    <div class="col-md-5 value">{% render_field form.email class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
 
 <div class="page-header">
     {% trans 'Membership' %}
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Membership number' %}</div>
-    <div class="col-md-9 value">{{ member.membership_number|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.membership_number class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Joined at' %}</div>
-    <div class="col-md-9 value">{{ member.joined_at|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.joined_at class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Terminated at' %}</div>
-    <div class="col-md-9 value">{{ member.terminated_at|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.terminated_at class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
 
 <div class="page-header">
     {% trans 'Payment' %}
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Method' %}</div>
-    <div class="col-md-9 value">{{ member.get_payment_method_display }}</div>
+    <div class="col-md-5 value">{% render_field form.payment_method class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
 
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'IBAN' %}</div>
-    <div class="col-md-9 value">{{ member.iban|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.iban class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'BIC' %}</div>
-    <div class="col-md-9 value">{{ member.bic|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.bic class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Direct debit mandate granted at' %}</div>
-    <div class="col-md-9 value">{{ member.debit_mandate_at|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.debit_mandate_at class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
-<div class="row">
+<div class="form-group">
     <div class="col-md-3 field-title">{% trans 'Direct debit reference' %}</div>
-    <div class="col-md-9 value">{{ member.debit_reference|default_if_none:"" }}</div>
+    <div class="col-md-5 value">{% render_field form.debit_reference class+="form-control" %}<span class="help-block with-errors"></span></div>
 </div>
 <div class="row">
     <input type="submit" value="Send" />

@@ -4,14 +4,14 @@ from django.shortcuts import render, get_object_or_404 as get
 from django.urls import reverse, reverse_lazy
 # Import members.
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
-
+# Import Member.
+from .forms import MemberForm
 from .models import Member
 # Import datatablesview.
 from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
 from django.db.models import Q
-# Import ajax helper
-from utils.views import render_ajax
+
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 
@@ -30,9 +30,9 @@ class MemberDetailView(DetailView):
 # Edit-View.
 class MemberEditView(UpdateView):
     model = Member
-    fields = ['first_name']
     context_object_name = 'member'
     template_name = 'members/member_edit.html'
+    form_class = MemberForm
 
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
