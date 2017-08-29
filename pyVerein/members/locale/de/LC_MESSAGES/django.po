@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 18:46+0200\n"
+"POT-Creation-Date: 2017-08-29 21:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,231 +18,239 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: members/models.py:11
+#: members/models.py:14
 msgid "Mr."
 msgstr "Herr"
 
-#: members/models.py:12
+#: members/models.py:15
 msgid "Mrs."
 msgstr "Frau"
 
-#: members/models.py:52
+#: members/models.py:55
 msgid "Cash"
 msgstr "Bar"
 
-#: members/models.py:53
+#: members/models.py:56
 msgid "Remittance"
 msgstr "Überweisung"
 
-#: members/models.py:54
+#: members/models.py:57
 msgid "Direct Debit"
 msgstr "SEPA Lastschrift"
 
-#: members/templates/members/member_create.html:15
+#: members/templates/members/member_create.html:17
 msgid "Create member"
 msgstr "Mitglied anlegen"
 
-#: members/templates/members/member_detail.html:5
+#: members/templates/members/member_detail.html:11
 msgid "Member-Detail"
 msgstr "Mitgliedsdetails"
 
-#: members/templates/members/member_detail.html:18
+#: members/templates/members/member_detail.html:24
 #: members/templates/members/member_form_fields.html:6
 msgid "Personal Data"
 msgstr "Persönliche Daten"
 
-#: members/templates/members/member_detail.html:21
+#: members/templates/members/member_detail.html:27
 #: members/templates/members/member_form_fields.html:9
 msgid "Salutation"
 msgstr "Anrede"
 
-#: members/templates/members/member_detail.html:25
+#: members/templates/members/member_detail.html:31
 #: members/templates/members/member_form_fields.html:17
-#: members/templates/members/member_list.html:30
-#: members/templates/members/member_list.html:39
+#: members/templates/members/member_list.html:32
+#: members/templates/members/member_list.html:41
 msgid "Firstname"
 msgstr "Vorname"
 
-#: members/templates/members/member_detail.html:29
+#: members/templates/members/member_detail.html:35
 #: members/templates/members/member_form_fields.html:22
-#: members/templates/members/member_list.html:29
-#: members/templates/members/member_list.html:38
+#: members/templates/members/member_list.html:31
+#: members/templates/members/member_list.html:40
 msgid "Lastname"
 msgstr "Nachname"
 
-#: members/templates/members/member_detail.html:33
+#: members/templates/members/member_detail.html:39
 #: members/templates/members/member_form_fields.html:26
 msgid "Birthday"
 msgstr "Geburtstag"
 
-#: members/templates/members/member_detail.html:38
+#: members/templates/members/member_detail.html:44
 #: members/templates/members/member_form_fields.html:31
 msgid "Address"
 msgstr "Adresse"
 
-#: members/templates/members/member_detail.html:41
+#: members/templates/members/member_detail.html:47
 #: members/templates/members/member_form_fields.html:34
-#: members/templates/members/member_list.html:31
-#: members/templates/members/member_list.html:40
+#: members/templates/members/member_list.html:33
+#: members/templates/members/member_list.html:42
 msgid "Street"
 msgstr "Straße"
 
-#: members/templates/members/member_detail.html:45
+#: members/templates/members/member_detail.html:51
 #: members/templates/members/member_form_fields.html:38
-#: members/templates/members/member_list.html:32
-#: members/templates/members/member_list.html:41
+#: members/templates/members/member_list.html:34
+#: members/templates/members/member_list.html:43
 msgid "Zip-Code"
 msgstr "PLZ"
 
-#: members/templates/members/member_detail.html:49
+#: members/templates/members/member_detail.html:55
 #: members/templates/members/member_form_fields.html:42
-#: members/templates/members/member_list.html:33
-#: members/templates/members/member_list.html:42
+#: members/templates/members/member_list.html:35
+#: members/templates/members/member_list.html:44
 msgid "City"
 msgstr "Stadt"
 
-#: members/templates/members/member_detail.html:54
-#: members/templates/members/member_form_fields.html:67
-msgid "Membership"
-msgstr "Mitgliedschaft"
-
-#: members/templates/members/member_detail.html:57
-#: members/templates/members/member_form_fields.html:70
-msgid "Membership number"
-msgstr "Mitgliedsnummer"
-
-#: members/templates/members/member_detail.html:61
-#: members/templates/members/member_form_fields.html:74
-msgid "Joined at"
-msgstr "Eingetreten am"
-
-#: members/templates/members/member_detail.html:65
-#: members/templates/members/member_form_fields.html:78
-msgid "Terminated at"
-msgstr "Ausgetreten am"
-
-#: members/templates/members/member_detail.html:70
-#: members/templates/members/member_form_fields.html:83
-msgid "Payment"
-msgstr "Bezahlung"
-
-#: members/templates/members/member_detail.html:73
-#: members/templates/members/member_form_fields.html:86
-msgid "Method"
-msgstr "Zahlungsmethode"
-
-#: members/templates/members/member_detail.html:78
-#: members/templates/members/member_form_fields.html:91
-msgid "IBAN"
-msgstr "IBAN"
-
-#: members/templates/members/member_detail.html:82
-#: members/templates/members/member_form_fields.html:95
-msgid "BIC"
-msgstr "BIC"
-
-#: members/templates/members/member_detail.html:86
-#: members/templates/members/member_form_fields.html:99
-msgid "Direct debit mandate granted at"
-msgstr "SEPA Lastschriftmandat erteilt am"
-
-#: members/templates/members/member_detail.html:90
-#: members/templates/members/member_form_fields.html:103
-msgid "Direct debit reference"
-msgstr "SEPA Lastschrift Referenz"
-
-#: members/templates/members/member_detail.html:95
-msgid "Membership paid"
-msgstr "Mitgliedsbeitrag bezahlt"
-
-#: members/templates/members/member_edit.html:15
-msgid "Edit member"
-msgstr "Mitglied bearbeiten"
-
+#: members/templates/members/member_detail.html:60
 #: members/templates/members/member_form_fields.html:47
 msgid "Contact"
 msgstr "Kontakt"
 
+#: members/templates/members/member_detail.html:63
 #: members/templates/members/member_form_fields.html:50
 msgid "Phone"
 msgstr "Telefon"
 
+#: members/templates/members/member_detail.html:67
 #: members/templates/members/member_form_fields.html:54
 msgid "Mobile"
 msgstr "Mobil"
 
+#: members/templates/members/member_detail.html:71
 #: members/templates/members/member_form_fields.html:58
 msgid "Fax"
 msgstr "Fax"
+
+#: members/templates/members/member_detail.html:75
+msgid "EMail"
+msgstr ""
+
+#: members/templates/members/member_detail.html:80
+#: members/templates/members/member_form_fields.html:67
+msgid "Membership"
+msgstr "Mitgliedschaft"
+
+#: members/templates/members/member_detail.html:83
+#: members/templates/members/member_form_fields.html:70
+msgid "Membership number"
+msgstr "Mitgliedsnummer"
+
+#: members/templates/members/member_detail.html:87
+#: members/templates/members/member_form_fields.html:74
+msgid "Joined at"
+msgstr "Eingetreten am"
+
+#: members/templates/members/member_detail.html:91
+#: members/templates/members/member_form_fields.html:78
+msgid "Terminated at"
+msgstr "Ausgetreten am"
+
+#: members/templates/members/member_detail.html:96
+#: members/templates/members/member_form_fields.html:83
+msgid "Payment"
+msgstr "Bezahlung"
+
+#: members/templates/members/member_detail.html:99
+#: members/templates/members/member_form_fields.html:86
+msgid "Method"
+msgstr "Zahlungsmethode"
+
+#: members/templates/members/member_detail.html:104
+#: members/templates/members/member_form_fields.html:91
+msgid "IBAN"
+msgstr "IBAN"
+
+#: members/templates/members/member_detail.html:108
+#: members/templates/members/member_form_fields.html:95
+msgid "BIC"
+msgstr "BIC"
+
+#: members/templates/members/member_detail.html:112
+#: members/templates/members/member_form_fields.html:99
+msgid "Direct debit mandate granted at"
+msgstr "SEPA Lastschriftmandat erteilt am"
+
+#: members/templates/members/member_detail.html:116
+#: members/templates/members/member_form_fields.html:103
+msgid "Direct debit reference"
+msgstr "SEPA Lastschrift Referenz"
+
+#: members/templates/members/member_detail.html:121
+msgid "Membership paid"
+msgstr "Mitgliedsbeitrag bezahlt"
+
+#: members/templates/members/member_edit.html:17
+msgid "Edit member"
+msgstr "Mitglied bearbeiten"
 
 #: members/templates/members/member_form_fields.html:62
 msgid "Email"
 msgstr "EMail"
 
-#: members/templates/members/member_list.html:16
+#: members/templates/members/member_list.html:18
 msgid "Member-List"
 msgstr "Mitgliederliste"
 
-#: members/templates/members/member_list.html:76
+#: members/templates/members/member_list.html:78
 msgid "sEmptyTable"
 msgstr "Keine Daten in der Tabelle vorhanden."
 
-#: members/templates/members/member_list.html:77
+#: members/templates/members/member_list.html:79
 msgid "sInfo"
 msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: members/templates/members/member_list.html:78
+#: members/templates/members/member_list.html:80
 msgid "sInfoEmpty"
 msgstr "0 bis 0 von 0 Einträgen"
 
-#: members/templates/members/member_list.html:79
+#: members/templates/members/member_list.html:81
 msgid "sInfoFiltered"
 msgstr "(gefiltert von _MAX_ Einträgen)"
 
-#: members/templates/members/member_list.html:80
+#: members/templates/members/member_list.html:82
 msgid "sInfoPostfix"
 msgstr " "
 
-#: members/templates/members/member_list.html:81
+#: members/templates/members/member_list.html:83
 msgid "sInfoThousands"
 msgstr "."
 
-#: members/templates/members/member_list.html:82
+#: members/templates/members/member_list.html:84
 msgid "sLengthMenu"
 msgstr "_MENU_ Einträge anzeigen"
 
-#: members/templates/members/member_list.html:83
+#: members/templates/members/member_list.html:85
 msgid "sLoadingRecords"
 msgstr "Wird geladen..."
 
-#: members/templates/members/member_list.html:84
+#: members/templates/members/member_list.html:86
 msgid "sSearch"
 msgstr "Suchen"
 
-#: members/templates/members/member_list.html:85
+#: members/templates/members/member_list.html:87
 msgid "sZeroRecords"
 msgstr "Keine Einträge vorhanden."
 
-#: members/templates/members/member_list.html:87
+#: members/templates/members/member_list.html:89
 msgid "sFirst"
 msgstr "Erste"
 
-#: members/templates/members/member_list.html:88
+#: members/templates/members/member_list.html:90
 msgid "sLast"
 msgstr "Letzte"
 
-#: members/templates/members/member_list.html:89
+#: members/templates/members/member_list.html:91
 msgid "sNext"
 msgstr "Nächste"
 
-#: members/templates/members/member_list.html:90
+#: members/templates/members/member_list.html:92
 msgid "sPrevious"
 msgstr "Vorherige"
 
-#: members/templates/members/member_list.html:93
+#: members/templates/members/member_list.html:95
 msgid "sSortAscending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: members/templates/members/member_list.html:94
+#: members/templates/members/member_list.html:96
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
