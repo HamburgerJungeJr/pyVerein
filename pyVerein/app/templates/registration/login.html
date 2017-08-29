@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="{% static 'app/vendors/animate.css/animate.min.css' %}">
 
     <!-- Custom Styles -->
-    <!--<link rel="stylesheet" href="{% static 'app/login.css' %}">
-    <link rel="stylesheet" href="{% static 'app/app.css' %}">-->
+    <link rel="stylesheet" href="{% static 'app/css/login.css' %}">
 
 </head>
 
@@ -32,6 +31,7 @@
 <div class="login_wrapper">
     <div class="animate form login_form">
         <section class="login_content">
+            <img src="{% static 'app/images/logo.png' %}" />
             {% if form.errors %}
                 <div class="alert alert-danger">{% trans 'Your username and password didnt match. Please try again.' %}</div>
             {% endif %}
