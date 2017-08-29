@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 18:46+0200\n"
+"POT-Creation-Date: 2017-08-29 21:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,3 +33,29 @@ msgstr "Profil"
 #: app/templates/app/base.html:88
 msgid "Sign out"
 msgstr "Abmelden"
+
+#: app/templates/registration/login.html:35
+msgid "Your username and password didnt match. Please try again."
+msgstr "Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
+
+#: app/templates/registration/login.html:40
+msgid ""
+"Your account doesnt have access to this page. To proceed, please login with "
+"an account that has access."
+msgstr "Dieser Benutzer hat keine Berechtigung für diese Seite."
+
+#: app/templates/registration/login.html:47
+msgid "Log In"
+msgstr "Anmeldung"
+
+#: app/templates/registration/login.html:49
+msgid "Username"
+msgstr "Benutername"
+
+#: app/templates/registration/login.html:53
+msgid "Password"
+msgstr "Passwort"
+
+#: app/templates/registration/login.html:58
+msgid "Login"
+msgstr "Anmelden"
