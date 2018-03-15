@@ -122,6 +122,41 @@
                         <div class="col-md-9 value"></div>
                     </div>
 
+                    {% if global_preferences.Members__show_additional_field_1 or global_preferences.Members__show_additional_field_2 or global_preferences.Members__show_additional_field_3 or global_preferences.Members__show_additional_field_4 or global_preferences.Members__show_additional_field_5 %}
+                        <div class="page-header">
+                            {% trans 'Additional Information' %}
+                        </div>
+                    {% endif %}
+                    {% if global_preferences.Members__show_additional_field_1 %}
+                        <div class="row">
+                            <div class="col-md-3 field-title">{% trans 'Additional field 1' %}</div>
+                            <div class="col-md-9 value">{{ member.field_1|default_if_none:"" }}</div>
+                        </div>
+                    {% endif %}
+                    {% if global_preferences.Members__show_additional_field_2 %}
+                        <div class="row">
+                            <div class="col-md-3 field-title">{% trans 'Additional field 2' %}</div>
+                            <div class="col-md-9 value">{{ member.field_2|default_if_none:"" }}</div>
+                        </div>
+                    {% endif %}
+                    {% if global_preferences.Members__show_additional_field_3 %}
+                        <div class="row">
+                            <div class="col-md-3 field-title">{% trans 'Additional field 3' %}</div>
+                            <div class="col-md-9 value">{{ member.field_3|default_if_none:"" }}</div>
+                        </div>
+                    {% endif %}
+                    {% if global_preferences.Members__show_additional_field_4 %}
+                        <div class="row">
+                            <div class="col-md-3 field-title">{% trans 'Additional field 4' %}</div>
+                            <div class="col-md-9 value">{{ member.field_4|default_if_none:"" }}</div>
+                        </div>
+                    {% endif %}
+                    {% if global_preferences.Members__show_additional_field_5 %}
+                        <div class="row">
+                            <div class="col-md-3 field-title">{% trans 'Additional field 5' %}</div>
+                            <div class="col-md-9 value">{{ member.field_5|default_if_none:"" }}</div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
