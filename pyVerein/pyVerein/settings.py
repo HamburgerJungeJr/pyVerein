@@ -37,6 +37,7 @@ DEFAULT_CHARSET = 'utf-8'
 INSTALLED_APPS = [
     'app.apps.AppConfig',
     'members.apps.MembersConfig',
+    'accounting.apps.AccountingConfig',
     'utils.apps.UtilsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
