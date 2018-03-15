@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-29 21:59+0200\n"
+"POT-Creation-Date: 2018-03-15 14:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,6 +179,36 @@ msgstr "SEPA Lastschrift Referenz"
 msgid "Membership paid"
 msgstr "Mitgliedsbeitrag bezahlt"
 
+#: members/templates/members/member_detail.html:127
+#: members/templates/members/member_form_fields.html:110
+msgid "Additional Information"
+msgstr "Zusätzliche Informationen"
+
+#: members/templates/members/member_detail.html:132
+#: members/templates/members/member_form_fields.html:115
+msgid "Additional field 1"
+msgstr "Zusatzfeld 1"
+
+#: members/templates/members/member_detail.html:138
+#: members/templates/members/member_form_fields.html:121
+msgid "Additional field 2"
+msgstr "Zusatzfeld 2"
+
+#: members/templates/members/member_detail.html:144
+#: members/templates/members/member_form_fields.html:127
+msgid "Additional field 3"
+msgstr "Zusatzfeld 3"
+
+#: members/templates/members/member_detail.html:150
+#: members/templates/members/member_form_fields.html:133
+msgid "Additional field 4"
+msgstr "Zusatzfeld 4"
+
+#: members/templates/members/member_detail.html:156
+#: members/templates/members/member_form_fields.html:139
+msgid "Additional field 5"
+msgstr "Zusatzfeld 5"
+
 #: members/templates/members/member_edit.html:17
 msgid "Edit member"
 msgstr "Mitglied bearbeiten"
@@ -186,6 +216,10 @@ msgstr "Mitglied bearbeiten"
 #: members/templates/members/member_form_fields.html:62
 msgid "Email"
 msgstr "EMail"
+
+#: members/templates/members/member_form_fields.html:144
+msgid "Save"
+msgstr "Speichern"
 
 #: members/templates/members/member_list.html:18
 msgid "Member-List"

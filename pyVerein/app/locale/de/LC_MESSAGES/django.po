@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-29 21:59+0200\n"
+"POT-Creation-Date: 2018-03-15 14:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,44 +18,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/app/base.html:51 app/templates/app/base.html:54
+#: app/templates/app/base.html:50 app/templates/app/base.html:53
 msgid "Members"
 msgstr "Mitglieder"
 
-#: app/templates/app/base.html:58
+#: app/templates/app/base.html:57
 msgid "List"
 msgstr "Liste"
 
-#: app/templates/app/base.html:86
+#: app/templates/app/base.html:85
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/base.html:88
+#: app/templates/app/base.html:87
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: app/templates/registration/login.html:35
+#: app/templates/registration/login.html:36
 msgid "Your username and password didnt match. Please try again."
-msgstr "Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
+msgstr ""
+"Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
 
-#: app/templates/registration/login.html:40
+#: app/templates/registration/login.html:41
 msgid ""
 "Your account doesnt have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr "Dieser Benutzer hat keine Berechtigung für diese Seite."
 
-#: app/templates/registration/login.html:47
+#: app/templates/registration/login.html:48
 msgid "Log In"
 msgstr "Anmeldung"
 
-#: app/templates/registration/login.html:49
+#: app/templates/registration/login.html:50
 msgid "Username"
 msgstr "Benutername"
 
-#: app/templates/registration/login.html:53
+#: app/templates/registration/login.html:54
 msgid "Password"
 msgstr "Passwort"
 
-#: app/templates/registration/login.html:58
+#: app/templates/registration/login.html:59
 msgid "Login"
 msgstr "Anmelden"
