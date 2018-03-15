@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-15 14:40+0100\n"
+"POT-Creation-Date: 2018-03-15 14:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -217,9 +217,13 @@ msgstr "Mitglied bearbeiten"
 msgid "Email"
 msgstr "EMail"
 
-#: members/templates/members/member_form_fields.html:144
+#: members/templates/members/member_form_fields.html:145
 msgid "Save"
 msgstr "Speichern"
+
+#: members/templates/members/member_form_fields.html:148
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #: members/templates/members/member_list.html:18
 msgid "Member-List"
