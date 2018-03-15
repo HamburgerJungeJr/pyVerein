@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-15 14:47+0100\n"
+"POT-Creation-Date: 2018-03-15 15:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/app/base.html:50 app/templates/app/base.html:53
+#: app/templates/app/base.html:51 app/templates/app/base.html:55
 msgid "Members"
 msgstr "Mitglieder"
 
-#: app/templates/app/base.html:57
+#: app/templates/app/base.html:61
 msgid "List"
 msgstr "Liste"
 
-#: app/templates/app/base.html:85
+#: app/templates/app/base.html:66
+msgid "Create"
+msgstr "Anlegen"
+
+#: app/templates/app/base.html:96
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/base.html:87
+#: app/templates/app/base.html:100
 msgid "Sign out"
 msgstr "Abmelden"
 
