@@ -1,10 +1,9 @@
-{% load static %}
-{% load i18n %}
-{% load menu %}
+{% load static %} {% load i18n %} {% load menu %}
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>pyVerein</title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -28,114 +27,126 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    {% block head %}
-    {% endblock %}
+    {% block head %} {% endblock %}
 </head>
+
 <body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        <div class="col-md-3 left_col menu_fixed">
-            <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <a href="{% url 'app:index' %}" class="site_title"> <img src="{% static 'app/images/logo_white.png' %}" /></a>
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col menu_fixed">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="{% url 'app:index' %}" class="site_title">
+                            <img src="{% static 'app/images/logo_white.png' %}" />
+                        </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <br/>
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>{% trans 'Members' %}</h3>
+                            <ul class="nav side-menu">
+                                <li class="{% base_url_class 'members:list' 'active'%}">
+                                    <a>
+                                        <i class="fa fa-user"></i> {% trans 'Members' %}
+                                        <span class="fa fa-chevron-down"></span>
+                                    </a>
+                                    <ul class="nav child_menu">
+                                        <li class="{% url_class 'members:list' 'current-page' %}">
+                                            <a href="{% url 'members:list' %}">
+                                                {% trans 'List' %}
+                                            </a>
+                                        </li>
+                                        <li class="{% url_class 'members:create' 'current-page' %}">
+                                            <a href="{% url 'members:create' %}">
+                                                {% trans 'Create' %}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
                 </div>
+            </div>
 
-                <div class="clearfix"></div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
 
-                <br/>
-
-                <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <h3>{% trans 'Members' %}</h3>
-                        <ul class="nav side-menu">
-                            <li class="{% url_class 'members:list' 'active'%}"><a><i
-                                    class="fa fa-user"></i> {% trans 'Members' %} <span
-                                    class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li class="{% url_class 'members:list' 'current-page' %}"><a href="{% url 'members:list' %}">
-                                        {% trans 'List' %}
-                                    </a></li>
-
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="{% static 'app/images/user.png' %}" alt="">{{ user.get_full_name }}
+                                    <span class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li>
+                                        <a href="javascript:;">{% trans 'Profile' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url  'logout' %}">
+                                            <i class="fa fa-sign-out pull-right"></i>{% trans 'Sign out' %}</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
-                    </div>
-                </div>
-                <!-- /sidebar menu -->
-            </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
-                               aria-expanded="false">
-                                <img src="{% static 'app/images/user.png' %}" alt="">{{ user.get_full_name }}
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;">{% trans 'Profile' %}</a></li>
-                                <li><a href="{% url  'logout' %}"><i
-                                        class="fa fa-sign-out pull-right"></i>{% trans 'Sign out' %}</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <!-- /top navigation -->
-
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <div class="page-title">
-                <div class="title_left">
-                    <h3 id="title">
-                        {% block title %}
-                        {% endblock %}
-                    </h3>
+                    </nav>
                 </div>
             </div>
-            <div class="clearfix"></div>
-            <div id="maincontent">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
-        <!-- /page content -->
+            <!-- /top navigation -->
 
-        <!-- footer content -->
-        <footer>
-            <div class="pull-right">
-                pyVerein by Jannik Heuer - Theme based on Gentelella - Bootstrap Admin Template by <a
-                    href="https://colorlib.com">Colorlib</a>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3 id="title">
+                            {% block title %} {% endblock %}
+                        </h3>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div id="maincontent">
+                    {% block content %} {% endblock %}
+                </div>
             </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    pyVerein by Jannik Heuer - Theme based on Gentelella - Bootstrap Admin Template by
+                    <a href="https://colorlib.com">Colorlib</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
     </div>
-</div>
 
-<!-- jQuery -->
-<script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script>
-<!-- Bootstrap -->
-<script src="{% static 'app/vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-<!-- FastClick -->
-<script src="{% static 'app/vendors/fastclick/lib/fastclick.js' %}"></script>
+    <!-- jQuery -->
+    <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'app/vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'app/vendors/fastclick/lib/fastclick.js' %}"></script>
 
-<!-- Custom Theme Scripts -->
-<script src="{% static 'app/build/js/custom.js' %}"></script>
-<script type="application/javascript">
-    $("li.active").children("ul").slideDown();
-</script>
-{% block foot %}
-{% endblock %}
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'app/build/js/custom.js' %}"></script>
+    <script type="application/javascript">
+        $("li.active").children("ul").slideDown();
+    </script> {% block foot %} {% endblock %}
 </body>
+
 </html>
