@@ -5,3 +5,15 @@ body{
 footer{
     font-size: x-small;
 }
+
+.table-hover td:hover{
+    cursor: pointer;
+}
+
+.data .row{
+    margin-bottom: 5px;
+}
+.data .field-title{
+    text-align: right;
+    margin-top: 4px;
+}
