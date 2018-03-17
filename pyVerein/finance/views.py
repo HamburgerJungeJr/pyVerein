@@ -1,47 +1,67 @@
-from django.shortcuts import render
-from .models import Account
+"""
+Viewmodule for finance app
+"""
+# Import views
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
-from .forms import AccountCreateForm, AccountEditForm, ImpersonalAccountForm
+# Import forms
+from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountForm
 # Import reverse.
 from django.urls import reverse, reverse_lazy
 # Import datatablesview.
 from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
 from django.db.models import Q
+# Import Account model
+from .models import Account
 
-# Index-View.
 class CreditorIndexView(TemplateView):
+    """
+    Index view for creditors
+    """
     template_name = 'finance/creditor_list.html'
 
-# Detail-View.
+class CreditorCreateView(CreateView):
+    """
+    Create view for creditors
+    """
+    model = Account
+    context_object_name = 'creditor'
+    template_name = 'finance/creditor_create.html'
+    form_class = PersonalAccountCreateForm
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:creditor_detail', args={self.object.pk})
+
 class CreditorDetailView(DetailView):
+    """
+    Detail view for creditors
+    """
     model = Account
     context_object_name = 'creditor'
     template_name = 'finance/creditor_detail.html'
 
-# Edit-View.
 class CreditorEditView(UpdateView):
+    """
+    Edit view for creditors
+    """
     model = Account
     context_object_name = 'creditor'
     template_name = 'finance/creditor_edit.html'
-    form_class = AccountEditForm
+    form_class = PersonalAccountEditForm
 
     def get_success_url(self):
+        """
+        Return detail url as success url
+        """
         return reverse_lazy('finance:creditor_detail', args={self.object.pk})
 
-
-# Edit-View.
-class CreditorCreateView(CreateView):
-    model = Account
-    context_object_name = 'creditor'
-    template_name = 'finance/creditor_create.html'
-    form_class = AccountCreateForm
-
-    def get_success_url(self):
-        return reverse_lazy('finance:creditor_detail', args={self.object.pk})
-
-# Datatable api view.
 class CreditorDatatableView(BaseDatatableView):
+    """
+    Datatables.net view for creditors
+    """
     # Use Accountmodel
     model = Account
 
@@ -55,11 +75,15 @@ class CreditorDatatableView(BaseDatatableView):
     max_rows = 500
 
     def get_initial_queryset(self):
-        # Filter only creditors
+        """
+        Filter only creditors
+        """
         return Account.objects.filter(Q(account_type=Account.CREDITOR))
 
-    # Filter rows.
     def filter_queryset(self, qs):
+        """
+        Filter rows by given searchterm
+        """
         # Read GET parameters.
         search = self.request.GET.get(u'search[value]', None)
         if search:
@@ -68,8 +92,10 @@ class CreditorDatatableView(BaseDatatableView):
         # Return filtered data.
         return qs
 
-    # Prepare results to return as dict with urls
     def prepare_results(self, qs):
+        """
+        Prepare results to return as dict with urls
+        """
         # Initialize data array
         json_data = []
 
@@ -82,39 +108,54 @@ class CreditorDatatableView(BaseDatatableView):
         # Return data
         return json_data
 
-# Index-View.
 class DebitorIndexView(TemplateView):
+    """
+    Index view for debitors
+    """
     template_name = 'finance/debitor_list.html'
 
-# Detail-View.
+class DebitorCreateView(CreateView):
+    """
+    Create view for debitors
+    """
+    model = Account
+    context_object_name = 'debitor'
+    template_name = 'finance/debitor_create.html'
+    form_class = PersonalAccountCreateForm
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:debitor_detail', args={self.object.pk})
+
 class DebitorDetailView(DetailView):
+    """
+    Detail view for debitors
+    """
     model = Account
     context_object_name = 'debitor'
     template_name = 'finance/debitor_detail.html'
 
-# Edit-View.
 class DebitorEditView(UpdateView):
+    """
+    Edit view for debitors
+    """
     model = Account
     context_object_name = 'debitor'
     template_name = 'finance/debitor_edit.html'
-    form_class = AccountEditForm
+    form_class = PersonalAccountEditForm
 
     def get_success_url(self):
+        """
+        Return detail url as success url
+        """
         return reverse_lazy('finance:debitor_detail', args={self.object.pk})
 
-
-# Edit-View.
-class DebitorCreateView(CreateView):
-    model = Account
-    context_object_name = 'debitor'
-    template_name = 'finance/debitor_create.html'
-    form_class = AccountCreateForm
-
-    def get_success_url(self):
-        return reverse_lazy('finance:debitor_detail', args={self.object.pk})
-
-# Datatable api view.
 class DebitorDatatableView(BaseDatatableView):
+    """
+    Datatables.net view for debitors
+    """
     # Use Accountmodel
     model = Account
 
@@ -128,11 +169,15 @@ class DebitorDatatableView(BaseDatatableView):
     max_rows = 500
 
     def get_initial_queryset(self):
-        # Filter only debitors
+        """
+        Fiter only debitors
+        """
         return Account.objects.filter(Q(account_type=Account.DEBITOR))
 
-    # Filter rows.
     def filter_queryset(self, qs):
+        """
+        Filter rows by giver searchterm
+        """
         # Read GET parameters.
         search = self.request.GET.get(u'search[value]', None)
         if search:
@@ -141,8 +186,10 @@ class DebitorDatatableView(BaseDatatableView):
         # Return filtered data.
         return qs
 
-    # Prepare results to return as dict with urls
     def prepare_results(self, qs):
+        """
+        Prepare results to return as dict with urls
+        """
         # Initialize data array
         json_data = []
 
@@ -155,39 +202,54 @@ class DebitorDatatableView(BaseDatatableView):
         # Return data
         return json_data
 
-# Index-View.
 class ImpersonalIndexView(TemplateView):
+    """
+    Index view for impersonal accounts
+    """
     template_name = 'finance/impersonal_list.html'
 
-# Detail-View.
-class ImpersonalDetailView(DetailView):
-    model = Account
-    context_object_name = 'impersonal'
-    template_name = 'finance/impersonal_detail.html'
-
-# Edit-View.
-class ImpersonalEditView(UpdateView):
-    model = Account
-    context_object_name = 'impersonal'
-    template_name = 'finance/impersonal_edit.html'
-    form_class = ImpersonalAccountForm
-
-    def get_success_url(self):
-        return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
-
-
-# Edit-View.
 class ImpersonalCreateView(CreateView):
+    """
+    Create view for impersonal acocunts
+    """
     model = Account
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal_create.html'
     form_class = ImpersonalAccountForm
 
     def get_success_url(self):
+        """
+        Return detail url as success url
+        """
         return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
 
-# Datatable api view.
+class ImpersonalDetailView(DetailView):
+    """
+    Detail view for impersonal accounts
+    """
+    model = Account
+    context_object_name = 'impersonal'
+    template_name = 'finance/impersonal_detail.html'
+
+class ImpersonalEditView(UpdateView):
+    """
+    Edit view for impersonal accounts
+    """
+    model = Account
+    context_object_name = 'impersonal'
+    template_name = 'finance/impersonal_edit.html'
+    form_class = ImpersonalAccountForm
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
+
 class ImpersonalDatatableView(BaseDatatableView):
+    """
+    Datatables.net view for impersonal accounts
+    """
     # Use Accountmodel
     model = Account
 
@@ -201,11 +263,15 @@ class ImpersonalDatatableView(BaseDatatableView):
     max_rows = 500
 
     def get_initial_queryset(self):
-        # Filter only impersonal accounts
+        """
+        Filter only impersonal accounts
+        """
         return Account.objects.filter(Q(account_type=Account.INCOME) | Q(account_type=Account.COST))
 
-    # Filter rows.
     def filter_queryset(self, qs):
+        """
+        Filter rows by given searchterm
+        """
         # Read GET parameters.
         search = self.request.GET.get(u'search[value]', None)
         if search:
@@ -214,8 +280,10 @@ class ImpersonalDatatableView(BaseDatatableView):
         # Return filtered data.
         return qs
 
-    # Prepare results to return as dict with urls
     def prepare_results(self, qs):
+        """
+        Prepare results to return as dict with urls
+        """
         # Initialize data array
         json_data = []
 
