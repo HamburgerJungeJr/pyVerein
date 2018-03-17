@@ -20,6 +20,7 @@ from django.conf.urls.i18n import i18n_patterns
 urlpatterns = i18n_patterns(
     url(r'^', include('app.urls')),
     url(r'^members/', include('members.urls'), name='members'),
+    url(r'^finance/', include('finance.urls'), name='finance'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
                             )

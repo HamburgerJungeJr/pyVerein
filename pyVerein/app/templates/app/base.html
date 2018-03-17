@@ -11,7 +11,7 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{% static 'app/vendors/bootstrap/dist/css/bootstrap.min.css' %}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'app/vendors/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/font-awesome/css/fontawesome-all.min.css' %}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/flat/green.css' %}">
     <!-- Theme style -->
@@ -70,6 +70,65 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="menu_section">
+                                <h3>{% trans 'Finance' %}</h3>
+                                <ul class="nav side-menu">
+                                    <li class="{% base_url_class 'finance:creditor_list' 'active'%}">
+                                        <a>
+                                            <i class="fa fa-user-times"></i> {% trans 'Creditors' %}
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li class="{% url_class 'finance:creditor_list' 'current-page' %}">
+                                                <a href="{% url 'finance:creditor_list' %}">
+                                                    {% trans 'List' %}
+                                                </a>
+                                            </li>
+                                            <li class="{% url_class 'finance:creditor_create' 'current-page' %}">
+                                                <a href="{% url 'finance:creditor_create' %}">
+                                                    {% trans 'Create' %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="{% base_url_class 'finance:debitor_list' 'active'%}">
+                                        <a>
+                                            <i class="fa fa-user-plus"></i> {% trans 'Debitors' %}
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li class="{% url_class 'finance:debitor_list' 'current-page' %}">
+                                                <a href="{% url 'finance:debitor_list' %}">
+                                                    {% trans 'List' %}
+                                                </a>
+                                            </li>
+                                            <li class="{% url_class 'finance:debitor_create' 'current-page' %}">
+                                                <a href="{% url 'finance:debitor_create' %}">
+                                                    {% trans 'Create' %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="{% base_url_class 'finance:impersonal_list' 'active'%}">
+                                        <a>
+                                            <i class="fa fa-box"></i> {% trans 'Impersonal' %}
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li class="{% url_class 'finance:impersonal_list' 'current-page' %}">
+                                                <a href="{% url 'finance:impersonal_list' %}">
+                                                    {% trans 'List' %}
+                                                </a>
+                                            </li>
+                                            <li class="{% url_class 'finance:impersonal_create' 'current-page' %}">
+                                                <a href="{% url 'finance:impersonal_create' %}">
+                                                    {% trans 'Create' %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
                     </div>
                     <!-- /sidebar menu -->
                 </div>

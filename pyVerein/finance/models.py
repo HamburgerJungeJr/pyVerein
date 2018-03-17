@@ -22,7 +22,7 @@ class Account(models.Model):
     # Account name
     name = models.CharField(max_length=255, blank=False, null=False)
     # Account type: debitor/creditor/cost/income
-    account_type = models.CharField(blank=False, null=False, choices=ACCOUNT_TYPES, max_length=3, default=CREDITOR)
+    account_type = models.CharField(blank=False, null=False, choices=ACCOUNT_TYPES, max_length=3, default=COST)
 
 class CostCenter(models.Model):
     """

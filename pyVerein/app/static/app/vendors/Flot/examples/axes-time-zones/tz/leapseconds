@@ -10,7 +10,7 @@
 # Terry J Quinn, The BIPM and the accurate measure of time,
 # Proc IEEE 79, 7 (July 1991), 894-905.
 # There were no leap seconds before 1972, because the official mechanism
-# accounting for the discrepancy between atomic time and the earth's rotation
+# finance for the discrepancy between atomic time and the earth's rotation
 # did not exist until the early 1970s.
 
 # The correction (+ or -) is made at the given time, so lines

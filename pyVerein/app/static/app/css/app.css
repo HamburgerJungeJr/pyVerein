@@ -17,3 +17,7 @@ footer{
     text-align: right;
     margin-top: 4px;
 }
+
+.data .value .radio_choices{
+    margin-top: 4px;
+}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-15 15:04+0100\n"
+"POT-Creation-Date: 2018-03-17 16:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,19 +22,37 @@ msgstr ""
 msgid "Members"
 msgstr "Mitglieder"
 
-#: app/templates/app/base.html:61
+#: app/templates/app/base.html:61 app/templates/app/base.html:84
+#: app/templates/app/base.html:102 app/templates/app/base.html:120
 msgid "List"
 msgstr "Liste"
 
-#: app/templates/app/base.html:66
+#: app/templates/app/base.html:66 app/templates/app/base.html:89
+#: app/templates/app/base.html:107 app/templates/app/base.html:125
 msgid "Create"
 msgstr "Anlegen"
 
+#: app/templates/app/base.html:74
+msgid "Finance"
+msgstr "Finanzen"
+
+#: app/templates/app/base.html:78
+msgid "Creditors"
+msgstr "Kreditoren"
+
 #: app/templates/app/base.html:96
+msgid "Debitors"
+msgstr "Debitoren"
+
+#: app/templates/app/base.html:114
+msgid "Impersonal"
+msgstr "Sachkonten"
+
+#: app/templates/app/base.html:155
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/base.html:100
+#: app/templates/app/base.html:159
 msgid "Sign out"
 msgstr "Abmelden"
 
