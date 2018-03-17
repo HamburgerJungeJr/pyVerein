@@ -73,24 +73,6 @@
                         <div class="menu_section">
                                 <h3>{% trans 'Finance' %}</h3>
                                 <ul class="nav side-menu">
-                                    <li class="{% base_url_class 'finance:creditor_list' 'active'%}">
-                                        <a>
-                                            <i class="fa fa-user-times"></i> {% trans 'Creditors' %}
-                                            <span class="fa fa-chevron-down"></span>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <li class="{% url_class 'finance:creditor_list' 'current-page' %}">
-                                                <a href="{% url 'finance:creditor_list' %}">
-                                                    {% trans 'List' %}
-                                                </a>
-                                            </li>
-                                            <li class="{% url_class 'finance:creditor_create' 'current-page' %}">
-                                                <a href="{% url 'finance:creditor_create' %}">
-                                                    {% trans 'Create' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
                                     <li class="{% base_url_class 'finance:debitor_list' 'active'%}">
                                         <a>
                                             <i class="fa fa-user-plus"></i> {% trans 'Debitors' %}
@@ -104,6 +86,24 @@
                                             </li>
                                             <li class="{% url_class 'finance:debitor_create' 'current-page' %}">
                                                 <a href="{% url 'finance:debitor_create' %}">
+                                                    {% trans 'Create' %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="{% base_url_class 'finance:creditor_list' 'active'%}">
+                                        <a>
+                                            <i class="fa fa-user-times"></i> {% trans 'Creditors' %}
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li class="{% url_class 'finance:creditor_list' 'current-page' %}">
+                                                <a href="{% url 'finance:creditor_list' %}">
+                                                    {% trans 'List' %}
+                                                </a>
+                                            </li>
+                                            <li class="{% url_class 'finance:creditor_create' 'current-page' %}">
+                                                <a href="{% url 'finance:creditor_create' %}">
                                                     {% trans 'Create' %}
                                                 </a>
                                             </li>
@@ -168,6 +168,7 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
+                
                 <div class="page-title">
                     <div class="title_left">
                         <h3 id="title">
@@ -176,6 +177,14 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+                {% endfor %}
                 <div id="maincontent">
                     {% block content %} {% endblock %}
                 </div>
@@ -205,7 +214,14 @@
     <script src="{% static 'app/build/js/custom.js' %}"></script>
     <script type="application/javascript">
         $("li.active").children("ul").slideDown();
-    </script> {% block foot %} {% endblock %}
+        window.setTimeout(function () {
+            $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 1500);
+    </script> 
+    {% block foot %} 
+    {% endblock %}
 </body>
 
 </html>
