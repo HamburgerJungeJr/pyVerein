@@ -51,9 +51,7 @@ class Transaction(models.Model):
     Transaction model.
     """
     # Account
-    account = models.ForeignKey(Account, on_delete=models.PROTECT, related_name='account_transactions')
-    # Contra account
-    contra_account = models.ForeignKey(Account, on_delete=models.PROTECT, related_name='contra_account_transactions')
+    account = models.ForeignKey(Account, on_delete=models.PROTECT)
 
     # Transaction date
     date = models.DateField(null=False, blank=False)
