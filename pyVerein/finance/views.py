@@ -18,7 +18,7 @@ class CreditorIndexView(TemplateView):
     """
     Index view for creditors
     """
-    template_name = 'finance/creditor_list.html'
+    template_name = 'finance/creditor/list.html'
 
 class CreditorCreateView(CreateView):
     """
@@ -26,7 +26,7 @@ class CreditorCreateView(CreateView):
     """
     model = Account
     context_object_name = 'creditor'
-    template_name = 'finance/creditor_create.html'
+    template_name = 'finance/creditor/create.html'
     form_class = PersonalAccountCreateForm
 
     def get_success_url(self):
@@ -41,7 +41,7 @@ class CreditorDetailView(DetailView):
     """
     model = Account
     context_object_name = 'creditor'
-    template_name = 'finance/creditor_detail.html'
+    template_name = 'finance/creditor/detail.html'
 
 class CreditorEditView(UpdateView):
     """
@@ -49,7 +49,7 @@ class CreditorEditView(UpdateView):
     """
     model = Account
     context_object_name = 'creditor'
-    template_name = 'finance/creditor_edit.html'
+    template_name = 'finance/creditor/edit.html'
     form_class = PersonalAccountEditForm
 
     def get_success_url(self):
@@ -112,7 +112,7 @@ class DebitorIndexView(TemplateView):
     """
     Index view for debitors
     """
-    template_name = 'finance/debitor_list.html'
+    template_name = 'finance/debitor/list.html'
 
 class DebitorCreateView(CreateView):
     """
@@ -120,7 +120,7 @@ class DebitorCreateView(CreateView):
     """
     model = Account
     context_object_name = 'debitor'
-    template_name = 'finance/debitor_create.html'
+    template_name = 'finance/debitor/create.html'
     form_class = PersonalAccountCreateForm
 
     def get_success_url(self):
@@ -135,7 +135,7 @@ class DebitorDetailView(DetailView):
     """
     model = Account
     context_object_name = 'debitor'
-    template_name = 'finance/debitor_detail.html'
+    template_name = 'finance/debitor/detail.html'
 
 class DebitorEditView(UpdateView):
     """
@@ -143,7 +143,7 @@ class DebitorEditView(UpdateView):
     """
     model = Account
     context_object_name = 'debitor'
-    template_name = 'finance/debitor_edit.html'
+    template_name = 'finance/debitor/edit.html'
     form_class = PersonalAccountEditForm
 
     def get_success_url(self):
@@ -206,7 +206,7 @@ class ImpersonalIndexView(TemplateView):
     """
     Index view for impersonal accounts
     """
-    template_name = 'finance/impersonal_list.html'
+    template_name = 'finance/impersonal/list.html'
 
 class ImpersonalCreateView(CreateView):
     """
@@ -214,7 +214,7 @@ class ImpersonalCreateView(CreateView):
     """
     model = Account
     context_object_name = 'impersonal'
-    template_name = 'finance/impersonal_create.html'
+    template_name = 'finance/impersonal/create.html'
     form_class = ImpersonalAccountForm
 
     def get_success_url(self):
@@ -229,7 +229,7 @@ class ImpersonalDetailView(DetailView):
     """
     model = Account
     context_object_name = 'impersonal'
-    template_name = 'finance/impersonal_detail.html'
+    template_name = 'finance/impersonal/detail.html'
 
 class ImpersonalEditView(UpdateView):
     """
@@ -237,7 +237,7 @@ class ImpersonalEditView(UpdateView):
     """
     model = Account
     context_object_name = 'impersonal'
-    template_name = 'finance/impersonal_edit.html'
+    template_name = 'finance/impersonal/edit.html'
     form_class = ImpersonalAccountForm
 
     def get_success_url(self):
