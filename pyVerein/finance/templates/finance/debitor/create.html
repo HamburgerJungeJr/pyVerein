@@ -23,7 +23,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-3 field-title">{% trans 'Debitor number' %}</div>
-                            <div class="col-md-5 value ">{% render_field form.number class+="form-control" data-next="id_name" %}<span class="help-block with-errors"></span></div>
+                            <div class="col-md-5 value ">{% render_field form.number class+="form-control" data-next="id_name" autofocus="autofocus" %}<span class="help-block with-errors"></span></div>
                         
                         </div>
                         <div class="form-group">
@@ -54,5 +54,6 @@
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:debitor_list' %}");
     </script>
 {% endblock %}

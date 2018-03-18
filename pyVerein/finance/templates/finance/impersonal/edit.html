@@ -34,9 +34,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-3 field-title">{% trans 'Impersonal account name' %}</div>
-                        <div class="col-md-5 value">{% render_field form.name class+="form-control" %}
-                            <span class="help-block with-errors"></span>
-                        </div>
+                        <div class="col-md-5 value">{% render_field form.name class+="form-control" autofocus="autofocus" %}<span class="help-block with-errors"></span></div>
                     </div>
 
                     <div class="form-group">
@@ -71,5 +69,6 @@
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:impersonal_detail' pk=impersonal.pk %}");
     </script>
 {% endblock %}

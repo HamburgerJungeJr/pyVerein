@@ -67,5 +67,6 @@
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:costcenter_detail' pk=costcenter.pk %}");
     </script>
 {% endblock %}
