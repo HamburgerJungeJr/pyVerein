@@ -16,14 +16,14 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_content data">
-                    <form action="{% url 'finance:creditor_create' %}" method="POST" class="form-horizontal" data-toggle="validator">
+                    <form action="{% url 'finance:creditor_create' %}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
                         {% csrf_token %}
                         <div class="page-header">
                             {% trans 'Creditor' %}
                         </div>
                         <div class="form-group">
                             <div class="col-md-3 field-title">{% trans 'Creditor number' %}</div>
-                            <div class="col-md-5 value ">{% render_field form.number class+="form-control" %}<span class="help-block with-errors"></span></div>
+                            <div class="col-md-5 value ">{% render_field form.number class+="form-control" data-next="id_name"%}<span class="help-block with-errors"></span></div>
                         
                         </div>
                         <div class="form-group">
@@ -49,4 +49,10 @@
 {% block foot %}
     <!-- Validator -->
     <script src="{% static 'app/vendors/bootstrap-validator/dist/validator.min.js' %}"></script>
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+    </script>
 {% endblock %}

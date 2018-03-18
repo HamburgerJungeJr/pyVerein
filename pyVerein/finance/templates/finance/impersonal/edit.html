@@ -19,7 +19,7 @@
                 <h1>{{ impersonal.number }} {{ impersonal.name }}</h1>
             </div>
             <div class="x_content data">
-                <form action="{% url 'finance:impersonal_edit' impersonal.pk %}" method="POST" class="form-horizontal" data-toggle="validator">
+                <form action="{% url 'finance:impersonal_edit' impersonal.pk %}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
                     {% csrf_token %}
                     <div class="page-header">
                         {% trans 'Impersonal account' %}
@@ -44,7 +44,7 @@
                             <input type="submit" class="btn btn-success btn-block" value="{% trans 'Save' %}" />
                         </div>
                         <div class="col-md-2 col-md-offset-1">
-                            <a href="{% url 'finance:impersonal_list' %}" class="btn btn-danger btn-block">{% trans 'Cancel' %}</a>
+                            <a href="{% url 'finance:impersonal_detail' pk=impersonal.pk %}" class="btn btn-danger btn-block">{% trans 'Cancel' %}</a>
                         </div>
                     </div>
                 </form>
@@ -66,4 +66,10 @@
             radioClass: 'iradio_square-blue',
         });
     </script> 
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+    </script>
 {% endblock %}
