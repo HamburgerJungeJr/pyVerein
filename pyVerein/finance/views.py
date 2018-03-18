@@ -4,15 +4,19 @@ Viewmodule for finance app
 # Import views
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 # Import forms
-from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountForm
+from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountForm, CostCenterCreateForm, CostCenterEditForm
 # Import reverse.
 from django.urls import reverse, reverse_lazy
 # Import datatablesview.
 from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
 from django.db.models import Q
+# Import localization
+from django.utils.translation import ugettext_lazy as _
+# Import MessageMixin
+from django.contrib.messages.views import SuccessMessageMixin
 # Import Account model
-from .models import Account
+from .models import Account, CostCenter, CostObject
 
 class CreditorIndexView(TemplateView):
     """
@@ -20,7 +24,7 @@ class CreditorIndexView(TemplateView):
     """
     template_name = 'finance/creditor/list.html'
 
-class CreditorCreateView(CreateView):
+class CreditorCreateView(SuccessMessageMixin, CreateView):
     """
     Create view for creditors
     """
@@ -28,12 +32,27 @@ class CreditorCreateView(CreateView):
     context_object_name = 'creditor'
     template_name = 'finance/creditor/create.html'
     form_class = PersonalAccountCreateForm
+    success_message = _('Creditor created successfully')
 
     def get_success_url(self):
         """
         Return detail url as success url
         """
         return reverse_lazy('finance:creditor_detail', args={self.object.pk})
+
+    def form_valid(self, form):
+        """
+        Update object with account_type
+        """
+        # Save validated data
+        self.object = form.save(commit = False)
+        # Set account_type to debitor
+        self.object.account_type = Account.CREDITOR
+        print(self.object)
+        # Save object to commit the changes
+        self.object.save()
+        
+        return super(CreditorCreateView, self).form_valid(form)
 
 class CreditorDetailView(DetailView):
     """
@@ -43,7 +62,7 @@ class CreditorDetailView(DetailView):
     context_object_name = 'creditor'
     template_name = 'finance/creditor/detail.html'
 
-class CreditorEditView(UpdateView):
+class CreditorEditView(SuccessMessageMixin, UpdateView):
     """
     Edit view for creditors
     """
@@ -51,6 +70,7 @@ class CreditorEditView(UpdateView):
     context_object_name = 'creditor'
     template_name = 'finance/creditor/edit.html'
     form_class = PersonalAccountEditForm
+    success_message = _('Creditor saved successfully')
 
     def get_success_url(self):
         """
@@ -114,7 +134,7 @@ class DebitorIndexView(TemplateView):
     """
     template_name = 'finance/debitor/list.html'
 
-class DebitorCreateView(CreateView):
+class DebitorCreateView(SuccessMessageMixin, CreateView):
     """
     Create view for debitors
     """
@@ -122,12 +142,27 @@ class DebitorCreateView(CreateView):
     context_object_name = 'debitor'
     template_name = 'finance/debitor/create.html'
     form_class = PersonalAccountCreateForm
+    success_message = _('Debitor created successfully')
 
     def get_success_url(self):
         """
         Return detail url as success url
         """
         return reverse_lazy('finance:debitor_detail', args={self.object.pk})
+    
+    def form_valid(self, form):
+        """
+        Update object with account_type
+        """
+        # Save validated data
+        self.object = form.save(commit = False)
+        # Set account_type to debitor
+        self.object.account_type = Account.DEBITOR
+        print(self.object)
+        # Save object to commit the changes
+        self.object.save()
+        
+        return super(DebitorCreateView, self).form_valid(form)
 
 class DebitorDetailView(DetailView):
     """
@@ -137,7 +172,7 @@ class DebitorDetailView(DetailView):
     context_object_name = 'debitor'
     template_name = 'finance/debitor/detail.html'
 
-class DebitorEditView(UpdateView):
+class DebitorEditView(SuccessMessageMixin, UpdateView):
     """
     Edit view for debitors
     """
@@ -145,6 +180,7 @@ class DebitorEditView(UpdateView):
     context_object_name = 'debitor'
     template_name = 'finance/debitor/edit.html'
     form_class = PersonalAccountEditForm
+    success_message = _('Debitor saved successfully')
 
     def get_success_url(self):
         """
@@ -208,14 +244,15 @@ class ImpersonalIndexView(TemplateView):
     """
     template_name = 'finance/impersonal/list.html'
 
-class ImpersonalCreateView(CreateView):
+class ImpersonalCreateView(SuccessMessageMixin, CreateView):
     """
-    Create view for impersonal acocunts
+    Create view for impersonal accounts
     """
     model = Account
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal/create.html'
     form_class = ImpersonalAccountForm
+    success_message = _('Impersonal account created successfully')
 
     def get_success_url(self):
         """
@@ -231,7 +268,7 @@ class ImpersonalDetailView(DetailView):
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal/detail.html'
 
-class ImpersonalEditView(UpdateView):
+class ImpersonalEditView(SuccessMessageMixin, UpdateView):
     """
     Edit view for impersonal accounts
     """
@@ -239,6 +276,7 @@ class ImpersonalEditView(UpdateView):
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal/edit.html'
     form_class = ImpersonalAccountForm
+    success_message = _('Impersonal account saved successfully')
 
     def get_success_url(self):
         """
@@ -292,6 +330,96 @@ class ImpersonalDatatableView(BaseDatatableView):
             # Append dictionary with all columns and urls
             json_data.append({'number': item.number, 'name': item.name, 
                                           'detail_url': reverse('finance:impersonal_detail', args=[item.number])})
+
+        # Return data
+        return json_data
+
+class CostCenterIndexView(TemplateView):
+    """
+    Index view for costcenter
+    """
+    template_name = 'finance/costcenter/list.html'
+
+class CostCenterCreateView(SuccessMessageMixin, CreateView):
+    """
+    Create view for costcenter
+    """
+    model = CostCenter
+    context_object_name = 'costcenter'
+    template_name = 'finance/costcenter/create.html'
+    form_class = CostCenterCreateForm
+    success_message = _('Cost center created successfully')
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:costcenter_detail', args={self.object.pk})
+
+class CostCenterDetailView(DetailView):
+    """
+    Detail view for costcenter
+    """
+    model = CostCenter
+    context_object_name = 'costcenter'
+    template_name = 'finance/costcenter/detail.html'
+
+class CostCenterEditView(SuccessMessageMixin, UpdateView):
+    """
+    Edit view for costcenter
+    """
+    model = CostCenter
+    context_object_name = 'costcenter'
+    template_name = 'finance/costcenter/edit.html'
+    form_class = CostCenterEditForm
+    success_message = _('Cost center saved successfully')
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:costcenter_detail', args={self.object.pk})
+
+class CostCenterDatatableView(BaseDatatableView):
+    """
+    Datatables.net view for costcenter
+    """
+    # Use CostCentermodel
+    model = CostCenter
+
+    # Define displayed columns.
+    columns = ['number', 'name']
+
+    # Define columns used for ordering.
+    order_columns = ['number', 'name']
+
+    # Set maximum returned rows to prevent attacks.
+    max_rows = 500
+
+    def filter_queryset(self, qs):
+        """
+        Filter rows by given searchterm
+        """
+        # Read GET parameters.
+        search = self.request.GET.get(u'search[value]', None)
+        if search:
+            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
+
+        # Return filtered data.
+        return qs
+
+    def prepare_results(self, qs):
+        """
+        Prepare results to return as dict with urls
+        """
+        # Initialize data array
+        json_data = []
+
+        # Loop through all items in queryset
+        for item in qs:
+            # Append dictionary with all columns and urls
+            json_data.append({'number': item.number, 'name': item.name, 
+                                          'detail_url': reverse('finance:costcenter_detail', args=[item.number])})
 
         # Return data
         return json_data

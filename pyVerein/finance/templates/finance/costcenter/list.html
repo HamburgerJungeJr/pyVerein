@@ -1,0 +1,109 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet"
+          href="{% static 'app/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+    <link href="{% static 'app/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet' %}">
+    <link href="{% static 'app/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet' %}">
+    <link href="{% static 'app/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet' %}">
+    <link href="{% static 'app/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet' %}">
+{% endblock %}
+
+{% block title %}
+    {% trans 'Cost centers' %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <table id="accountlist" class="table table-bordered table-striped table-hover dataTable"
+                           cellspacing="0"
+                           width="100%">
+                        <thead>
+                        <tr>
+                            <th>{% trans 'Cost center number' %}</th>
+                            <th>{% trans 'Cost center name' %}</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>{% trans 'Cost center number' %}</th>
+                            <th>{% trans 'Cost center name' %}</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <!-- Datatables -->
+    <script src="{% static 'app/vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#accountlist').on('processing.dt', function (e, settings, processing) {
+                $('#accountlist').css('opacity', processing ? '0.3' : '1.0');
+            }).DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "{% url 'finance:costcenter_apiList' %}",
+                "language": {
+                    "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
+                    "sEmptyTable": "{% trans 'sEmptyTable' %}",
+                    "sInfo": "{% trans 'sInfo' %}",
+                    "sInfoEmpty": "{% trans 'sInfoEmpty' %}",
+                    "sInfoFiltered": "{% trans 'sInfoFiltered' %}",
+                    "sInfoPostFix": "{% trans 'sInfoPostfix' %}",
+                    "sInfoThousands": "{% trans 'sInfoThousands' %}",
+                    "sLengthMenu": "{% trans 'sLengthMenu' %}",
+                    "sLoadingRecords": "{% trans 'sLoadingRecords' %}",
+                    "sSearch": "{% trans 'sSearch' %}",
+                    "sZeroRecords": "{% trans 'sZeroRecords' %}",
+                    "oPaginate": {
+                        "sFirst": "{% trans 'sFirst' %}",
+                        "sLast": "{% trans 'sLast' %}",
+                        "sNext": "{% trans 'sNext' %}",
+                        "sPrevious": "{% trans 'sPrevious' %}"
+                    },
+                    "oAria": {
+                        "sSortAscending": "{% trans 'sSortAscending' %}",
+                        "sSortDescending": "{% trans 'sSortDescending' %}"
+                    }
+                },
+                "processing":
+                    true,
+                "columns":
+                    [
+                        {"data": "number"},
+                        {"data": "name"},
+                    ],
+                "createdRow":
+                    function (row, data, index) {
+                        $(row).click(function () {
+                            window.location = data.detail_url;
+                        });
+                    }
+            });
+            $(".dataTables_wrapper select, .dataTables_wrapper :input").addClass("form-control input-sm");
+        })
+        ;
+    </script>
+{% endblock %}

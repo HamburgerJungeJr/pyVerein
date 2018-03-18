@@ -127,6 +127,24 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    <li class="{% base_url_class 'finance:costcenter_list' 'active'%}">
+                                        <a>
+                                            <i class="fa fa-box"></i> {% trans 'Cost centers' %}
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li class="{% url_class 'finance:costcenter_list' 'current-page' %}">
+                                                <a href="{% url 'finance:costcenter_list' %}">
+                                                    {% trans 'List' %}
+                                                </a>
+                                            </li>
+                                            <li class="{% url_class 'finance:costcenter_create' 'current-page' %}">
+                                                <a href="{% url 'finance:costcenter_create' %}">
+                                                    {% trans 'Create' %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </div>
                     </div>
@@ -185,6 +203,9 @@
                     {{ message }}
                 </div>
                 {% endfor %}
+                {% if form.errors %}
+                    <div class="alert alert-danger">{{ form.errors }}</div>
+                {% endif %}
                 <div id="maincontent">
                     {% block content %} {% endblock %}
                 </div>
