@@ -1,8 +1,19 @@
 from django.db import models
 # Import localization
 from django.utils.translation import ugettext_lazy as _
+from author.decorators import with_author
 
-class Account(models.Model):
+class ModelBase(models.Model):
+    class Meta:
+        abstract = True
+
+    # Created at
+    created_at = models.DateTimeField(auto_now_add=True)
+    # Modified at
+    modified_at = models.DateTimeField(auto_now=True)
+
+@with_author
+class Account(ModelBase):
     """
     Account model.
     """
@@ -24,7 +35,8 @@ class Account(models.Model):
     # Account type: debitor/creditor/cost/income
     account_type = models.CharField(blank=False, null=False, choices=ACCOUNT_TYPES, max_length=3, default=COST)
 
-class CostCenter(models.Model):
+@with_author
+class CostCenter(ModelBase):
     """
     Cost center model
     """
@@ -35,7 +47,8 @@ class CostCenter(models.Model):
     # Description
     description = models.TextField(blank=True, null=True)
 
-class CostObject(models.Model):
+@with_author
+class CostObject(ModelBase):
     """
     Cost object model
     """
@@ -46,7 +59,8 @@ class CostObject(models.Model):
     # Description
     description = models.TextField(blank=True, null=True)
 
-class Transaction(models.Model):
+@with_author
+class Transaction(ModelBase):
     """
     Transaction model.
     """
