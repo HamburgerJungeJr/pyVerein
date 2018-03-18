@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block title %}
+    {% trans 'Cost object detail' %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h1>{{ costobject.number }} {{ costobject.name }} <small><a href="{% url 'finance:costobject_edit' costobject.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></small></h1>
+                </div>
+                <div class="x_content data">
+                    
+                </div>
+            </div>
+        </div>
+    </div>{% endblock %}

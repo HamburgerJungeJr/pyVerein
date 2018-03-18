@@ -129,7 +129,7 @@
                                     </li>
                                     <li class="{% base_url_class 'finance:costcenter_list' 'active'%}">
                                         <a>
-                                            <i class="fa fa-box"></i> {% trans 'Cost centers' %}
+                                            <i class="fa fa-money-bill-alt"></i> {% trans 'Cost centers' %}
                                             <span class="fa fa-chevron-down"></span>
                                         </a>
                                         <ul class="nav child_menu">
@@ -140,6 +140,24 @@
                                             </li>
                                             <li class="{% url_class 'finance:costcenter_create' 'current-page' %}">
                                                 <a href="{% url 'finance:costcenter_create' %}">
+                                                    {% trans 'Create' %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="{% base_url_class 'finance:costobject_list' 'active'%}">
+                                        <a>
+                                            <i class="fa fa-money-bill-alt"></i> {% trans 'Cost objects' %}
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li class="{% url_class 'finance:costobject_list' 'current-page' %}">
+                                                <a href="{% url 'finance:costobject_list' %}">
+                                                    {% trans 'List' %}
+                                                </a>
+                                            </li>
+                                            <li class="{% url_class 'finance:costobject_create' 'current-page' %}">
+                                                <a href="{% url 'finance:costobject_create' %}">
                                                     {% trans 'Create' %}
                                                 </a>
                                             </li>

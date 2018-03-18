@@ -4,7 +4,7 @@ Viewmodule for finance app
 # Import views
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 # Import forms
-from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountForm, CostCenterCreateForm, CostCenterEditForm
+from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountForm, CostCenterCreateForm, CostCenterEditForm, CostObjectCreateForm, CostObjectEditForm
 # Import reverse.
 from django.urls import reverse, reverse_lazy
 # Import datatablesview.
@@ -420,6 +420,97 @@ class CostCenterDatatableView(BaseDatatableView):
             # Append dictionary with all columns and urls
             json_data.append({'number': item.number, 'name': item.name, 
                                           'detail_url': reverse('finance:costcenter_detail', args=[item.number])})
+
+        # Return data
+        return json_data
+
+
+class CostObjectIndexView(TemplateView):
+    """
+    Index view for costobject
+    """
+    template_name = 'finance/costobject/list.html'
+
+class CostObjectCreateView(SuccessMessageMixin, CreateView):
+    """
+    Create view for costobject
+    """
+    model = CostObject
+    context_object_name = 'costobject'
+    template_name = 'finance/costobject/create.html'
+    form_class = CostObjectCreateForm
+    success_message = _('Cost object created successfully')
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:costobject_detail', args={self.object.pk})
+
+class CostObjectDetailView(DetailView):
+    """
+    Detail view for costobject
+    """
+    model = CostObject
+    context_object_name = 'costobject'
+    template_name = 'finance/costobject/detail.html'
+
+class CostObjectEditView(SuccessMessageMixin, UpdateView):
+    """
+    Edit view for costobject
+    """
+    model = CostObject
+    context_object_name = 'costobject'
+    template_name = 'finance/costobject/edit.html'
+    form_class = CostObjectEditForm
+    success_message = _('Cost object saved successfully')
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:costobject_detail', args={self.object.pk})
+
+class CostObjectDatatableView(BaseDatatableView):
+    """
+    Datatables.net view for costobject
+    """
+    # Use CostObjectmodel
+    model = CostObject
+
+    # Define displayed columns.
+    columns = ['number', 'name']
+
+    # Define columns used for ordering.
+    order_columns = ['number', 'name']
+
+    # Set maximum returned rows to prevent attacks.
+    max_rows = 500
+
+    def filter_queryset(self, qs):
+        """
+        Filter rows by given searchterm
+        """
+        # Read GET parameters.
+        search = self.request.GET.get(u'search[value]', None)
+        if search:
+            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
+
+        # Return filtered data.
+        return qs
+
+    def prepare_results(self, qs):
+        """
+        Prepare results to return as dict with urls
+        """
+        # Initialize data array
+        json_data = []
+
+        # Loop through all items in queryset
+        for item in qs:
+            # Append dictionary with all columns and urls
+            json_data.append({'number': item.number, 'name': item.name, 
+                                          'detail_url': reverse('finance:costobject_detail', args=[item.number])})
 
         # Return data
         return json_data

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-18 12:53+0100\n"
+"POT-Creation-Date: 2018-03-18 13:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,13 +24,13 @@ msgstr "Mitglieder"
 
 #: app/templates/app/base.html:61 app/templates/app/base.html:84
 #: app/templates/app/base.html:102 app/templates/app/base.html:120
-#: app/templates/app/base.html:138
+#: app/templates/app/base.html:138 app/templates/app/base.html:156
 msgid "List"
 msgstr "Liste"
 
 #: app/templates/app/base.html:66 app/templates/app/base.html:89
 #: app/templates/app/base.html:107 app/templates/app/base.html:125
-#: app/templates/app/base.html:143
+#: app/templates/app/base.html:143 app/templates/app/base.html:161
 msgid "Create"
 msgstr "Anlegen"
 
@@ -54,11 +54,17 @@ msgstr "Sachkonten"
 msgid "Cost centers"
 msgstr "Kostenstellen"
 
-#: app/templates/app/base.html:173
+#: app/templates/app/base.html:150
+#, fuzzy
+#| msgid "Cost centers"
+msgid "Cost objects"
+msgstr "Kostenstellen"
+
+#: app/templates/app/base.html:191
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/base.html:177
+#: app/templates/app/base.html:195
 msgid "Sign out"
 msgstr "Abmelden"
 

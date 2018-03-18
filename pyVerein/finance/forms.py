@@ -6,7 +6,7 @@ from django import forms
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 # Import Accountmodel
-from .models import Account, CostCenter
+from .models import Account, CostCenter, CostObject
 
 class PersonalAccountCreateForm(forms.ModelForm):
     """
@@ -75,4 +75,27 @@ class CostCenterEditForm(forms.ModelForm):
         Form metadata
         """
         model = CostCenter
+        fields = ('name', 'description')
+
+
+class CostObjectCreateForm(forms.ModelForm):
+    """
+    Formclass for costobjects
+    """
+    class Meta:
+        """
+        Form metadata
+        """
+        model = CostObject
+        fields = ('number', 'name', 'description')
+
+class CostObjectEditForm(forms.ModelForm):
+    """
+    Formclass for costobjects
+    """
+    class Meta:
+        """
+        Form metadata
+        """
+        model = CostObject
         fields = ('name', 'description')
