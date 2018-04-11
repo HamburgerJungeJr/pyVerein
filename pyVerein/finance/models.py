@@ -70,17 +70,19 @@ class Transaction(ModelBase):
     # Transaction date
     date = models.DateField(null=False, blank=False)
     # Document number
-    document_number = models.CharField(max_length=255, blank=False, null=False)
-    # Booking text
+    document_number = models.CharField(max_length=255, blank=True, null=True)
+    # Transaction text
     text = models.CharField(max_length=255, blank=False, null=False)
 
     # Debit value
-    debit = models.DecimalField(max_digits=12, decimal_places=2)
+    debit = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     # Credit value
-    credit = models.DecimalField(max_digits=12, decimal_places=2)
+    credit = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
     # Cost center
-    cost_center = models.ForeignKey(CostCenter, on_delete=models.PROTECT)
+    cost_center = models.ForeignKey(CostCenter, on_delete=models.PROTECT, blank=True, null=True)
     # Cost object
-    cost_object = models.ForeignKey(CostObject, on_delete=models.PROTECT)
+    cost_object = models.ForeignKey(CostObject, on_delete=models.PROTECT, blank=True, null=True)
 
+    # Is document_number generated
+    document_number_generated = models.BooleanField(default=False)

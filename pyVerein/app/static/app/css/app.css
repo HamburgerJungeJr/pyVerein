@@ -21,3 +21,7 @@ footer{
 .data .value .radio_choices{
     margin-top: 4px;
 }
+
+.data .info p{
+    margin-top: 6px;
+}

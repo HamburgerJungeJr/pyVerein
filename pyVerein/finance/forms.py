@@ -6,7 +6,7 @@ from django import forms
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 # Import Accountmodel
-from .models import Account, CostCenter, CostObject
+from .models import Account, CostCenter, CostObject, Transaction
 
 class PersonalAccountCreateForm(forms.ModelForm):
     """
@@ -77,7 +77,6 @@ class CostCenterEditForm(forms.ModelForm):
         model = CostCenter
         fields = ('name', 'description')
 
-
 class CostObjectCreateForm(forms.ModelForm):
     """
     Formclass for costobjects
@@ -99,3 +98,38 @@ class CostObjectEditForm(forms.ModelForm):
         """
         model = CostObject
         fields = ('name', 'description')
+
+class TransactionCreateForm(forms.ModelForm):
+    """
+    Formclass for transactions
+    """
+    class Meta:
+        """
+        Form metadata
+        """
+        model = Transaction
+        fields = ('account', 'date', 'document_number', 'text', 'debit', 'credit', 'cost_center', 'cost_object')
+        widgets = {
+            'account': forms.TextInput(),
+            'debit': forms.TextInput(),
+            'credit': forms.TextInput(),
+            'cost_center': forms.TextInput(),
+            'cost_object': forms.TextInput(),
+        }
+
+class TransactionEditForm(forms.ModelForm):
+    """
+    Formclass for transactions
+    """
+    class Meta:
+        """
+        Form metadata
+        """
+        model = Transaction
+        fields = ('text', 'debit', 'credit', 'cost_center', 'cost_object')
+        widgets = {
+            'debit': forms.TextInput(),
+            'credit': forms.TextInput(),
+            'cost_center': forms.TextInput(),
+            'cost_object': forms.TextInput(),
+        }

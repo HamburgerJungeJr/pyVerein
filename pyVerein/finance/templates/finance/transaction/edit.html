@@ -1,0 +1,102 @@
+{% extends 'app/base.html' %} 
+{% load i18n %} 
+{% load widget_tweaks %} 
+{% load static %} 
+{% get_current_language as LANGUAGE_CODE%} 
+
+{% block head %}
+    <!-- iCheck style -->
+    <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/square/blue.css' %}"> 
+{% endblock %} 
+{% block title %} 
+    {% trans 'Edit impersonal Account' %} 
+{% endblock %} 
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h1>{{ transaction.document_number }} {{ impersonal.text }}</h1>
+            </div>
+            <div class="x_content data">
+                <form action="{% url 'finance:transaction_edit' transaction.pk %}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
+                    {% csrf_token %}
+                    <div class="page-header">
+                        {% trans 'General' %}
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 field-title">{% trans 'Date' %}</div>
+                        <div class="col-md-5 value">
+                            <div class="input-group date">{% render_field form.date class+="form-control" data-next="id_document_number" autofocus="autofocus" %}<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 field-title">{% trans 'Document number' %}</div>
+                        <div class="col-md-5 value ">{% render_field form.document_number class+="form-control" data-next="id_account" %}<span class="help-block with-errors"></span></div>
+                    
+                    </div>
+                    <div class="page-header">
+                        {% trans 'Transaction' %}
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 field-title">{% trans 'Account' %}</div>
+                        <div class="col-md-5 value">{% render_field form.account class+="form-control" data-next="id_debit" %}<span class="help-block with-errors"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 field-title">{% trans 'Debit' %}</div>
+                        <div class="col-md-5 value">{% render_field form.debit class+="form-control" data-next="id_credit" %}<span class="help-block with-errors"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 field-title">{% trans 'Credit' %}</div>
+                        <div class="col-md-5 value">{% render_field form.credit class+="form-control" data-next="id_text" %}<span class="help-block with-errors"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 field-title">{% trans 'Transaction text' %}</div>
+                        <div class="col-md-5 value">{% render_field form.text class+="form-control" data-next="id_cost_center" %}<span class="help-block with-errors"></span></div>
+                    </div>
+                    <div class="page-header">
+                        {% trans 'Costing' %}
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 field-title">{% trans 'Cost center' %}</div>
+                        <div class="col-md-5 value">{% render_field form.cost_center class+="form-control" data-next="id_cost_object" %}<span class="help-block with-errors"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 field-title">{% trans 'Cost object' %}</div>
+                        <div class="col-md-5 value">{% render_field form.cost_object class+="form-control" %}<span class="help-block with-errors"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2 col-md-offset-3">
+                            <input type="submit" class="btn btn-success btn-block" value="{% trans 'Save' %}" />
+                        </div>
+                        <div class="col-md-2 col-md-offset-1">
+                            <a href="{% url 'finance:impersonal_detail' pk=impersonal.pk %}" class="btn btn-danger btn-block">{% trans 'Cancel' %}</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+{% block foot %}
+    <!-- Validator -->
+    <script src="{% static 'app/vendors/bootstrap-validator/dist/validator.min.js' %}"></script>
+    <!-- icheck -->
+    <script src="{% static 'app/vendors/iCheck/icheck.js' %}"></script>
+
+    <script type="application/javascript">
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square',
+            increaseArea: '20%',
+            radioClass: 'iradio_square-blue',
+        });
+    </script> 
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:impersonal_detail' pk=impersonal.pk %}");
+    </script>
+{% endblock %}
