@@ -19,14 +19,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.messages.views import SuccessMessageMixin
 # Import Account model
 from .models import Account, CostCenter, CostObject, Transaction
-# Import Wizrad for Transactions
-from formtools.wizard.views import SessionWizardView
-from formtools.wizard.forms import ManagementForm
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.core.exceptions import ValidationError
-
-from decimal import *
 
 class CreditorIndexView(TemplateView):
     """
@@ -179,12 +171,6 @@ class DebitorDetailView(DetailView):
     model = Account
     context_object_name = 'debitor'
     template_name = 'finance/debitor/detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(DebitorDetailView, self).get_context_data(**kwargs)
-
-        transactions = Transaction.objects.filter(account == self.kwargs['pk'])
-        context['transactions'] = transactions
 
 class DebitorEditView(SuccessMessageMixin, UpdateView):
     """
@@ -534,146 +520,112 @@ class TransactionIndexView(TemplateView):
     """
     template_name = 'finance/transaction/list.html'
 
-class TransactionWizard(SessionWizardView):
-    form_list = [TransactionCreateForm]
-
+class TransactionCreateView(SuccessMessageMixin, CreateView):
+    """
+    Create view for transaction
+    """
+    model = Transaction
+    context_object_name = 'transaction'
     template_name = 'finance/transaction/create.html'
+    form_class = TransactionCreateForm
 
-    post_data = {}
-
-    def done(self, form_list, **kwargs):
-        try:
-            # Set document_number if not set
-            # Save validated data
-            document_number = None
-            document_number_generated = False
-            if self.post_data['0']['document_number'] is None:
-                max_document_number = Transaction.objects.filter(document_number_generated=True).aggregate(Max('document_number'))['document_number__max']
-                next_document_number =  '1' if max_document_number is None else str(int(max_document_number) + 1)[2:]
-                document_number = str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
-                document_number_generated = True
-            # Create transactions from forms
-            for key in self.post_data:
-                document_number = document_number if document_number else self.post_data[key]['document_number']
-
-                transaction = Transaction()
-                transaction.account = self.post_data[key]['account']
-                transaction.date = self.post_data[key]['date']
-                transaction.document_number = document_number
-                transaction.text = self.post_data[key]['text']
-                transaction.debit = self.post_data[key]['debit']
-                transaction.credit = self.post_data[key]['credit']
-                transaction.cost_center = self.post_data[key]['cost_center']
-                transaction.cost_object = self.post_data[key]['cost_object']
-                transaction.document_number_generated = document_number_generated
-                transaction.save()
-
-            messages.success(self.request, _('Transaction %s created successfully' % document_number))
-            self.instance_dict = None
-            self.storage.reset()
-            self.storage.current_step = self.steps.first
-            return HttpResponseRedirect(reverse_lazy('finance:transaction_create'))
-        except ValueError as e:
-            form_list[-1].add_error(None, e)
-            return self.render(form_list[-1])
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        debit_sum = Transaction.objects.filter(document_number=self.object.document_number).aggregate(Sum('debit'))['debit__sum']
+        credit_sum = Transaction.objects.filter(document_number=self.object.document_number).aggregate(Sum('credit'))['credit__sum']
+        if debit_sum != credit_sum:
+            return reverse_lazy('finance:transaction_create_continue', args={self.object.document_number})
+        else:
+            return reverse_lazy('finance:transaction_create')
+    
+    def form_valid(self, form):
+        """
+        Set document_number if not set
+        """
+        # Save validated data
+        self.object = form.save(commit = False)
+        # Generate document_number
+        if self.object.document_number is None:
+            max_document_number = Transaction.objects.filter(document_number_generated=True).aggregate(Max('document_number'))['document_number__max']
+            next_document_number =  '1' if max_document_number is None else str(int(max_document_number) + 1)[2:]
+            self.object.document_number = str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
+            self.object.document_number_generated = True
+        # Save object to commit the changes
+        self.object.save()
         
+        return super(TransactionCreateView, self).form_valid(form)
 
-    def post(self, *args, **kwargs):
+class TransactionCreateContinueView(SuccessMessageMixin, CreateView):
+    """
+    Create view for transaction when first transaction is made
+    """
+    model = Transaction
+    context_object_name = 'transaction'
+    template_name = 'finance/transaction/create.html'
+    form_class = TransactionCreateForm
+    success_message = _('Transaction created successfully')
+
+    def get_success_url(self):
         """
-        This method handles POST requests.
-        The wizard will render either the current step (if form validation
-        wasn't successful), the next step (if the current step was stored
-        successful) or the done view (if no more steps are available)
+        Return detail url as success url
         """
-        # Look for a wizard_goto_step element in the posted data which
-        # contains a valid step name. If one was found, render the requested
-        # form. (This makes stepping back a lot easier).
-        wizard_goto_step = self.request.POST.get('wizard_goto_step', None)
-        if wizard_goto_step and wizard_goto_step in self.get_form_list():
-            return self.render_goto_step(wizard_goto_step)
-        # Check if form was refreshed
-        management_form = ManagementForm(self.request.POST, prefix=self.prefix)
-        if not management_form.is_valid():
-            raise ValidationError(
-                _('ManagementForm data is missing or has been tampered.'),
-                code='missing_management_form',
-            )
-        form_current_step = management_form.cleaned_data['current_step']
-        if (form_current_step != self.steps.current and
-                self.storage.current_step is not None):
-            # form refreshed, change current step
-            self.storage.current_step = form_current_step
+        debit_sum = Transaction.objects.filter(document_number=self.object.document_number).aggregate(Sum('debit'))['debit__sum']
+        credit_sum = Transaction.objects.filter(document_number=self.object.document_number).aggregate(Sum('credit'))['credit__sum']
+        if debit_sum != credit_sum:
+            return reverse_lazy('finance:transaction_create_continue', args={self.object.document_number})
+        else:
+            return reverse_lazy('finance:transaction_create')
+    
+    def get_initial(self):
+        """
+        Set initial values from previes document
+        """
+        initial = super(TransactionCreateContinueView, self).get_initial()
+        transaction = Transaction.objects.filter(document_number=self.kwargs['document_number']).first()
+        initial['date'] = transaction.date
+        initial['document_number'] = transaction.document_number
+        initial['text'] = transaction.text
 
-        # get the form for the current step
-        form = self.get_form(data=self.request.POST, files=self.request.FILES)
+        debit_sum = Transaction.objects.filter(document_number=transaction.document_number).aggregate(Sum('debit'))['debit__sum']
+        credit_sum = Transaction.objects.filter(document_number=transaction.document_number).aggregate(Sum('credit'))['credit__sum']
 
-        # and try to validate
-        if form.is_valid():
-        # if the form is valid, store the cleaned data and files.
-            self.storage.set_step_data(self.steps.current, self.process_step(form))
-            self.storage.set_step_files(self.steps.current, self.process_step_files(form))
+        balance =  (debit_sum if debit_sum is not None else 0) - (credit_sum if credit_sum is not None else 0)
+        if balance > 0:
+            initial['credit'] = balance
+        else:
+            initial['debit'] = -balance
 
-            # Save form data to post_data
-            self.post_data.update({
-                self.steps.current: 
-                    {
-                        'account': form.cleaned_data['account'],
-                        'date': form.cleaned_data['date'],
-                        'document_number': form.cleaned_data['document_number'],
-                        'text': form.cleaned_data['text'],
-                        'debit': form.cleaned_data['debit'],
-                        'credit': form.cleaned_data['credit'],
-                        'cost_center': form.cleaned_data['cost_center'],
-                        'cost_object': form.cleaned_data['cost_object']
-                    }
-            })
+        return initial
 
-            # Check if debit=credit. If not render new form, otherwise finish wizard
-            debit = Decimal(0)
-            credit = Decimal(0)
-            #for step in self.form_list:
-            for key in self.post_data:
-                #data = self.get_cleaned_data_for_step(step)
-                if self.post_data[key]['debit'] is not None:
-                    debit += Decimal(self.post_data[key]['debit'])
-                if self.post_data[key]['credit'] is not None:
-                    credit += Decimal(self.post_data[key]['credit'])
-            
-            if debit != credit:
-                next_step = str(int(self.steps.current) + 1)
+    def form_valid(self, form):
+        """
+        Set document_number if not set
+        """
+        # Save validated data
+        self.object = form.save(commit = False)
+        # Generate document_number
+        if self.object.document_number is None:
+            max_document_number = Transaction.objects.filter(document_number_generated=True).aggregate(Max('document_number'))['document_number__max']
+            next_document_number =  '1' if max_document_number is None else str(int(max_document_number) + 1)[2:]
+            self.object.document_number = str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
+            self.object.document_number_generated = True
+        # Save object to commit the changes
+        self.object.save()
+        
+        return super(TransactionCreateView, self).form_valid(form)
 
-                # Get inital data
-                #data = self.get_cleaned_data_for_step(self.steps.first)
-                
-                initial_data = {
-                    'date': self.post_data['0']['date'],
-                    'text': self.post_data['0']['text'],
-                    'document_number': self.post_data['0']['document_number']
-                }
+    def get_context_data(self, **kwargs):
+        """
+        Add transaction with document_number to context
+        """
+        context = super(TransactionCreateContinueView, self).get_context_data(**kwargs)
+        transactions = Transaction.objects.filter(document_number=self.kwargs['document_number'])
+        context['transactions'] = transactions
 
-                balance =  debit - credit
-                if balance > 0:
-                    initial_data.update({'credit': balance})
-                else:
-                    initial_data.update({'debit': -balance})
+        return context
 
-                # Add to initial_dict
-                #self.initial_dict.update({next_step: initial_data})
-
-                if len(self.form_list) <= int(self.steps.current) + 1:
-                    self.form_list.update({next_step: TransactionCreateForm})
-                
-                new_form = TransactionCreateForm(next_step,
-                    data=self.storage.get_step_data(next_step),
-                    files=self.storage.get_step_files(next_step),
-                    initial=initial_data)
-                # change the stored current step
-                self.storage.current_step = next_step
-                return self.render(new_form, **kwargs)
-            else:
-                # no more steps, render done view
-                return self.render_done(form, **kwargs)
-        return self.render(form)
 
 class TransactionDetailView(DetailView):
     """

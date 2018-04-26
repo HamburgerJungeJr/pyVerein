@@ -44,8 +44,6 @@
             <div class="x_panel">
                 <div class="x_content data">
                     <form action="{% url 'finance:transaction_create' %}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
-                        {{ wizard.management_form }}
-                        {{ wizard.form.management_form }}
                         {% csrf_token %}
                         <div class="page-header">
                             {% trans 'General' %}
@@ -205,14 +203,14 @@
     <script src="{% static 'app/vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
     <!-- Api -->
     <script>
-        $('#id_{{ wizard.steps.step0 }}-account').focusout(function (){
-            showAccountSelection('#id_{{ wizard.steps.step0 }}-account', '#info_account p', "{% url 'finance:account_search' search='###SEARCH###' %}", "{% trans 'Select account' %}", "{% trans 'Account number' %}", "{% trans 'Account name' %}")  
+        $('#id_account').focusout(function (){
+            showAccountSelection('#id_account', '#info_account p', "{% url 'finance:account_search' search='###SEARCH###' %}", "{% trans 'Select account' %}", "{% trans 'Account number' %}", "{% trans 'Account name' %}")  
         });
-        $('#id_{{ wizard.steps.step0 }}-cost_center').focusout(function (){
-            showAccountSelection('#id_{{ wizard.steps.step0 }}-cost_center', '#info_cost_center p', "{% url 'finance:costcenter_search' search='###SEARCH###' %}", "{% trans 'Select cost center' %}", "{% trans 'Cost center number' %}", "{% trans 'Cost center name' %}")  
+        $('#id_cost_center').focusout(function (){
+            showAccountSelection('#id_cost_center', '#info_cost_center p', "{% url 'finance:costcenter_search' search='###SEARCH###' %}", "{% trans 'Select cost center' %}", "{% trans 'Cost center number' %}", "{% trans 'Cost center name' %}")  
         });
-        $('#id_{{ wizard.steps.step0 }}-cost_object').focusout(function (){
-            showAccountSelection('#id_{{ wizard.steps.step0 }}-cost_object', '#info_cost_object p', "{% url 'finance:costobject_search' search='###SEARCH###' %}", "{% trans 'Select cost object' %}", "{% trans 'Cost object number' %}", "{% trans 'Cost object name' %}")  
+        $('#id_cost_object').focusout(function (){
+            showAccountSelection('#id_cost_object', '#info_cost_object p', "{% url 'finance:costobject_search' search='###SEARCH###' %}", "{% trans 'Select cost object' %}", "{% trans 'Cost object number' %}", "{% trans 'Cost object name' %}")  
         });
 
         function showAccountSelection(input_selector, info_selector, url, modal_header, number_heading, name_heading){

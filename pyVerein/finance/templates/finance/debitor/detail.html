@@ -19,17 +19,7 @@
                     <h1>{{ debitor.number }} {{ debitor.name }} <small><a href="{% url 'finance:debitor_edit' debitor.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></small></h1>
                 </div>
                 <div class="x_content data">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>
-                                
-                            </th>
-                        </tr>
-                        
-                    </table>
-                    {% for transaction in transactions %}
                     
-                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-14 00:21+0200\n"
+"POT-Creation-Date: 2018-03-21 19:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,7 @@ msgstr "Kostenstelle erstellen"
 
 #: finance/templates/finance/costcenter/create.html:22
 #: finance/templates/finance/costcenter/edit.html:25
-#: finance/templates/finance/transaction/create.html:85
-#: finance/templates/finance/transaction/create.html:115
+#: finance/templates/finance/transaction/create.html:83
 #: finance/templates/finance/transaction/edit.html:61
 msgid "Cost center"
 msgstr "Kostenstelle"
@@ -51,7 +50,7 @@ msgstr "Kostenstelle"
 #: finance/templates/finance/costcenter/create.html:25
 #: finance/templates/finance/costcenter/list.html:29
 #: finance/templates/finance/costcenter/list.html:35
-#: finance/templates/finance/transaction/create.html:212
+#: finance/templates/finance/transaction/create.html:204
 msgid "Cost center number"
 msgstr "Kostenstellennummer"
 
@@ -59,7 +58,7 @@ msgstr "Kostenstellennummer"
 #: finance/templates/finance/costcenter/edit.html:28
 #: finance/templates/finance/costcenter/list.html:30
 #: finance/templates/finance/costcenter/list.html:36
-#: finance/templates/finance/transaction/create.html:212
+#: finance/templates/finance/transaction/create.html:204
 msgid "Cost center name"
 msgstr "Bezeichnung"
 
@@ -78,7 +77,7 @@ msgstr "Beschreibung"
 #: finance/templates/finance/debitor/edit.html:34
 #: finance/templates/finance/impersonal/create.html:49
 #: finance/templates/finance/impersonal/edit.html:42
-#: finance/templates/finance/transaction/create.html:96
+#: finance/templates/finance/transaction/create.html:94
 #: finance/templates/finance/transaction/edit.html:70
 msgid "Save"
 msgstr "Speichern"
@@ -93,7 +92,7 @@ msgstr "Speichern"
 #: finance/templates/finance/debitor/edit.html:37
 #: finance/templates/finance/impersonal/create.html:52
 #: finance/templates/finance/impersonal/edit.html:45
-#: finance/templates/finance/transaction/create.html:99
+#: finance/templates/finance/transaction/create.html:97
 #: finance/templates/finance/transaction/edit.html:73
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -260,8 +259,7 @@ msgstr "Kostenträger erstellen"
 
 #: finance/templates/finance/costobject/create.html:22
 #: finance/templates/finance/costobject/edit.html:25
-#: finance/templates/finance/transaction/create.html:90
-#: finance/templates/finance/transaction/create.html:116
+#: finance/templates/finance/transaction/create.html:88
 #: finance/templates/finance/transaction/edit.html:65
 msgid "Cost object"
 msgstr "Kostenträger"
@@ -269,7 +267,7 @@ msgstr "Kostenträger"
 #: finance/templates/finance/costobject/create.html:25
 #: finance/templates/finance/costobject/list.html:29
 #: finance/templates/finance/costobject/list.html:35
-#: finance/templates/finance/transaction/create.html:215
+#: finance/templates/finance/transaction/create.html:207
 msgid "Cost object number"
 msgstr "Kostenträgernummer"
 
@@ -277,7 +275,7 @@ msgstr "Kostenträgernummer"
 #: finance/templates/finance/costobject/edit.html:28
 #: finance/templates/finance/costobject/list.html:30
 #: finance/templates/finance/costobject/list.html:36
-#: finance/templates/finance/transaction/create.html:215
+#: finance/templates/finance/transaction/create.html:207
 msgid "Cost object name"
 msgstr "Bezeichnung"
 
@@ -406,120 +404,116 @@ msgstr "Sachkonten"
 msgid "Create transaction"
 msgstr "Beleg erfassen"
 
-#: finance/templates/finance/transaction/create.html:51
+#: finance/templates/finance/transaction/create.html:49
 #: finance/templates/finance/transaction/edit.html:25
 msgid "General"
 msgstr "Allgemein"
 
-#: finance/templates/finance/transaction/create.html:54
+#: finance/templates/finance/transaction/create.html:52
+#: finance/templates/finance/transaction/create.html:109
 #: finance/templates/finance/transaction/edit.html:28
 msgid "Date"
 msgstr "Datum"
 
-#: finance/templates/finance/transaction/create.html:58
+#: finance/templates/finance/transaction/create.html:56
+#: finance/templates/finance/transaction/create.html:110
 #: finance/templates/finance/transaction/edit.html:34
 msgid "Document number"
 msgstr "Belegnummer"
 
-#: finance/templates/finance/transaction/create.html:62
+#: finance/templates/finance/transaction/create.html:60
 #: finance/templates/finance/transaction/edit.html:39
 msgid "Transaction"
 msgstr "Beleg"
 
-#: finance/templates/finance/transaction/create.html:65
+#: finance/templates/finance/transaction/create.html:63
 #: finance/templates/finance/transaction/create.html:111
 #: finance/templates/finance/transaction/edit.html:42
 msgid "Account"
 msgstr "Konto"
 
-#: finance/templates/finance/transaction/create.html:70
-#: finance/templates/finance/transaction/create.html:113
+#: finance/templates/finance/transaction/create.html:68
+#: finance/templates/finance/transaction/create.html:112
 #: finance/templates/finance/transaction/edit.html:46
 msgid "Debit"
 msgstr "Soll"
 
-#: finance/templates/finance/transaction/create.html:74
-#: finance/templates/finance/transaction/create.html:114
+#: finance/templates/finance/transaction/create.html:72
+#: finance/templates/finance/transaction/create.html:113
 #: finance/templates/finance/transaction/edit.html:50
 msgid "Credit"
 msgstr "Haben"
 
-#: finance/templates/finance/transaction/create.html:78
-#: finance/templates/finance/transaction/create.html:112
+#: finance/templates/finance/transaction/create.html:76
 #: finance/templates/finance/transaction/edit.html:54
 msgid "Transaction text"
 msgstr "Buchungstext"
 
-#: finance/templates/finance/transaction/create.html:82
+#: finance/templates/finance/transaction/create.html:80
 #: finance/templates/finance/transaction/edit.html:58
 msgid "Costing"
 msgstr "Kostenrechnung"
 
-#: finance/templates/finance/transaction/create.html:209
+#: finance/templates/finance/transaction/create.html:201
 msgid "Select account"
 msgstr "Konto auswählen"
 
-#: finance/templates/finance/transaction/create.html:209
+#: finance/templates/finance/transaction/create.html:201
 msgid "Account number"
 msgstr "Kontonummer"
 
-#: finance/templates/finance/transaction/create.html:209
+#: finance/templates/finance/transaction/create.html:201
 msgid "Account name"
 msgstr "Bezeichnung"
 
-#: finance/templates/finance/transaction/create.html:212
+#: finance/templates/finance/transaction/create.html:204
 msgid "Select cost center"
 msgstr "Kostenstelle auswählen"
 
-#: finance/templates/finance/transaction/create.html:215
+#: finance/templates/finance/transaction/create.html:207
 msgid "Select cost object"
 msgstr "Kostenträger auswählen"
 
-#: finance/views.py:45
+#: finance/views.py:37
 msgid "Creditor created successfully"
 msgstr "Kreditor wurde erfolgreich erstellt"
 
-#: finance/views.py:82
+#: finance/views.py:74
 msgid "Creditor saved successfully"
 msgstr "Kreditor wurde erfolgreich gespeichert"
 
-#: finance/views.py:154
+#: finance/views.py:146
 msgid "Debitor created successfully"
 msgstr "Debitor wurde erfolgreich erstellt"
 
-#: finance/views.py:191
+#: finance/views.py:183
 msgid "Debitor saved successfully"
 msgstr "Debitor wurde erfolgreich gespeichert"
 
-#: finance/views.py:263
+#: finance/views.py:255
 msgid "Impersonal account created successfully"
 msgstr "Sachkonto wurde erfolgreich erstellt"
 
-#: finance/views.py:287
+#: finance/views.py:279
 msgid "Impersonal account saved successfully"
 msgstr "Sachkonto wurde erfolgreich gespeichert"
 
-#: finance/views.py:359
+#: finance/views.py:351
 msgid "Cost center created successfully"
 msgstr "Kostenstelle wurde erfolgreich erstellt"
 
-#: finance/views.py:383
+#: finance/views.py:375
 msgid "Cost center saved successfully"
 msgstr "Kostenstelle wurde erfolgreich gespeichert"
 
-#: finance/views.py:449
+#: finance/views.py:441
 msgid "Cost object created successfully"
 msgstr "Kostenträger wurde erfolgreich erstellt"
 
-#: finance/views.py:473 finance/views.py:666
+#: finance/views.py:465 finance/views.py:647
 msgid "Cost object saved successfully"
 msgstr "Kostenträger wurde erfolgreich gespeichert"
 
-#: finance/views.py:565
-#| msgid "Transaction created successfully"
-msgid "Transaction %s created successfully"
-msgstr "Beleg %s wurde erfolgreich erfasst"
-
-#: finance/views.py:589
-msgid "ManagementForm data is missing or has been tampered."
-msgstr "ManagementForm-Daten fehlen oder wurden manipuliert."
+#: finance/views.py:531 finance/views.py:569
+msgid "Transaction created successfully"
+msgstr "Beleg wurde erfolgreich erfasst"

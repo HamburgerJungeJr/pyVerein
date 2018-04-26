@@ -41,7 +41,8 @@ urlpatterns = [
     url(r'^transaction/data/$', views.TransactionDatatableView.as_view(), name='transaction_apiList'),
     url(r'^transaction/(?P<pk>[0-9]+)/$', views.TransactionDetailView.as_view(), name='transaction_detail'),
     url(r'^transaction/(?P<pk>[0-9]+)/edit/$', views.TransactionEditView.as_view(), name='transaction_edit'),
-    url(r'^transaction/new/$', views.TransactionWizard.as_view(), name='transaction_create'),
+    url(r'^transaction/new/$', views.TransactionCreateView.as_view(), name='transaction_create'),
+    url(r'^transaction/new/(?P<document_number>.+)/$', views.TransactionCreateContinueView.as_view(), name='transaction_create_continue'),
 
     url(r'^api/account/(?P<search>.+)$', views.get_account, name='account_search'),
     url(r'^api/costcenter/(?P<search>.+)$', views.get_cost_center, name='costcenter_search'),
