@@ -508,6 +508,19 @@ class CostObjectDetailView(DetailView):
     context_object_name = 'costobject'
     template_name = 'finance/costobject/detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(CostObjectDetailView, self).get_context_data(**kwargs)
+
+        context['transactions'] = Transaction.objects.filter(cost_object=self.object.number)
+
+        debit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('debit'))['debit__sum']
+        credit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        context['debit_sum'] = debit_sum if debit_sum else 0
+        context['credit_sum'] = credit_sum if credit_sum else 0
+        context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
+
+        return context
+
 class CostObjectEditView(SuccessMessageMixin, UpdateView):
     """
     Edit view for costobject
