@@ -1,12 +1,12 @@
 body{
-    font-size:large;
+    font-size:larger;
 }
 
 footer{
     font-size: x-small;
 }
 
-.table-hover td:hover{
+.table-link td:hover{
     cursor: pointer;
 }
 
@@ -24,4 +24,8 @@ footer{
 
 .data .info p{
     margin-top: 6px;
+}
+
+.table a{
+    text-decoration: underline;
 }

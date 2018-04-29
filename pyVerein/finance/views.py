@@ -65,6 +65,19 @@ class CreditorDetailView(DetailView):
     context_object_name = 'creditor'
     template_name = 'finance/creditor/detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(CreditorDetailView, self).get_context_data(**kwargs)
+
+        context['transactions'] = Transaction.objects.filter(account=self.object.number)
+
+        debit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('debit'))['debit__sum']
+        credit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        context['debit_sum'] = debit_sum if debit_sum else 0
+        context['credit_sum'] = credit_sum if credit_sum else 0
+        context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
+
+        return context
+
 class CreditorEditView(SuccessMessageMixin, UpdateView):
     """
     Edit view for creditors

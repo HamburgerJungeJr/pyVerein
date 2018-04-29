@@ -19,7 +19,62 @@
                     <h1>{{ creditor.number }} {{ creditor.name }} <small><a href="{% url 'finance:creditor_edit' creditor.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></small></h1>
                 </div>
                 <div class="x_content data">
-                    
+                    <table id="transactions" class="table table-bordered table-striped table-hover dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>{% trans 'Document number' %}</th>
+                                <th>{% trans 'Transaction text' %}</th>
+                                <th>{% trans 'Debit' %}</th>
+                                <th>{% trans 'Credit' %}</th>
+                                <th>{% trans 'Cost center' %}</th>
+                                <th>{% trans 'Cost object' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in transactions %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'finance:transaction_detail' pk=transaction.pk %}">
+                                            {{ transaction.document_number }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{ transaction.text }}
+                                    </td>
+                                    <td>
+                                        {{ transaction.debit|default_if_none:"" }}
+                                    </td>
+                                    <td>
+                                        {{ transaction.credit|default_if_none:"" }}
+                                    </td>
+                                    <td>
+                                        {% if transaction.cost_center%}
+                                            <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.pk %}">
+                                                {{ transaction.cost_center.number }} {{ transaction.cost_center.name }}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if transaction.cost_object%}
+                                            <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.pk %}">
+                                                {{ transaction.cost_object.number }} {{ transaction.cost_object.name }}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>{{ debit_sum }}</th>
+                                <th>{{ credit_sum }}</th>
+                                <th>{% trans 'Saldo' %} {{ saldo }}</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
