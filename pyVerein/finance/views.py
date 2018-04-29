@@ -16,7 +16,9 @@ from django.db.models import Q, Max, Sum
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 # Import MessageMixin
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.messages import get_messages
 # Import Account model
 from .models import Account, CostCenter, CostObject, Transaction
 
@@ -520,7 +522,7 @@ class TransactionIndexView(TemplateView):
     """
     template_name = 'finance/transaction/list.html'
 
-class TransactionCreateView(SuccessMessageMixin, CreateView):
+class TransactionCreateView(CreateView):
     """
     Create view for transaction
     """
@@ -557,7 +559,7 @@ class TransactionCreateView(SuccessMessageMixin, CreateView):
         
         return super(TransactionCreateView, self).form_valid(form)
 
-class TransactionCreateContinueView(SuccessMessageMixin, CreateView):
+class TransactionCreateContinueView(CreateView):
     """
     Create view for transaction when first transaction is made
     """
@@ -565,7 +567,6 @@ class TransactionCreateContinueView(SuccessMessageMixin, CreateView):
     context_object_name = 'transaction'
     template_name = 'finance/transaction/create.html'
     form_class = TransactionCreateForm
-    success_message = _('Transaction created successfully')
 
     def get_success_url(self):
         """
@@ -576,11 +577,12 @@ class TransactionCreateContinueView(SuccessMessageMixin, CreateView):
         if debit_sum != credit_sum:
             return reverse_lazy('finance:transaction_create_continue', args={self.object.document_number})
         else:
+            messages.success(self.request, _('Transaction %s created successfully' % self.object.document_number))
             return reverse_lazy('finance:transaction_create')
     
     def get_initial(self):
         """
-        Set initial values from previes document
+        Set initial values from previous document
         """
         initial = super(TransactionCreateContinueView, self).get_initial()
         transaction = Transaction.objects.filter(document_number=self.kwargs['document_number']).first()
@@ -614,7 +616,7 @@ class TransactionCreateContinueView(SuccessMessageMixin, CreateView):
         # Save object to commit the changes
         self.object.save()
         
-        return super(TransactionCreateView, self).form_valid(form)
+        return super(TransactionCreateContinueView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         """

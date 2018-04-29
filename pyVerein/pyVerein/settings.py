@@ -144,3 +144,5 @@ LOGOUT_REDIRECT_URL = 'login'
 
 AUTHOR_CREATED_BY_FIELD_NAME = 'created_by'
 AUTHOR_UPDATED_BY_FIELD_NAME = 'last_modified_by'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

@@ -43,7 +43,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_content data">
-                    <form action="{% url 'finance:transaction_create' %}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
+                    <form action="." method="POST" class="form-horizontal" data-toggle="validator" id="form">
                         {% csrf_token %}
                         <div class="page-header">
                             {% trans 'General' %}
