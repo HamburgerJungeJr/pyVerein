@@ -405,6 +405,19 @@ class CostCenterDetailView(DetailView):
     context_object_name = 'costcenter'
     template_name = 'finance/costcenter/detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(CostCenterDetailView, self).get_context_data(**kwargs)
+
+        context['transactions'] = Transaction.objects.filter(cost_center=self.object.number)
+
+        debit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('debit'))['debit__sum']
+        credit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        context['debit_sum'] = debit_sum if debit_sum else 0
+        context['credit_sum'] = credit_sum if credit_sum else 0
+        context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
+
+        return context
+
 class CostCenterEditView(SuccessMessageMixin, UpdateView):
     """
     Edit view for costcenter
