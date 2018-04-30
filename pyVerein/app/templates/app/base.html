@@ -73,6 +73,19 @@
                         <div class="menu_section">
                                 <h3>{% trans 'Finance' %}</h3>
                                 <ul class="nav side-menu">
+                                    <li class="{% base_url_class 'finance:transaction_list' 'active'%}">
+                                        <a>
+                                            <i class="fa fa-file-alt"></i> {% trans 'Transactions' %}
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li class="{% url_class 'finance:transaction_list' 'current-page' %}">
+                                                <a href="{% url 'finance:transaction_create' %}">
+                                                    {% trans 'Create transaction' %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
                                     <li class="{% base_url_class 'finance:debitor_list' 'active'%}">
                                         <a>
                                             <i class="fa fa-user-plus"></i> {% trans 'Debitors' %}

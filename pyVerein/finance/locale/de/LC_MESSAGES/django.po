@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-01 00:22+0200\n"
+"POT-Creation-Date: 2018-05-01 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: finance/forms.py:52 finance/models.py:29
+#: finance/forms.py:52 finance/forms.py:78 finance/models.py:29
 msgid "Cost"
 msgstr "Aufwand"
 
-#: finance/forms.py:53 finance/models.py:30
+#: finance/forms.py:53 finance/forms.py:79 finance/models.py:30
 msgid "Income"
 msgstr "Erlös"
+
+#: finance/forms.py:54 finance/forms.py:80 finance/models.py:31
+msgid "Asset"
+msgstr "Bestand"
 
 #: finance/models.py:27 finance/templates/finance/creditor/create.html:22
 #: finance/templates/finance/creditor/edit.html:25
@@ -35,10 +39,6 @@ msgstr "Kreditor"
 #: finance/templates/finance/debitor/edit.html:25
 msgid "Debitor"
 msgstr "Debitor"
-
-#: finance/models.py:31
-msgid "Asset"
-msgstr "Bestand"
 
 #: finance/templates/finance/costcenter/create.html:11
 msgid "Create costcenter"
@@ -558,5 +558,6 @@ msgid "Cost object saved successfully"
 msgstr "Kostenträger wurde erfolgreich gespeichert"
 
 #: finance/views.py:645
+#, python-format
 msgid "Transaction %s created successfully"
 msgstr "Beleg %s wurde erfolgreich erfasst"

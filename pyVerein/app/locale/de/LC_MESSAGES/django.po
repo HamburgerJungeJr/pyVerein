@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-01 00:22+0200\n"
+"POT-Creation-Date: 2018-05-01 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "Members"
 msgstr "Mitglieder"
 
-#: app/templates/app/base.html:61 app/templates/app/base.html:84
-#: app/templates/app/base.html:102 app/templates/app/base.html:120
-#: app/templates/app/base.html:138 app/templates/app/base.html:156
+#: app/templates/app/base.html:61 app/templates/app/base.html:97
+#: app/templates/app/base.html:115 app/templates/app/base.html:133
+#: app/templates/app/base.html:151 app/templates/app/base.html:169
 msgid "List"
 msgstr "Liste"
 
-#: app/templates/app/base.html:66 app/templates/app/base.html:89
-#: app/templates/app/base.html:107 app/templates/app/base.html:125
-#: app/templates/app/base.html:143 app/templates/app/base.html:161
+#: app/templates/app/base.html:66 app/templates/app/base.html:102
+#: app/templates/app/base.html:120 app/templates/app/base.html:138
+#: app/templates/app/base.html:156 app/templates/app/base.html:174
 msgid "Create"
 msgstr "Anlegen"
 
@@ -39,32 +39,38 @@ msgid "Finance"
 msgstr "Finanzen"
 
 #: app/templates/app/base.html:78
+msgid "Transactions"
+msgstr "Belege"
+
+#: app/templates/app/base.html:84
+msgid "Create transaction"
+msgstr "Beleg erfassen"
+
+#: app/templates/app/base.html:91
 msgid "Debitors"
 msgstr "Debitoren"
 
-#: app/templates/app/base.html:96
+#: app/templates/app/base.html:109
 msgid "Creditors"
 msgstr "Kreditoren"
 
-#: app/templates/app/base.html:114
+#: app/templates/app/base.html:127
 msgid "Impersonal"
 msgstr "Sachkonten"
 
-#: app/templates/app/base.html:132
+#: app/templates/app/base.html:145
 msgid "Cost centers"
 msgstr "Kostenstellen"
 
-#: app/templates/app/base.html:150
-#, fuzzy
-#| msgid "Cost centers"
+#: app/templates/app/base.html:163
 msgid "Cost objects"
-msgstr "Kostenstellen"
+msgstr "Kostenträger"
 
-#: app/templates/app/base.html:191
+#: app/templates/app/base.html:204
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/base.html:195
+#: app/templates/app/base.html:208
 msgid "Sign out"
 msgstr "Abmelden"
 
