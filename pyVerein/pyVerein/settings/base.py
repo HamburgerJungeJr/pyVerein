@@ -11,26 +11,15 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'yg=uirs&()+=ujrks=4go@%=-ra)+vz=-(2_o!%a)b&^o7&+2i'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-DEFAULT_CHARSET = 'utf-8'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # Application definition
 
@@ -39,12 +28,14 @@ INSTALLED_APPS = [
     'members.apps.MembersConfig',
     'finance.apps.FinanceConfig',
     'utils.apps.UtilsConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'widget_tweaks',
     'dynamic_preferences',
     'author',
@@ -60,7 +51,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'author.middlewares.AuthorDefaultBackendMiddleware',
-
 ]
 
 ROOT_URLCONF = 'pyVerein.urls'
@@ -76,7 +66,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'dynamic_preferences.processors.global_preferences',
             ],
         },
     },
@@ -84,16 +73,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pyVerein.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 
 # Password validation
@@ -114,10 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
-
 LANGUAGE_CODE = 'de'
 
 TIME_ZONE = 'Europe/Berlin'
@@ -137,6 +116,9 @@ LANGUAGES = (
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = 'app:index'
