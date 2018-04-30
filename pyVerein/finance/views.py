@@ -22,13 +22,16 @@ from django.contrib.messages import get_messages
 # Import Account model
 from .models import Account, CostCenter, CostObject, Transaction
 
-class CreditorIndexView(TemplateView):
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+class CreditorIndexView(LoginRequiredMixin, TemplateView):
     """
     Index view for creditors
     """
     template_name = 'finance/creditor/list.html'
 
-class CreditorCreateView(SuccessMessageMixin, CreateView):
+class CreditorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for creditors
     """
@@ -57,7 +60,7 @@ class CreditorCreateView(SuccessMessageMixin, CreateView):
         
         return super(CreditorCreateView, self).form_valid(form)
 
-class CreditorDetailView(DetailView):
+class CreditorDetailView(LoginRequiredMixin, DetailView):
     """
     Detail view for creditors
     """
@@ -78,7 +81,7 @@ class CreditorDetailView(DetailView):
 
         return context
 
-class CreditorEditView(SuccessMessageMixin, UpdateView):
+class CreditorEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for creditors
     """
@@ -94,7 +97,7 @@ class CreditorEditView(SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:creditor_detail', args={self.object.pk})
 
-class CreditorDatatableView(BaseDatatableView):
+class CreditorDatatableView(LoginRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for creditors
     """
@@ -144,13 +147,13 @@ class CreditorDatatableView(BaseDatatableView):
         # Return data
         return json_data
 
-class DebitorIndexView(TemplateView):
+class DebitorIndexView(LoginRequiredMixin, TemplateView):
     """
     Index view for debitors
     """
     template_name = 'finance/debitor/list.html'
 
-class DebitorCreateView(SuccessMessageMixin, CreateView):
+class DebitorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for debitors
     """
@@ -179,7 +182,7 @@ class DebitorCreateView(SuccessMessageMixin, CreateView):
         
         return super(DebitorCreateView, self).form_valid(form)
 
-class DebitorDetailView(DetailView):
+class DebitorDetailView(LoginRequiredMixin, DetailView):
     """
     Detail view for debitors
     """
@@ -200,7 +203,7 @@ class DebitorDetailView(DetailView):
 
         return context
 
-class DebitorEditView(SuccessMessageMixin, UpdateView):
+class DebitorEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for debitors
     """
@@ -216,7 +219,7 @@ class DebitorEditView(SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:debitor_detail', args={self.object.pk})
 
-class DebitorDatatableView(BaseDatatableView):
+class DebitorDatatableView(LoginRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for debitors
     """
@@ -266,13 +269,13 @@ class DebitorDatatableView(BaseDatatableView):
         # Return data
         return json_data
 
-class ImpersonalIndexView(TemplateView):
+class ImpersonalIndexView(LoginRequiredMixin, TemplateView):
     """
     Index view for impersonal accounts
     """
     template_name = 'finance/impersonal/list.html'
 
-class ImpersonalCreateView(SuccessMessageMixin, CreateView):
+class ImpersonalCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for impersonal accounts
     """
@@ -288,7 +291,7 @@ class ImpersonalCreateView(SuccessMessageMixin, CreateView):
         """
         return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
 
-class ImpersonalDetailView(DetailView):
+class ImpersonalDetailView(LoginRequiredMixin, DetailView):
     """
     Detail view for impersonal accounts
     """
@@ -309,7 +312,7 @@ class ImpersonalDetailView(DetailView):
 
         return context
     
-class ImpersonalEditView(SuccessMessageMixin, UpdateView):
+class ImpersonalEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for impersonal accounts
     """
@@ -325,7 +328,7 @@ class ImpersonalEditView(SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
 
-class ImpersonalDatatableView(BaseDatatableView):
+class ImpersonalDatatableView(LoginRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for impersonal accounts
     """
@@ -375,13 +378,13 @@ class ImpersonalDatatableView(BaseDatatableView):
         # Return data
         return json_data
 
-class CostCenterIndexView(TemplateView):
+class CostCenterIndexView(LoginRequiredMixin, TemplateView):
     """
     Index view for costcenter
     """
     template_name = 'finance/costcenter/list.html'
 
-class CostCenterCreateView(SuccessMessageMixin, CreateView):
+class CostCenterCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for costcenter
     """
@@ -397,7 +400,7 @@ class CostCenterCreateView(SuccessMessageMixin, CreateView):
         """
         return reverse_lazy('finance:costcenter_detail', args={self.object.pk})
 
-class CostCenterDetailView(DetailView):
+class CostCenterDetailView(LoginRequiredMixin, DetailView):
     """
     Detail view for costcenter
     """
@@ -418,7 +421,7 @@ class CostCenterDetailView(DetailView):
 
         return context
 
-class CostCenterEditView(SuccessMessageMixin, UpdateView):
+class CostCenterEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for costcenter
     """
@@ -434,7 +437,7 @@ class CostCenterEditView(SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:costcenter_detail', args={self.object.pk})
 
-class CostCenterDatatableView(BaseDatatableView):
+class CostCenterDatatableView(LoginRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for costcenter
     """
@@ -478,13 +481,13 @@ class CostCenterDatatableView(BaseDatatableView):
         # Return data
         return json_data
 
-class CostObjectIndexView(TemplateView):
+class CostObjectIndexView(LoginRequiredMixin, TemplateView):
     """
     Index view for costobject
     """
     template_name = 'finance/costobject/list.html'
 
-class CostObjectCreateView(SuccessMessageMixin, CreateView):
+class CostObjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for costobject
     """
@@ -500,7 +503,7 @@ class CostObjectCreateView(SuccessMessageMixin, CreateView):
         """
         return reverse_lazy('finance:costobject_detail', args={self.object.pk})
 
-class CostObjectDetailView(DetailView):
+class CostObjectDetailView(LoginRequiredMixin, DetailView):
     """
     Detail view for costobject
     """
@@ -521,7 +524,7 @@ class CostObjectDetailView(DetailView):
 
         return context
 
-class CostObjectEditView(SuccessMessageMixin, UpdateView):
+class CostObjectEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for costobject
     """
@@ -537,7 +540,7 @@ class CostObjectEditView(SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:costobject_detail', args={self.object.pk})
 
-class CostObjectDatatableView(BaseDatatableView):
+class CostObjectDatatableView(LoginRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for costobject
     """
@@ -581,13 +584,13 @@ class CostObjectDatatableView(BaseDatatableView):
         # Return data
         return json_data
 
-class TransactionIndexView(TemplateView):
+class TransactionIndexView(LoginRequiredMixin, TemplateView):
     """
     Index view for transaction
     """
     template_name = 'finance/transaction/list.html'
 
-class TransactionCreateView(CreateView):
+class TransactionCreateView(LoginRequiredMixin, CreateView):
     """
     Create view for transaction
     """
@@ -624,7 +627,7 @@ class TransactionCreateView(CreateView):
         
         return super(TransactionCreateView, self).form_valid(form)
 
-class TransactionCreateContinueView(CreateView):
+class TransactionCreateContinueView(LoginRequiredMixin, CreateView):
     """
     Create view for transaction when first transaction is made
     """
@@ -693,8 +696,7 @@ class TransactionCreateContinueView(CreateView):
 
         return context
 
-
-class TransactionDetailView(DetailView):
+class TransactionDetailView(LoginRequiredMixin, DetailView):
     """
     Detail view for transaction
     """
@@ -702,7 +704,7 @@ class TransactionDetailView(DetailView):
     context_object_name = 'transaction'
     template_name = 'finance/transaction/detail.html'
 
-class TransactionEditView(SuccessMessageMixin, UpdateView):
+class TransactionEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for transaction
     """
@@ -718,7 +720,7 @@ class TransactionEditView(SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:transaction_detail', args={self.object.pk})
 
-class TransactionDatatableView(BaseDatatableView):
+class TransactionDatatableView(LoginRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for transaction
     """
@@ -762,6 +764,7 @@ class TransactionDatatableView(BaseDatatableView):
         # Return data
         return json_data
 
+@login_required
 def get_account(request, search):
     if search:
         if search.endswith('%'):
@@ -773,6 +776,7 @@ def get_account(request, search):
     else:
         return JsonResponse({})
 
+@login_required
 def get_cost_center(request, search):
     if search:
         if search.endswith('%'):
@@ -784,6 +788,7 @@ def get_cost_center(request, search):
     else:
         return JsonResponse({})
 
+@login_required
 def get_cost_object(request, search):
     if search:
         if search.endswith('%'):

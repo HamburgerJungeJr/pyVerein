@@ -15,20 +15,21 @@ from django.db.models import Q
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Index-View.
-class MemberIndexView(TemplateView):
+class MemberIndexView(LoginRequiredMixin, TemplateView):
     template_name = 'members/member_list.html'
 
 
 # Detail-View.
-class MemberDetailView(DetailView):
+class MemberDetailView(LoginRequiredMixin, DetailView):
     model = Member
     context_object_name = 'member'
 
 
 # Edit-View.
-class MemberEditView(UpdateView):
+class MemberEditView(LoginRequiredMixin, UpdateView):
     model = Member
     context_object_name = 'member'
     template_name = 'members/member_edit.html'
@@ -39,7 +40,7 @@ class MemberEditView(UpdateView):
 
 
 # Edit-View.
-class MemberCreateView(CreateView):
+class MemberCreateView(LoginRequiredMixin, CreateView):
     model = Member
     context_object_name = 'member'
     template_name = 'members/member_create.html'
@@ -50,7 +51,7 @@ class MemberCreateView(CreateView):
 
 
 # Datatable api view.
-class MemberDatatableView(BaseDatatableView):
+class MemberDatatableView(LoginRequiredMixin, BaseDatatableView):
     # Use Membermodel
     model = Member
 
