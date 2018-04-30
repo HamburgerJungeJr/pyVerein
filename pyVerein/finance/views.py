@@ -6,7 +6,7 @@ from django.http import JsonResponse
 # Import views
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 # Import forms
-from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountForm, CostCenterCreateForm, CostCenterEditForm, CostObjectCreateForm, CostObjectEditForm, TransactionCreateForm, TransactionEditForm
+from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountCreateForm, ImpersonalAccountEditForm, CostCenterCreateForm, CostCenterEditForm, CostObjectCreateForm, CostObjectEditForm, TransactionCreateForm, TransactionEditForm
 # Import reverse.
 from django.urls import reverse, reverse_lazy
 # Import datatablesview.
@@ -279,7 +279,7 @@ class ImpersonalCreateView(SuccessMessageMixin, CreateView):
     model = Account
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal/create.html'
-    form_class = ImpersonalAccountForm
+    form_class = ImpersonalAccountCreateForm
     success_message = _('Impersonal account created successfully')
 
     def get_success_url(self):
@@ -316,7 +316,7 @@ class ImpersonalEditView(SuccessMessageMixin, UpdateView):
     model = Account
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal/edit.html'
-    form_class = ImpersonalAccountForm
+    form_class = ImpersonalAccountEditForm
     success_message = _('Impersonal account saved successfully')
 
     def get_success_url(self):

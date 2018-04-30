@@ -22,11 +22,13 @@ class Account(ModelBase):
     DEBITOR = 'DEB'
     COST = 'COS'
     INCOME = 'INC'
+    ASSET = 'ASS'
     ACCOUNT_TYPES = (
         (CREDITOR, _('Creditor')),
         (DEBITOR, _('Debitor')),
         (COST, _('Cost')),
-        (INCOME, _('Income'))
+        (INCOME, _('Income')),
+        (ASSET, _('Asset'))
     )
     # Account number
     number = models.CharField(max_length=10, blank=False, null=False, unique=True, primary_key=True)
