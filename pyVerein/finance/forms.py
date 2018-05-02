@@ -136,6 +136,7 @@ class TransactionCreateForm(forms.ModelForm):
         """
         model = Transaction
         fields = ('account', 'date', 'document_number', 'text', 'debit', 'credit', 'cost_center', 'cost_object')
+        localized_fields = ('debit', 'credit')
         widgets = {
             'account': forms.TextInput(),
             'debit': forms.TextInput(),
@@ -154,6 +155,7 @@ class TransactionEditForm(forms.ModelForm):
         """
         model = Transaction
         fields = ('text', 'debit', 'credit', 'cost_center', 'cost_object')
+        localized_fields = ('debit', 'credit')
         widgets = {
             'debit': forms.TextInput(),
             'credit': forms.TextInput(),
