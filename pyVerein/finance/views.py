@@ -348,7 +348,7 @@ class ImpersonalDatatableView(LoginRequiredMixin, BaseDatatableView):
         """
         Filter only impersonal accounts
         """
-        return Account.objects.filter(Q(account_type=Account.INCOME) | Q(account_type=Account.COST))
+        return Account.objects.filter(Q(account_type=Account.INCOME) | Q(account_type=Account.COST) | Q(account_type=Account.ASSET))
 
     def filter_queryset(self, qs):
         """
