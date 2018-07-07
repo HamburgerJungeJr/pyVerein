@@ -1,0 +1,31 @@
+body{
+    font-size:larger;
+}
+
+footer{
+    font-size: x-small;
+}
+
+.table-link td:hover{
+    cursor: pointer;
+}
+
+.data .row{
+    margin-bottom: 5px;
+}
+.data .field-title{
+    text-align: right;
+    margin-top: 4px;
+}
+
+.data .value .radio_choices{
+    margin-top: 4px;
+}
+
+.data .info p{
+    margin-top: 6px;
+}
+
+.table a{
+    text-decoration: underline;
+}
