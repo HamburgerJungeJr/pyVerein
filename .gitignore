@@ -109,6 +109,6 @@ vscode.code-workspace
 # node_modules
 node_modules/
 package-lock.json
-style-bundle.js
+style-bundle.json
 
 *.old/
