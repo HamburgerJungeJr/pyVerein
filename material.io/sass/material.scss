@@ -1,4 +1,9 @@
 @import "colors";
+
+$mdc-typography-styles-button: (
+    font-size: 16px,
+);
+
 @import "@material/button/mdc-button";
 @import "@material/top-app-bar/mdc-top-app-bar";
 @import "@material/drawer/mdc-drawer";
