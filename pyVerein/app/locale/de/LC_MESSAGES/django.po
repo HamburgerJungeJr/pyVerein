@@ -91,7 +91,7 @@ msgstr "Anmeldung"
 
 #: app/templates/registration/login.html:50
 msgid "Username"
-msgstr "Benutername"
+msgstr "Benutzername"
 
 #: app/templates/registration/login.html:54
 msgid "Password"

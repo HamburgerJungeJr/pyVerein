@@ -13,20 +13,93 @@
     <title>pyVerein</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{% static 'app/vendors/bootstrap/dist/css/bootstrap.min.css' %}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'app/vendors/font-awesome/css/fontawesome-all.min.css' %}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'app/build/css/custom.min.css' %}">
-    <link rel="stylesheet" href="{% static 'app/vendors/animate.css/animate.min.css' %}">
+    <!-- Materialdesign -->
+    <link rel="stylesheet" href="{% static 'app/css/material.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/material-icons/material-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/abel/abel.css' %}">
 
     <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'app/css/app.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/login.css' %}">
 
 </head>
+<body class="mdc-typography">
+    <div class="main login">
+        <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <span class="mdc-top-app-bar__title">{% trans 'Log In' %}</span>
+                </section>
+            </div>
+        </header>
+        <section class="main mdc-top-app-bar--fixed-adjust">
+            <div class="form-block">
+                <img src="{% static 'app/images/logo.png' %}" />
+                {% if form.errors %}
+                    <div class="alert alert-danger">{% trans 'Your username and password didnt match. Please try again.' %}</div>
+                {% endif %}
 
-<body class="login">
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <div class="alert alert-danger">{% trans 'Your account doesnt have access to this page. To proceed, please login with an account that has access.' %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <form role="form" method="post" action="{% url 'login' %}" class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="mdc-text-field">
+                        <input type="text" id="username" name="username" class="mdc-text-field__input">
+                        <label class="mdc-floating-label" for="username">
+                            {% trans 'Username' %}
+                        </label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <div class="mdc-text-field">
+                            <input type="password" id="password" name="password" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="username">
+                                {% trans 'Password' %}
+                            </label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    <div>
+                        <button type="submit" class="mdc-button mdc-button--raised">{% trans 'Login' %}</button>
+                        <input type="hidden" name="next" value="{{ next }}"/>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <aside class="mdc-dialog" id="attribution-dialog">
+            <div class="mdc-dialog__surface">
+                <header class="mdc-dialog__header">
+                    <h2 id="mdc-dialog-with-list-label" class="mdc-dialog__header__title">
+                        {% trans 'Attributions' %}
+                    </h2>
+                </header>
+                <section id="mdc-dialog-with-list-description" class="mdc-dialog__body mdc-dialog__body--scrollable">
+                    <p>
+                        <h3>
+                            Standard Avatar-Image
+                        </h3>
+                        <span class="mdc-typography--overline">Free avatars flat icons</span> by Dmitriy Bondarchuk<br />
+                        Published under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" >CC BY-NC-ND 4.0</a> at <a href="https://www.behance.net/gallery/47035405/Free-avatars-flat-icons">behance.net</a>
+                    </p>
+                </section>
+                <footer class="mdc-dialog__footer">
+                    <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined">{% trans 'Close' %}</button>
+                </footer>
+            </div>
+        </aside>
+        <footer id="page-footer">
+            pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="javascript:showAttributions();" class="mdc-theme--on-primary">{% trans 'Attributions' %}</a>
+        </footer>
+    </div>
+    <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
+    <script src="{% static 'app/js/material-components-web.js' %}"></script> 
+    <script src="{% static 'app/js/material.js' %}"></script> 
+</body>
+
+<!--<body class="login">
 
 <div class="login_wrapper">
     <div class="animate form login_form">
@@ -70,5 +143,6 @@
     </div>
 </div>
 
-</body>
+</body>-->
+
 </html>
