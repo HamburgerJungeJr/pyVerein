@@ -15,7 +15,9 @@ section.main {
   min-height: 100%;
   width: 80%;
   margin-left: 10%;
-  margin-right: 10%; }
+  margin-right: 10%;
+  margin-top: 60px;
+  margin-bottom: 60px; }
 
 .fa {
   line-height: inherit; }
@@ -64,6 +66,19 @@ div.dataTables_wrapper .mdl-data-table th {
 
 div.dataTables_wrapper .mdl-data-table td:hover {
   cursor: pointer; }
+
+.form-edit {
+  padding-left: 24%;
+  padding-right: 24%; }
+  .form-edit .mdc-typography--overline {
+    font-size: 16px; }
+  .form-edit .mdc-typography--overline:not(:first-of-type) {
+    margin-top: 30px; }
+  .form-edit .mdc-input {
+    width: 49%;
+    min-width: 200px; }
+  .form-edit .form-submit {
+    margin-top: 30px; }
 
 footer#page-footer {
   height: 65px;

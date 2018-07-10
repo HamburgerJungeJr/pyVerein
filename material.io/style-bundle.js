@@ -67,10 +67,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "../pyVerein/app/static/app/css/app.css";
-
-/***/ })
-/******/ ]);xpression (e.g. 1px, bold), was '@import \"@material/'\n      in /home/jannikheuer/Entwicklung/pyVerein/material.io/sass/material.scss (line 7, column 1)");
+module.exports = __webpack_require__.p + "../pyVerein/app/static/app/css/material.css";
 
 /***/ })
 /******/ ]);

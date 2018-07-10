@@ -21,6 +21,8 @@ section.main{
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
+    margin-top: 60px;
+    margin-bottom: 60px;
 }
 
 .fa{
@@ -86,6 +88,28 @@ div.dataTables_wrapper {
     }
     .mdl-data-table td:hover{
        cursor: pointer;
+    }
+}
+
+.form-edit{
+    padding-left: 24%;
+    padding-right: 24%;
+
+    .mdc-typography--overline{
+        font-size: 16px;
+    }
+
+    .mdc-typography--overline:not(:first-of-type){
+        margin-top: 30px;
+    }
+
+    .mdc-input{
+        width: 49%;
+        min-width: 200px;
+    }
+
+    .form-submit{
+        margin-top: 30px;
     }
 }
 

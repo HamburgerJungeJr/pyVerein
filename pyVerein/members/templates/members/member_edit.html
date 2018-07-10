@@ -18,18 +18,10 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_content data">
-                    <form action="{% url 'members:edit' member.pk %}" method="POST" class="form-horizontal"
-                          data-toggle="validator">
-                        {% include 'members/member_form_fields.html' %}
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <form action="{% url 'members:edit' member.pk %}" method="POST" class="form-edit"
+            data-toggle="validator">
+        {% include 'members/member_form_fields.html' %}
+    </form>
 {% endblock %}
 
 {% block foot %}

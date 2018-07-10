@@ -17,6 +17,8 @@ $mdc-typography-styles-button: (
 @import "@material/textfield/mdc-text-field";
 @import "@material/line-ripple/mdc-line-ripple";
 @import "@material/select/mdc-select";
+@import "@material/form-field/mdc-form-field";
+@import "@material/radio/mdc-radio";
 
 .mdc-list-item{
     a{
@@ -41,4 +43,14 @@ $mdc-typography-styles-button: (
 
 .mdc-button--on-primary{
     @include mdc-button-filled-accessible($mdc-theme-on-primary);
+}
+
+a.mdc-fab{
+    text-decoration: none;
+}
+
+.mdc-fab--absolute {
+    position: fixed;
+    bottom: 70px;
+    right: 70px;
 }

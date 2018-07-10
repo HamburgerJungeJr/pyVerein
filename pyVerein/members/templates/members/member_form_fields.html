@@ -2,149 +2,136 @@
 {% load widget_tweaks %}
 
 {% csrf_token %}
-<div class="page-header">
+<div class="mdc-typography--overline">
     {% trans 'Personal Data' %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Salutation' %}</div>
-    <div class="col-md-5 value">
-        {% for radio in form.salutation %}
-            {{ radio.tag }} {{ radio.choice_label }}
-        {% endfor %}
-    </div>
+    {% trans 'Salutation' %}
+    {% for radio in form.salutation %}
+        {% include "utils/_radio.html" with radio=radio %}
+    {% endfor %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Firstname' %}</div>
-    <div class="col-md-5 value ">{% render_field form.first_name class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Firstname' as first_name_label%}
+    {% include "utils/_textfield.html" with field=form.first_name label=first_name_label %}
 
+    {% trans 'Lastname' as last_name_label%}
+    {% include "utils/_textfield.html" with field=form.last_name label=last_name_label %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Lastname' %}</div>
-    <div class="col-md-5 value">{% render_field form.last_name class+="form-control" %}<span class="help-block with-errors"></span></div>
-</div>
-<div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Birthday' %}</div>
-    <div class="col-md-5 value date"><div class="input-group date">{% render_field form.birthday class+="form-control"%}<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span></div></div>
+    {% trans 'Birthday' as birthday_label%}
+    {% include "utils/_textfield.html" with field=form.birthday label=birthday_label %}
 </div>
 
-<div class="page-header">
+<div class="mdc-typography--overline">
     {% trans 'Address' %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Street' %}</div>
-    <div class="col-md-5 value">{% render_field form.street class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Street' as street_label%}
+    {% include "utils/_textfield.html" with field=form.street label=street_label %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Zip-Code' %}</div>
-    <div class="col-md-5 value">{% render_field form.zipcode class+="form-control" %}<span class="help-block with-errors"></span></div>
-</div>
-<div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'City' %}</div>
-    <div class="col-md-5 value">{% render_field form.city class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Zip-Code' as zipcode_label%}
+    {% include "utils/_textfield.html" with field=form.zipcode label=zipcode_label %}
+
+    {% trans 'City' as city_label%}
+    {% include "utils/_textfield.html" with field=form.city label=city_label %}
 </div>
 
-<div class="page-header">
+<div class="mdc-typography--overline">
     {% trans 'Contact' %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Phone' %}</div>
-    <div class="col-md-5 value">{% render_field form.phone class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Phone' as phone_label%}
+    {% include "utils/_textfield.html" with field=form.phone label=phone_label %}
+   
+    {% trans 'Mobile' as mobile_label%}
+    {% include "utils/_textfield.html" with field=form.mobile label=mobile_label %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Mobile' %}</div>
-    <div class="col-md-5 value">{% render_field form.mobile class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Email' as email_label%}
+    {% include "utils/_textfield.html" with field=form.email label=email_label %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Fax' %}</div>
-    <div class="col-md-5 value">{% render_field form.fax class+="form-control" %}<span class="help-block with-errors"></span></div>
-</div>
-<div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Email' %}</div>
-    <div class="col-md-5 value">{% render_field form.email class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Fax' as fax_label%}
+    {% include "utils/_textfield.html" with field=form.fax label=fax_label %}
 </div>
 
-<div class="page-header">
+<div class="mdc-typography--overline">
     {% trans 'Membership' %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Membership number' %}</div>
-    <div class="col-md-5 value">{% render_field form.membership_number class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Membership number' as membership_number_label%}
+    {% include "utils/_textfield.html" with field=form.membership_number label=membership_number_label %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Joined at' %}</div>
-    <div class="col-md-5 value">{% render_field form.joined_at class+="form-control" %}<span class="help-block with-errors"></span></div>
-</div>
-<div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Terminated at' %}</div>
-    <div class="col-md-5 value">{% render_field form.terminated_at class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Joined at' as joined_at_label%}
+    {% include "utils/_textfield.html" with field=form.joined_at label=joined_at_label %}
+
+    {% trans 'Terminated at' as terminated_at_label%}
+    {% include "utils/_textfield.html" with field=form.terminated_at label=terminated_at_label %}
 </div>
 
-<div class="page-header">
+<div class="mdc-typography--overline">
     {% trans 'Payment' %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Method' %}</div>
-    <div class="col-md-5 value">{% render_field form.payment_method class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Method' as method_label%}
+    {% include "utils/_select.html" with field=form.payment_method label=method_label %}
 </div>
 
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'IBAN' %}</div>
-    <div class="col-md-5 value">{% render_field form.iban class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'IBAN' as iban_label%}
+    {% include "utils/_textfield.html" with field=form.iban label=iban_label %}
+
+    {% trans 'BIC' as bic_label%}
+    {% include "utils/_textfield.html" with field=form.bic label=bic_label %}
 </div>
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'BIC' %}</div>
-    <div class="col-md-5 value">{% render_field form.bic class+="form-control" %}<span class="help-block with-errors"></span></div>
-</div>
-<div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Direct debit mandate granted at' %}</div>
-    <div class="col-md-5 value">{% render_field form.debit_mandate_at class+="form-control" %}<span class="help-block with-errors"></span></div>
-</div>
-<div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Direct debit reference' %}</div>
-    <div class="col-md-5 value">{% render_field form.debit_reference class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Direct debit mandate granted at' as debit_mandate_at_label%}
+    {% include "utils/_textfield.html" with field=form.debit_mandate_at label=debit_mandate_at_label %}
+
+    {% trans 'Direct debit reference' as debit_reference_label%}
+    {% include "utils/_textfield.html" with field=form.debit_reference label=debit_reference_label %}
 </div>
 
 
 {% if global_preferences.Members__show_additional_field_1 or global_preferences.Members__show_additional_field_2 or global_preferences.Members__show_additional_field_3 or global_preferences.Members__show_additional_field_4 or global_preferences.Members__show_additional_field_5 %}
-<div class="page-header">
+<div class="mdc-typography--overline">
     {% trans 'Additional Information' %}
 </div>
 {% endif %}
 {% if global_preferences.Members__show_additional_field_1 %}
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Additional field 1' %}</div>
-    <div class="col-md-5 value">{% render_field form.field_1 class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Additional field 1' as field_1_label%}
+    {% include "utils/_textfield.html" with field=form.field_1 label=field_1_label %}
 </div>
 {% endif %}
 {% if global_preferences.Members__show_additional_field_2 %}
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Additional field 2' %}</div>
-    <div class="col-md-5 value">{% render_field form.field_2 class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Additional field 2' as field_2_label%}
+    {% include "utils/_textfield.html" with field=form.field_2 label=field_2_label %}
 </div>
 {% endif %}
 {% if global_preferences.Members__show_additional_field_3 %}
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Additional field 3' %}</div>
-    <div class="col-md-5 value">{% render_field form.field_3 class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Additional field 3' as field_3_label%}
+    {% include "utils/_textfield.html" with field=form.field_3 label=field_3_label %}
 </div>
 {% endif %}
 {% if global_preferences.Members__show_additional_field_4 %}
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Additional field 4' %}</div>
-    <div class="col-md-5 value">{% render_field form.field_4 class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Additional field 4' as field_4_label%}
+    {% include "utils/_textfield.html" with field=form.field_4 label=field_4_label %}
 </div>
 {% endif %}
 {% if global_preferences.Members__show_additional_field_5 %}
 <div class="form-group">
-    <div class="col-md-3 field-title">{% trans 'Additional field 5' %}</div>
-    <div class="col-md-5 value">{% render_field form.field_5 class+="form-control" %}<span class="help-block with-errors"></span></div>
+    {% trans 'Additional field 5' as field_5_label%}
+    {% include "utils/_textfield.html" with field=form.field_5 label=field_5_label %}
 </div>
 {% endif %}
-<div class="form-group">
-    <div class="col-md-2 col-md-offset-3">
-        <input type="submit" class="btn btn-success btn-block" value="{% trans 'Save' %}" />
-    </div>
-    <div class="col-md-2 col-md-offset-1">
-        <a href="{% url 'members:list' %}" class="btn btn-danger btn-block">{% trans 'Cancel' %}</a>
-    </div>
+<div class="form-group form-submit">
+    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
+    <a href="{% url 'members:list' %}" class="mdc-button">{% trans 'Cancel' %}</a>
 </div>

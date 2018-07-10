@@ -62,3 +62,22 @@ if (button_ripple_sel != null){
         mdc.ripple.MDCRipple.attachTo(val);
     });
 }
+
+// Radio
+var formField_sel = document.querySelectorAll('.mdc-form-field');
+if (formField_sel != null){
+    formField_sel.forEach(function (ff){
+        var radio_sel = ff.querySelector('.mdc-radio');
+        if (radio_sel != null){
+            ff.input = new mdc.radio.MDCRadio(radio_sel);
+        }
+    })
+}
+
+// Select
+var select_sel = document.querySelectorAll('.mdc-select');
+if (select_sel != null){
+    select_sel.forEach(function(val){
+        mdc.select.MDCSelect.attachTo(val);
+    });
+}
