@@ -5,12 +5,7 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block head %}
-    <!-- DateRangePicker style -->
-    <link rel="stylesheet" href="{% static 'app/vendors/datepicker/css/bootstrap-datepicker3.css' %}">
-    <!-- iCheck style -->
-    <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/square/blue.css' %}">
-    <!-- Members style -->
-    <link rel="stylesheet" href="{% static 'members/members.css' %}">
+
 {% endblock %}
 
 {% block title %}
@@ -18,41 +13,38 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_content data">
-                    <form action="{% url 'members:create' %}" method="POST" class="form-horizontal"
-                          data-toggle="validator">
-                        {% include 'members/member_form_fields.html' %}
-                    </form>
+    <div class="main-narrow">
+        <div class="detail-content  mdc-elevation--z4">
+            <form action="{% url 'members:create' %}" method="POST">
+                {% include 'members/member_form_fields.html' %}
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
+                    <a href="{% url 'members:list' %}" class="mdc-button">{% trans 'Cancel' %}</a>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 {% endblock %}
 
 {% block foot %}
-    <!-- DatePicker -->
-    <script src="{% static 'app/vendors/datepicker/js/bootstrap-datepicker.js' %}"></script>
-        <script src="{% static 'app/vendors/datepicker/locales/bootstrap-datepicker.'|add:request.LANGUAGE_CODE|add:'.min.js' %}"></script>
-    <!-- Validator -->
-    <script src="{% static 'app/vendors/bootstrap-validator/dist/validator.min.js' %}"></script>
-    <!-- icheck -->
-    <script src="{% static 'app/vendors/iCheck/icheck.js' %}"></script>
-
-    <script type="application/javascript">
-
-        $('.input-group.date').datepicker({
-            language: "{{ request.LANGUAGE_CODE }}",
-            autoclose: true,
-            todayHighlight: true
+    <!-- Inputmask -->
+    <script src="{% static 'app/vendors/jquery.inputmask/dist/jquery.inputmask.bundle.js' %}"></script>
+    <script>
+        $("#id_birthday").inputmask({
+            mask:"99.99.9999",
+            showMaskOnHover: false,
         });
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square',
-            increaseArea: '20%',
-            radioClass: 'iradio_square-blue',
-
+        $("#id_joined_at").inputmask({
+            mask:"99.99.9999",
+            showMaskOnHover: false,
+        });
+        $("#id_terminated_at").inputmask({
+            mask:"99.99.9999",
+            showMaskOnHover: false,
+        });
+        $("#id_debit_mandate_at").inputmask({
+            mask:"99.99.9999",
+            showMaskOnHover: false,
         });
     </script>
 {% endblock %}
