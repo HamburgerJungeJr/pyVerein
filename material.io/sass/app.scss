@@ -91,17 +91,17 @@ div.dataTables_wrapper {
     }
 }
 
-.form-edit{
+.heading.mdc-typography--overline{
+    font-size: 16px;
+}
+
+.heading.mdc-typography--overline:not(:first-of-type){
+    margin-top: 30px;
+}
+
+.main-narrow{
     padding-left: 24%;
     padding-right: 24%;
-
-    .mdc-typography--overline{
-        font-size: 16px;
-    }
-
-    .mdc-typography--overline:not(:first-of-type){
-        margin-top: 30px;
-    }
 
     .mdc-input{
         width: 49%;
@@ -111,6 +111,24 @@ div.dataTables_wrapper {
     .form-submit{
         margin-top: 30px;
     }
+
+    .detail-content{
+        padding: 20px;
+
+        .row{
+            display: flex;
+            margin-top: 5px;
+
+            .field-title{
+                width: 30%;
+            }
+
+            .field-value{
+                width: 70%;
+            }
+        }
+    }
+    
 }
 
 footer#page-footer{

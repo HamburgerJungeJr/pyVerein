@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% csrf_token %}
-<div class="mdc-typography--overline">
+<div class="heading mdc-typography--overline">
     {% trans 'Personal Data' %}
 </div>
 <div class="form-group">
@@ -23,7 +23,7 @@
     {% include "utils/_textfield.html" with field=form.birthday label=birthday_label %}
 </div>
 
-<div class="mdc-typography--overline">
+<div class="heading mdc-typography--overline">
     {% trans 'Address' %}
 </div>
 <div class="form-group">
@@ -38,7 +38,7 @@
     {% include "utils/_textfield.html" with field=form.city label=city_label %}
 </div>
 
-<div class="mdc-typography--overline">
+<div class="heading mdc-typography--overline">
     {% trans 'Contact' %}
 </div>
 <div class="form-group">
@@ -57,7 +57,7 @@
     {% include "utils/_textfield.html" with field=form.fax label=fax_label %}
 </div>
 
-<div class="mdc-typography--overline">
+<div class="heading mdc-typography--overline">
     {% trans 'Membership' %}
 </div>
 <div class="form-group">
@@ -72,7 +72,7 @@
     {% include "utils/_textfield.html" with field=form.terminated_at label=terminated_at_label %}
 </div>
 
-<div class="mdc-typography--overline">
+<div class="heading mdc-typography--overline">
     {% trans 'Payment' %}
 </div>
 <div class="form-group">
@@ -97,7 +97,7 @@
 
 
 {% if global_preferences.Members__show_additional_field_1 or global_preferences.Members__show_additional_field_2 or global_preferences.Members__show_additional_field_3 or global_preferences.Members__show_additional_field_4 or global_preferences.Members__show_additional_field_5 %}
-<div class="mdc-typography--overline">
+<div class="heading mdc-typography--overline">
     {% trans 'Additional Information' %}
 </div>
 {% endif %}
@@ -131,7 +131,3 @@
     {% include "utils/_textfield.html" with field=form.field_5 label=field_5_label %}
 </div>
 {% endif %}
-<div class="form-group form-submit">
-    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
-    <a href="{% url 'members:list' %}" class="mdc-button">{% trans 'Cancel' %}</a>
-</div>

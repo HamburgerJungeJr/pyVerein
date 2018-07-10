@@ -4212,7 +4212,12 @@ a.mdc-list-item {
 a.mdc-fab {
   text-decoration: none; }
 
-.mdc-fab--absolute {
+.mdc-fab--absolute-bottom-right {
   position: fixed;
   bottom: 70px;
   right: 70px; }
+
+.mdc-fab--absolute-bottom-left {
+  position: fixed;
+  bottom: 70px;
+  left: 70px; }

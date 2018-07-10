@@ -18,9 +18,13 @@
 {% endblock %}
 
 {% block content %}
-    <form action="{% url 'members:edit' member.pk %}" method="POST" class="form-edit"
+    <form action="{% url 'members:edit' member.pk %}" method="POST" class="main-narrow"
             data-toggle="validator">
         {% include 'members/member_form_fields.html' %}
+        <div class="form-group form-submit">
+            <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
+            <a href="{% url 'members:detail' pk=member.pk %}" class="mdc-button">{% trans 'Cancel' %}</a>
+        </div>
     </form>
 {% endblock %}
 
