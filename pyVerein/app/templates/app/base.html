@@ -8,18 +8,13 @@
     <title>pyVerein</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{% static 'app/vendors/bootstrap/dist/css/bootstrap.min.css' %}">
+    <!-- Materialdesign -->
+    <link rel="stylesheet" href="{% static 'app/css/material.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/material-icons/material-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/abel/abel.css' %}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'app/vendors/font-awesome/css/fontawesome-all.min.css' %}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/flat/green.css' %}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'app/build/css/custom.min.css' %}">
 
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="{% static 'app/css/app.css' %}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,200 +23,143 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     {% block head %} {% endblock %}
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'app/css/app.css' %}">
 </head>
 
-<body class="nav-md">
-    <div class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col menu_fixed">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
+<body class="mdc-typography">
+    <aside class="mdc-drawer mdc-drawer--temporary mdc-typography main-navigation">
+        <nav class="mdc-drawer__drawer">
+            <header class="mdc-drawer__header">
+                <div class="mdc-drawer__header-content mdc-theme--on-primary mdc-theme--primary-bg">
+                    <divc class="logo">
                         <a href="{% url 'app:index' %}" class="site_title">
                             <img src="{% static 'app/images/logo_white.png' %}" />
                         </a>
                     </div>
-
-                    <div class="clearfix"></div>
-
-                    <br/>
-
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <h3>{% trans 'Members' %}</h3>
-                            <ul class="nav side-menu">
-                                <li class="{% base_url_class 'members:list' 'active'%}">
-                                    <a>
-                                        <i class="fa fa-user"></i> {% trans 'Members' %}
-                                        <span class="fa fa-chevron-down"></span>
-                                    </a>
-                                    <ul class="nav child_menu">
-                                        <li class="{% url_class 'members:list' 'current-page' %}">
-                                            <a href="{% url 'members:list' %}">
-                                                {% trans 'List' %}
-                                            </a>
-                                        </li>
-                                        <li class="{% url_class 'members:create' 'current-page' %}">
-                                            <a href="{% url 'members:create' %}">
-                                                {% trans 'Create' %}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="menu_section">
-                                <h3>{% trans 'Finance' %}</h3>
-                                <ul class="nav side-menu">
-                                    <li class="{% base_url_class 'finance:transaction_list' 'active'%}">
-                                        <a>
-                                            <i class="fa fa-file-alt"></i> {% trans 'Transactions' %}
-                                            <span class="fa fa-chevron-down"></span>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <li class="{% url_class 'finance:transaction_list' 'current-page' %}">
-                                                <a href="{% url 'finance:transaction_create' %}">
-                                                    {% trans 'Create transaction' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="{% base_url_class 'finance:debitor_list' 'active'%}">
-                                        <a>
-                                            <i class="fa fa-user-plus"></i> {% trans 'Debitors' %}
-                                            <span class="fa fa-chevron-down"></span>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <li class="{% url_class 'finance:debitor_list' 'current-page' %}">
-                                                <a href="{% url 'finance:debitor_list' %}">
-                                                    {% trans 'List' %}
-                                                </a>
-                                            </li>
-                                            <li class="{% url_class 'finance:debitor_create' 'current-page' %}">
-                                                <a href="{% url 'finance:debitor_create' %}">
-                                                    {% trans 'Create' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="{% base_url_class 'finance:creditor_list' 'active'%}">
-                                        <a>
-                                            <i class="fa fa-user-times"></i> {% trans 'Creditors' %}
-                                            <span class="fa fa-chevron-down"></span>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <li class="{% url_class 'finance:creditor_list' 'current-page' %}">
-                                                <a href="{% url 'finance:creditor_list' %}">
-                                                    {% trans 'List' %}
-                                                </a>
-                                            </li>
-                                            <li class="{% url_class 'finance:creditor_create' 'current-page' %}">
-                                                <a href="{% url 'finance:creditor_create' %}">
-                                                    {% trans 'Create' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="{% base_url_class 'finance:impersonal_list' 'active'%}">
-                                        <a>
-                                            <i class="fa fa-box"></i> {% trans 'Impersonal' %}
-                                            <span class="fa fa-chevron-down"></span>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <li class="{% url_class 'finance:impersonal_list' 'current-page' %}">
-                                                <a href="{% url 'finance:impersonal_list' %}">
-                                                    {% trans 'List' %}
-                                                </a>
-                                            </li>
-                                            <li class="{% url_class 'finance:impersonal_create' 'current-page' %}">
-                                                <a href="{% url 'finance:impersonal_create' %}">
-                                                    {% trans 'Create' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="{% base_url_class 'finance:costcenter_list' 'active'%}">
-                                        <a>
-                                            <i class="fa fa-money-bill-alt"></i> {% trans 'Cost centers' %}
-                                            <span class="fa fa-chevron-down"></span>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <li class="{% url_class 'finance:costcenter_list' 'current-page' %}">
-                                                <a href="{% url 'finance:costcenter_list' %}">
-                                                    {% trans 'List' %}
-                                                </a>
-                                            </li>
-                                            <li class="{% url_class 'finance:costcenter_create' 'current-page' %}">
-                                                <a href="{% url 'finance:costcenter_create' %}">
-                                                    {% trans 'Create' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="{% base_url_class 'finance:costobject_list' 'active'%}">
-                                        <a>
-                                            <i class="fa fa-money-bill-alt"></i> {% trans 'Cost objects' %}
-                                            <span class="fa fa-chevron-down"></span>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <li class="{% url_class 'finance:costobject_list' 'current-page' %}">
-                                                <a href="{% url 'finance:costobject_list' %}">
-                                                    {% trans 'List' %}
-                                                </a>
-                                            </li>
-                                            <li class="{% url_class 'finance:costobject_create' 'current-page' %}">
-                                                <a href="{% url 'finance:costobject_create' %}">
-                                                    {% trans 'Create' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                    </div>
-                    <!-- /sidebar menu -->
+                    <a href="{% url  'logout' %}" class="mdc-fab mdc-fab--mini mdc-fab__logout" aria-label="{% trans 'Sign out' %}">
+                        <span class="mdc-fab__icon fa fa-power-off"></span>
+                    </a>                 
                 </div>
-            </div>
-
-            <!-- top navigation -->
-            <div class="top_nav">
-                <div class="nav_menu">
-                    <nav>
-                        <div class="nav toggle">
-                            <a id="menu_toggle">
-                                <i class="fa fa-bars"></i>
+            </header>
+            <div class="mdc-drawer__content">
+                <div class="mdc-list-group">
+                    <h3 class="mdc-list-group__subheader">{% trans 'Members' %}</h3>
+                    <ul class="mdc-list">
+                        <li class="mdc-list-item {% base_url_class 'members:list' 'mdc-list-item--activated'%}">
+                            <a href="{% url 'members:list' %}">
+                                <span class="mdc-list-item__graphic fa fa-users" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Members' %}</span>
                             </a>
-                        </div>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="{% static 'app/images/user.png' %}" alt="">{{ user.get_full_name }}
-                                    <span class=" fa fa-angle-down"></span>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="mdc-list-divider">
+                <div class="mdc-list-group">
+                    <h3 class="mdc-list-group__subheader">{% trans 'Finance' %}</h3>
+                    <ul class="mdc-list">
+                        <li class="mdc-list-item {% base_url_class 'finance:transaction_list' 'mdc-list-item--activated'%}">
+                            <a href="{% url 'finance:transaction_list' %}">
+                                <span class="mdc-list-item__graphic fa fa-file-alt" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Transactions' %}</span>
+                            </a>
+                        </li>
+                        <li class="mdc-list-item {% base_url_class 'finance:debitor_list' 'mdc-list-item--activated'%}">
+                            <a href="{% url 'finance:debitor_list' %}">
+                                <span class="mdc-list-item__graphic fa fa-user-plus" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Debitors' %}</span>
+                            </a>
+                        </li>
+                        <li class="mdc-list-item {% base_url_class 'finance:creditor_list' 'mdc-list-item--activated'%}">
+                            <a href="{% url 'finance:creditor_list' %}">
+                                <span class="mdc-list-item__graphic fa fa-user-times" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Creditors' %}</span>
+                            </a>
+                        </li>
+                        <li class="mdc-list-item {% base_url_class 'finance:impersonal_list' 'mdc-list-item--activated'%}">
+                            <a href="{% url 'finance:impersonal_list' %}">
+                                <span class="mdc-list-item__graphic fa fa-box" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Impersonal' %}</span>
+                            </a>
+                        </li>
+                        <li class="mdc-list-item {% base_url_class 'finance:costcenter_list' 'mdc-list-item--activated'%}">
+                            <a href="{% url 'finance:costcenter_list' %}">
+                                <span class="mdc-list-item__graphic fa fa-money-bill-alt" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Cost centers' %}</span>
+                            </a>
+                        </li>
+                        <li class="mdc-list-item {% base_url_class 'finance:costobject_list' 'mdc-list-item--activated'%}">
+                            <a href="{% url 'finance:costobject_list' %}">
+                                <span class="mdc-list-item__graphic fa fa-money-bill-alt" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Cost objects' %}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="mdc-list-divider">
+                <div class="mdc-list-group">
+                        <h3 class="mdc-list-group__subheader">{% trans 'User' %}</h3>
+                        <ul class="mdc-list">
+                            <li class="mdc-list-item">
+                                <a href="#">
+                                    <span class="mdc-list-item__graphic fa fa-user" aria-hidden="true"></span>
+                                    <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li>
-                                        <a href="javascript:;">{% trans 'Profile' %}</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url  'logout' %}">
-                                            <i class="fa fa-sign-out pull-right"></i>{% trans 'Sign out' %}</a>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
-                    </nav>
-                </div>
+                    </div>
             </div>
-            <!-- /top navigation -->
+        </nav>
+    </aside>
+    <div class="main">
+        <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <a href="#" class="material-icons mdc-top-app-bar__navigation-icon menu">menu</a>
+                    <span class="mdc-top-app-bar__title">{% block title %} {% endblock %}</span>
+                </section>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                    {{ user.get_full_name }}<img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4">
+                </section>
+            </div>
+        </header>
+        <section class="main mdc-top-app-bar--fixed-adjust">
+            {% block content %} {% endblock %}
+        </section>
+        <aside class="mdc-dialog" id="attribution-dialog">
+            <div class="mdc-dialog__surface">
+                <header class="mdc-dialog__header">
+                    <h2 id="mdc-dialog-with-list-label" class="mdc-dialog__header__title">
+                        {% trans 'Attributions' %}
+                    </h2>
+                </header>
+                <section id="mdc-dialog-with-list-description" class="mdc-dialog__body mdc-dialog__body--scrollable">
+                    <p>
+                        <h3>
+                            Standard Avatar-Image
+                        </h3>
+                        <span class="mdc-typography--overline">Free avatars flat icons</span> by Dmitriy Bondarchuk<br />
+                        Published under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" >CC BY-NC-ND 4.0</a> at <a href="https://www.behance.net/gallery/47035405/Free-avatars-flat-icons">behance.net</a>
+                    </p>
+                </section>
+                <footer class="mdc-dialog__footer">
+                    <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined">{% trans 'Close' %}</button>
+                </footer>
+            </div>
+        </aside>
+        <footer id="page-footer">
+            pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="javascript:showAttributions();" class="mdc-theme--on-primary">{% trans 'Attributions' %}</a>
+        </footer>
+    </div>
 
-            <!-- page content -->
+   <!--
+
             <div class="right_col" role="main">
                 
                 <div class="page-title">
                     <div class="title_left">
                         <h3 id="title">
-                            {% block title %} {% endblock %}
+                            
                         </h3>
                     </div>
                 </div>
@@ -240,12 +178,10 @@
                     <div class="alert alert-danger">{{ form.errors }}</div>
                 {% endif %}
                 <div id="maincontent">
-                    {% block content %} {% endblock %}
+                    
                 </div>
             </div>
-            <!-- /page content -->
 
-            <!-- footer content -->
             <footer>
                 <div class="pull-right">
                     pyVerein by Jannik Heuer - Theme based on Gentelella - Bootstrap Admin Template by
@@ -253,18 +189,14 @@
                 </div>
                 <div class="clearfix"></div>
             </footer>
-            <!-- /footer content -->
         </div>
     </div>
 
-    <!-- jQuery -->
+
     <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script>
-    <!-- Bootstrap -->
     <script src="{% static 'app/vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <!-- FastClick -->
     <script src="{% static 'app/vendors/fastclick/lib/fastclick.js' %}"></script>
 
-    <!-- Custom Theme Scripts -->
     <script src="{% static 'app/build/js/custom.js' %}"></script>
     <script type="application/javascript">
         $("li.active").children("ul").slideDown();
@@ -273,9 +205,13 @@
                 $(this).remove();
             });
         }, 1500);
-    </script> 
-    {% block foot %} 
-    {% endblock %}
+    </script> -->
+    <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
+
+
+    {% block foot %} {% endblock %}
+    <script src="{% static 'app/js/material-components-web.js' %}"></script> 
+    <script src="{% static 'app/js/material.js' %}"></script> 
 </body>
 
 </html>

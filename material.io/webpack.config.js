@@ -36,21 +36,6 @@ module.exports = [{
     },
   },
   {
-    entry: './js/material.js',
-    output: {
-      filename: '../pyVerein/app/static/app/js/material.js'
-    },
-    module: {
-      loaders: [{
-        test: /\.js$/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
-        }
-      }]
-    },
-  },
-  {
     entry: './sass/app.scss',
     output: {
       // This is necessary for webpack to compile

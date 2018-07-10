@@ -1,0 +1,7 @@
+  /* latin */
+  @font-face {
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    src: url('Abel-Regular.ttf') format('truetype');
+  }

@@ -255,7 +255,7 @@ msgstr "."
 
 #: members/templates/members/member_list.html:84
 msgid "sLengthMenu"
-msgstr "_MENU_ Einträge anzeigen"
+msgstr "Einträge anzeigen"
 
 #: members/templates/members/member_list.html:85
 msgid "sLoadingRecords"
