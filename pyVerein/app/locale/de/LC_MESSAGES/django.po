@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-01 00:50+0200\n"
+"POT-Creation-Date: 2018-07-11 22:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,85 +18,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/app/base.html:51 app/templates/app/base.html:55
-msgid "Members"
-msgstr "Mitglieder"
+#: app/templates/app/_attributions.html:6 app/templates/app/base.html:52
+#: app/templates/registration/login.html:74
+msgid "Attributions"
+msgstr "Lizenzen"
 
-#: app/templates/app/base.html:61 app/templates/app/base.html:97
-#: app/templates/app/base.html:115 app/templates/app/base.html:133
-#: app/templates/app/base.html:151 app/templates/app/base.html:169
-msgid "List"
-msgstr "Liste"
+#: app/templates/app/_attributions.html:19
+msgid "Close"
+msgstr "Schließen"
 
-#: app/templates/app/base.html:66 app/templates/app/base.html:102
-#: app/templates/app/base.html:120 app/templates/app/base.html:138
-#: app/templates/app/base.html:156 app/templates/app/base.html:174
-msgid "Create"
-msgstr "Anlegen"
-
-#: app/templates/app/base.html:74
-msgid "Finance"
-msgstr "Finanzen"
-
-#: app/templates/app/base.html:78
-msgid "Transactions"
-msgstr "Belege"
-
-#: app/templates/app/base.html:84
-msgid "Create transaction"
-msgstr "Beleg erfassen"
-
-#: app/templates/app/base.html:91
-msgid "Debitors"
-msgstr "Debitoren"
-
-#: app/templates/app/base.html:109
-msgid "Creditors"
-msgstr "Kreditoren"
-
-#: app/templates/app/base.html:127
-msgid "Impersonal"
-msgstr "Sachkonten"
-
-#: app/templates/app/base.html:145
-msgid "Cost centers"
-msgstr "Kostenstellen"
-
-#: app/templates/app/base.html:163
-msgid "Cost objects"
-msgstr "Kostenträger"
-
-#: app/templates/app/base.html:204
-msgid "Profile"
-msgstr "Profil"
-
-#: app/templates/app/base.html:208
+#: app/templates/app/_drawer.html:11
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: app/templates/registration/login.html:36
+#: app/templates/app/_drawer.html:18 app/templates/app/_drawer.html:23
+msgid "Members"
+msgstr "Mitglieder"
+
+#: app/templates/app/_drawer.html:30
+msgid "Finance"
+msgstr "Finanzen"
+
+#: app/templates/app/_drawer.html:35
+msgid "Transactions"
+msgstr "Belege"
+
+#: app/templates/app/_drawer.html:41
+msgid "Debitors"
+msgstr "Debitoren"
+
+#: app/templates/app/_drawer.html:47
+msgid "Creditors"
+msgstr "Kreditoren"
+
+#: app/templates/app/_drawer.html:53
+msgid "Impersonal"
+msgstr "Sachkonten"
+
+#: app/templates/app/_drawer.html:59
+msgid "Cost centers"
+msgstr "Kostenstellen"
+
+#: app/templates/app/_drawer.html:65
+msgid "Cost objects"
+msgstr "Kostenträger"
+
+#: app/templates/app/_drawer.html:72
+#, fuzzy
+#| msgid "Username"
+msgid "User"
+msgstr "Benutzer"
+
+#: app/templates/app/_drawer.html:77
+msgid "Profile"
+msgstr "Profil"
+
+#: app/templates/registration/login.html:31
+#: app/templates/registration/login.html:101
+msgid "Log In"
+msgstr "Anmeldung"
+
+#: app/templates/registration/login.html:39
+#: app/templates/registration/login.html:89
 msgid "Your username and password didnt match. Please try again."
 msgstr ""
 "Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
 
-#: app/templates/registration/login.html:41
+#: app/templates/registration/login.html:44
+#: app/templates/registration/login.html:94
 msgid ""
 "Your account doesnt have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr "Dieser Benutzer hat keine Berechtigung für diese Seite."
 
-#: app/templates/registration/login.html:48
-msgid "Log In"
-msgstr "Anmeldung"
-
-#: app/templates/registration/login.html:50
+#: app/templates/registration/login.html:54
+#: app/templates/registration/login.html:103
 msgid "Username"
 msgstr "Benutzername"
 
-#: app/templates/registration/login.html:54
+#: app/templates/registration/login.html:61
+#: app/templates/registration/login.html:107
 msgid "Password"
 msgstr "Passwort"
 
-#: app/templates/registration/login.html:59
+#: app/templates/registration/login.html:66
+#: app/templates/registration/login.html:112
 msgid "Login"
 msgstr "Anmelden"
+
+#~ msgid "List"
+#~ msgstr "Liste"
+
+#~ msgid "Create"
+#~ msgstr "Anlegen"
+
+#~ msgid "Create transaction"
+#~ msgstr "Beleg erfassen"

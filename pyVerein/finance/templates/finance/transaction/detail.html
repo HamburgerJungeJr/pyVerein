@@ -2,25 +2,67 @@
 {% load i18n %}
 {% load static %}
 
-{% block head %}
-
+{% block page_title %}
+    {% trans 'Transaction-Detail' %}
 {% endblock %}
 
 {% block title %}
-    {% trans 'Impersonal account detail' %}
+    {% trans 'Transaction-Detail' %}
 {% endblock %}
 
-
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h1>{{ impersonal.number }} {{ impersonal.name }} <small><a href="{% url 'finance:impersonal_edit' impersonal.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></small></h1>
-                </div>
-                <div class="x_content data">
-                    
-                </div>
+    <div class="main-narrow">
+        <div class="detail-content mdc-elevation--z4">
+            <div class="heading mdc-typography--overline">
+                {% trans 'General' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Date' %}</div>
+                <div class="field-value">{{ transaction.date|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Document number' %}</div>
+                <div class="field-value">{{ transaction.document_number|default_if_none:"" }}</div>
+            </div>
+        
+            <div class="heading mdc-typography--overline">
+                {% trans 'Transaction' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Account' %}</div>
+                <div class="field-value">{{ transaction.account.number|default_if_none:"" }} {{ transaction.account.name|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Debit' %}</div>
+                <div class="field-value">{{ transaction.debit|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Credit' %}</div>
+                <div class="field-value">{{ transaction.credit|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Transaction text' %}</div>
+                <div class="field-value">{{ transaction.text|default_if_none:"" }}</div>
+            </div>
+
+            <div class="heading mdc-typography--overline">
+                {% trans 'Costing' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Cost center' %}</div>
+                <div class="field-value">{{ transaction.cost_center.number|default_if_none:"" }} {{ transaction.cost_center.name|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Cost object' %}</div>
+                <div class="field-value">{{ transaction.cost_object.number|default_if_none:"" }} {{ transaction.cost_object.name|default_if_none:"" }}</div>
             </div>
         </div>
-    </div>{% endblock %}
+    </div>
+    
+    <a href ="{% url 'finance:transaction_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="">
+            <i class="mdc-fab__icon fa fa-arrow-left"></i>
+        </a>
+    <a href ="{% url 'finance:transaction_edit' pk=transaction.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="">
+        <i class="mdc-fab__icon fa fa-pencil-alt"></i>
+    </a>
+{% endblock %}

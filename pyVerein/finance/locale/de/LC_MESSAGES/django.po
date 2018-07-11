@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-01 00:50+0200\n"
+"POT-Creation-Date: 2018-07-11 22:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,82 +32,79 @@ msgstr "Bestand"
 
 #: finance/models.py:27 finance/templates/finance/creditor/create.html:22
 #: finance/templates/finance/creditor/edit.html:25
+#: finance/templates/finance/debitor/create.html:22
+#: finance/templates/finance/debitor/edit.html:25
+#: finance/templates/finance/impersonal/edit.html:25
 msgid "Creditor"
 msgstr "Kreditor"
 
-#: finance/models.py:28 finance/templates/finance/debitor/create.html:22
-#: finance/templates/finance/debitor/edit.html:25
+#: finance/models.py:28
 msgid "Debitor"
 msgstr "Debitor"
 
 #: finance/templates/finance/costcenter/create.html:11
+#: finance/templates/finance/costcenter/create.html:15
 msgid "Create costcenter"
 msgstr "Kostenstelle erstellen"
 
-#: finance/templates/finance/costcenter/create.html:22
+#: finance/templates/finance/costcenter/create.html:24
 #: finance/templates/finance/costcenter/detail.html:29
-#: finance/templates/finance/costcenter/edit.html:25
 #: finance/templates/finance/costobject/detail.html:29
-#: finance/templates/finance/creditor/detail.html:29
-#: finance/templates/finance/debitor/detail.html:29
-#: finance/templates/finance/impersonal/detail.html:29
-#: finance/templates/finance/transaction/create.html:83
-#: finance/templates/finance/transaction/create.html:113
+#: finance/templates/finance/transaction/create.html:114
+#: finance/templates/finance/transaction/detail.html:52
 #: finance/templates/finance/transaction/edit.html:61
 msgid "Cost center"
 msgstr "Kostenstelle"
 
-#: finance/templates/finance/costcenter/create.html:25
-#: finance/templates/finance/costcenter/list.html:29
-#: finance/templates/finance/costcenter/list.html:35
-#: finance/templates/finance/transaction/create.html:210
+#: finance/templates/finance/costcenter/create.html:27
+#: finance/templates/finance/costcenter/list.html:25
+#: finance/templates/finance/transaction/create.html:217
 msgid "Cost center number"
 msgstr "Kostenstellennummer"
 
-#: finance/templates/finance/costcenter/create.html:30
-#: finance/templates/finance/costcenter/edit.html:28
-#: finance/templates/finance/costcenter/list.html:30
-#: finance/templates/finance/costcenter/list.html:36
-#: finance/templates/finance/transaction/create.html:210
+#: finance/templates/finance/costcenter/create.html:31
+#: finance/templates/finance/costcenter/edit.html:29
+#: finance/templates/finance/costcenter/list.html:26
+#: finance/templates/finance/transaction/create.html:217
 msgid "Cost center name"
 msgstr "Bezeichnung"
 
-#: finance/templates/finance/costcenter/create.html:34
-#: finance/templates/finance/costcenter/edit.html:34
+#: finance/templates/finance/costcenter/create.html:35
+#: finance/templates/finance/costcenter/edit.html:33
 msgid "Cost center description"
 msgstr "Beschreibung"
 
 #: finance/templates/finance/costcenter/create.html:39
-#: finance/templates/finance/costcenter/edit.html:39
+#: finance/templates/finance/costcenter/edit.html:37
 #: finance/templates/finance/costobject/create.html:39
-#: finance/templates/finance/costobject/edit.html:39
-#: finance/templates/finance/creditor/create.html:36
-#: finance/templates/finance/creditor/edit.html:34
-#: finance/templates/finance/debitor/create.html:36
-#: finance/templates/finance/debitor/edit.html:34
-#: finance/templates/finance/impersonal/create.html:49
-#: finance/templates/finance/impersonal/edit.html:42
-#: finance/templates/finance/transaction/create.html:94
+#: finance/templates/finance/costobject/edit.html:37
+#: finance/templates/finance/creditor/create.html:33
+#: finance/templates/finance/creditor/edit.html:32
+#: finance/templates/finance/debitor/create.html:33
+#: finance/templates/finance/debitor/edit.html:32
+#: finance/templates/finance/impersonal/create.html:33
+#: finance/templates/finance/impersonal/edit.html:32
+#: finance/templates/finance/transaction/create.html:138
 #: finance/templates/finance/transaction/edit.html:70
 msgid "Save"
 msgstr "Speichern"
 
-#: finance/templates/finance/costcenter/create.html:42
-#: finance/templates/finance/costcenter/edit.html:42
-#: finance/templates/finance/costobject/create.html:42
-#: finance/templates/finance/costobject/edit.html:42
-#: finance/templates/finance/creditor/create.html:39
-#: finance/templates/finance/creditor/edit.html:37
-#: finance/templates/finance/debitor/create.html:39
-#: finance/templates/finance/debitor/edit.html:37
-#: finance/templates/finance/impersonal/create.html:52
-#: finance/templates/finance/impersonal/edit.html:45
-#: finance/templates/finance/transaction/create.html:97
+#: finance/templates/finance/costcenter/create.html:40
+#: finance/templates/finance/costcenter/edit.html:38
+#: finance/templates/finance/costobject/create.html:40
+#: finance/templates/finance/costobject/edit.html:38
+#: finance/templates/finance/creditor/create.html:34
+#: finance/templates/finance/creditor/edit.html:33
+#: finance/templates/finance/debitor/create.html:34
+#: finance/templates/finance/debitor/edit.html:33
+#: finance/templates/finance/impersonal/create.html:34
+#: finance/templates/finance/impersonal/edit.html:33
+#: finance/templates/finance/transaction/create.html:139
 #: finance/templates/finance/transaction/edit.html:73
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: finance/templates/finance/costcenter/detail.html:10
+#: finance/templates/finance/costcenter/detail.html:13
 msgid "Cost center detail"
 msgstr "Kostenstelle"
 
@@ -116,448 +113,551 @@ msgstr "Kostenstelle"
 #: finance/templates/finance/creditor/detail.html:25
 #: finance/templates/finance/debitor/detail.html:25
 #: finance/templates/finance/impersonal/detail.html:25
-#: finance/templates/finance/transaction/create.html:56
+#: finance/templates/finance/transaction/create.html:81
+#: finance/templates/finance/transaction/detail.html:24
 #: finance/templates/finance/transaction/edit.html:34
 msgid "Document number"
 msgstr "Belegnummer"
 
 #: finance/templates/finance/costcenter/detail.html:26
 #: finance/templates/finance/costobject/detail.html:26
-#: finance/templates/finance/creditor/detail.html:26
-#: finance/templates/finance/debitor/detail.html:26
-#: finance/templates/finance/impersonal/detail.html:26
-#: finance/templates/finance/transaction/create.html:76
-#: finance/templates/finance/transaction/create.html:110
+#: finance/templates/finance/creditor/detail.html:27
+#: finance/templates/finance/debitor/detail.html:27
+#: finance/templates/finance/impersonal/detail.html:27
+#: finance/templates/finance/transaction/create.html:107
+#: finance/templates/finance/transaction/detail.html:44
 #: finance/templates/finance/transaction/edit.html:54
 msgid "Transaction text"
 msgstr "Buchungstext"
 
 #: finance/templates/finance/costcenter/detail.html:27
 #: finance/templates/finance/costobject/detail.html:27
-#: finance/templates/finance/creditor/detail.html:27
-#: finance/templates/finance/debitor/detail.html:27
-#: finance/templates/finance/impersonal/detail.html:27
-#: finance/templates/finance/transaction/create.html:68
-#: finance/templates/finance/transaction/create.html:111
+#: finance/templates/finance/creditor/detail.html:28
+#: finance/templates/finance/debitor/detail.html:28
+#: finance/templates/finance/impersonal/detail.html:28
+#: finance/templates/finance/transaction/create.html:99
+#: finance/templates/finance/transaction/detail.html:36
 #: finance/templates/finance/transaction/edit.html:46
 msgid "Debit"
 msgstr "Soll"
 
 #: finance/templates/finance/costcenter/detail.html:28
 #: finance/templates/finance/costobject/detail.html:28
-#: finance/templates/finance/creditor/detail.html:28
-#: finance/templates/finance/debitor/detail.html:28
-#: finance/templates/finance/impersonal/detail.html:28
-#: finance/templates/finance/transaction/create.html:72
-#: finance/templates/finance/transaction/create.html:112
+#: finance/templates/finance/creditor/detail.html:29
+#: finance/templates/finance/debitor/detail.html:29
+#: finance/templates/finance/impersonal/detail.html:29
+#: finance/templates/finance/transaction/create.html:103
+#: finance/templates/finance/transaction/detail.html:40
 #: finance/templates/finance/transaction/edit.html:50
 msgid "Credit"
 msgstr "Haben"
 
 #: finance/templates/finance/costcenter/detail.html:30
-#: finance/templates/finance/costobject/create.html:22
+#: finance/templates/finance/costobject/create.html:24
 #: finance/templates/finance/costobject/detail.html:30
-#: finance/templates/finance/costobject/edit.html:25
-#: finance/templates/finance/creditor/detail.html:30
-#: finance/templates/finance/debitor/detail.html:30
-#: finance/templates/finance/impersonal/detail.html:30
-#: finance/templates/finance/transaction/create.html:88
-#: finance/templates/finance/transaction/create.html:114
+#: finance/templates/finance/transaction/create.html:125
+#: finance/templates/finance/transaction/detail.html:56
 #: finance/templates/finance/transaction/edit.html:65
 msgid "Cost object"
 msgstr "Kostenträger"
 
 #: finance/templates/finance/costcenter/detail.html:73
 #: finance/templates/finance/costobject/detail.html:73
-#: finance/templates/finance/creditor/detail.html:73
-#: finance/templates/finance/debitor/detail.html:73
-#: finance/templates/finance/impersonal/detail.html:73
+#: finance/templates/finance/creditor/detail.html:59
+#: finance/templates/finance/debitor/detail.html:59
+#: finance/templates/finance/impersonal/detail.html:59
 msgid "Saldo"
-msgstr ""
+msgstr "Saldo"
 
-#: finance/templates/finance/costcenter/edit.html:12
-msgid "Edit cost center"
-msgstr "Kostenstelle bearbeiten"
-
-#: finance/templates/finance/costcenter/list.html:16
-msgid "Cost centers"
-msgstr "Kostenstellen"
-
-#: finance/templates/finance/costcenter/list.html:70
-#: finance/templates/finance/costobject/list.html:70
-#: finance/templates/finance/creditor/list.html:70
-#: finance/templates/finance/debitor/list.html:70
-#: finance/templates/finance/impersonal/list.html:70
+#: finance/templates/finance/costcenter/detail.html:98
+#: finance/templates/finance/costcenter/list.html:49
+#: finance/templates/finance/costobject/detail.html:98
+#: finance/templates/finance/costobject/list.html:49
+#: finance/templates/finance/creditor/detail.html:88
+#: finance/templates/finance/creditor/list.html:49
+#: finance/templates/finance/debitor/detail.html:88
+#: finance/templates/finance/debitor/list.html:49
+#: finance/templates/finance/impersonal/detail.html:88
+#: finance/templates/finance/impersonal/list.html:49
 #: finance/templates/finance/transaction/list.html:70
 msgid "sEmptyTable"
 msgstr "Keine Daten in der Tabelle vorhanden."
 
-#: finance/templates/finance/costcenter/list.html:71
-#: finance/templates/finance/costobject/list.html:71
-#: finance/templates/finance/creditor/list.html:71
-#: finance/templates/finance/debitor/list.html:71
-#: finance/templates/finance/impersonal/list.html:71
+#: finance/templates/finance/costcenter/detail.html:99
+#: finance/templates/finance/costcenter/list.html:50
+#: finance/templates/finance/costobject/detail.html:99
+#: finance/templates/finance/costobject/list.html:50
+#: finance/templates/finance/creditor/detail.html:89
+#: finance/templates/finance/creditor/list.html:50
+#: finance/templates/finance/debitor/detail.html:89
+#: finance/templates/finance/debitor/list.html:50
+#: finance/templates/finance/impersonal/detail.html:89
+#: finance/templates/finance/impersonal/list.html:50
 #: finance/templates/finance/transaction/list.html:71
 msgid "sInfo"
 msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: finance/templates/finance/costcenter/list.html:72
-#: finance/templates/finance/costobject/list.html:72
-#: finance/templates/finance/creditor/list.html:72
-#: finance/templates/finance/debitor/list.html:72
-#: finance/templates/finance/impersonal/list.html:72
+#: finance/templates/finance/costcenter/detail.html:100
+#: finance/templates/finance/costcenter/list.html:51
+#: finance/templates/finance/costobject/detail.html:100
+#: finance/templates/finance/costobject/list.html:51
+#: finance/templates/finance/creditor/detail.html:90
+#: finance/templates/finance/creditor/list.html:51
+#: finance/templates/finance/debitor/detail.html:90
+#: finance/templates/finance/debitor/list.html:51
+#: finance/templates/finance/impersonal/detail.html:90
+#: finance/templates/finance/impersonal/list.html:51
 #: finance/templates/finance/transaction/list.html:72
 msgid "sInfoEmpty"
 msgstr "0 bis 0 von 0 Einträgen"
 
-#: finance/templates/finance/costcenter/list.html:73
-#: finance/templates/finance/costobject/list.html:73
-#: finance/templates/finance/creditor/list.html:73
-#: finance/templates/finance/debitor/list.html:73
-#: finance/templates/finance/impersonal/list.html:73
+#: finance/templates/finance/costcenter/detail.html:101
+#: finance/templates/finance/costcenter/list.html:52
+#: finance/templates/finance/costobject/detail.html:101
+#: finance/templates/finance/costobject/list.html:52
+#: finance/templates/finance/creditor/detail.html:91
+#: finance/templates/finance/creditor/list.html:52
+#: finance/templates/finance/debitor/detail.html:91
+#: finance/templates/finance/debitor/list.html:52
+#: finance/templates/finance/impersonal/detail.html:91
+#: finance/templates/finance/impersonal/list.html:52
 #: finance/templates/finance/transaction/list.html:73
 msgid "sInfoFiltered"
 msgstr "(gefiltert von _MAX_ Einträgen)"
 
-#: finance/templates/finance/costcenter/list.html:74
-#: finance/templates/finance/costobject/list.html:74
-#: finance/templates/finance/creditor/list.html:74
-#: finance/templates/finance/debitor/list.html:74
-#: finance/templates/finance/impersonal/list.html:74
+#: finance/templates/finance/costcenter/detail.html:102
+#: finance/templates/finance/costcenter/list.html:53
+#: finance/templates/finance/costobject/detail.html:102
+#: finance/templates/finance/costobject/list.html:53
+#: finance/templates/finance/creditor/detail.html:92
+#: finance/templates/finance/creditor/list.html:53
+#: finance/templates/finance/debitor/detail.html:92
+#: finance/templates/finance/debitor/list.html:53
+#: finance/templates/finance/impersonal/detail.html:92
+#: finance/templates/finance/impersonal/list.html:53
 #: finance/templates/finance/transaction/list.html:74
 msgid "sInfoPostfix"
 msgstr " "
 
-#: finance/templates/finance/costcenter/list.html:75
-#: finance/templates/finance/costobject/list.html:75
-#: finance/templates/finance/creditor/list.html:75
-#: finance/templates/finance/debitor/list.html:75
-#: finance/templates/finance/impersonal/list.html:75
+#: finance/templates/finance/costcenter/detail.html:103
+#: finance/templates/finance/costcenter/list.html:54
+#: finance/templates/finance/costobject/detail.html:103
+#: finance/templates/finance/costobject/list.html:54
+#: finance/templates/finance/creditor/detail.html:93
+#: finance/templates/finance/creditor/list.html:54
+#: finance/templates/finance/debitor/detail.html:93
+#: finance/templates/finance/debitor/list.html:54
+#: finance/templates/finance/impersonal/detail.html:93
+#: finance/templates/finance/impersonal/list.html:54
 #: finance/templates/finance/transaction/list.html:75
 msgid "sInfoThousands"
 msgstr "."
 
-#: finance/templates/finance/costcenter/list.html:76
-#: finance/templates/finance/costobject/list.html:76
-#: finance/templates/finance/creditor/list.html:76
-#: finance/templates/finance/debitor/list.html:76
-#: finance/templates/finance/impersonal/list.html:76
-#: finance/templates/finance/transaction/list.html:76
-msgid "sLengthMenu"
-msgstr "_MENU_ Einträge anzeigen"
-
-#: finance/templates/finance/costcenter/list.html:77
-#: finance/templates/finance/costobject/list.html:77
-#: finance/templates/finance/creditor/list.html:77
-#: finance/templates/finance/debitor/list.html:77
-#: finance/templates/finance/impersonal/list.html:77
+#: finance/templates/finance/costcenter/detail.html:104
+#: finance/templates/finance/costcenter/list.html:55
+#: finance/templates/finance/costobject/detail.html:104
+#: finance/templates/finance/costobject/list.html:55
+#: finance/templates/finance/creditor/detail.html:94
+#: finance/templates/finance/creditor/list.html:55
+#: finance/templates/finance/debitor/detail.html:94
+#: finance/templates/finance/debitor/list.html:55
+#: finance/templates/finance/impersonal/detail.html:94
+#: finance/templates/finance/impersonal/list.html:55
 #: finance/templates/finance/transaction/list.html:77
 msgid "sLoadingRecords"
 msgstr "Wird geladen..."
 
-#: finance/templates/finance/costcenter/list.html:78
-#: finance/templates/finance/costobject/list.html:78
-#: finance/templates/finance/creditor/list.html:78
-#: finance/templates/finance/debitor/list.html:78
-#: finance/templates/finance/impersonal/list.html:78
-#: finance/templates/finance/transaction/list.html:78
-msgid "sSearch"
-msgstr "Suchen"
-
-#: finance/templates/finance/costcenter/list.html:79
-#: finance/templates/finance/costobject/list.html:79
-#: finance/templates/finance/creditor/list.html:79
-#: finance/templates/finance/debitor/list.html:79
-#: finance/templates/finance/impersonal/list.html:79
+#: finance/templates/finance/costcenter/detail.html:105
+#: finance/templates/finance/costcenter/list.html:56
+#: finance/templates/finance/costobject/detail.html:105
+#: finance/templates/finance/costobject/list.html:56
+#: finance/templates/finance/creditor/detail.html:95
+#: finance/templates/finance/creditor/list.html:56
+#: finance/templates/finance/debitor/detail.html:95
+#: finance/templates/finance/debitor/list.html:56
+#: finance/templates/finance/impersonal/detail.html:95
+#: finance/templates/finance/impersonal/list.html:56
 #: finance/templates/finance/transaction/list.html:79
 msgid "sZeroRecords"
 msgstr "Keine Einträge vorhanden."
 
-#: finance/templates/finance/costcenter/list.html:81
-#: finance/templates/finance/costobject/list.html:81
-#: finance/templates/finance/creditor/list.html:81
-#: finance/templates/finance/debitor/list.html:81
-#: finance/templates/finance/impersonal/list.html:81
+#: finance/templates/finance/costcenter/detail.html:107
+#: finance/templates/finance/costcenter/list.html:58
+#: finance/templates/finance/costobject/detail.html:107
+#: finance/templates/finance/costobject/list.html:58
+#: finance/templates/finance/creditor/detail.html:97
+#: finance/templates/finance/creditor/list.html:58
+#: finance/templates/finance/debitor/detail.html:97
+#: finance/templates/finance/debitor/list.html:58
+#: finance/templates/finance/impersonal/detail.html:97
+#: finance/templates/finance/impersonal/list.html:58
 #: finance/templates/finance/transaction/list.html:81
 msgid "sFirst"
 msgstr "Erste"
 
-#: finance/templates/finance/costcenter/list.html:82
-#: finance/templates/finance/costobject/list.html:82
-#: finance/templates/finance/creditor/list.html:82
-#: finance/templates/finance/debitor/list.html:82
-#: finance/templates/finance/impersonal/list.html:82
+#: finance/templates/finance/costcenter/detail.html:108
+#: finance/templates/finance/costcenter/list.html:59
+#: finance/templates/finance/costobject/detail.html:108
+#: finance/templates/finance/costobject/list.html:59
+#: finance/templates/finance/creditor/detail.html:98
+#: finance/templates/finance/creditor/list.html:59
+#: finance/templates/finance/debitor/detail.html:98
+#: finance/templates/finance/debitor/list.html:59
+#: finance/templates/finance/impersonal/detail.html:98
+#: finance/templates/finance/impersonal/list.html:59
 #: finance/templates/finance/transaction/list.html:82
 msgid "sLast"
 msgstr "Letzte"
 
-#: finance/templates/finance/costcenter/list.html:83
-#: finance/templates/finance/costobject/list.html:83
-#: finance/templates/finance/creditor/list.html:83
-#: finance/templates/finance/debitor/list.html:83
-#: finance/templates/finance/impersonal/list.html:83
+#: finance/templates/finance/costcenter/detail.html:109
+#: finance/templates/finance/costcenter/list.html:60
+#: finance/templates/finance/costobject/detail.html:109
+#: finance/templates/finance/costobject/list.html:60
+#: finance/templates/finance/creditor/detail.html:99
+#: finance/templates/finance/creditor/list.html:60
+#: finance/templates/finance/debitor/detail.html:99
+#: finance/templates/finance/debitor/list.html:60
+#: finance/templates/finance/impersonal/detail.html:99
+#: finance/templates/finance/impersonal/list.html:60
 #: finance/templates/finance/transaction/list.html:83
 msgid "sNext"
 msgstr "Nächste"
 
-#: finance/templates/finance/costcenter/list.html:84
-#: finance/templates/finance/costobject/list.html:84
-#: finance/templates/finance/creditor/list.html:84
-#: finance/templates/finance/debitor/list.html:84
-#: finance/templates/finance/impersonal/list.html:84
+#: finance/templates/finance/costcenter/detail.html:110
+#: finance/templates/finance/costcenter/list.html:61
+#: finance/templates/finance/costobject/detail.html:110
+#: finance/templates/finance/costobject/list.html:61
+#: finance/templates/finance/creditor/detail.html:100
+#: finance/templates/finance/creditor/list.html:61
+#: finance/templates/finance/debitor/detail.html:100
+#: finance/templates/finance/debitor/list.html:61
+#: finance/templates/finance/impersonal/detail.html:100
+#: finance/templates/finance/impersonal/list.html:61
 #: finance/templates/finance/transaction/list.html:84
 msgid "sPrevious"
 msgstr "Vorherige"
 
-#: finance/templates/finance/costcenter/list.html:87
-#: finance/templates/finance/costobject/list.html:87
-#: finance/templates/finance/creditor/list.html:87
-#: finance/templates/finance/debitor/list.html:87
-#: finance/templates/finance/impersonal/list.html:87
+#: finance/templates/finance/costcenter/detail.html:113
+#: finance/templates/finance/costcenter/list.html:64
+#: finance/templates/finance/costobject/detail.html:113
+#: finance/templates/finance/costobject/list.html:64
+#: finance/templates/finance/creditor/detail.html:103
+#: finance/templates/finance/creditor/list.html:64
+#: finance/templates/finance/debitor/detail.html:103
+#: finance/templates/finance/debitor/list.html:64
+#: finance/templates/finance/impersonal/detail.html:103
+#: finance/templates/finance/impersonal/list.html:64
 #: finance/templates/finance/transaction/list.html:87
 msgid "sSortAscending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: finance/templates/finance/costcenter/list.html:88
-#: finance/templates/finance/costobject/list.html:88
-#: finance/templates/finance/creditor/list.html:88
-#: finance/templates/finance/debitor/list.html:88
-#: finance/templates/finance/impersonal/list.html:88
+#: finance/templates/finance/costcenter/detail.html:114
+#: finance/templates/finance/costcenter/list.html:65
+#: finance/templates/finance/costobject/detail.html:114
+#: finance/templates/finance/costobject/list.html:65
+#: finance/templates/finance/creditor/detail.html:104
+#: finance/templates/finance/creditor/list.html:65
+#: finance/templates/finance/debitor/detail.html:104
+#: finance/templates/finance/debitor/list.html:65
+#: finance/templates/finance/impersonal/detail.html:104
+#: finance/templates/finance/impersonal/list.html:65
 #: finance/templates/finance/transaction/list.html:88
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
+#: finance/templates/finance/costcenter/detail.html:119
+#: finance/templates/finance/costcenter/list.html:83
+#: finance/templates/finance/costobject/detail.html:119
+#: finance/templates/finance/costobject/list.html:83
+#: finance/templates/finance/creditor/detail.html:109
+#: finance/templates/finance/creditor/list.html:83
+#: finance/templates/finance/debitor/detail.html:109
+#: finance/templates/finance/debitor/list.html:83
+#: finance/templates/finance/impersonal/detail.html:109
+#: finance/templates/finance/impersonal/list.html:83
+#: finance/templates/finance/transaction/list.html:78
+msgid "sSearch"
+msgstr "Suchen"
+
+#: finance/templates/finance/costcenter/detail.html:125
+#: finance/templates/finance/costcenter/list.html:89
+#: finance/templates/finance/costobject/detail.html:125
+#: finance/templates/finance/costobject/list.html:89
+#: finance/templates/finance/creditor/detail.html:115
+#: finance/templates/finance/creditor/list.html:89
+#: finance/templates/finance/debitor/detail.html:115
+#: finance/templates/finance/debitor/list.html:89
+#: finance/templates/finance/impersonal/detail.html:115
+#: finance/templates/finance/impersonal/list.html:89
+#: finance/templates/finance/transaction/list.html:76
+msgid "sLengthMenu"
+msgstr "_MENU_ Einträge anzeigen"
+
+#: finance/templates/finance/costcenter/edit.html:13
+#: finance/templates/finance/costcenter/edit.html:17
+msgid "Edit cost center"
+msgstr "Kostenstelle bearbeiten"
+
+#: finance/templates/finance/costcenter/list.html:12
+#: finance/templates/finance/costcenter/list.html:16
+msgid "Cost centers"
+msgstr "Kostenstellen"
+
 #: finance/templates/finance/costobject/create.html:11
-msgid "Create cost object"
+#: finance/templates/finance/costobject/create.html:15
+msgid "Create costobject"
 msgstr "Kostenträger erstellen"
 
-#: finance/templates/finance/costobject/create.html:25
-#: finance/templates/finance/costobject/list.html:29
-#: finance/templates/finance/costobject/list.html:35
-#: finance/templates/finance/transaction/create.html:213
+#: finance/templates/finance/costobject/create.html:27
+#: finance/templates/finance/costobject/list.html:25
+#: finance/templates/finance/transaction/create.html:220
 msgid "Cost object number"
 msgstr "Kostenträgernummer"
 
-#: finance/templates/finance/costobject/create.html:30
-#: finance/templates/finance/costobject/edit.html:28
-#: finance/templates/finance/costobject/list.html:30
-#: finance/templates/finance/costobject/list.html:36
-#: finance/templates/finance/transaction/create.html:213
+#: finance/templates/finance/costobject/create.html:31
+#: finance/templates/finance/costobject/edit.html:29
+#: finance/templates/finance/costobject/list.html:26
+#: finance/templates/finance/transaction/create.html:220
 msgid "Cost object name"
 msgstr "Bezeichnung"
 
-#: finance/templates/finance/costobject/create.html:34
-#: finance/templates/finance/costobject/edit.html:34
+#: finance/templates/finance/costobject/create.html:35
+#: finance/templates/finance/costobject/edit.html:33
 msgid "Cost object description"
 msgstr "Beschreibung"
 
-#: finance/templates/finance/costobject/detail.html:10
+#: finance/templates/finance/costobject/detail.html:13
 msgid "Cost object detail"
 msgstr "Kostenträger"
 
-#: finance/templates/finance/costobject/edit.html:12
+#: finance/templates/finance/costobject/edit.html:13
+#: finance/templates/finance/costobject/edit.html:17
 msgid "Edit cost object"
 msgstr "Kostenträger bearbeiten"
 
+#: finance/templates/finance/costobject/list.html:12
 #: finance/templates/finance/costobject/list.html:16
 msgid "Cost objects"
 msgstr "Kostenträger"
 
-#: finance/templates/finance/creditor/create.html:11
+#: finance/templates/finance/creditor/create.html:10
+#: finance/templates/finance/creditor/create.html:14
 msgid "Create creditor"
 msgstr "Kreditor erstellen"
 
 #: finance/templates/finance/creditor/create.html:25
-#: finance/templates/finance/creditor/list.html:29
-#: finance/templates/finance/creditor/list.html:35
+#: finance/templates/finance/creditor/list.html:25
+#: finance/templates/finance/debitor/create.html:25
 msgid "Creditor number"
 msgstr "Kreditornummer"
 
-#: finance/templates/finance/creditor/create.html:30
+#: finance/templates/finance/creditor/create.html:29
 #: finance/templates/finance/creditor/edit.html:28
-#: finance/templates/finance/creditor/list.html:30
-#: finance/templates/finance/creditor/list.html:36
+#: finance/templates/finance/creditor/list.html:26
+#: finance/templates/finance/debitor/create.html:29
+#: finance/templates/finance/debitor/edit.html:28
+#: finance/templates/finance/impersonal/edit.html:28
 msgid "Creditor name"
 msgstr "Bezeichnung"
 
-#: finance/templates/finance/creditor/detail.html:10
+#: finance/templates/finance/creditor/detail.html:13
 msgid "Creditor detail"
 msgstr "Kreditordetails"
 
-#: finance/templates/finance/creditor/edit.html:12
+#: finance/templates/finance/creditor/detail.html:26
+#: finance/templates/finance/debitor/detail.html:26
+#: finance/templates/finance/impersonal/detail.html:26
+#: finance/templates/finance/transaction/create.html:78
+#: finance/templates/finance/transaction/detail.html:20
+#: finance/templates/finance/transaction/edit.html:28
+msgid "Date"
+msgstr "Datum"
+
+#: finance/templates/finance/creditor/edit.html:13
 msgid "Edit creditor"
 msgstr "Kreditor bearbeiten"
 
+#: finance/templates/finance/creditor/list.html:12
 #: finance/templates/finance/creditor/list.html:16
-msgid "Creditor-List"
+msgid "Creditors"
 msgstr "Kreditoren"
 
-#: finance/templates/finance/debitor/create.html:11
+#: finance/templates/finance/debitor/create.html:10
+#: finance/templates/finance/debitor/create.html:14
 msgid "Create debitor"
 msgstr "Debitor erstellen"
 
-#: finance/templates/finance/debitor/create.html:25
-#: finance/templates/finance/debitor/list.html:29
-#: finance/templates/finance/debitor/list.html:35
-msgid "Debitor number"
-msgstr "Debitornummer"
-
-#: finance/templates/finance/debitor/create.html:30
-#: finance/templates/finance/debitor/edit.html:28
-#: finance/templates/finance/debitor/list.html:30
-#: finance/templates/finance/debitor/list.html:36
-msgid "Debitor name"
-msgstr "Bezeichnung"
-
-#: finance/templates/finance/debitor/detail.html:10
+#: finance/templates/finance/debitor/detail.html:13
 msgid "Debitor detail"
 msgstr "Debitordetails"
 
-#: finance/templates/finance/debitor/edit.html:12
+#: finance/templates/finance/debitor/edit.html:13
 msgid "Edit debitor"
 msgstr "Debitor bearbeiten"
 
+#: finance/templates/finance/debitor/list.html:12
 #: finance/templates/finance/debitor/list.html:16
-msgid "Debitor-List"
+msgid "Debitors"
 msgstr "Debitoren"
 
+#: finance/templates/finance/debitor/list.html:25
+msgid "Debitor number"
+msgstr "Debitornummer"
+
+#: finance/templates/finance/debitor/list.html:26
+msgid "Debitor name"
+msgstr "Bezeichnung"
+
+#: finance/templates/finance/impersonal/create.html:10
 #: finance/templates/finance/impersonal/create.html:14
 msgid "Create impersonal account"
 msgstr "Sachkonto erstellen"
 
-#: finance/templates/finance/impersonal/create.html:25
-#: finance/templates/finance/impersonal/edit.html:25
+#: finance/templates/finance/impersonal/create.html:22
 msgid "Impersonal account"
 msgstr "Sachkonto"
 
-#: finance/templates/finance/impersonal/create.html:28
-#: finance/templates/finance/impersonal/edit.html:28
-msgid "Account type"
-msgstr "Kontoart"
-
-#: finance/templates/finance/impersonal/create.html:38
-#: finance/templates/finance/impersonal/list.html:29
-#: finance/templates/finance/impersonal/list.html:35
+#: finance/templates/finance/impersonal/create.html:25
+#: finance/templates/finance/impersonal/list.html:25
 #: finance/templates/finance/transaction/list.html:29
 #: finance/templates/finance/transaction/list.html:35
 msgid "Impersonal account number"
 msgstr "Sachkontonummer"
 
-#: finance/templates/finance/impersonal/create.html:43
-#: finance/templates/finance/impersonal/edit.html:36
-#: finance/templates/finance/impersonal/list.html:30
-#: finance/templates/finance/impersonal/list.html:36
+#: finance/templates/finance/impersonal/create.html:29
+#: finance/templates/finance/impersonal/list.html:26
 #: finance/templates/finance/transaction/list.html:30
 #: finance/templates/finance/transaction/list.html:36
 msgid "Impersonal account name"
 msgstr "Bezeichnung"
 
-#: finance/templates/finance/impersonal/detail.html:10
-#: finance/templates/finance/transaction/detail.html:10
+#: finance/templates/finance/impersonal/detail.html:13
 msgid "Impersonal account detail"
 msgstr "Sachkontodetails"
 
-#: finance/templates/finance/impersonal/edit.html:12
-#: finance/templates/finance/transaction/edit.html:12
-msgid "Edit impersonal Account"
+#: finance/templates/finance/impersonal/edit.html:13
+msgid "Edit impersonal account"
 msgstr "Sachkonto bearbeiten"
 
+#: finance/templates/finance/impersonal/list.html:12
 #: finance/templates/finance/impersonal/list.html:16
-#: finance/templates/finance/transaction/list.html:16
 msgid "Impersonal accounts"
 msgstr "Sachkonten"
 
-#: finance/templates/finance/transaction/create.html:15
+#: finance/templates/finance/transaction/create.html:14
+#: finance/templates/finance/transaction/create.html:18
 msgid "Create transaction"
 msgstr "Beleg erfassen"
 
-#: finance/templates/finance/transaction/create.html:49
+#: finance/templates/finance/transaction/create.html:66
+msgid "Close"
+msgstr ""
+
+#: finance/templates/finance/transaction/create.html:75
+#: finance/templates/finance/transaction/detail.html:17
 #: finance/templates/finance/transaction/edit.html:25
 msgid "General"
 msgstr "Allgemein"
 
-#: finance/templates/finance/transaction/create.html:52
-#: finance/templates/finance/transaction/edit.html:28
-msgid "Date"
-msgstr "Datum"
-
-#: finance/templates/finance/transaction/create.html:60
+#: finance/templates/finance/transaction/create.html:85
+#: finance/templates/finance/transaction/detail.html:29
 #: finance/templates/finance/transaction/edit.html:39
 msgid "Transaction"
 msgstr "Beleg"
 
-#: finance/templates/finance/transaction/create.html:63
-#: finance/templates/finance/transaction/create.html:109
+#: finance/templates/finance/transaction/create.html:88
+#: finance/templates/finance/transaction/detail.html:32
 #: finance/templates/finance/transaction/edit.html:42
 msgid "Account"
 msgstr "Konto"
 
-#: finance/templates/finance/transaction/create.html:80
+#: finance/templates/finance/transaction/create.html:111
+#: finance/templates/finance/transaction/detail.html:49
 #: finance/templates/finance/transaction/edit.html:58
 msgid "Costing"
 msgstr "Kostenrechnung"
 
-#: finance/templates/finance/transaction/create.html:207
+#: finance/templates/finance/transaction/create.html:214
 msgid "Select account"
 msgstr "Konto auswählen"
 
-#: finance/templates/finance/transaction/create.html:207
+#: finance/templates/finance/transaction/create.html:214
 msgid "Account number"
 msgstr "Kontonummer"
 
-#: finance/templates/finance/transaction/create.html:207
+#: finance/templates/finance/transaction/create.html:214
 msgid "Account name"
 msgstr "Bezeichnung"
 
-#: finance/templates/finance/transaction/create.html:210
+#: finance/templates/finance/transaction/create.html:217
 msgid "Select cost center"
 msgstr "Kostenstelle auswählen"
 
-#: finance/templates/finance/transaction/create.html:213
+#: finance/templates/finance/transaction/create.html:220
 msgid "Select cost object"
 msgstr "Kostenträger auswählen"
 
-#: finance/views.py:39
+#: finance/templates/finance/transaction/detail.html:6
+#: finance/templates/finance/transaction/detail.html:10
+msgid "Transaction-Detail"
+msgstr "Belegdetails"
+
+#: finance/templates/finance/transaction/edit.html:12
+msgid "Edit impersonal Account"
+msgstr "Sachkonto bearbeiten"
+
+#: finance/templates/finance/transaction/list.html:16
+msgid "Impersonal account-List"
+msgstr "Sachkonten"
+
+#: finance/views.py:43
 msgid "Creditor created successfully"
 msgstr "Kreditor wurde erfolgreich erstellt"
 
-#: finance/views.py:89
+#: finance/views.py:93
 msgid "Creditor saved successfully"
 msgstr "Kreditor wurde erfolgreich gespeichert"
 
-#: finance/views.py:161
+#: finance/views.py:165
 msgid "Debitor created successfully"
 msgstr "Debitor wurde erfolgreich erstellt"
 
-#: finance/views.py:211
+#: finance/views.py:215
 msgid "Debitor saved successfully"
 msgstr "Debitor wurde erfolgreich gespeichert"
 
-#: finance/views.py:283
+#: finance/views.py:287
 msgid "Impersonal account created successfully"
 msgstr "Sachkonto wurde erfolgreich erstellt"
 
-#: finance/views.py:320
+#: finance/views.py:324
 msgid "Impersonal account saved successfully"
 msgstr "Sachkonto wurde erfolgreich gespeichert"
 
-#: finance/views.py:392
+#: finance/views.py:396
 msgid "Cost center created successfully"
 msgstr "Kostenstelle wurde erfolgreich erstellt"
 
-#: finance/views.py:429
+#: finance/views.py:433
 msgid "Cost center saved successfully"
 msgstr "Kostenstelle wurde erfolgreich gespeichert"
 
-#: finance/views.py:495
+#: finance/views.py:499
 msgid "Cost object created successfully"
 msgstr "Kostenträger wurde erfolgreich erstellt"
 
-#: finance/views.py:532 finance/views.py:713
+#: finance/views.py:536 finance/views.py:724
 msgid "Cost object saved successfully"
 msgstr "Kostenträger wurde erfolgreich gespeichert"
 
-#: finance/views.py:645
-#, python-format
-msgid "Transaction %s created successfully"
-msgstr "Beleg %s wurde erfolgreich erfasst"
+#~ msgid "Creditor-List"
+#~ msgstr "Kreditoren"
+
+#~ msgid "Debitor-List"
+#~ msgstr "Debitoren"
+
+#~ msgid "Account type"
+#~ msgstr "Kontoart"
+
+#~ msgid "Transaction %s created successfully"
+#~ msgstr "Beleg %s wurde erfolgreich erfasst"
