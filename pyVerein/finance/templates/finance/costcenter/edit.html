@@ -8,9 +8,15 @@
     <!-- iCheck style -->
     <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/square/blue.css' %}"> 
 {% endblock %} 
+
+{% block page_title %} 
+    {% trans 'Edit cost center' %} 
+{% endblock %} 
+
 {% block title %} 
     {% trans 'Edit cost center' %} 
 {% endblock %} 
+
 {% block content %}
 <div class="main-narrow">
     <div class="detail-content  mdc-elevation--z4">

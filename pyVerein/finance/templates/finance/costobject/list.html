@@ -4,12 +4,12 @@
 
 {% block head %}
     <!-- DataTables -->
-    <link rel="stylesheet"
-          href="{% static 'app/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
-    <link href="{% static 'app/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet' %}">
-    <link href="{% static 'app/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet' %}">
-    <link href="{% static 'app/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet' %}">
-    <link href="{% static 'app/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Cost objects' %}
 {% endblock %}
 
 {% block title %}
@@ -21,7 +21,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_content">
-                    <table id="accountlist" class="table table-bordered table-striped table-hover dataTable"
+                    <table id="costobjectlist" class="mdl-data-table dataTable"
                            cellspacing="0"
                            width="100%">
                         <thead>
@@ -41,26 +41,19 @@
             </div>
         </div>
     </div>
+    <a href ="{% url 'finance:costobject_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="">
+        <i class="mdc-fab__icon fa fa-plus"></i>
+    </a>
 {% endblock %}
 
 {% block foot %}
     <!-- Datatables -->
-    <script src="{% static 'app/vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
     <script>
         $(document).ready(function () {
-            $('#accountlist').on('processing.dt', function (e, settings, processing) {
-                $('#accountlist').css('opacity', processing ? '0.3' : '1.0');
+            dt = $('#costobjectlist').on('processing.dt', function (e, settings, processing) {
+                $('#costobjectlist').css('opacity', processing ? '0.3' : '1.0');
             }).DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -73,9 +66,7 @@
                     "sInfoFiltered": "{% trans 'sInfoFiltered' %}",
                     "sInfoPostFix": "{% trans 'sInfoPostfix' %}",
                     "sInfoThousands": "{% trans 'sInfoThousands' %}",
-                    "sLengthMenu": "{% trans 'sLengthMenu' %}",
                     "sLoadingRecords": "{% trans 'sLoadingRecords' %}",
-                    "sSearch": "{% trans 'sSearch' %}",
                     "sZeroRecords": "{% trans 'sZeroRecords' %}",
                     "oPaginate": {
                         "sFirst": "{% trans 'sFirst' %}",
@@ -102,7 +93,26 @@
                         });
                     }
             });
-            $(".dataTables_wrapper select, .dataTables_wrapper :input").addClass("form-control input-sm");
+            // Search
+            $("#costobjectlist_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
+            $("#datatable-search").on('keyup', function(e) {
+                dt.search(this.value).draw();
+            })
+
+            // Itemsselect
+            $("#costobjectlist_length").html('<div class="mdc-select">' + $('#costobjectlist_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+            $(".mdc-select select").addClass("mdc-select__native-control");
+            $('#costobjectlist_length select').on('change', function (e) {
+                dt.page.len(this.value).draw();
+            });
+            
+
+            // Select
+            select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
+            // Lineripple
+            lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
+            // Textfield
+            textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
         })
         ;
     </script>
