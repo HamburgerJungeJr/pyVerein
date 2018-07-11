@@ -21,6 +21,7 @@
     <div class="main-narrow">
         <div class="detail-content  mdc-elevation--z4">
             <form action="{% url 'finance:ddebitor_edit' ddebitor.pk %}" method="POST" id="form">
+                {% csrf_token %}
                 <div class="heading mdc-typography--overline">
                     {% trans 'Creditor' %}
                 </div>
