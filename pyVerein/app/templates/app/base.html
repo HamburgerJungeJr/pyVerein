@@ -150,7 +150,43 @@
                 '</div>'
             });
         })
-        
+        var form_errors = [
+        {% if form.errors %}
+            {% for error in form.non_field_errors %}
+                {
+                    error: "{{ error }}"
+                },
+            {% endfor %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    {
+                        error: "{{ error }}"
+                    },
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        ];
+        form_errors.forEach(function(error){
+            $.notify({
+                message: error['error']
+            },{
+                type: 'minimalist',
+                delay: 0,
+                allow_dismiss: true,
+                newest_on_top: true,
+                animate: {
+                    exit: 'animated fadeOutRight'
+                },
+                offset: {
+                    x: 20,
+                    y: 70
+                },
+                template: '<div data-notify="container" class="alert alert-{0} error">' +
+                    '<button aria-hidden="true" class="mdc-button close" data-notify="dismiss"><i class="mdc-button__icon fa fa-times" aria-hidden="true"></i></button>' +
+                    '<span data-notify="message">{2}</span>' +
+                '</div>'
+            });
+        })
     </script>
     <script src="{% static 'app/js/material-components-web.js' %}"></script> 
     <script src="{% static 'app/js/material.js' %}"></script> 
