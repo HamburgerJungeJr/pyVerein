@@ -600,29 +600,49 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
     template_name = 'finance/transaction/create.html'
     form_class = TransactionCreateForm
 
+    def get_context_data(self, **kwargs):
+        context = super(TransactionCreateView, self).get_context_data(**kwargs)
+        context['transactions'] = self.request.session.get('transactions')
+        step = self.kwargs.get('step', None)
+        if step:
+            context['save_url'] = reverse_lazy('finance:transaction_step', args={step:step})
+        else:
+            context['save_url'] = reverse_lazy('finance:transaction_create')
+        return context
+
     def get_initial(self):
         """
         Set initial values from previous document
         """
-        #del self.request.session['transactions']
         initial = super(TransactionCreateView, self).get_initial()
         transactions = self.request.session.get('transactions')
-        if transactions is not None:
-            initial['date'] = transactions['0']['date']
-            initial['document_number'] = transactions['0']['document_number']
-            initial['text'] = transactions['0']['text']
+        step = self.kwargs.get('step', None)
+        if step and transactions:
+            initial['account'] = transactions[step]['account'] 
+            initial['date'] = transactions[step]['date']
+            initial['document_number'] = transactions[step]['document_number']
+            initial['text'] = transactions[step]['text']
+            initial['debit'] = transactions[step]['debit']
+            initial['credit'] = transactions[step]['credit']
+            initial['cost_center'] = transactions[step]['cost_center']
+            initial['cost_object'] = transactions[step]['cost_object']
+        else:
+            if transactions is not None:
+                initial['date'] = transactions['0']['date']
+                initial['document_number'] = transactions['0']['document_number']
+                initial['text'] = transactions['0']['text']
 
-            debit_sum = Decimal(0)
-            credit_sum = Decimal(0)
-            for transaction in transactions.values():
-                debit_sum += Decimal(transaction['debit'] if transaction['debit'] is not None else 0)
-                credit_sum += Decimal(transaction['credit'] if transaction['credit'] is not None else 0)
+                debit_sum = Decimal(0)
+                credit_sum = Decimal(0)
+                for transaction in transactions.values():
+                    debit_sum += Decimal(transaction['debit'] if transaction['debit'] is not None else 0)
+                    credit_sum += Decimal(transaction['credit'] if transaction['credit'] is not None else 0)
 
-            balance =  debit_sum - credit_sum
-            if balance > 0:
-                initial['credit'] = balance
-            else:
-                initial['debit'] = -balance
+                balance =  debit_sum - credit_sum
+                if balance > 0:
+                    initial['credit'] = balance
+                else:
+                    initial['debit'] = -balance
 
         return initial
 
@@ -665,7 +685,13 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
             }
             self.request.session['transactions'] = transactions
         else:
-            transactions[str(int(max(transactions.keys())) + 1)] = {
+            key = None
+            step = self.kwargs.get('step', None)
+            if step:
+                key = step
+            else:
+                key = str(int(max(transactions.keys())) + 1)
+            transactions[key] = {
                 'account':  str(self.object.account.number) if self.object.account is not None else None,
                 'date':  self.object.date.strftime('%d.%m.%Y'),
                 'document_number': self.object.document_number,

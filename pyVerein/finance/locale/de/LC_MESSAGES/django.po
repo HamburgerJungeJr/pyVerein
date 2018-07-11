@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-11 22:28+0200\n"
+"POT-Creation-Date: 2018-07-11 22:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,7 @@ msgstr "Kostenstelle erstellen"
 #: finance/templates/finance/costcenter/detail.html:29
 #: finance/templates/finance/costobject/detail.html:29
 #: finance/templates/finance/transaction/create.html:114
+#: finance/templates/finance/transaction/create.html:151
 #: finance/templates/finance/transaction/detail.html:52
 #: finance/templates/finance/transaction/edit.html:61
 msgid "Cost center"
@@ -58,14 +59,14 @@ msgstr "Kostenstelle"
 
 #: finance/templates/finance/costcenter/create.html:27
 #: finance/templates/finance/costcenter/list.html:25
-#: finance/templates/finance/transaction/create.html:217
+#: finance/templates/finance/transaction/create.html:214
 msgid "Cost center number"
 msgstr "Kostenstellennummer"
 
 #: finance/templates/finance/costcenter/create.html:31
 #: finance/templates/finance/costcenter/edit.html:29
 #: finance/templates/finance/costcenter/list.html:26
-#: finance/templates/finance/transaction/create.html:217
+#: finance/templates/finance/transaction/create.html:214
 msgid "Cost center name"
 msgstr "Bezeichnung"
 
@@ -136,6 +137,7 @@ msgstr "Buchungstext"
 #: finance/templates/finance/debitor/detail.html:28
 #: finance/templates/finance/impersonal/detail.html:28
 #: finance/templates/finance/transaction/create.html:99
+#: finance/templates/finance/transaction/create.html:149
 #: finance/templates/finance/transaction/detail.html:36
 #: finance/templates/finance/transaction/edit.html:46
 msgid "Debit"
@@ -147,6 +149,7 @@ msgstr "Soll"
 #: finance/templates/finance/debitor/detail.html:29
 #: finance/templates/finance/impersonal/detail.html:29
 #: finance/templates/finance/transaction/create.html:103
+#: finance/templates/finance/transaction/create.html:150
 #: finance/templates/finance/transaction/detail.html:40
 #: finance/templates/finance/transaction/edit.html:50
 msgid "Credit"
@@ -156,6 +159,7 @@ msgstr "Haben"
 #: finance/templates/finance/costobject/create.html:24
 #: finance/templates/finance/costobject/detail.html:30
 #: finance/templates/finance/transaction/create.html:125
+#: finance/templates/finance/transaction/create.html:152
 #: finance/templates/finance/transaction/detail.html:56
 #: finance/templates/finance/transaction/edit.html:65
 msgid "Cost object"
@@ -410,14 +414,14 @@ msgstr "Kostenträger erstellen"
 
 #: finance/templates/finance/costobject/create.html:27
 #: finance/templates/finance/costobject/list.html:25
-#: finance/templates/finance/transaction/create.html:220
+#: finance/templates/finance/transaction/create.html:217
 msgid "Cost object number"
 msgstr "Kostenträgernummer"
 
 #: finance/templates/finance/costobject/create.html:31
 #: finance/templates/finance/costobject/edit.html:29
 #: finance/templates/finance/costobject/list.html:26
-#: finance/templates/finance/transaction/create.html:220
+#: finance/templates/finance/transaction/create.html:217
 msgid "Cost object name"
 msgstr "Bezeichnung"
 
@@ -566,6 +570,7 @@ msgid "Transaction"
 msgstr "Beleg"
 
 #: finance/templates/finance/transaction/create.html:88
+#: finance/templates/finance/transaction/create.html:148
 #: finance/templates/finance/transaction/detail.html:32
 #: finance/templates/finance/transaction/edit.html:42
 msgid "Account"
@@ -577,23 +582,27 @@ msgstr "Konto"
 msgid "Costing"
 msgstr "Kostenrechnung"
 
-#: finance/templates/finance/transaction/create.html:214
+#: finance/templates/finance/transaction/create.html:143
+msgid "Corresponding transactions"
+msgstr "Zugehörige Buchungen"
+
+#: finance/templates/finance/transaction/create.html:211
 msgid "Select account"
 msgstr "Konto auswählen"
 
-#: finance/templates/finance/transaction/create.html:214
+#: finance/templates/finance/transaction/create.html:211
 msgid "Account number"
 msgstr "Kontonummer"
 
-#: finance/templates/finance/transaction/create.html:214
+#: finance/templates/finance/transaction/create.html:211
 msgid "Account name"
 msgstr "Bezeichnung"
 
-#: finance/templates/finance/transaction/create.html:217
+#: finance/templates/finance/transaction/create.html:214
 msgid "Select cost center"
 msgstr "Kostenstelle auswählen"
 
-#: finance/templates/finance/transaction/create.html:220
+#: finance/templates/finance/transaction/create.html:217
 msgid "Select cost object"
 msgstr "Kostenträger auswählen"
 
@@ -646,7 +655,7 @@ msgstr "Kostenstelle wurde erfolgreich gespeichert"
 msgid "Cost object created successfully"
 msgstr "Kostenträger wurde erfolgreich erstellt"
 
-#: finance/views.py:536 finance/views.py:724
+#: finance/views.py:536 finance/views.py:729
 msgid "Cost object saved successfully"
 msgstr "Kostenträger wurde erfolgreich gespeichert"
 
