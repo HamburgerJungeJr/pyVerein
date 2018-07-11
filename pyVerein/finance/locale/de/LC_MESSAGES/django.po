@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-12 00:39+0200\n"
+"POT-Creation-Date: 2018-07-12 01:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,11 +30,11 @@ msgstr "Erlös"
 msgid "Asset"
 msgstr "Bestand"
 
-#: finance/models.py:27 finance/templates/finance/creditor/create.html:22
-#: finance/templates/finance/creditor/edit.html:25
-#: finance/templates/finance/debitor/create.html:22
-#: finance/templates/finance/debitor/edit.html:25
-#: finance/templates/finance/impersonal/edit.html:25
+#: finance/models.py:27 finance/templates/finance/creditor/create.html:23
+#: finance/templates/finance/creditor/edit.html:26
+#: finance/templates/finance/debitor/create.html:23
+#: finance/templates/finance/debitor/edit.html:26
+#: finance/templates/finance/impersonal/edit.html:26
 msgid "Creditor"
 msgstr "Kreditor"
 
@@ -79,12 +79,12 @@ msgstr "Beschreibung"
 #: finance/templates/finance/costcenter/edit.html:37
 #: finance/templates/finance/costobject/create.html:39
 #: finance/templates/finance/costobject/edit.html:37
-#: finance/templates/finance/creditor/create.html:33
-#: finance/templates/finance/creditor/edit.html:32
-#: finance/templates/finance/debitor/create.html:33
-#: finance/templates/finance/debitor/edit.html:32
-#: finance/templates/finance/impersonal/create.html:33
-#: finance/templates/finance/impersonal/edit.html:32
+#: finance/templates/finance/creditor/create.html:34
+#: finance/templates/finance/creditor/edit.html:33
+#: finance/templates/finance/debitor/create.html:34
+#: finance/templates/finance/debitor/edit.html:33
+#: finance/templates/finance/impersonal/create.html:34
+#: finance/templates/finance/impersonal/edit.html:33
 #: finance/templates/finance/transaction/create.html:138
 #: finance/templates/finance/transaction/edit.html:70
 msgid "Save"
@@ -94,12 +94,12 @@ msgstr "Speichern"
 #: finance/templates/finance/costcenter/edit.html:38
 #: finance/templates/finance/costobject/create.html:40
 #: finance/templates/finance/costobject/edit.html:38
-#: finance/templates/finance/creditor/create.html:34
-#: finance/templates/finance/creditor/edit.html:33
-#: finance/templates/finance/debitor/create.html:34
-#: finance/templates/finance/debitor/edit.html:33
-#: finance/templates/finance/impersonal/create.html:34
-#: finance/templates/finance/impersonal/edit.html:33
+#: finance/templates/finance/creditor/create.html:35
+#: finance/templates/finance/creditor/edit.html:34
+#: finance/templates/finance/debitor/create.html:35
+#: finance/templates/finance/debitor/edit.html:34
+#: finance/templates/finance/impersonal/create.html:35
+#: finance/templates/finance/impersonal/edit.html:34
 #: finance/templates/finance/transaction/create.html:139
 #: finance/templates/finance/transaction/edit.html:73
 msgid "Cancel"
@@ -449,18 +449,18 @@ msgstr "Kostenträger"
 msgid "Create creditor"
 msgstr "Kreditor erstellen"
 
-#: finance/templates/finance/creditor/create.html:25
+#: finance/templates/finance/creditor/create.html:26
 #: finance/templates/finance/creditor/list.html:25
-#: finance/templates/finance/debitor/create.html:25
+#: finance/templates/finance/debitor/create.html:26
 msgid "Creditor number"
 msgstr "Kreditornummer"
 
-#: finance/templates/finance/creditor/create.html:29
-#: finance/templates/finance/creditor/edit.html:28
+#: finance/templates/finance/creditor/create.html:30
+#: finance/templates/finance/creditor/edit.html:29
 #: finance/templates/finance/creditor/list.html:26
-#: finance/templates/finance/debitor/create.html:29
-#: finance/templates/finance/debitor/edit.html:28
-#: finance/templates/finance/impersonal/edit.html:28
+#: finance/templates/finance/debitor/create.html:30
+#: finance/templates/finance/debitor/edit.html:29
+#: finance/templates/finance/impersonal/edit.html:29
 msgid "Creditor name"
 msgstr "Bezeichnung"
 
@@ -517,18 +517,18 @@ msgstr "Bezeichnung"
 msgid "Create impersonal account"
 msgstr "Sachkonto erstellen"
 
-#: finance/templates/finance/impersonal/create.html:22
+#: finance/templates/finance/impersonal/create.html:23
 msgid "Impersonal account"
 msgstr "Sachkonto"
 
-#: finance/templates/finance/impersonal/create.html:25
+#: finance/templates/finance/impersonal/create.html:26
 #: finance/templates/finance/impersonal/list.html:25
 #: finance/templates/finance/transaction/list.html:29
 #: finance/templates/finance/transaction/list.html:35
 msgid "Impersonal account number"
 msgstr "Sachkontonummer"
 
-#: finance/templates/finance/impersonal/create.html:29
+#: finance/templates/finance/impersonal/create.html:30
 #: finance/templates/finance/impersonal/list.html:26
 #: finance/templates/finance/transaction/list.html:30
 #: finance/templates/finance/transaction/list.html:36
