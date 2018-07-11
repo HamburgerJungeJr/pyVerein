@@ -464,7 +464,7 @@ msgstr "Sachkonto bearbeiten"
 
 #: finance/templates/finance/impersonal/list.html:16
 #: finance/templates/finance/transaction/list.html:16
-msgid "Impersonal account-List"
+msgid "Impersonal accounts"
 msgstr "Sachkonten"
 
 #: finance/templates/finance/transaction/create.html:15

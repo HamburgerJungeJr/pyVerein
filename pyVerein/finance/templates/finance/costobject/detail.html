@@ -26,7 +26,7 @@
                 <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
                 <th>{% trans 'Debit' %}</th>
                 <th>{% trans 'Credit' %}</th>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost object' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost center' %}</th>
                 <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost object' %}</th>
             </tr>
         </thead>
@@ -48,9 +48,9 @@
                         {{ transaction.credit|default_if_none:"" }}
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
-                        {% if transaction.cost_object%}
-                            <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.pk %}">
-                                {{ transaction.cost_object.number }} {{ transaction.cost_object.name }}
+                        {% if transaction.cost_center%}
+                            <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.pk %}">
+                                {{ transaction.cost_center.number }} {{ transaction.cost_center.name }}
                             </a>
                         {% endif %}
                     </td>

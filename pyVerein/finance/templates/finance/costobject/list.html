@@ -17,30 +17,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_content">
-                    <table id="costobjectlist" class="mdl-data-table dataTable"
-                           cellspacing="0"
-                           width="100%">
-                        <thead>
-                        <tr>
-                            <th>{% trans 'Cost object number' %}</th>
-                            <th>{% trans 'Cost object name' %}</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th>{% trans 'Cost object number' %}</th>
-                            <th>{% trans 'Cost object name' %}</th>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    <table id="costobjectlist" class="mdl-data-table dataTable"
+            cellspacing="0"
+            width="100%">
+        <thead>
+            <tr>
+                <th>{% trans 'Cost object number' %}</th>
+                <th>{% trans 'Cost object name' %}</th>
+            </tr>
+        </thead>
+    </table>
     <a href ="{% url 'finance:costobject_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="">
         <i class="mdc-fab__icon fa fa-plus"></i>
     </a>

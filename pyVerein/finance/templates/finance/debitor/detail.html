@@ -3,79 +3,128 @@
 {% load static %}
 
 {% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+    
+{% endblock %}
 
+{% block page_title %}
+    {% trans 'Debitor detail' %}
 {% endblock %}
 
 {% block title %}
-    {% trans 'Debitor detail' %}
+    {{ debitor.number }} {{ debitor.name }}
 {% endblock %}
 
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h1>{{ debitor.number }} {{ debitor.name }} <small><a href="{% url 'finance:debitor_edit' debitor.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></small></h1>
-                </div>
-                <div class="x_content data">
-                        <table id="transactions" class="table table-bordered table-striped table-hover dataTable" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>{% trans 'Document number' %}</th>
-                                <th>{% trans 'Transaction text' %}</th>
-                                <th>{% trans 'Debit' %}</th>
-                                <th>{% trans 'Credit' %}</th>
-                                <th>{% trans 'Cost center' %}</th>
-                                <th>{% trans 'Cost object' %}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for transaction in transactions %}
-                                <tr>
-                                    <td>
-                                        <a href="{% url 'finance:transaction_detail' pk=transaction.pk %}">
-                                            {{ transaction.document_number }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{ transaction.text }}
-                                    </td>
-                                    <td>
-                                        {{ transaction.debit|default_if_none:"" }}
-                                    </td>
-                                    <td>
-                                        {{ transaction.credit|default_if_none:"" }}
-                                    </td>
-                                    <td>
-                                        {% if transaction.cost_center%}
-                                            <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.pk %}">
-                                                {{ transaction.cost_center.number }} {{ transaction.cost_center.name }}
-                                            </a>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if transaction.cost_object%}
-                                            <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.pk %}">
-                                                {{ transaction.cost_object.number }} {{ transaction.cost_object.name }}
-                                            </a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th>{{ debit_sum }}</th>
-                                <th>{{ credit_sum }}</th>
-                                <th>{% trans 'Saldo' %} {{ saldo }}</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>{% endblock %}
+    <table id="transactions" class="mdl-data-table mdl-js-data-table mdl-data-table--non-linkable" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Document number' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Date' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
+                <th>{% trans 'Debit' %}</th>
+                <th>{% trans 'Credit' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <a href="{% url 'finance:transaction_detail' pk=transaction.pk %}">
+                            {{ transaction.document_number }}
+                        </a>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ transaction.date }}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ transaction.text }}
+                    </td>
+                    <td>
+                        {{ transaction.debit|default_if_none:"" }}
+                    </td>
+                    <td>
+                        {{ transaction.credit|default_if_none:"" }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Saldo' %} {{ saldo }}</th>
+                <th>{{ debit_sum|floatformat:2 }}</th>
+                <th>{{ credit_sum|floatformat:2 }}</th>
+                
+                
+            </tr>
+        </tfoot>
+    </table>
+    <a href ="{% url 'finance:debitor_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="">
+        <i class="mdc-fab__icon fa fa-arrow-left"></i>
+    </a>
+    <a href ="{% url 'finance:debitor_edit' pk=debitor.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="">
+        <i class="mdc-fab__icon fa fa-pencil-alt"></i>
+    </a>    
+{% endblock %}
+
+{% block foot %}
+    <!-- Datatables -->
+    <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            dt = $('#transactions').on('processing.dt', function (e, settings, processing) {
+                $('#transactions').css('opacity', processing ? '0.3' : '1.0');
+            }).DataTable({
+                "processing": true,
+                "serverSide": false,
+                "language": {
+                    "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
+                    "sEmptyTable": "{% trans 'sEmptyTable' %}",
+                    "sInfo": "{% trans 'sInfo' %}",
+                    "sInfoEmpty": "{% trans 'sInfoEmpty' %}",
+                    "sInfoFiltered": "{% trans 'sInfoFiltered' %}",
+                    "sInfoPostFix": "{% trans 'sInfoPostfix' %}",
+                    "sInfoThousands": "{% trans 'sInfoThousands' %}",
+                    "sLoadingRecords": "{% trans 'sLoadingRecords' %}",
+                    "sZeroRecords": "{% trans 'sZeroRecords' %}",
+                    "oPaginate": {
+                        "sFirst": "{% trans 'sFirst' %}",
+                        "sLast": "{% trans 'sLast' %}",
+                        "sNext": "{% trans 'sNext' %}",
+                        "sPrevious": "{% trans 'sPrevious' %}"
+                    },
+                    "oAria": {
+                        "sSortAscending": "{% trans 'sSortAscending' %}",
+                        "sSortDescending": "{% trans 'sSortDescending' %}"
+                    }
+                },
+            });
+            // Search
+            $("#transactions_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
+            $("#datatable-search").on('keyup', function(e) {
+                dt.search(this.value).draw();
+            })
+
+            // Itemsselect
+            $("#transactions_length").html('<div class="mdc-select">' + $('#transactions_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+            $(".mdc-select select").addClass("mdc-select__native-control");
+            $('#transactions_length select').on('change', function (e) {
+                dt.page.len(this.value).draw();
+            });
+            
+
+            // Select
+            select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
+            // Lineripple
+            lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
+            // Textfield
+            textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
+        });
+    </script>
+{% endblock foot %}
