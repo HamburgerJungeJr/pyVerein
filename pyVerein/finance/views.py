@@ -2,7 +2,7 @@
 Viewmodule for finance app
 """
 import datetime
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 # Import views
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 # Import forms
@@ -24,6 +24,7 @@ from .models import Account, CostCenter, CostObject, Transaction
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from decimal import Decimal
 
 class CreditorIndexView(LoginRequiredMixin, TemplateView):
     """
@@ -599,76 +600,38 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
     template_name = 'finance/transaction/create.html'
     form_class = TransactionCreateForm
 
-    def get_success_url(self):
-        """
-        Return detail url as success url
-        """
-        debit_sum = Transaction.objects.filter(document_number=self.object.document_number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(document_number=self.object.document_number).aggregate(Sum('credit'))['credit__sum']
-        if debit_sum != credit_sum:
-            return reverse_lazy('finance:transaction_create_continue', args={self.object.document_number})
-        else:
-            return reverse_lazy('finance:transaction_create')
-    
-    def form_valid(self, form):
-        """
-        Set document_number if not set
-        """
-        # Save validated data
-        self.object = form.save(commit = False)
-        # Generate document_number
-        if self.object.document_number is None:
-            max_document_number = Transaction.objects.filter(document_number_generated=True).aggregate(Max('document_number'))['document_number__max']
-            next_document_number =  '1' if max_document_number is None else str(int(max_document_number) + 1)[2:]
-            self.object.document_number = str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
-            self.object.document_number_generated = True
-        # Save object to commit the changes
-        self.object.save()
-        
-        return super(TransactionCreateView, self).form_valid(form)
-
-class TransactionCreateContinueView(LoginRequiredMixin, CreateView):
-    """
-    Create view for transaction when first transaction is made
-    """
-    model = Transaction
-    context_object_name = 'transaction'
-    template_name = 'finance/transaction/create.html'
-    form_class = TransactionCreateForm
-
-    def get_success_url(self):
-        """
-        Return detail url as success url
-        """
-        debit_sum = Transaction.objects.filter(document_number=self.object.document_number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(document_number=self.object.document_number).aggregate(Sum('credit'))['credit__sum']
-        if debit_sum != credit_sum:
-            return reverse_lazy('finance:transaction_create_continue', args={self.object.document_number})
-        else:
-            messages.success(self.request, _('Transaction %s created successfully' % self.object.document_number))
-            return reverse_lazy('finance:transaction_create')
-    
     def get_initial(self):
         """
         Set initial values from previous document
         """
-        initial = super(TransactionCreateContinueView, self).get_initial()
-        transaction = Transaction.objects.filter(document_number=self.kwargs['document_number']).first()
-        initial['date'] = transaction.date
-        initial['document_number'] = transaction.document_number
-        initial['text'] = transaction.text
+        #del self.request.session['transactions']
+        initial = super(TransactionCreateView, self).get_initial()
+        transactions = self.request.session.get('transactions')
+        if transactions is not None:
+            initial['date'] = transactions['0']['date']
+            initial['document_number'] = transactions['0']['document_number']
+            initial['text'] = transactions['0']['text']
 
-        debit_sum = Transaction.objects.filter(document_number=transaction.document_number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(document_number=transaction.document_number).aggregate(Sum('credit'))['credit__sum']
+            debit_sum = Decimal(0)
+            credit_sum = Decimal(0)
+            for transaction in transactions.values():
+                debit_sum += Decimal(transaction['debit'] if transaction['debit'] is not None else 0)
+                credit_sum += Decimal(transaction['credit'] if transaction['credit'] is not None else 0)
 
-        balance =  (debit_sum if debit_sum is not None else 0) - (credit_sum if credit_sum is not None else 0)
-        if balance > 0:
-            initial['credit'] = balance
-        else:
-            initial['debit'] = -balance
+            balance =  debit_sum - credit_sum
+            if balance > 0:
+                initial['credit'] = balance
+            else:
+                initial['debit'] = -balance
 
         return initial
 
+    def get_success_url(self):
+        """
+        Check if debit=credit then return new transaction else proceed with current transaction
+        """
+        return reverse_lazy('finance:transaction_create')
+    
     def form_valid(self, form):
         """
         Set document_number if not set
@@ -682,19 +645,65 @@ class TransactionCreateContinueView(LoginRequiredMixin, CreateView):
             self.object.document_number = str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
             self.object.document_number_generated = True
         # Save object to commit the changes
-        self.object.save()
-        
-        return super(TransactionCreateContinueView, self).form_valid(form)
+        #self.object.save()
 
-    def get_context_data(self, **kwargs):
-        """
-        Add transaction with document_number to context
-        """
-        context = super(TransactionCreateContinueView, self).get_context_data(**kwargs)
-        transactions = Transaction.objects.filter(document_number=self.kwargs['document_number'])
-        context['transactions'] = transactions
+        # Save object to session
+        transactions = self.request.session.get('transactions')
+        if (transactions is None):
+            transactions = {
+                0: {
+                    'account':  str(self.object.account.number) if self.object.account is not None else None,
+                    'date':  self.object.date.strftime('%d.%m.%Y'),
+                    'document_number': self.object.document_number,
+                    'text':  self.object.text,
+                    'debit':  str(self.object.debit) if self.object.debit is not None else None,
+                    'credit':  str(self.object.credit) if self.object.credit is not None else None,
+                    'cost_center':  str(self.object.cost_center.number) if self.object.cost_center is not None else None,
+                    'cost_object':  str(self.object.cost_object.number) if self.object.cost_object is not None else None,
+                    'document_number_generated':  str(self.object.document_number_generated)
+                }
+            }
+            self.request.session['transactions'] = transactions
+        else:
+            transactions[str(int(max(transactions.keys())) + 1)] = {
+                'account':  str(self.object.account.number) if self.object.account is not None else None,
+                'date':  self.object.date.strftime('%d.%m.%Y'),
+                'document_number': self.object.document_number,
+                'text':  self.object.text,
+                'debit':  str(self.object.debit) if self.object.debit is not None else None,
+                'credit':  str(self.object.credit) if self.object.credit is not None else None,
+                'cost_center':  str(self.object.cost_center.number) if self.object.cost_center is not None else None,
+                'cost_object':  str(self.object.cost_object.number) if self.object.cost_object is not None else None,
+                'document_number_generated':  str(self.object.document_number_generated)
+            }
 
-        return context
+            debit_sum = Decimal(0)
+            credit_sum = Decimal(0)
+            for transaction in transactions.values():
+                debit_sum += Decimal(transaction['debit'] if transaction['debit'] is not None else 0)
+                credit_sum += Decimal(transaction['credit'] if transaction['credit'] is not None else 0)
+            
+            if debit_sum != credit_sum:
+                self.request.session['transactions'] = transactions
+            else:
+                # Save transactions from session to db
+                for transaction in transactions.values():
+                    obj = Transaction()
+                    obj.account = Account.objects.get(number=transaction['account'])
+                    obj.date = datetime.datetime.strptime(transaction['date'], '%d.%m.%Y')
+                    obj.document_number = transaction['document_number']
+                    obj.text = transaction['text']
+                    obj.debit = Decimal(transaction['debit']) if transaction['debit'] is not None else None
+                    obj.credit = Decimal(transaction['credit']) if transaction['credit'] is not None else None
+                    obj.cost_center = CostCenter.objects.get(number=transaction['cost_center']) if transaction['cost_center'] is not None else None
+                    obj.cost_object = CostObject.objects.get(number=transaction['cost_object']) if transaction['cost_object'] is not None else None
+                    obj.document_number_generated = transaction['document_number_generated']
+                    obj.save()
+
+                # Clear session
+                del self.request.session['transactions']
+
+        return HttpResponseRedirect(self.get_success_url())
 
 class TransactionDetailView(LoginRequiredMixin, DetailView):
     """

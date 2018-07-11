@@ -8,6 +8,9 @@ body {
   height: 100%;
   font-size: 16px; }
 
+a {
+  color: #d50000; }
+
 div.main {
   width: 100%; }
 
@@ -95,6 +98,9 @@ div.dataTables_wrapper .mdl-data-table--non-linkable td:hover {
         width: 30%; }
       .main-narrow .detail-content .row .field-value {
         width: 70%; }
+
+.mdc-text-field-helper-text {
+  font-size: 16px; }
 
 footer#page-footer {
   height: 65px;

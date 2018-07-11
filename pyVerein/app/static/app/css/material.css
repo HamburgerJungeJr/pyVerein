@@ -3636,6 +3636,28 @@ a.mdc-list-item {
     -webkit-transform: translateX(calc(0 - 0%)) translateY(-50%) scale(0.923);
             transform: translateX(calc(0 - 0%)) translateY(-50%) scale(0.923); } }
 
+.mdc-text-field-helper-text {
+  font-family: Abel, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.03333em;
+  text-decoration: inherit;
+  text-transform: inherit;
+  margin: 0;
+  transition: opacity 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  will-change: opacity; }
+  .mdc-text-field + .mdc-text-field-helper-text {
+    margin-bottom: 8px; }
+
+.mdc-text-field-helper-text--persistent {
+  transition: none;
+  opacity: 1;
+  will-change: initial; }
+
 @-webkit-keyframes mdc-select-float-native-control {
   0% {
     -webkit-transform: translateY(8px);

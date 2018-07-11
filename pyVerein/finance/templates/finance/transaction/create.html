@@ -5,10 +5,13 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block head %}
-    <!-- iCheck style -->
-    <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/square/blue.css' %}">
-    <!-- DateRangePicker style -->
-    <link rel="stylesheet" href="{% static 'app/vendors/datepicker/css/bootstrap-datepicker3.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Create transaction' %}
 {% endblock %}
 
 {% block title %}
@@ -16,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="modal fade" tabindex="-1" role="dialog" id="account_modal">
+    {% comment %} <div class="modal fade" tabindex="-1" role="dialog" id="selection-dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -38,69 +41,106 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_content data">
-                    <form action="." method="POST" class="form-horizontal" data-toggle="validator" id="form">
-                        {% csrf_token %}
-                        <div class="page-header">
-                            {% trans 'General' %}
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-3 field-title">{% trans 'Date' %}</div>
-                            <div class="col-md-5 value"><div class="input-group date">{% render_field form.date class+="form-control" data-next="id_document_number" autofocus="autofocus" %}<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span></div></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-3 field-title">{% trans 'Document number' %}</div>
-                            <div class="col-md-5 value ">{% render_field form.document_number class+="form-control" data-next="id_account" %}<span class="help-block with-errors"></span></div>
-                        </div>
-                        <div class="page-header">
-                            {% trans 'Transaction' %}
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-3 field-title">{% trans 'Account' %}</div>
-                            <div class="col-md-5 value">{% render_field form.account class+="form-control" data-next="id_debit" data-info="info_account"%}<span class="help-block with-errors"></span></div>
-                            <div class="col-md-4 info" id="info_account"><small><p clasS="text-muted"></p></small></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-3 field-title">{% trans 'Debit' %}</div>
-                            <div class="col-md-5 value">{% render_field form.debit class+="form-control" data-next="id_credit" %}<span class="help-block with-errors"></span></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-3 field-title">{% trans 'Credit' %}</div>
-                            <div class="col-md-5 value">{% render_field form.credit class+="form-control" data-next="id_text" %}<span class="help-block with-errors"></span></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-3 field-title">{% trans 'Transaction text' %}</div>
-                            <div class="col-md-5 value">{% render_field form.text class+="form-control" data-next="id_cost_center" %}<span class="help-block with-errors"></span></div>
-                        </div>
-                        <div class="page-header">
-                            {% trans 'Costing' %}
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-3 field-title">{% trans 'Cost center' %}</div>
-                            <div class="col-md-5 value">{% render_field form.cost_center class+="form-control" data-next="id_cost_object" %}<span class="help-block with-errors"></span></div>
-                            <div class="col-md-4 info" id="info_cost_center"><small><p clasS="text-muted"></p></small></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-3 field-title">{% trans 'Cost object' %}</div>
-                            <div class="col-md-5 value">{% render_field form.cost_object class+="form-control" data-next="id_date" %}<span class="help-block with-errors"></span></div>
-                            <div class="col-md-4 info" id="info_cost_object"><small><p clasS="text-muted"></p></small></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-2 col-md-offset-3">
-                                <input type="submit" class="btn btn-success btn-block" value="{% trans 'Save' %}" />
-                            </div>
-                            <div class="col-md-2 col-md-offset-1">
-                                <a href="{% url 'finance:impersonal_list' %}" class="btn btn-danger btn-block">{% trans 'Cancel' %}</a>
-                            </div>
-                        </div>
-                    </form>
+    </div> {% endcomment %}
+    <aside class="mdc-dialog" id="selection-dialog">
+        <div class="mdc-dialog__surface">
+            <header class="mdc-dialog__header">
+                <h2 class="mdc-dialog__header__title">
+                </h2>
+            </header>
+            <section id="mdc-dialog-with-list-description" class="mdc-dialog__body mdc-dialog__body--scrollable">
+                <table id="selection-list" class="table table-bordered table-striped table-hover dataTable"
+                    cellspacing="0"
+                    width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </section>
+            <footer class="mdc-dialog__footer">
+                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined">{% trans 'Close' %}</button>
+            </footer>
+        </div>
+    </aside>
+    <div class="main-narrow">
+        <div class="detail-content  mdc-elevation--z4">
+            <form action="." method="POST" class="form-horizontal" data-toggle="validator" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'General' %}
                 </div>
-            </div>
-            {% if transactions %}
+                <div class="form-group">
+                    {% trans 'Date' as date_label %}
+                    {% include "utils/_textfield.html" with field=form.date label=date_label next='id_document_number' autofocus=True %}
+
+                    {% trans 'Document number' as document_number_label %}
+                    {% include "utils/_textfield.html" with field=form.document_number label=document_number_label next='id_account' %}
+                </div>
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Transaction' %}
+                </div>
+                <div class="form-group">
+                    {% trans 'Account' as account_label %}
+                    <div class="mdc-text-field mdc-input">
+                        {% render_field form.account class+="mdc-text-field__input" data-next='id_debit' %}
+                        <label class="mdc-floating-label" for="{{ field.id_for_label }}">
+                            {{ account_label }}
+                        </label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p id="info_account" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true"></p>
+                </div>
+                <div class="form-group">
+                    {% trans 'Debit' as debit_label %}
+                    {% include "utils/_textfield.html" with field=form.debit label=debit_label next='id_credit' %}
+                </div>
+                <div class="form-group">
+                    {% trans 'Credit' as credit_label %}
+                    {% include "utils/_textfield.html" with field=form.credit label=credit_label next='id_text' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Transaction text' as text_label %}
+                    {% include "utils/_textfield.html" with field=form.text label=text_label next='id_cost_center' %}
+                </div>
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Costing' %}
+                </div>
+                <div class="form-group">
+                    {% trans 'Cost center' as cost_center_label %}
+                    <div class="mdc-text-field mdc-input">
+                        {% render_field form.cost_center class+="mdc-text-field__input" data-next='id_cost_object' %}
+                        <label class="mdc-floating-label" for="{{ field.id_for_label }}">
+                            {{ cost_center_label }}
+                        </label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p id="info_cost_center" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true"></p>
+                </div>
+                <div class="form-group">
+                    {% trans 'Cost object' as cost_object_label %}
+                    <div class="mdc-text-field mdc-input">
+                        {% render_field form.cost_object class+="mdc-text-field__input" data-next='id_cost_object' %}
+                        <label class="mdc-floating-label" for="{{ field.id_for_label }}">
+                            {{ cost_object_label }}
+                        </label>
+                        <div class="mdc-line-ripple"></div>
+                        
+                    </div>
+                    <p id="info_cost_object" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true"></p>
+                </div>
+
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
+                    <a href="{% url 'app:index' %}" class="mdc-button">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+            {% comment %} {% if transactions %}
                 <div class="x_panel">
                     <div class="x_content data">
                         <table id="transactions" class="table table-bordered table-striped table-hover dataTable" cellspacing="0" width="100%">
@@ -141,25 +181,10 @@
                         </table>
                     </div>
                 </div>
-            {% endif %}
-        </div>
-    </div>
+            {% endif %} {% endcomment %}
 {% endblock %}
 
 {% block foot %}
-    <!-- icheck -->
-    <script src="{% static 'app/vendors/iCheck/icheck.js' %}"></script>
-
-    <script type="application/javascript">
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square',
-            increaseArea: '20%',
-            radioClass: 'iradio_square-blue',
-        });
-    </script> 
-    <!-- Validator -->
-    <script src="{% static 'app/vendors/bootstrap-validator/dist/validator.min.js' %}"></script>
-
     <!-- Keys -->
     <script src="{% static 'app/js/keys.js' %}"></script>
     <script>
@@ -169,18 +194,6 @@
             $('#form').exitOnEsc("{% url 'finance:impersonal_list' %}");
         {% endif %}
     </script>
-
-    <!-- DatePicker -->
-    <script src="{% static 'app/vendors/datepicker/js/bootstrap-datepicker.js' %}"></script>
-    <script src="{% static 'app/vendors/datepicker/locales/bootstrap-datepicker.'|add:request.LANGUAGE_CODE|add:'.min.js' %}"></script>
-    <script>
-        $('.input-group.date').datepicker({
-            language: "{{ request.LANGUAGE_CODE }}",
-            autoclose: true,
-            todayHighlight: true,
-            showOnFocus: false
-        });
-    </script>
     
     <!-- Inputmask -->
     <script src="{% static 'app/vendors/jquery.inputmask/dist/jquery.inputmask.bundle.js' %}"></script>
@@ -189,28 +202,20 @@
     </script>
 
     <!-- Datatables -->
-    <script src="{% static 'app/vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
-    <script src="{% static 'app/vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
     <!-- Api -->
     <script>
+        const selection_dialog = new mdc.dialog.MDCDialog(document.querySelector('#selection-dialog'));
+        
         $('#id_account').focusout(function (){
-            showAccountSelection('#id_account', '#info_account p', "{% url 'finance:account_search' search='###SEARCH###' %}", "{% trans 'Select account' %}", "{% trans 'Account number' %}", "{% trans 'Account name' %}")  
+            showAccountSelection('#id_account', '#info_account', "{% url 'finance:account_search' search='###SEARCH###' %}", "{% trans 'Select account' %}", "{% trans 'Account number' %}", "{% trans 'Account name' %}")  
         });
         $('#id_cost_center').focusout(function (){
-            showAccountSelection('#id_cost_center', '#info_cost_center p', "{% url 'finance:costcenter_search' search='###SEARCH###' %}", "{% trans 'Select cost center' %}", "{% trans 'Cost center number' %}", "{% trans 'Cost center name' %}")  
+            showAccountSelection('#id_cost_center', '#info_cost_center', "{% url 'finance:costcenter_search' search='###SEARCH###' %}", "{% trans 'Select cost center' %}", "{% trans 'Cost center number' %}", "{% trans 'Cost center name' %}")  
         });
         $('#id_cost_object').focusout(function (){
-            showAccountSelection('#id_cost_object', '#info_cost_object p', "{% url 'finance:costobject_search' search='###SEARCH###' %}", "{% trans 'Select cost object' %}", "{% trans 'Cost object number' %}", "{% trans 'Cost object name' %}")  
+            showAccountSelection('#id_cost_object', '#info_cost_object', "{% url 'finance:costobject_search' search='###SEARCH###' %}", "{% trans 'Select cost object' %}", "{% trans 'Cost object number' %}", "{% trans 'Cost object name' %}")  
         });
 
         function showAccountSelection(input_selector, info_selector, url, modal_header, number_heading, name_heading){
@@ -230,7 +235,7 @@
                             setAccount(input_field, data[0]['number'], info_field, data[0]['name']);
                             break;
                         default: 
-                            $('#account-list').DataTable({
+                            $('#selection-list').DataTable({
                                 'data': data,
                                 'paging': false,
                                 'searching': false,
@@ -258,8 +263,10 @@
                                     
                                 ],
                             });
-                            $('#account_modal .modal-header .heading').html(modal_header)
-                            $('#account_modal').modal();
+                            $('#selection-dialog .mdc-dialog__header__title').html(modal_header)
+                            
+                            selection_dialog.lastFocusedTarget = this;
+                            selection_dialog.show();
                             break;
                     }
                 });
@@ -269,7 +276,7 @@
             var input_field = $(input_selector);
             var info_field = $(info_selector);
             setAccount(input_field, number,info_field, name);
-            $('#account_modal').modal('hide');
+            selection_dialog.close();
             var next = $('#' + input_field.data('next'));
             next.focus();
         }

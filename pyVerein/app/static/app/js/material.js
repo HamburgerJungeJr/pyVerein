@@ -46,6 +46,14 @@ if (textfield_sel != null){
 
 }
 
+// Textfield helper text
+// var helper_text_sel = document.querySelectorAll('.mdc-text-field-helper-text');
+// if (helper_text_sel != null){
+//     helper_text_sel.forEach(function(val){
+//         mdc.textField.MDCTextFieldHelperText.attachTo(val);
+//     });
+// }
+
 // List-ripple
 var list_ripple_sel = document.querySelectorAll('.mdc-list-item');
 if (list_ripple_sel != null){
