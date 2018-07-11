@@ -8,6 +8,10 @@
 
 {% endblock %}
 
+{% block page_title %}
+    {% trans 'Create member' %}
+{% endblock %}
+
 {% block title %}
     {% trans 'Create member' %}
 {% endblock %}
@@ -15,7 +19,7 @@
 {% block content %}
     <div class="main-narrow">
         <div class="detail-content  mdc-elevation--z4">
-            <form action="{% url 'members:create' %}" method="POST">
+            <form action="{% url 'members:create' %}" method="POST" id="form">
                 {% include 'members/member_form_fields.html' %}
                 <div class="form-group form-submit">
                     <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
@@ -46,5 +50,12 @@
             mask:"99.99.9999",
             showMaskOnHover: false,
         });
+    </script>
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'members:list' %}");
     </script>
 {% endblock %}

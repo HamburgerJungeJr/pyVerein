@@ -2,15 +2,17 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}
+{% block page_title %}
     {% trans 'Member-Detail' %}
 {% endblock %}
 
+{% block title %}
+    {{ member.get_full_name }}
+{% endblock %}
 
 {% block content %}
     <div class="main-narrow">
         <div class="detail-content mdc-elevation--z4">
-            <h1>{{ member.get_full_name }}</h1>
             <div class="heading mdc-typography--overline">
                 {% trans 'Personal Data' %}
             </div>

@@ -13,14 +13,14 @@
 </div>
 <div class="form-group">
     {% trans 'Firstname' as first_name_label%}
-    {% include "utils/_textfield.html" with field=form.first_name label=first_name_label %}
+    {% include "utils/_textfield.html" with field=form.first_name label=first_name_label next='id_last_name' %}
 
     {% trans 'Lastname' as last_name_label%}
-    {% include "utils/_textfield.html" with field=form.last_name label=last_name_label %}
+    {% include "utils/_textfield.html" with field=form.last_name label=last_name_label next='id_birthday' %}
 </div>
 <div class="form-group">
     {% trans 'Birthday' as birthday_label%}
-    {% include "utils/_textfield.html" with field=form.birthday label=birthday_label %}
+    {% include "utils/_textfield.html" with field=form.birthday label=birthday_label next='id_street' %}
 </div>
 
 <div class="heading mdc-typography--overline">
@@ -28,14 +28,14 @@
 </div>
 <div class="form-group">
     {% trans 'Street' as street_label%}
-    {% include "utils/_textfield.html" with field=form.street label=street_label %}
+    {% include "utils/_textfield.html" with field=form.street label=street_label next='id_zipcode' %}
 </div>
 <div class="form-group">
     {% trans 'Zip-Code' as zipcode_label%}
-    {% include "utils/_textfield.html" with field=form.zipcode label=zipcode_label %}
+    {% include "utils/_textfield.html" with field=form.zipcode label=zipcode_label next='id_city' %}
 
     {% trans 'City' as city_label%}
-    {% include "utils/_textfield.html" with field=form.city label=city_label %}
+    {% include "utils/_textfield.html" with field=form.city label=city_label next='id_phone' %}
 </div>
 
 <div class="heading mdc-typography--overline">
@@ -43,18 +43,18 @@
 </div>
 <div class="form-group">
     {% trans 'Phone' as phone_label%}
-    {% include "utils/_textfield.html" with field=form.phone label=phone_label %}
+    {% include "utils/_textfield.html" with field=form.phone label=phone_label next='id_mobile' %}
    
     {% trans 'Mobile' as mobile_label%}
-    {% include "utils/_textfield.html" with field=form.mobile label=mobile_label %}
+    {% include "utils/_textfield.html" with field=form.mobile label=mobile_label next='id_email' %}
 </div>
 <div class="form-group">
     {% trans 'Email' as email_label%}
-    {% include "utils/_textfield.html" with field=form.email label=email_label %}
+    {% include "utils/_textfield.html" with field=form.email label=email_label next='id_fax' %}
 </div>
 <div class="form-group">
     {% trans 'Fax' as fax_label%}
-    {% include "utils/_textfield.html" with field=form.fax label=fax_label %}
+    {% include "utils/_textfield.html" with field=form.fax label=fax_label next='id_membership_number' %}
 </div>
 
 <div class="heading mdc-typography--overline">
@@ -62,14 +62,14 @@
 </div>
 <div class="form-group">
     {% trans 'Membership number' as membership_number_label%}
-    {% include "utils/_textfield.html" with field=form.membership_number label=membership_number_label %}
+    {% include "utils/_textfield.html" with field=form.membership_number label=membership_number_label next='id_joined_at' %}
 </div>
 <div class="form-group">
     {% trans 'Joined at' as joined_at_label%}
-    {% include "utils/_textfield.html" with field=form.joined_at label=joined_at_label %}
+    {% include "utils/_textfield.html" with field=form.joined_at label=joined_at_label next='id_terminated_at' %}
 
     {% trans 'Terminated at' as terminated_at_label%}
-    {% include "utils/_textfield.html" with field=form.terminated_at label=terminated_at_label %}
+    {% include "utils/_textfield.html" with field=form.terminated_at label=terminated_at_label next='id_payment_method' %}
 </div>
 
 <div class="heading mdc-typography--overline">
@@ -77,19 +77,19 @@
 </div>
 <div class="form-group">
     {% trans 'Method' as method_label%}
-    {% include "utils/_select.html" with field=form.payment_method label=method_label %}
+    {% include "utils/_select.html" with field=form.payment_method label=method_label next='id_iban' %}
 </div>
 
 <div class="form-group">
     {% trans 'IBAN' as iban_label%}
-    {% include "utils/_textfield.html" with field=form.iban label=iban_label %}
+    {% include "utils/_textfield.html" with field=form.iban label=iban_label next='id_bic' %}
 
     {% trans 'BIC' as bic_label%}
-    {% include "utils/_textfield.html" with field=form.bic label=bic_label %}
+    {% include "utils/_textfield.html" with field=form.bic label=bic_label next='id_debit_mandate_at' %}
 </div>
 <div class="form-group">
     {% trans 'Direct debit mandate granted at' as debit_mandate_at_label%}
-    {% include "utils/_textfield.html" with field=form.debit_mandate_at label=debit_mandate_at_label %}
+    {% include "utils/_textfield.html" with field=form.debit_mandate_at label=debit_mandate_at_label next='id_debit_reference' %}
 
     {% trans 'Direct debit reference' as debit_reference_label%}
     {% include "utils/_textfield.html" with field=form.debit_reference label=debit_reference_label %}

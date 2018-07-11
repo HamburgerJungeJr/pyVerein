@@ -50,13 +50,13 @@ section.main {
   height: 50px; }
 
 div.dataTables_wrapper div.dataTables_length .mdc-select {
-  width: 100px; }
+  width: 150px;
+  margin-top: 15px; }
 
 div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0px; }
 
 div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
-  margin-top: 0px;
   width: 220px; }
 
 div.dataTables_wrapper .mdl-data-table td,
@@ -66,6 +66,9 @@ div.dataTables_wrapper .mdl-data-table th {
 
 div.dataTables_wrapper .mdl-data-table td:hover {
   cursor: pointer; }
+
+div.dataTables_wrapper .mdl-data-table--non-linkable td:hover {
+  cursor: initial; }
 
 .heading.mdc-typography--overline {
   font-size: 16px; }
@@ -79,6 +82,8 @@ div.dataTables_wrapper .mdl-data-table td:hover {
   .main-narrow .mdc-input {
     width: 49%;
     min-width: 200px; }
+  .main-narrow .full-width .mdc-input {
+    width: 100%; }
   .main-narrow .form-submit {
     margin-top: 30px; }
   .main-narrow .detail-content {

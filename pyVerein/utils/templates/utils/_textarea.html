@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
 
-<div class="mdc-text-field mdc-input">
-    {% render_field field class+="mdc-text-field__input" data-next=next %}
+<div class="mdc-text-field mdc-text-field--textarea mdc-input">
+    {% render_field field class+="mdc-text-field__input" %}
     <label class="mdc-floating-label" for="{{ field.id_for_label }}">
         {{ label }}
     </label>
