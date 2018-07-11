@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-11 22:41+0200\n"
+"POT-Creation-Date: 2018-07-12 00:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -655,9 +655,13 @@ msgstr "Kostenstelle wurde erfolgreich gespeichert"
 msgid "Cost object created successfully"
 msgstr "Kostenträger wurde erfolgreich erstellt"
 
-#: finance/views.py:536 finance/views.py:729
+#: finance/views.py:536 finance/views.py:750
 msgid "Cost object saved successfully"
 msgstr "Kostenträger wurde erfolgreich gespeichert"
+
+#: finance/views.py:728
+msgid "Transaction {0:s} saved successfully"
+msgstr "Beleg {0:s} wurde erfolgreich erfasst"
 
 #~ msgid "Creditor-List"
 #~ msgstr "Kreditoren"
@@ -667,6 +671,3 @@ msgstr "Kostenträger wurde erfolgreich gespeichert"
 
 #~ msgid "Account type"
 #~ msgstr "Kontoart"
-
-#~ msgid "Transaction %s created successfully"
-#~ msgstr "Beleg %s wurde erfolgreich erfasst"

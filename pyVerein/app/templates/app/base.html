@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{% static 'app/vendors/abel/abel.css' %}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'app/vendors/font-awesome/css/fontawesome-all.min.css' %}">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{% static 'app/vendors/animate.css/animate.css' %}">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -108,9 +110,50 @@
         }, 1500);
     </script> -->
     <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
+    <script src="{% static 'app/vendors/notify/notify.js' %}"></script> 
+
+    <script>
+        var messages = [
+        {% if messages %}
+            {% for message in messages %}
+                {
+                    tags: "{{ message.tags }}",
+                    message: "{{ message }}"
+                },
+            {% endfor %}
+        {% endif %}
+        ];
+        messages.forEach(function(message){
+            if(message['tags'] == 'error'){
+                delay = 0;
+            }
+            else{
+                delay = 5000;
+            }
+            $.notify({
+                message: message['message']
+            },{
+                type: 'minimalist',
+                delay: delay,
+                allow_dismiss: true,
+                newest_on_top: true,
+                animate: {
+                    exit: 'animated fadeOutRight'
+                },
+                offset: {
+                    x: 20,
+                    y: 70
+                },
+                template: '<div data-notify="container" class="alert alert-{0} ' + message['tags'] + '">' +
+                    '<button aria-hidden="true" class="mdc-button close" data-notify="dismiss"><i class="mdc-button__icon fa fa-times" aria-hidden="true"></i></button>' +
+                    '<span data-notify="message">{2}</span>' +
+                '</div>'
+            });
+        })
+        
+    </script>
     <script src="{% static 'app/js/material-components-web.js' %}"></script> 
     <script src="{% static 'app/js/material.js' %}"></script> 
-
     {% block foot %} {% endblock %}
 
 </body>

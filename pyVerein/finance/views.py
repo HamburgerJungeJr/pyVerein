@@ -725,7 +725,7 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
                     obj.cost_object = CostObject.objects.get(number=transaction['cost_object']) if transaction['cost_object'] is not None else None
                     obj.document_number_generated = transaction['document_number_generated']
                     obj.save()
-
+                messages.success(self.request, _('Transaction {0:s} saved successfully').format(transactions['0']['document_number']))
                 # Clear session
                 del self.request.session['transactions']
 
