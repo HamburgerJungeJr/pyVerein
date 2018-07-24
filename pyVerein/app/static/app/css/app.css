@@ -64,7 +64,6 @@ div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
 
 div.dataTables_wrapper .mdl-data-table td,
 div.dataTables_wrapper .mdl-data-table th {
-  text-align: left;
   font-size: 16px; }
 
 div.dataTables_wrapper .mdl-data-table td:hover {

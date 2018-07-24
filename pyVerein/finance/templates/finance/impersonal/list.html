@@ -69,8 +69,14 @@
                     true,
                 "columns":
                     [
-                        {"data": "number"},
-                        {"data": "name"},
+                        {
+                            "data": "number",
+                            "className": "mdl-data-table__cell--non-numeric"
+                        },
+                        {
+                            "data": "name",
+                            "className": "mdl-data-table__cell--non-numeric"
+                        },
                     ],
                 "createdRow":
                     function (row, data, index) {
