@@ -763,10 +763,10 @@ class TransactionDatatableView(LoginRequiredMixin, BaseDatatableView):
     model = Transaction
 
     # Define displayed columns.
-    columns = ['number', 'name']
+    columns = ['date','document_number',  'account', 'text', 'debit', 'credit', 'cost_center', 'cost_object']
 
     # Define columns used for ordering.
-    order_columns = ['number', 'name']
+    order_columns = ['date', 'document_number', 'account', 'text', 'debit', 'credit', 'cost_center', 'cost_object']
 
     # Set maximum returned rows to prevent attacks.
     max_rows = 500
@@ -778,7 +778,13 @@ class TransactionDatatableView(LoginRequiredMixin, BaseDatatableView):
         # Read GET parameters.
         search = self.request.GET.get(u'search[value]', None)
         if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
+            qs = qs.filter(
+                Q(document_number__icontains=search) | 
+                Q(account__number__icontains=search) | 
+                Q(text__icontains=search) | 
+                Q(cost_center__number__icontains=search) | 
+                Q(cost_object__number__icontains=search)
+            )
 
         # Return filtered data.
         return qs
@@ -792,9 +798,30 @@ class TransactionDatatableView(LoginRequiredMixin, BaseDatatableView):
 
         # Loop through all items in queryset
         for item in qs:
+            # Retrieve accounttype
+            account_url = None
+            if item.account.account_type == Account.DEBITOR: 
+                account_url = reverse('finance:debitor_detail', args=[item.account.number])
+            if item.account.account_type == Account.CREDITOR: 
+                account_url = reverse('finance:creditor_detail', args=[item.account.number])
+            if item.account.account_type == Account.COST or item.account.account_type == Account.INCOME or item.account.account_type == Account.ASSET: 
+                account_url = reverse('finance:impersonal_detail', args=[item.account.number])
+
             # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:transaction_detail', args=[item.number])})
+            json_data.append({
+                'document_number': item.document_number, 
+                'date': item.date.strftime('%d.%m.%Y'), 
+                'account': item.account.number, 
+                'text': item.text, 
+                'debit': item.debit, 
+                'credit': item.credit, 
+                'cost_center': item.cost_center.number if item.cost_center is not None else '', 
+                'cost_object': item.cost_object.number if item.cost_object is not None else '', 
+                'transaction_url': reverse('finance:transaction_detail', args=[item.pk]),
+                'account_url': account_url,
+                'cost_center_url': reverse('finance:costcenter_detail', args=[item.cost_center.number]) if item.cost_center is not None else '',
+                'cost_object_url': reverse('finance:costobject_detail', args=[item.cost_object.number]) if item.cost_object is not None else ''
+            })
 
         # Return data
         return json_data
