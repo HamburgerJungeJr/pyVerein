@@ -700,7 +700,7 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
                 'credit':  str(self.object.credit) if self.object.credit is not None else None,
                 'cost_center':  str(self.object.cost_center.number) if self.object.cost_center is not None else None,
                 'cost_object':  str(self.object.cost_object.number) if self.object.cost_object is not None else None,
-                'document_number_generated':  str(self.object.document_number_generated)
+                'document_number_generated':  str(transactions['0']['document_number_generated'])
             }
 
             debit_sum = Decimal(0)
@@ -712,6 +712,8 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
             if debit_sum != credit_sum:
                 self.request.session['transactions'] = transactions
             else:
+                # Get last internal_number
+                internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max'] + 1
                 # Save transactions from session to db
                 for transaction in transactions.values():
                     obj = Transaction()
@@ -724,6 +726,7 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
                     obj.cost_center = CostCenter.objects.get(number=transaction['cost_center']) if transaction['cost_center'] is not None else None
                     obj.cost_object = CostObject.objects.get(number=transaction['cost_object']) if transaction['cost_object'] is not None else None
                     obj.document_number_generated = transaction['document_number_generated']
+                    obj.internal_number = internal_number
                     obj.save()
                 messages.success(self.request, _('Transaction {0:s} saved successfully').format(transactions['0']['document_number']))
                 # Clear session
