@@ -39,10 +39,11 @@ urlpatterns = [
 
     url(r'^transaction/$', views.TransactionIndexView.as_view(), name='transaction_list'),
     url(r'^transaction/data/$', views.TransactionDatatableView.as_view(), name='transaction_apiList'),
-    url(r'^transaction/(?P<pk>[0-9]+)/$', views.TransactionDetailView.as_view(), name='transaction_detail'),
-    url(r'^transaction/(?P<pk>[0-9]+)/edit/$', views.TransactionEditView.as_view(), name='transaction_edit'),
+    url(r'^transaction/(?P<internal_number>[0-9]+)/$', views.TransactionDetailView.as_view(), name='transaction_detail'),
+    url(r'^transaction/(?P<internal_number>[0-9]+)/edit/(?P<step>[0-9]+)/$', views.TransactionEditView.as_view(), name='transaction_edit'),
     url(r'^transaction/new/$', views.TransactionCreateView.as_view(), name='transaction_create'),
-    url(r'^transaction/new/(?P<step>[0-9]+)$', views.TransactionCreateView.as_view(), name='transaction_step'),
+    url(r'^transaction/new/(?P<session_id>[a-zA-Z0-9]+)/$', views.TransactionCreateView.as_view(), name='transaction_create_session'),
+    url(r'^transaction/new/(?P<step>[0-9]+)/(?P<session_id>[a-zA-Z0-9]+)/$', views.TransactionCreateView.as_view(), name='transaction_create_step'),
 
     url(r'^api/account/(?P<search>.+)$', views.get_account, name='account_search'),
     url(r'^api/costcenter/(?P<search>.+)$', views.get_cost_center, name='costcenter_search'),

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-12 01:00+0200\n"
+"POT-Creation-Date: 2018-07-26 23:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/app/_attributions.html:6 app/templates/app/base.html:54
-#: app/templates/registration/login.html:74
+#: app/templates/app/_attributions.html:6 app/templates/app/base.html:73
+#: app/templates/registration/login.html:92
 msgid "Attributions"
 msgstr "Lizenzen"
 
@@ -40,7 +40,7 @@ msgid "Finance"
 msgstr "Finanzen"
 
 #: app/templates/app/_drawer.html:35
-msgid "Transactions"
+msgid "Receipts"
 msgstr "Belege"
 
 #: app/templates/app/_drawer.html:41
@@ -75,38 +75,41 @@ msgstr "Profil"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: app/templates/registration/login.html:31
-#: app/templates/registration/login.html:101
+#: app/templates/registration/login.html:49
+#: app/templates/registration/login.html:119
 msgid "Log In"
 msgstr "Anmeldung"
 
-#: app/templates/registration/login.html:39
-#: app/templates/registration/login.html:89
+#: app/templates/registration/login.html:57
+#: app/templates/registration/login.html:107
 msgid "Your username and password didnt match. Please try again."
 msgstr ""
 "Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
 
-#: app/templates/registration/login.html:44
-#: app/templates/registration/login.html:94
+#: app/templates/registration/login.html:62
+#: app/templates/registration/login.html:112
 msgid ""
 "Your account doesnt have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr "Dieser Benutzer hat keine Berechtigung für diese Seite."
 
-#: app/templates/registration/login.html:54
-#: app/templates/registration/login.html:103
+#: app/templates/registration/login.html:72
+#: app/templates/registration/login.html:121
 msgid "Username"
 msgstr "Benutzername"
 
-#: app/templates/registration/login.html:61
-#: app/templates/registration/login.html:107
+#: app/templates/registration/login.html:79
+#: app/templates/registration/login.html:125
 msgid "Password"
 msgstr "Passwort"
 
-#: app/templates/registration/login.html:66
-#: app/templates/registration/login.html:112
+#: app/templates/registration/login.html:84
+#: app/templates/registration/login.html:130
 msgid "Login"
 msgstr "Anmelden"
+
+#~ msgid "Transactions"
+#~ msgstr "Belege"
 
 #~ msgid "List"
 #~ msgstr "Liste"

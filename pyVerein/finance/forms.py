@@ -154,11 +154,8 @@ class TransactionEditForm(forms.ModelForm):
         Form metadata
         """
         model = Transaction
-        fields = ('text', 'debit', 'credit', 'cost_center', 'cost_object')
-        localized_fields = ('debit', 'credit')
+        fields = ('text', 'cost_center', 'cost_object')
         widgets = {
-            'debit': forms.TextInput(),
-            'credit': forms.TextInput(),
             'cost_center': forms.TextInput(),
             'cost_object': forms.TextInput(),
         }

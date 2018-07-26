@@ -11,11 +11,11 @@
 {% endblock %}
 
 {% block page_title %}
-    {% trans 'Create transaction' %}
+    {% trans 'Create receipt' %}
 {% endblock %}
 
 {% block title %}
-    {% trans 'Create transaction' %}
+    {% trans 'Create receipt' %}
 {% endblock %}
 
 {% block content %}
@@ -96,7 +96,6 @@
                     {% include "utils/_textfield.html" with field=form.cost_object label=cost_object_label %}
                     <p id="info_cost_object" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true"></p>
                 </div>
-
                 <div class="form-group form-submit">
                     <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
                     <a href="{% url 'finance:transaction_list' %}" class="mdc-button">{% trans 'Cancel' %}</a>
@@ -117,7 +116,7 @@
                 </thead>
                 <tbody>
                     {% for key, transaction in transactions.items %}
-                        <tr data-step="{% url 'finance:transaction_step' step=key %}">
+                        <tr data-step="{% url 'finance:transaction_create_step' step=key session_id=session_id%}">
                             <td class="mdl-data-table__cell--non-numeric">
                                 {{ transaction.account }}
                             </td>
@@ -153,7 +152,7 @@
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
         {% if not transactions %}
-            $('#form').exitOnEsc("{% url 'finance:impersonal_list' %}");
+            $('#form').exitOnEsc("{% url 'finance:transaction_list' %}");
         {% endif %}
     </script>
     

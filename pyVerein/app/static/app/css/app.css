@@ -52,24 +52,24 @@ section.main {
   border-radius: 50%;
   height: 50px; }
 
-div.dataTables_wrapper div.dataTables_length .mdc-select {
+div.dataTables_length .mdc-select {
   width: 150px;
   margin-top: 15px; }
 
-div.dataTables_wrapper div.dataTables_filter input {
+div.dataTables_filter input {
   margin-left: 0px; }
 
-div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
+div.dataTables_filter .mdc-text-field {
   width: 220px; }
 
-div.dataTables_wrapper .mdl-data-table td,
-div.dataTables_wrapper .mdl-data-table th {
+.mdl-data-table td,
+.mdl-data-table th {
   font-size: 16px; }
 
-div.dataTables_wrapper .mdl-data-table td:hover {
+.mdl-data-table td:hover {
   cursor: pointer; }
 
-div.dataTables_wrapper .mdl-data-table--non-linkable td:hover {
+.mdl-data-table--non-linkable td:hover {
   cursor: initial; }
 
 .heading.mdc-typography--overline {
@@ -88,15 +88,16 @@ div.dataTables_wrapper .mdl-data-table--non-linkable td:hover {
     width: 100%; }
   .main-narrow .form-submit {
     margin-top: 30px; }
-  .main-narrow .detail-content {
-    padding: 20px; }
-    .main-narrow .detail-content .row {
-      display: flex;
-      margin-top: 5px; }
-      .main-narrow .detail-content .row .field-title {
-        width: 30%; }
-      .main-narrow .detail-content .row .field-value {
-        width: 70%; }
+
+.detail-content {
+  padding: 20px; }
+  .detail-content .row {
+    display: flex;
+    margin-top: 5px; }
+    .detail-content .row .field-title {
+      width: 30%; }
+    .detail-content .row .field-value {
+      width: 70%; }
 
 .mdc-text-field-helper-text {
   font-size: 16px; }

@@ -34,7 +34,7 @@
             {% for transaction in transactions %}
                 <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        <a href="{% url 'finance:transaction_detail' pk=transaction.pk %}">
+                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}">
                             {{ transaction.document_number }}
                         </a>
                     </td>

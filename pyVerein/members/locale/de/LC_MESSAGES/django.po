@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-12 01:00+0200\n"
+"POT-Creation-Date: 2018-07-26 23:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -285,10 +285,10 @@ msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: members/templates/members/member_list.html:89
+#: members/templates/members/member_list.html:104
 msgid "sSearch"
 msgstr "Suchen"
 
-#: members/templates/members/member_list.html:95
+#: members/templates/members/member_list.html:110
 msgid "sLengthMenu"
 msgstr "Einträge anzeigen"
