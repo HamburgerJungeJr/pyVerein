@@ -33,7 +33,7 @@
             {% for transaction in transactions %}
                 <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}">
+                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}">
                             {{ transaction.document_number }}
                         </a>
                     </td>
@@ -64,10 +64,10 @@
             </tr>
         </tfoot>
     </table>
-    <a href ="{% url 'finance:creditor_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="">
+    <a href ="{% url 'finance:creditor_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
         <i class="mdc-fab__icon fa fa-arrow-left"></i>
     </a>
-    <a href ="{% url 'finance:creditor_edit' pk=creditor.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="">
+    <a href ="{% url 'finance:creditor_edit' pk=creditor.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>    
 {% endblock %}

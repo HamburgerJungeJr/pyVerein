@@ -22,8 +22,8 @@
             <form action="{% url 'members:create' %}" method="POST" id="form">
                 {% include 'members/member_form_fields.html' %}
                 <div class="form-group form-submit">
-                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
-                    <a href="{% url 'members:list' %}" class="mdc-button">{% trans 'Cancel' %}</a>
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'members:list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
                 </div>
             </form>
         </div>

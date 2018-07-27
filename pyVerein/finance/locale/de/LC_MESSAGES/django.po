@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-27 14:04+0200\n"
+"POT-Creation-Date: 2018-07-27 14:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -177,6 +177,27 @@ msgstr "Haben"
 msgid "Cost object"
 msgstr "Kostenträger"
 
+#: finance/templates/finance/costcenter/detail.html:37
+#: finance/templates/finance/costobject/detail.html:37
+#: finance/templates/finance/creditor/detail.html:36
+#: finance/templates/finance/debitor/detail.html:36
+#: finance/templates/finance/impersonal/detail.html:36
+#: finance/templates/finance/transaction/list.html:85
+msgid "Show receipt"
+msgstr "Beleg bearbeiten"
+
+#: finance/templates/finance/costcenter/detail.html:52
+#: finance/templates/finance/costobject/detail.html:52
+#: finance/templates/finance/transaction/list.html:109
+msgid "Show cost center"
+msgstr "Kostenstelle anzeigen"
+
+#: finance/templates/finance/costcenter/detail.html:59
+#: finance/templates/finance/costobject/detail.html:59
+#: finance/templates/finance/transaction/list.html:116
+msgid "Show cost object"
+msgstr "Kostenträger anzeigen"
+
 #: finance/templates/finance/costcenter/detail.html:73
 #: finance/templates/finance/costobject/detail.html:73
 #: finance/templates/finance/creditor/detail.html:59
@@ -184,6 +205,23 @@ msgstr "Kostenträger"
 #: finance/templates/finance/impersonal/detail.html:59
 msgid "Saldo"
 msgstr "Saldo"
+
+#: finance/templates/finance/costcenter/detail.html:78
+#: finance/templates/finance/costobject/detail.html:78
+#: finance/templates/finance/creditor/detail.html:67
+#: finance/templates/finance/debitor/detail.html:67
+#: finance/templates/finance/impersonal/detail.html:67
+#: finance/templates/finance/transaction/detail.html:80
+msgid "Back"
+msgstr "Zurück"
+
+#: finance/templates/finance/costcenter/detail.html:81
+#: finance/templates/finance/creditor/detail.html:70
+#: finance/templates/finance/debitor/detail.html:70
+#: finance/templates/finance/impersonal/detail.html:70
+#: finance/templates/finance/transaction/detail.html:83
+msgid "Edit"
+msgstr "Bearbeiten"
 
 #: finance/templates/finance/costcenter/detail.html:98
 #: finance/templates/finance/costcenter/list.html:49
@@ -419,6 +457,16 @@ msgstr "Kostenstelle bearbeiten"
 msgid "Cost centers"
 msgstr "Kostenstellen"
 
+#: finance/templates/finance/costcenter/list.html:30
+#: finance/templates/finance/costobject/detail.html:81
+#: finance/templates/finance/costobject/list.html:30
+#: finance/templates/finance/creditor/list.html:30
+#: finance/templates/finance/debitor/list.html:30
+#: finance/templates/finance/impersonal/list.html:30
+#: finance/templates/finance/transaction/list.html:36
+msgid "Add"
+msgstr "Hinzufügen"
+
 #: finance/templates/finance/costobject/create.html:11
 #: finance/templates/finance/costobject/create.html:15
 msgid "Create costobject"
@@ -616,6 +664,10 @@ msgstr "Kostenstelle auswählen"
 msgid "Select cost object"
 msgstr "Kostenträger auswählen"
 
+#: finance/templates/finance/transaction/create.html:215
+msgid "Select"
+msgstr "Konto auswählen"
+
 #: finance/templates/finance/transaction/detail.html:13
 #: finance/templates/finance/transaction/detail.html:17
 msgid "Receipt-Detail"
@@ -649,8 +701,20 @@ msgid "Reset & New"
 msgstr "Stornieren & Neu"
 
 #: finance/templates/finance/transaction/edit.html:88
+msgid "Exit editing"
+msgstr "Bearbeitung beenden"
+
+#: finance/templates/finance/transaction/edit.html:88
 msgid "Exit"
 msgstr "Beenden"
+
+#: finance/templates/finance/transaction/edit.html:132
+msgid "Reset receipt"
+msgstr "Beleg stornieren"
+
+#: finance/templates/finance/transaction/list.html:92
+msgid "Show account"
+msgstr "Konto anzeigen"
 
 #: finance/views.py:46
 msgid "Creditor created successfully"

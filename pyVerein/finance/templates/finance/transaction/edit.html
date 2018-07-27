@@ -30,9 +30,9 @@
                 {% trans 'Do you really want to reset this receipt?' %}
             </section>
             <footer class="mdc-dialog__footer">
-                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--raised">{% trans 'Cancel' %}</button>
-                <button type="button" class="mdc-button mdc-button" id="reset_button">{% trans 'Reset' %}</button>
-                <button type="button" class="mdc-button mdc-button" id="reset_new_button">{% trans 'Reset & New' %}</button>
+                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--raised" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</button>
+                <button type="button" class="mdc-button mdc-button" id="reset_button" title="{% trans 'Reset' %}">{% trans 'Reset' %}</button>
+                <button type="button" class="mdc-button mdc-button" id="reset_new_button" title="{% trans 'Reset & New' %}">{% trans 'Reset & New' %}</button>
             </footer>
         </div>
     </aside>
@@ -84,8 +84,8 @@
                     <p id="info_cost_object" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true"></p>
                 </div>
                 <div class="form-group form-submit">
-                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
-                    <a href="{% url 'finance:transaction_detail' internal_number=internal_number %}" class="mdc-button">{% trans 'Exit' %}</a>
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'finance:transaction_detail' internal_number=internal_number %}" class="mdc-button" title="{% trans 'Exit editing' %}">{% trans 'Exit' %}</a>
                 </div>
             </form>
             <div class="heading mdc-typography--overline" style="margin-top:30px;">
@@ -129,7 +129,7 @@
             </table>
         </div>
     </div>
-    <a href="#" class="mdc-fab mdc-fab--absolute-bottom-right" id="reset_dialog_button" aria-label="">
+    <a href="#" class="mdc-fab mdc-fab--absolute-bottom-right" id="reset_dialog_button" aria-label="" title="{% trans 'Reset receipt' %}">
         <i class="mdc-fab__icon fa fa-times"></i>
     </a>
 {% endblock %}

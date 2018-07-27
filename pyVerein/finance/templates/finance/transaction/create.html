@@ -39,7 +39,7 @@
                 </table>
             </section>
             <footer class="mdc-dialog__footer">
-                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined">{% trans 'Close' %}</button>
+                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined" title="{% trans 'Close' %}">{% trans 'Close' %}</button>
             </footer>
         </div>
     </aside>
@@ -97,8 +97,8 @@
                     <p id="info_cost_object" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true"></p>
                 </div>
                 <div class="form-group form-submit">
-                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
-                    <a href="{% url 'finance:transaction_list' %}" class="mdc-button">{% trans 'Cancel' %}</a>
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'finance:transaction_list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
                 </div>
             </form>
             <div class="heading mdc-typography--overline" style="margin-top:30px;">
@@ -212,7 +212,7 @@
                                     {
                                         'data': null,
                                         'fnCreatedCell': function (nTd, sData, oData, iRow, iCol) {
-                                            $(nTd).html('<a href="javascript:selectFromModal(\x27' + oData.number + '\x27, \x27' + oData.name + '\x27, \x27' + input_selector + '\x27, \x27' + info_selector + '\x27);"><i class="fa fa-check-circle"></i></a>');
+                                            $(nTd).html('<a href="javascript:selectFromModal(\x27' + oData.number + '\x27, \x27' + oData.name + '\x27, \x27' + input_selector + '\x27, \x27' + info_selector + '\x27);" title="{% trans 'Select' %}"><i class="fa fa-check-circle"></i></a>');
                                         },
                                         'width': '42px',
                                         'className': 'text-center mdl-data-table__cell--non-numeric'

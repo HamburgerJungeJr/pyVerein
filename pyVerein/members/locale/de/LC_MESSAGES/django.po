@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-27 14:04+0200\n"
+"POT-Creation-Date: 2018-07-27 14:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,6 +215,15 @@ msgstr "Zusatzfeld 4"
 msgid "Additional field 5"
 msgstr "Zusatzfeld 5"
 
+#: members/templates/members/member_detail.html:156
+msgid "Back"
+msgstr ""
+
+#: members/templates/members/member_detail.html:159
+#: members/templates/members/member_list.html:33
+msgid "Add"
+msgstr "Hinzufügen"
+
 #: members/templates/members/member_edit.html:12
 #: members/templates/members/member_edit.html:16
 msgid "Edit member"
@@ -222,7 +231,7 @@ msgstr "Mitglied bearbeiten"
 
 #: members/templates/members/member_form_fields.html:52
 msgid "Email"
-msgstr "EMail"
+msgstr "E-Mail"
 
 #: members/templates/members/member_list.html:12
 #: members/templates/members/member_list.html:16

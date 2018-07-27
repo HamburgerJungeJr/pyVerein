@@ -81,7 +81,7 @@
                             <div class="mdc-line-ripple"></div>
                         </div>
                     <div>
-                        <button type="submit" class="mdc-button mdc-button--raised">{% trans 'Login' %}</button>
+                        <button type="submit" class="mdc-button mdc-button--raised" title="{% trans 'Login' %}">{% trans 'Login' %}</button>
                         <input type="hidden" name="next" value="{{ next }}"/>
                     </div>
                 </form>
@@ -89,58 +89,12 @@
         </section>
         {% include "app/_attributions.html" %}
         <footer id="page-footer">
-            pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="javascript:showAttributions();" class="mdc-theme--on-primary">{% trans 'Attributions' %}</a>
+            pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="javascript:showAttributions();" class="mdc-theme--on-primary" title="{% trans 'Attributions' %}">{% trans 'Attributions' %}</a>
         </footer>
     </div>
     <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
     <script src="{% static 'app/js/material-components-web.js' %}"></script> 
     <script src="{% static 'app/js/material.js' %}"></script> 
 </body>
-
-<!--<body class="login">
-
-<div class="login_wrapper">
-    <div class="animate form login_form">
-        <section class="login_content">
-            <img src="{% static 'app/images/logo.png' %}" />
-            {% if form.errors %}
-                <div class="alert alert-danger">{% trans 'Your username and password didnt match. Please try again.' %}</div>
-            {% endif %}
-
-            {% if next %}
-                {% if user.is_authenticated %}
-                    <div class="alert alert-danger">{% trans 'Your account doesnt have access to this page. To proceed, please login with an account that has access.' %}
-                    </div>
-                {% endif %}
-            {% endif %}
-
-            <form role="form" method="post" action="{% url 'login' %}" class="form-horizontal">
-                {% csrf_token %}
-                <h1>{% trans 'Log In' %}</h1>
-                <div>
-                    <input type="text" id="username" name="username" placeholder="{% trans 'Username' %}"
-                           class="form-control">
-                </div>
-                <div>
-                    <input type="password" id="password" name="password" placeholder="{% trans 'Password' %}"
-                           class="form-control">
-                </div>
-
-                <div>
-                    <button type="submit" class="btn">{% trans 'Login' %}</button>
-                    <input type="hidden" name="next" value="{{ next }}"/>
-                </div>
-
-
-                <div>
-                    pyVerein by Jannik Heuer - Theme based on Gentelella - Bootstrap Admin Template by <a
-                        href="https://colorlib.com">Colorlib</a>
-                </div>
-            </form>
-        </section>
-    </div>
-</div>
-
-</body>-->
 
 </html>

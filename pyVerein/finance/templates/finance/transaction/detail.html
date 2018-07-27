@@ -77,10 +77,10 @@
         </div>
     </div>
     
-    <a href ="{% url 'finance:transaction_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="">
+    <a href ="{% url 'finance:transaction_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
             <i class="mdc-fab__icon fa fa-arrow-left"></i>
         </a>
-    <a href ="{% url 'finance:transaction_edit' internal_number=internal_number pk=transactions.0.pk%}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="">
+    <a href ="{% url 'finance:transaction_edit' internal_number=internal_number pk=transactions.0.pk%}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
 {% endblock %}
