@@ -90,3 +90,5 @@ class Transaction(ModelBase):
     document_number_generated = models.BooleanField(default=False)
     # Internal number to keep connection of transactions
     internal_number = models.IntegerField(null=False, blank=False, default=0)
+    # Is transaction reset
+    reset = models.BooleanField(blank=False, null=False, default=False)

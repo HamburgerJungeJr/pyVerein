@@ -43,7 +43,9 @@ urlpatterns = [
     url(r'^transaction/(?P<internal_number>[0-9]+)/edit/(?P<pk>[0-9]+)/$', views.TransactionEditView.as_view(), name='transaction_edit'),
     url(r'^transaction/new/$', views.TransactionCreateView.as_view(), name='transaction_create'),
     url(r'^transaction/new/(?P<session_id>[a-zA-Z0-9]+)/$', views.TransactionCreateView.as_view(), name='transaction_create_session'),
-    url(r'^transaction/new/(?P<step>[0-9]+)/(?P<session_id>[a-zA-Z0-9]+)/$', views.TransactionCreateView.as_view(), name='transaction_create_step'),
+    url(r'^transaction/new/(?P<session_id>[a-zA-Z0-9]+)/(?P<step>[0-9]+)/$', views.TransactionCreateView.as_view(), name='transaction_create_step'),
+    url(r'^transaction/(?P<internal_number>[0-9]+)/reset$', views.reset_transaction, name='transaction_reset'),
+    url(r'^transaction/(?P<internal_number>[0-9]+)/reset_new$', views.reset_new_transaction, name='transaction_reset_new'),
 
     url(r'^api/account/(?P<search>.+)$', views.get_account, name='account_search'),
     url(r'^api/costcenter/(?P<search>.+)$', views.get_cost_center, name='costcenter_search'),

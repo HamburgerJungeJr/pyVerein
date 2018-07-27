@@ -27,6 +27,7 @@ from django.contrib.auth.decorators import login_required
 from decimal import Decimal
 import random
 import string
+from dynamic_preferences.registries import global_preferences_registry
 
 class CreditorIndexView(LoginRequiredMixin, TemplateView):
     """
@@ -614,9 +615,9 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
         context['transactions'] = self.request.session.get(session_id + 'transactions')
         step = self.kwargs.get('step', None)
         if step:
-            context['save_url'] = reverse_lazy('finance:transaction_create_step', args={step:step, session_id:session_id})
+            context['save_url'] = reverse_lazy('finance:transaction_create_step', kwargs={'step':step, 'session_id':session_id})
         else:
-            context['save_url'] = reverse_lazy('finance:transaction_create_session', args={session_id:session_id})
+            context['save_url'] = reverse_lazy('finance:transaction_create_session', kwargs={'session_id':session_id})
         return context
 
     def get_initial(self):
@@ -713,8 +714,13 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
             debit_sum = Decimal(0)
             credit_sum = Decimal(0)
             for transaction in transactions.values():
+                # Sums
                 debit_sum += Decimal(transaction['debit'] if transaction['debit'] is not None else 0)
                 credit_sum += Decimal(transaction['credit'] if transaction['credit'] is not None else 0)
+
+                # Ckeck if document number is altered, then update#
+                if transaction['document_number'] != self.object.document_number:
+                    transaction['document_number'] = self.object.document_number
             
             if debit_sum != credit_sum:
                 self.request.session[session_id + 'transactions'] = transactions
@@ -740,7 +746,7 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
                 del self.request.session[session_id + 'transactions']
                 return HttpResponseRedirect(reverse_lazy('finance:transaction_create'))
 
-        return HttpResponseRedirect(reverse_lazy('finance:transaction_create_session', args={session_id:session_id}))
+        return HttpResponseRedirect(reverse_lazy('finance:transaction_create_session', kwargs={'session_id':session_id}))
 
 class TransactionDetailView(LoginRequiredMixin, TemplateView):
     """
@@ -900,3 +906,82 @@ def createJson(items):
         json_data['data'].append({'number': item.number, 'name': item.name})
     
     return json_data
+
+@login_required
+def reset_transaction(request, internal_number):
+    transactions = Transaction.objects.filter(Q(internal_number=internal_number) & Q(reset=False))
+    internal_number = None
+
+    if not transactions:
+        messages.error(request, _('Receipt already reset'))
+        return HttpResponseRedirect(reverse_lazy('finance:transaction_list'))
+    else:
+        # Get last internal_number
+        internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max'] + 1
+    for transaction in transactions:
+        transaction.reset = True
+        transaction.save()
+
+        reset_new_transaction = transaction
+        reset_new_transaction.pk = None
+
+        global_preferences = global_preferences_registry.manager()
+        reset_new_transaction.document_number = global_preferences['Finance__reset_prefix'] + transaction.document_number
+
+        reset_new_transaction.debit, reset_new_transaction.credit = transaction.credit, transaction.debit
+        reset_new_transaction.reset = True
+        reset_new_transaction.internal_number = internal_number
+        
+        reset_new_transaction.save()
+    
+    messages.success(request, _('Receipt reset successfully'))
+    return HttpResponseRedirect(reverse_lazy('finance:transaction_list'))
+
+@login_required
+def reset_new_transaction(request, internal_number):
+    transactions = Transaction.objects.filter(Q(internal_number=internal_number) & Q(reset=False))
+    internal_number = None
+
+    # Create session id   
+    session_id = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
+    session_transactions = {}
+
+    if not transactions:
+        messages.error(request, _('Receipt already reset'))
+        return HttpResponseRedirect(reverse_lazy('finance:transaction_list'))
+    else:
+        # Get last internal_number
+        internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max'] + 1
+    for key, transaction in enumerate(transactions):
+        # Add transaction to session data
+        session_transactions[key] = {
+            'account':  str(transaction.account.number) if transaction.account is not None else None,
+            'date':  transaction.date.strftime('%d.%m.%Y'),
+            'document_number': transaction.document_number,
+            'text':  transaction.text,
+            'debit':  str(transaction.debit) if transaction.debit is not None else None,
+            'credit':  str(transaction.credit) if transaction.credit is not None else None,
+            'cost_center':  str(transaction.cost_center.number) if transaction.cost_center is not None else None,
+            'cost_object':  str(transaction.cost_object.number) if transaction.cost_object is not None else None,
+            'document_number_generated':  str(transaction.document_number_generated)
+        }
+        transaction.reset = True
+        transaction.save()
+
+        reset_new_transaction = transaction
+        reset_new_transaction.pk = None
+
+        global_preferences = global_preferences_registry.manager()
+        reset_new_transaction.document_number = global_preferences['Finance__reset_prefix'] + transaction.document_number
+
+        reset_new_transaction.debit, reset_new_transaction.credit = transaction.credit, transaction.debit
+        reset_new_transaction.reset = True
+        reset_new_transaction.internal_number = internal_number
+        
+        reset_new_transaction.save()
+
+    # Save transactions to session
+    request.session[session_id + 'transactions'] = session_transactions
+
+    messages.success(request, _('Receipt reset successfully'))
+    return HttpResponseRedirect(reverse_lazy('finance:transaction_create_step', kwargs={'session_id':session_id, 'step': 0}))

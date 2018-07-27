@@ -19,27 +19,20 @@
 {% endblock %}
 
 {% block content %}
-    <aside class="mdc-dialog" id="selection-dialog">
+    <aside class="mdc-dialog" id="reset-dialog">
         <div class="mdc-dialog__surface">
             <header class="mdc-dialog__header">
                 <h2 class="mdc-dialog__header__title">
+                    {% trans 'Reset Receipt' %}
                 </h2>
             </header>
-            <section id="mdc-dialog-with-list-description" class="mdc-dialog__body mdc-dialog__body--scrollable">
-                <table id="selection-list" class="mdl-data-table dataTable"
-                    cellspacing="0"
-                    width="100%">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                </table>
+            <section id="mdc-dialog-with-list-description" class="mdc-dialog__body">
+                {% trans 'Do you really want to reset this receipt?' %}
             </section>
             <footer class="mdc-dialog__footer">
-                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined">{% trans 'Close' %}</button>
+                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--raised">{% trans 'Cancel' %}</button>
+                <button type="button" class="mdc-button mdc-button" id="reset_button">{% trans 'Reset' %}</button>
+                <button type="button" class="mdc-button mdc-button" id="reset_new_button">{% trans 'Reset & New' %}</button>
             </footer>
         </div>
     </aside>
@@ -75,7 +68,7 @@
                 </div>
                 <div class="form-group full-width">
                     {% trans 'Transaction text' as text_label %}
-                    {% include "utils/_textfield.html" with field=form.text label=text_label next='id_cost_center' %}
+                    {% include "utils/_textfield.html" with field=form.text label=text_label next='id_cost_center' autofocus=True%}
                 </div>
                 <div class="heading mdc-typography--overline">
                     {% trans 'Costing' %}
@@ -136,11 +129,9 @@
             </table>
         </div>
     </div>
-    {% if transactions %}
-        <div class="mdc-elevation--z4">
-            
-        </div>
-    {% endif %}
+    <a href="#" class="mdc-fab mdc-fab--absolute-bottom-right" id="reset_dialog_button" aria-label="">
+        <i class="mdc-fab__icon fa fa-times"></i>
+    </a>
 {% endblock %}
 
 {% block foot %}
@@ -149,9 +140,7 @@
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
-        {% if not transactions %}
-            $('#form').exitOnEsc("{% url 'finance:transaction_detail' internal_number=internal_number %}");
-        {% endif %}
+        $('#form').exitOnEsc("{% url 'finance:transaction_detail' internal_number=internal_number %}");
     </script>
     
     <!-- Inputmask -->
@@ -165,86 +154,18 @@
     <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
     <!-- Api -->
     <script>
-        const selection_dialog = new mdc.dialog.MDCDialog(document.querySelector('#selection-dialog'));
+        const reset_dialog = new mdc.dialog.MDCDialog(document.querySelector('#reset-dialog'));
+        $('#reset_dialog_button').click(function() {
+            reset_dialog.lastFocusedTarget = this;
+            reset_dialog.show();
+        });
         
-        $('#id_account').focusout(function (){
-            showAccountSelection('#id_account', '#info_account', "{% url 'finance:account_search' search='###SEARCH###' %}", "{% trans 'Select account' %}", "{% trans 'Account number' %}", "{% trans 'Account name' %}")  
+        $('#reset_button').click(function() {
+            window.location = "{% url 'finance:transaction_reset' internal_number=internal_number %}"
         });
-        $('#id_cost_center').focusout(function (){
-            showAccountSelection('#id_cost_center', '#info_cost_center', "{% url 'finance:costcenter_search' search='###SEARCH###' %}", "{% trans 'Select cost center' %}", "{% trans 'Cost center number' %}", "{% trans 'Cost center name' %}")  
+        $('#reset_new_button').click(function() {
+            window.location = "{% url 'finance:transaction_reset_new' internal_number=internal_number %}"
         });
-        $('#id_cost_object').focusout(function (){
-            showAccountSelection('#id_cost_object', '#info_cost_object', "{% url 'finance:costobject_search' search='###SEARCH###' %}", "{% trans 'Select cost object' %}", "{% trans 'Cost object number' %}", "{% trans 'Cost object name' %}")  
-        });
-
-        function showAccountSelection(input_selector, info_selector, url, modal_header, number_heading, name_heading){
-            var input_field = $(input_selector);
-            var info_field = $(info_selector);
-            if (input_field.val() != ""){
-                $.getJSON(decodeURIComponent(url).replace("###SEARCH###", input_field.val()), function(data){
-                    data = data['data'];
-                    switch (data.length){
-                        case 0: 
-                            setAccount(input_field, input_field.val(), info_field, '');
-                            input_field.focus();
-                            input_field.parents('.form-group').addClass('has-error');
-                            break;
-                        case 1: 
-                            input_field.parents('.form-group').removeClass('has-error');
-                            setAccount(input_field, data[0]['number'], info_field, data[0]['name']);
-                            break;
-                        default: 
-                            $('#selection-list').DataTable({
-                                'data': data,
-                                'paging': false,
-                                'searching': false,
-                                'ordering':  false,
-                                'info': false,
-                                'autoWidth': false,
-                                'destroy': true,
-                                'columns':[
-                                    {
-                                        'data': null,
-                                        'fnCreatedCell': function (nTd, sData, oData, iRow, iCol) {
-                                            $(nTd).html('<a href="javascript:selectFromModal(\x27' + oData.number + '\x27, \x27' + oData.name + '\x27, \x27' + input_selector + '\x27, \x27' + info_selector + '\x27);"><i class="fa fa-check-circle"></i></a>');
-                                        },
-                                        'width': '42px',
-                                        'className': 'text-center mdl-data-table__cell--non-numeric'
-                                    },
-                                    {
-                                        'data': 'number',
-                                        'title': number_heading,
-                                        'className': 'mdl-data-table__cell--non-numeric'
-                                    },
-                                    {
-                                        'data': 'name',
-                                        'title': name_heading,
-                                        'className': 'mdl-data-table__cell--non-numeric'
-                                    },
-                                    
-                                ],
-                            });
-                            $('#selection-dialog .mdc-dialog__header__title').html(modal_header)
-                            
-                            selection_dialog.lastFocusedTarget = this;
-                            selection_dialog.show();
-                            break;
-                    }
-                });
-            }
-        }
-        function selectFromModal(number, name, input_selector, info_selector){
-            var input_field = $(input_selector);
-            var info_field = $(info_selector);
-            setAccount(input_field, number,info_field, name);
-            selection_dialog.close();
-            var next = $('#' + input_field.data('next'));
-            next.focus();
-        }
-        function setAccount(input_field, field_val, info_field, info_val){
-            input_field.val(field_val);
-            info_field.html(info_val);
-        }
 
         // Steps
         $('tr').on('click', function(){
