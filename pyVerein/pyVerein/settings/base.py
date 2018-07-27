@@ -24,11 +24,12 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # Application definition
 
 INSTALLED_APPS = [
+    'account.apps.AccountConfig',
     'app.apps.AppConfig',
     'members.apps.MembersConfig',
     'finance.apps.FinanceConfig',
     'utils.apps.UtilsConfig',
-
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,3 +129,5 @@ AUTHOR_CREATED_BY_FIELD_NAME = 'created_by'
 AUTHOR_UPDATED_BY_FIELD_NAME = 'last_modified_by'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+AUTH_USER_MODEL = 'account.User'
