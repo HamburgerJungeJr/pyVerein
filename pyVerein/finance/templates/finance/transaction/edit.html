@@ -43,7 +43,7 @@
             </footer>
         </div>
     </aside>
-    <div class="main-narrow">
+    <div class="main form">
         <div class="detail-content  mdc-elevation--z4">
             <form action="{{ save_url }}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
                 {% csrf_token %}
@@ -63,7 +63,7 @@
                 </div>
                 <div class="row">
                     <div class="field-title">{% trans 'Account' %}</div>
-                    <div class="field-value">{{ transaction.account }}</div>
+                    <div class="field-value">{{ transaction.account.number }}</div>
                 </div>
                 <div class="row">
                     <div class="field-title">{% trans 'Debit' %}</div>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-group form-submit">
                     <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" />
-                    <a href="{% url 'finance:transaction_detail' internal_number=internal_number %}" class="mdc-button">{% trans 'Cancel' %}</a>
+                    <a href="{% url 'finance:transaction_detail' internal_number=internal_number %}" class="mdc-button">{% trans 'Exit' %}</a>
                 </div>
             </form>
             <div class="heading mdc-typography--overline" style="margin-top:30px;">
@@ -102,6 +102,7 @@
                 <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Account' %}</th>
+                        <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
                         <th>{% trans 'Debit' %}</th>
                         <th>{% trans 'Credit' %}</th>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost center' %}</th>
@@ -109,10 +110,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for key, transaction in transactions.items %}
-                        <tr data-step="{% url 'finance:transaction_edit' internal_number=internal_number step=key %}">
+                    {% for transaction in transactions %}
+                        <tr data-step="{% url 'finance:transaction_edit' internal_number=internal_number pk=transaction.pk %}">
                             <td class="mdl-data-table__cell--non-numeric">
-                                {{ transaction.account }}
+                                {{ transaction.account.number }}
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                                {{ transaction.text }}
                             </td>
                             <td>
                                 {{ transaction.debit|floatformat:2|default_if_none:"" }}
@@ -121,10 +125,10 @@
                                 {{ transaction.credit|floatformat:2|default_if_none:"" }}
                             </td>
                             <td class="mdl-data-table__cell--non-numeric">
-                                {{ transaction.cost_center|default_if_none:"" }}
+                                {{ transaction.cost_center.number|default_if_none:"" }}
                             </td>
                             <td class="mdl-data-table__cell--non-numeric">
-                                {{ transaction.cost_object|default_if_none:"" }}
+                                {{ transaction.cost_object.number|default_if_none:"" }}
                             </td>
                         </tr>
                     {% endfor %}

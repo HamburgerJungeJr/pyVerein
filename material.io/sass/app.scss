@@ -68,32 +68,30 @@ section.main{
         height: 50px;
     }
 }
-div.dataTables_wrapper{
-    div.dataTables_length{
-        .mdc-select{
-        width: 150px;
-        margin-top: 15px;
-        }
+div.dataTables_length{
+    .mdc-select{
+    width: 150px;
+    margin-top: 15px;
     }
-    div.dataTables_filter {
-        input{
-            margin-left: 0px;
-        }
-        
-        .mdc-text-field{
-            width: 220px;
-        }
+}
+div.dataTables_filter {
+    input{
+        margin-left: 0px;
     }
-    .mdl-data-table td, 
-    .mdl-data-table th{
-        font-size: 16px;
+    
+    .mdc-text-field{
+        width: 220px;
     }
-    .mdl-data-table td:hover{
-       cursor: pointer;
-    }
-    .mdl-data-table--non-linkable td:hover{
-        cursor: initial;
-    }
+}
+.mdl-data-table td, 
+.mdl-data-table th{
+    font-size: 16px;
+}
+.mdl-data-table td:hover{
+    cursor: pointer;
+}
+.mdl-data-table--non-linkable td:hover{
+    cursor: initial;
 }
 
 
@@ -108,9 +106,25 @@ div.dataTables_wrapper{
 .main-narrow{
     padding-left: 24%;
     padding-right: 24%;
-
+    
+}
+.form{ 
+    .form-group{
+        display: flex;
+        
+        .mdc-input:first-of-type{
+            margin-right:5px;
+        }
+        .mdc-input:last-of-type{
+            margin-left: 5px;
+        }
+        .mdc-input:not(:first-of-type):not(:last-of-type){
+            margin-right:5px;
+            margin-left: 5px;
+        }
+    }
     .mdc-input{
-        width: 49%;
+        width: 50%;
         min-width: 200px;
     }
 
@@ -123,26 +137,23 @@ div.dataTables_wrapper{
     .form-submit{
         margin-top: 30px;
     }
+}
+.detail-content{
+    padding: 20px;
 
-    .detail-content{
-        padding: 20px;
+    .row{
+        display: flex;
+        margin-top: 5px;
 
-        .row{
-            display: flex;
-            margin-top: 5px;
+        .field-title{
+            width: 30%;
+        }
 
-            .field-title{
-                width: 30%;
-            }
-
-            .field-value{
-                width: 70%;
-            }
+        .field-value{
+            width: 70%;
         }
     }
-    
 }
-
 
 .mdc-text-field-helper-text{
     font-size: 16px;

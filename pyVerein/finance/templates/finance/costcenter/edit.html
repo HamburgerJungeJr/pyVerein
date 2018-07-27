@@ -18,7 +18,7 @@
 {% endblock %} 
 
 {% block content %}
-<div class="main-narrow">
+<div class="main-narrow form">
     <div class="detail-content  mdc-elevation--z4">
         <form action="{% url 'finance:costcenter_edit' costcenter.pk %}" method="POST" id="form">
             {% csrf_token %}

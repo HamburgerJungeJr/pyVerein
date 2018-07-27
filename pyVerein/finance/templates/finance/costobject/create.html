@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="main-narrow">
+    <div class="main-narrow form">
         <div class="detail-content  mdc-elevation--z4">
             <form action="{% url 'finance:costobject_create' %}" method="POST" id="form">
                 {% csrf_token %}

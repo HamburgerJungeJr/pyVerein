@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="main-narrow">
+    <div class="main">
         <div class="detail-content mdc-elevation--z4">
             <div class="heading mdc-typography--overline">
                 {% trans 'General' %}
@@ -80,7 +80,7 @@
     <a href ="{% url 'finance:transaction_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="">
             <i class="mdc-fab__icon fa fa-arrow-left"></i>
         </a>
-    <a href ="{% url 'finance:transaction_edit' internal_number=internal_number step=0%}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="">
+    <a href ="{% url 'finance:transaction_edit' internal_number=internal_number pk=transactions.0.pk%}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
 {% endblock %}

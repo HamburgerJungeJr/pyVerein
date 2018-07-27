@@ -760,95 +760,31 @@ class TransactionDetailView(LoginRequiredMixin, TemplateView):
 
         return context
 
-class TransactionEditView(LoginRequiredMixin, UpdateView):
+class TransactionEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for transaction
     """
     model = Transaction
     template_name = 'finance/transaction/edit.html'
     form_class = TransactionEditForm
-
-    def get_object(self, queryset=None):
-        return None
-
+    context_object_name = 'transaction'
+    
     def get_context_data(self, **kwargs):
         context = super(TransactionEditView, self).get_context_data(**kwargs)
 
         internal_number = self.kwargs.get('internal_number', None)
         context['internal_number'] = internal_number
-
-        step = self.kwargs.get('step', None)
-        context['save_url'] = reverse_lazy('finance:transaction_edit', kwargs={'internal_number':internal_number, 'step':step})
-        
-        transactions = self.request.session.get(str(internal_number) + 'transactions')
-        if not transactions:
-            transactions = {}
-            for key, transaction in enumerate(Transaction.objects.filter(internal_number=internal_number)):
-                transactions[str(key)] = {
-                    'pk': transaction.pk,
-                    'account':  str(transaction.account.number) if transaction.account is not None else None,
-                    'date':  transaction.date.strftime('%d.%m.%Y'),
-                    'document_number': transaction.document_number,
-                    'text':  transaction.text,
-                    'debit':  str(transaction.debit) if transaction.debit is not None else None,
-                    'credit':  str(transaction.credit) if transaction.credit is not None else None,
-                    'cost_center':  str(transaction.cost_center.number) if transaction.cost_center is not None else None,
-                    'cost_object':  str(transaction.cost_object.number) if transaction.cost_object is not None else None,
-                    'document_number_generated':  str(transaction.document_number_generated)
-                }
-            self.request.session[str(internal_number) + 'transactions'] = transactions
-
-        context['transaction'] = transactions[step]
-        context['transactions'] = transactions
+        context['transactions'] = Transaction.objects.filter(internal_number=internal_number)
         return context
 
-    def get_initial(self):
-        """
-        Set initial values from previous document
-        """
-        initial = super(TransactionEditView, self).get_initial()
+    def get_success_url(self):
         internal_number = self.kwargs.get('internal_number', '')
-        transactions = self.request.session.get(str(internal_number) + 'transactions')
-        step = self.kwargs.get('step', None)
-        if step and transactions:
-            initial['text'] = transactions[step]['text']
-            initial['cost_center'] = transactions[step]['cost_center']
-            initial['cost_object'] = transactions[step]['cost_object']
+        pk = self.kwargs.get('pk', None)
+        return reverse_lazy('finance:transaction_edit', kwargs={'internal_number':internal_number, 'pk':pk})
 
-        return initial
-
-    def form_valid(self, form):
-        """
-        Set document_number if not set
-        """
-        # Save validated data
-        self.object = form.save(commit = False)
-
-        internal_number = self.kwargs.get('internal_number', '')
-
-        # Save object to session
-        transactions = self.request.session.get(str(internal_number) + 'transactions')
-        key = None
-        step = self.kwargs.get('step', None)
-        transactions[step] = {
-            'pk': transactions[step]['pk'],
-            'text':  self.object.text,
-            'document_number': transactions[step]['document_number'],
-            'cost_center':  str(self.object.cost_center.number) if self.object.cost_center is not None else None,
-            'cost_object':  str(self.object.cost_object.number) if self.object.cost_object is not None else None,
-        }
-        # Save transactions from session to db
-        for transaction in transactions.values():
-            obj = Transaction.objects.get(pk=transaction['pk'])
-            obj.text = transaction['text']
-            obj.cost_center = CostCenter.objects.get(number=transaction['cost_center']) if transaction['cost_center'] is not None else None
-            obj.cost_object = CostObject.objects.get(number=transaction['cost_object']) if transaction['cost_object'] is not None else None
-            obj.save()
-        messages.success(self.request, _('Receipt {0:s} updated successfully').format(transactions['0']['document_number']))
-        # Clear session
-        del self.request.session[str(internal_number) + 'transactions']
-        return HttpResponseRedirect(reverse_lazy('finance:transaction_detail', kwargs={'internal_number':internal_number}))      
-
+    def get_success_message(self, cleaned_data):
+        return _('Receipt {0:s} updated successfully').format(str(self.object.document_number))
+ 
 class TransactionDatatableView(LoginRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for transaction

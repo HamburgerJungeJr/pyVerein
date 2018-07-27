@@ -81,13 +81,26 @@ div.dataTables_filter .mdc-text-field {
 .main-narrow {
   padding-left: 24%;
   padding-right: 24%; }
-  .main-narrow .mdc-input {
-    width: 49%;
-    min-width: 200px; }
-  .main-narrow .full-width .mdc-input {
-    width: 100%; }
-  .main-narrow .form-submit {
-    margin-top: 30px; }
+
+.form .form-group {
+  display: flex; }
+  .form .form-group .mdc-input:first-of-type {
+    margin-right: 5px; }
+  .form .form-group .mdc-input:last-of-type {
+    margin-left: 5px; }
+  .form .form-group .mdc-input:not(:first-of-type):not(:last-of-type) {
+    margin-right: 5px;
+    margin-left: 5px; }
+
+.form .mdc-input {
+  width: 50%;
+  min-width: 200px; }
+
+.form .full-width .mdc-input {
+  width: 100%; }
+
+.form .form-submit {
+  margin-top: 30px; }
 
 .detail-content {
   padding: 20px; }

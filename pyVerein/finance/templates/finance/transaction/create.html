@@ -43,7 +43,7 @@
             </footer>
         </div>
     </aside>
-    <div class="main-narrow">
+    <div class="main form">
         <div class="detail-content  mdc-elevation--z4">
             <form action="{{ save_url }}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
                 {% csrf_token %}
@@ -108,6 +108,7 @@
                 <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Account' %}</th>
+                        <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
                         <th>{% trans 'Debit' %}</th>
                         <th>{% trans 'Credit' %}</th>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost center' %}</th>
@@ -119,6 +120,9 @@
                         <tr data-step="{% url 'finance:transaction_create_step' step=key session_id=session_id%}">
                             <td class="mdl-data-table__cell--non-numeric">
                                 {{ transaction.account }}
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                                {{ transaction.text }}
                             </td>
                             <td>
                                 {{ transaction.debit|floatformat:2|default_if_none:"" }}
