@@ -52,14 +52,14 @@ section.main {
   border-radius: 50%;
   height: 50px; }
 
-div.dataTables_length .mdc-select {
+div.dataTables_wrapper div.dataTables_length .mdc-select {
   width: 150px;
   margin-top: 15px; }
 
-div.dataTables_filter input {
+div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0px; }
 
-div.dataTables_filter .mdc-text-field {
+div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
   width: 220px; }
 
 .mdl-data-table td,
