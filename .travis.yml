@@ -1,0 +1,27 @@
+language: python
+
+python:
+  - "3.5"
+  - "3.6"
+  
+services: postgresql
+
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE="pyVerein.settings.travis"
+    - PYTHONPATH="/home/travis/build/hamburgerjungejr/pyVerein"
+  matrix:
+    - DJANGO=2.0 DB=postgres
+
+#commands to install dependencies
+install:
+  - pip install -q Django==$DJANGO
+  - pip install -q -r requirements.txt
+
+before_script:
+  - psql -c 'create database travis_ci_db;' -U postgres
+  - python manage.py migrate --noinput
+
+#command to run the test suite
+script:
+  - python manage.py test
