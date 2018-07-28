@@ -72,7 +72,7 @@
                     <h3 class="mdc-list-group__subheader">{% trans 'User' %}</h3>
                     <ul class="mdc-list">
                         <li class="mdc-list-item">
-                            <a href="#" title="{% trans 'Profile' %}">
+                            <a href="{% url 'account:detail' %}" title="{% trans 'Profile' %}">
                                 <span class="mdc-list-item__graphic fa fa-user" aria-hidden="true"></span>
                                 <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
                             </a>
