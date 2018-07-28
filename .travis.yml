@@ -20,8 +20,8 @@ install:
 
 before_script:
   - psql -c 'create database travis_ci_db;' -U postgres
-  - python manage.py migrate --noinput
-  - python manage.py colelctstatic
+  - python pyVerein/manage.py migrate --noinput
+  - python pyVerein/manage.py colelctstatic
 
 #command to run the test suite
 script:
