@@ -6,6 +6,12 @@ from .forms import UserForm
 from .models import User
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
+from django.utils.translation import ugettext_lazy as _
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     """
@@ -31,3 +37,18 @@ class UserEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('account:detail')
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, _('Your password was successfully updated!'))
+            return redirect('account:detail')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'account/change_password.html', {
+        'form': form
+    })

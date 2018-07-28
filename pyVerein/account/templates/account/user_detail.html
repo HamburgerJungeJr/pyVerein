@@ -44,7 +44,7 @@
                 {% trans 'Password' %}
             </div>
             <div class="row">
-                <div class="field-title"><a href="#" class="mdc-button mdc-button--raised" title="{% trans 'Change password' %}">{% trans 'Change password' %}</a></div>
+                <div class="field-title"><a href="{% url 'account:change_password' %}" class="mdc-button mdc-button--raised" title="{% trans 'Change password' %}">{% trans 'Change password' %}</a></div>
             </div>
             <div class="heading mdc-typography--overline">
                 {% trans 'Additional information' %}

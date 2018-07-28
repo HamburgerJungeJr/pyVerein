@@ -9,4 +9,5 @@ app_name = 'account'
 urlpatterns = [
     url(r'^$', views.UserDetailView.as_view(), name='detail'),
     url(r'^edit/$', views.UserEditView.as_view(), name='edit'),
+    url(r'^changepassword/$', views.change_password, name='change_password'),
 ]
