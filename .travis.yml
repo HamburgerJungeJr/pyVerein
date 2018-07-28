@@ -16,7 +16,7 @@ env:
 #commands to install dependencies
 install:
   - pip install -q Django==$DJANGO
-  - pip install -q -r requirements.txt
+  - pip install -q -r requirements_base.txt
 
 before_script:
   - psql -c 'create database travis_ci_db;' -U postgres
