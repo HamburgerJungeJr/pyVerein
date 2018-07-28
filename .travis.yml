@@ -25,4 +25,4 @@ before_script:
 
 #command to run the test suite
 script:
-  - python manage.py test
+  - python pyVerein/manage.py test
