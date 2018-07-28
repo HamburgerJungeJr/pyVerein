@@ -61,7 +61,12 @@
                     <span class="mdc-top-app-bar__title">{% block title %} {% endblock %}</span>
                 </section>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                    {{ user.get_full_name }}<img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4">
+                    {{ user.get_full_name }}
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4">
+                    {% else %}
+                        <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4">
+                    {% endif %}
                 </section>
             </div>
         </header>

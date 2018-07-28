@@ -13,6 +13,8 @@ STATICFILES_DIRS = [
     '../static/',
 ]
 
+MEDIA_ROOT = '../media'
+
 # Debug Toolbar
 INSTALLED_APPS += [
     

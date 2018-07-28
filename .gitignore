@@ -111,3 +111,4 @@ node_modules/
 style-bundle.js
 
 *.old/
+media/*

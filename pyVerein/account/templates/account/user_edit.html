@@ -1,0 +1,91 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block page_title %}
+    {% trans 'Userprofile' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Userprofile' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow account form">
+        <div class="detail-content mdc-elevation--z4">
+
+            <form action="{% url 'account:edit' %}" method="POST" id="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group image">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="" class="user_image mdc-elevation--z4">
+                    {% else %}
+                        <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user_image mdc-elevation--z4">
+                    {% endif %}
+                    <a href="#" class="mdc-fab" aria-label="" title="{% trans 'Edit' %}" id="upload_button">
+                        <i class="mdc-fab__icon fa fa-upload"></i>
+                    </a>
+                </div>
+                <div class="form-group">
+                    {% render_field form.avatar style="display:none"%}
+                </div>
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Personal Data' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Firstname' as first_name_label %}
+                    {% include "utils/_textfield.html" with field=form.first_name label=first_name_label next='id_last_name' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Lastname' as last_name_label %}
+                    {% include "utils/_textfield.html" with field=form.last_name label=last_name_label next='id_username'  %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Username' as username_label %}
+                    {% include "utils/_textfield.html" with field=form.username label=username_label next='id_email' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Email' as email_label %}
+                    {% include "utils/_textfield.html" with field=form.email label=email_label %}
+                </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'account:detail' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'account:detail' %}");
+        
+        $('#upload_button').click(function (e){
+            $('#id_avatar').click();
+            e.preventDefault();
+        });
+        $('#id_avatar').change(function(e){
+            file = this.files[0];
+            
+            if (file.type.split('/')[0]=='image') {
+                var img = document.createElement("img");
+                img.classList.add("user_image");
+                img.classList.add("mdc-elevation--z4");
+                img.file = file;
+                $('.form-group.image img').replaceWith(img);
+
+                var reader = new FileReader();
+                reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+                reader.readAsDataURL(file);
+            }
+
+        });
+    </script>
+{% endblock %}

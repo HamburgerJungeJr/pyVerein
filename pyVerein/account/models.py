@@ -9,4 +9,4 @@ class User(AbstractUser):
     Extended user to store the avatar.
     """
 
-    avatar = models.FileField(null=True, blank=True, default=None)
+    avatar = models.ImageField(null=True, blank=True, default=None, upload_to='user')

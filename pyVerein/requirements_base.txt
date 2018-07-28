@@ -6,3 +6,4 @@ persisting-theory>=0.2.1,<0.3
 pytz==2018.4
 six>=1.11.0,<1.12
 django-author>=1.0.2,<1.1
+Pillow>=5.2.0,<5.3

@@ -162,6 +162,26 @@ div.dataTables_wrapper{
     font-size: 16px;
 }
 
+.account{
+    .image{
+        display: flex;
+        align-content: center;
+
+        .mdc-fab{
+            position: absolute;
+            left: calc(50% + 50px);
+            margin-top: 180px;
+        }
+
+        .user_image{
+            border-radius: 50%;
+            height: 250px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
 footer#page-footer{
     height: 65px;
     background: $mdc-theme-primary;

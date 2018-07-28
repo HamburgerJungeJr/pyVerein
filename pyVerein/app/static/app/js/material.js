@@ -89,3 +89,14 @@ if (select_sel != null){
         mdc.select.MDCSelect.attachTo(val);
     });
 }
+
+// checkbox
+var formField_sel = document.querySelectorAll('.mdc-form-field');
+if (formField_sel != null){
+    formField_sel.forEach(function (ff){
+        var checkbox_sel = ff.querySelector('.mdc-checkbox');
+        if (checkbox_sel != null){
+            ff.input = new mdc.checkbox.MDCCheckbox(checkbox_sel);
+        }
+    })
+}

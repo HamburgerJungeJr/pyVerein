@@ -20,6 +20,8 @@ $mdc-typography-styles-button: (
 @import "@material/select/mdc-select";
 @import "@material/form-field/mdc-form-field";
 @import "@material/radio/mdc-radio";
+@import "@material/form-field/mdc-form-field";
+@import "@material/checkbox/mdc-checkbox";
 
 .mdc-list-item{
     a{

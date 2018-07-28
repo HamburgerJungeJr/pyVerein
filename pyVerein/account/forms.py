@@ -1,13 +1,13 @@
 from django import forms
-from .models import UserProfile
-from django.contrib.auth.models import User
+from .models import User
+from utils.widgets import ResetFileInput
+from django.utils.translation import ugettext_lazy as _
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email', 'avatar')
 
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('avatar')
+        widgets = {
+            'avatar': ResetFileInput(label=_('Reset profile image')),
+        }

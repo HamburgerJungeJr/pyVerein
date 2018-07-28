@@ -115,6 +115,19 @@ div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
 .mdc-text-field-helper-text {
   font-size: 16px; }
 
+.account .image {
+  display: flex;
+  align-content: center; }
+  .account .image .mdc-fab {
+    position: absolute;
+    left: calc(50% + 50px);
+    margin-top: 180px; }
+  .account .image .user_image {
+    border-radius: 50%;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto; }
+
 footer#page-footer {
   height: 65px;
   background: #2979FF;
