@@ -1,1 +1,1 @@
-# pyVerein
+# pyVerein [![Build Status](https://travis-ci.org/HamburgerJungeJr/pyVerein.svg?branch=master)](https://travis-ci.org/HamburgerJungeJr/pyVerein)
