@@ -16,11 +16,12 @@ env:
 #commands to install dependencies
 install:
   - pip install -q Django==$DJANGO
-  - pip install -q -r requirements_base.txt
+  - pip install -q -r requirements_production.txt
 
 before_script:
   - psql -c 'create database travis_ci_db;' -U postgres
   - python manage.py migrate --noinput
+  - python manage.py colelctstatic
 
 #command to run the test suite
 script:
