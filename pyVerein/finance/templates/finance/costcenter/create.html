@@ -1,0 +1,55 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block head %}
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Create costcenter' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Create costcenter' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content  mdc-elevation--z4">
+            <form action="{% url 'finance:costcenter_create' %}" method="POST" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Cost center' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Cost center number' as number_label%}
+                    {% include "utils/_textfield.html" with field=form.number label=number_label next='id_name' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Cost center name' as name_label%}
+                    {% include "utils/_textfield.html" with field=form.name label=name_label next='id_description' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Cost center description' as description_label%}
+                    {% include "utils/_textarea.html" with field=form.description label=description_label %}
+                </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}"  title="{% trans 'Save' %}"/>
+                    <a href="{% url 'finance:costcenter_list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:costcenter_list' %}");
+    </script>
+{% endblock %}

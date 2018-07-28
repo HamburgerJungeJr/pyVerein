@@ -1,0 +1,52 @@
+{% extends 'app/base.html' %} 
+{% load i18n %} 
+{% load widget_tweaks %} 
+{% load static %} 
+{% get_current_language as LANGUAGE_CODE%} 
+
+{% block head %}
+    <!-- iCheck style -->
+    <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/square/blue.css' %}"> 
+{% endblock %} 
+
+{% block page_title %} 
+    {% trans 'Edit cost object' %} 
+{% endblock %} 
+
+{% block title %} 
+    {% trans 'Edit cost object' %} 
+{% endblock %} 
+
+{% block content %}
+<div class="main-narrow form">
+    <div class="detail-content  mdc-elevation--z4">
+        <form action="{% url 'finance:costobject_edit' costobject.pk %}" method="POST" id="form">
+            {% csrf_token %}
+            <div class="heading mdc-typography--overline">
+                {{ costobject.number }} {{ costobject.name }}
+            </div>
+            <div class="form-group full-width">
+                {% trans 'Cost object name' as name_label%}
+                {% include "utils/_textfield.html" with field=form.name label=name_label next='id_description' %}
+            </div>
+            <div class="form-group full-width">
+                {% trans 'Cost object description' as description_label%}
+                {% include "utils/_textarea.html" with field=form.description label=description_label %}
+            </div>
+            <div class="form-group form-submit">
+                <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                <a href="{% url 'finance:costobject_detail' pk=costobject.pk %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:costobject_detail' pk=costobject.pk %}");
+    </script>
+{% endblock %}

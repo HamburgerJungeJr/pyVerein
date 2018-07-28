@@ -1,0 +1,20 @@
+.login{
+    .main{
+        height: calc(100% - 64px - 65px);
+        min-height: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        
+        .form-block{
+            width: 20%;
+            text-align: center;
+        
+            .mdc-text-field{
+                width: 100%;
+            }
+        }
+
+    }
+}

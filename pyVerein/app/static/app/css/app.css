@@ -1,7 +1,187 @@
-body{
-    font-size:large;
-}
+html {
+  height: 100%; }
 
-footer{
-    font-size: x-small;
-}
+body {
+  display: flex;
+  margin: 0px;
+  padding-top: 0.1px;
+  height: 100%;
+  font-size: 16px; }
+
+a {
+  color: #d50000; }
+
+div.main {
+  width: 100%; }
+
+section.main {
+  min-height: 100%;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 60px;
+  margin-bottom: 60px; }
+
+.fa {
+  line-height: inherit; }
+
+.mdc-list-item__graphic.fa {
+  font-size: 1.2rem; }
+
+.main-navigation .mdc-list-group__subheader {
+  margin-left: 72px; }
+
+.main-navigation .logo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.main-navigation .mdc-fab__logout {
+  position: absolute;
+  text-decoration: unset;
+  top: calc(100% - 20px);
+  left: 1rem; }
+
+.mdc-top-app-bar .mdc-top-app-bar__title {
+  font-size: 1.5rem; }
+
+.mdc-top-app-bar .user-image {
+  margin-left: 1rem;
+  border-radius: 50%;
+  height: 50px; }
+
+div.dataTables_wrapper div.dataTables_length .mdc-select {
+  width: 150px;
+  margin-top: 15px; }
+
+div.dataTables_wrapper div.dataTables_filter input {
+  margin-left: 0px; }
+
+div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
+  width: 220px; }
+
+.mdl-data-table td,
+.mdl-data-table th {
+  font-size: 16px; }
+
+.mdl-data-table td:hover {
+  cursor: pointer; }
+
+.mdl-data-table--non-linkable td:hover {
+  cursor: initial; }
+
+.heading.mdc-typography--overline {
+  font-size: 16px; }
+
+.heading.mdc-typography--overline:not(:first-of-type) {
+  margin-top: 30px; }
+
+.main-narrow {
+  padding-left: 24%;
+  padding-right: 24%; }
+
+.form .form-group {
+  display: flex; }
+  .form .form-group .mdc-input:first-of-type {
+    margin-right: 5px; }
+  .form .form-group .mdc-input:last-of-type {
+    margin-left: 5px; }
+  .form .form-group .mdc-input:not(:first-of-type):not(:last-of-type) {
+    margin-right: 5px;
+    margin-left: 5px; }
+
+.form .mdc-input {
+  width: 50%;
+  min-width: 200px; }
+
+.form .full-width .mdc-input {
+  width: 100%; }
+
+.form .form-submit {
+  margin-top: 30px; }
+
+.detail-content {
+  padding: 20px; }
+  .detail-content .row {
+    display: flex;
+    margin-top: 5px; }
+    .detail-content .row .field-title {
+      width: 30%; }
+    .detail-content .row .field-value {
+      width: 70%; }
+
+.mdc-text-field-helper-text {
+  font-size: 16px; }
+
+.account .image {
+  display: flex;
+  align-content: center; }
+  .account .image .mdc-fab {
+    position: absolute;
+    left: calc(50% + 50px);
+    margin-top: 180px; }
+  .account .image .user_image {
+    border-radius: 50%;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto; }
+
+footer#page-footer {
+  height: 65px;
+  background: #2979FF;
+  color: #FAFAFA;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 1rem;
+  padding-left: 1rem; }
+
+.alert-minimalist {
+  border-radius: 0px;
+  padding: 10px;
+  min-width: 300px;
+  min-height: 50px;
+  display: inline-flex !important;
+  align-items: center;
+  font-size: 1.2rem; }
+  .alert-minimalist .mdc-button__icon {
+    margin: 0px;
+    width: auto;
+    height: auto; }
+
+.alert-minimalist.error {
+  background-color: #d50000;
+  border-color: #d50000;
+  color: #FAFAFA; }
+  .alert-minimalist.error .mdc-button__icon {
+    color: #FAFAFA; }
+
+.alert-minimalist.success {
+  background-color: #00c853;
+  border-color: #00c853;
+  color: #212121; }
+  .alert-minimalist.success .mdc-button__icon {
+    color: #212121; }
+
+.alert-minimalist.warning {
+  background-color: #ffd600;
+  border-color: #ffd600;
+  color: #212121; }
+  .alert-minimalist.warning .mdc-button__icon {
+    color: #212121; }
+
+.alert-minimalist.info {
+  background-color: #0091ea;
+  border-color: #0091ea;
+  color: #212121; }
+  .alert-minimalist.info .mdc-button__icon {
+    color: #212121; }
+
+.alert-minimalist.debug {
+  background-color: #eeeeee;
+  border-color: #eeeeee;
+  color: #212121; }
+  .alert-minimalist.debug .mdc-button__icon {
+    color: #212121; }

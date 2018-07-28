@@ -1,3 +1,12 @@
-.login img{
-    margin-bottom: 50px;
-}
+.login .main {
+  height: calc(100% - 64px - 65px);
+  min-height: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; }
+  .login .main .form-block {
+    width: 20%;
+    text-align: center; }
+    .login .main .form-block .mdc-text-field {
+      width: 100%; }

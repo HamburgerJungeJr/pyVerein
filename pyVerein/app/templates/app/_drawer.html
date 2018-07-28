@@ -1,0 +1,84 @@
+{% load static %} {% load i18n %} {% load menu %}
+<aside class="mdc-drawer mdc-drawer--temporary mdc-typography main-navigation">
+    <nav class="mdc-drawer__drawer">
+        <header class="mdc-drawer__header">
+            <div class="mdc-drawer__header-content mdc-theme--on-primary mdc-theme--primary-bg">
+                <divc class="logo">
+                    <a href="{% url 'app:index' %}" class="site_title" title="{% trans 'Dashboard' %}">
+                        <img src="{% static 'app/images/logo_white.png' %}" />
+                    </a>
+                </div>
+                <a href="{% url  'logout' %}" class="mdc-fab mdc-fab--mini mdc-fab__logout" aria-label="{% trans 'Sign out' %}" title="{% trans 'Sign out' %}">
+                    <span class="mdc-fab__icon fa fa-power-off"></span>
+                </a>                 
+            </div>
+        </header>
+        <div class="mdc-drawer__content">
+            <div class="mdc-list-group">
+                <h3 class="mdc-list-group__subheader">{% trans 'Members' %}</h3>
+                <ul class="mdc-list">
+                    <li class="mdc-list-item {% base_url_class 'members:list' 'mdc-list-item--activated'%}">
+                        <a href="{% url 'members:list' %}" title="{% trans 'Members' %}">
+                            <span class="mdc-list-item__graphic fa fa-users" aria-hidden="true"></span>
+                            <span class="mdc-list-item__text">{% trans 'Members' %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <hr class="mdc-list-divider">
+            <div class="mdc-list-group">
+                <h3 class="mdc-list-group__subheader">{% trans 'Finance' %}</h3>
+                <ul class="mdc-list">
+                    <li class="mdc-list-item {% base_url_class 'finance:transaction_list' 'mdc-list-item--activated'%}">
+                        <a href="{% url 'finance:transaction_list' %}" title="{% trans 'Transactions' %}">
+                            <span class="mdc-list-item__graphic fa fa-file-alt" aria-hidden="true"></span>
+                            <span class="mdc-list-item__text">{% trans 'Transactions' %}</span>
+                        </a>
+                    </li>
+                    <li class="mdc-list-item {% base_url_class 'finance:debitor_list' 'mdc-list-item--activated'%}">
+                        <a href="{% url 'finance:debitor_list' %}" title="{% trans 'Debitors' %}">
+                            <span class="mdc-list-item__graphic fa fa-user-plus" aria-hidden="true"></span>
+                            <span class="mdc-list-item__text">{% trans 'Debitors' %}</span>
+                        </a>
+                    </li>
+                    <li class="mdc-list-item {% base_url_class 'finance:creditor_list' 'mdc-list-item--activated'%}">
+                        <a href="{% url 'finance:creditor_list' %}" title="{% trans 'Creditors' %}">
+                            <span class="mdc-list-item__graphic fa fa-user-times" aria-hidden="true"></span>
+                            <span class="mdc-list-item__text">{% trans 'Creditors' %}</span>
+                        </a>
+                    </li>
+                    <li class="mdc-list-item {% base_url_class 'finance:impersonal_list' 'mdc-list-item--activated'%}">
+                        <a href="{% url 'finance:impersonal_list' %}" title="{% trans 'Impersonal' %}">
+                            <span class="mdc-list-item__graphic fa fa-box" aria-hidden="true"></span>
+                            <span class="mdc-list-item__text">{% trans 'Impersonal' %}</span>
+                        </a>
+                    </li>
+                    <li class="mdc-list-item {% base_url_class 'finance:costcenter_list' 'mdc-list-item--activated'%}">
+                        <a href="{% url 'finance:costcenter_list' %}" title="{% trans 'Cost centers' %}">
+                            <span class="mdc-list-item__graphic fa fa-money-bill-alt" aria-hidden="true"></span>
+                            <span class="mdc-list-item__text">{% trans 'Cost centers' %}</span>
+                        </a>
+                    </li>
+                    <li class="mdc-list-item {% base_url_class 'finance:costobject_list' 'mdc-list-item--activated'%}">
+                        <a href="{% url 'finance:costobject_list' %}" title="{% trans 'Cost objects' %}">
+                            <span class="mdc-list-item__graphic fa fa-money-bill-alt" aria-hidden="true"></span>
+                            <span class="mdc-list-item__text">{% trans 'Cost objects' %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <hr class="mdc-list-divider">
+            <div class="mdc-list-group">
+                    <h3 class="mdc-list-group__subheader">{% trans 'User' %}</h3>
+                    <ul class="mdc-list">
+                        <li class="mdc-list-item">
+                            <a href="{% url 'account:detail' %}" title="{% trans 'Profile' %}">
+                                <span class="mdc-list-item__graphic fa fa-user" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+    </nav>
+</aside>

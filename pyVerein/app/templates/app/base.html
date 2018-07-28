@@ -5,21 +5,21 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>pyVerein</title>
+    <title>
+        {% block page_title %}
+        {% endblock page_title %}
+    </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{% static 'app/vendors/bootstrap/dist/css/bootstrap.min.css' %}">
+    <!-- Materialdesign -->
+    <link rel="stylesheet" href="{% static 'app/css/material.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/material-icons/material-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/abel/abel.css' %}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'app/vendors/font-awesome/css/font-awesome.min.css' %}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/flat/green.css' %}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'app/build/css/custom.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/font-awesome/css/fontawesome-all.min.css' %}">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{% static 'app/vendors/animate.css/animate.css' %}">
 
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="{% static 'app/css/app.css' %}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,125 +28,140 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     {% block head %} {% endblock %}
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'app/css/app.css' %}">
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'app/images/favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app/images/favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'app/images/favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app/images/favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'app/images/favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app/images/favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'app/images/favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app/images/favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'app/images/favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'app/images/favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'app/images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'app/images/favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'app/images/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'app/images/favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'app/images/favicon/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
 </head>
 
-<body class="nav-md">
-    <div class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col menu_fixed">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="{% url 'app:index' %}" class="site_title">
-                            <img src="{% static 'app/images/logo_white.png' %}" />
-                        </a>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <br/>
-
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <h3>{% trans 'Members' %}</h3>
-                            <ul class="nav side-menu">
-                                <li class="{% base_url_class 'members:list' 'active'%}">
-                                    <a>
-                                        <i class="fa fa-user"></i> {% trans 'Members' %}
-                                        <span class="fa fa-chevron-down"></span>
-                                    </a>
-                                    <ul class="nav child_menu">
-                                        <li class="{% url_class 'members:list' 'current-page' %}">
-                                            <a href="{% url 'members:list' %}">
-                                                {% trans 'List' %}
-                                            </a>
-                                        </li>
-                                        <li class="{% url_class 'members:create' 'current-page' %}">
-                                            <a href="{% url 'members:create' %}">
-                                                {% trans 'Create' %}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /sidebar menu -->
-                </div>
+<body class="mdc-typography">
+    {% include "app/_drawer.html" %}
+    <div class="main">
+        <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <a href="#" class="material-icons mdc-top-app-bar__navigation-icon menu">menu</a>
+                    <span class="mdc-top-app-bar__title">{% block title %} {% endblock %}</span>
+                </section>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                    {{ user.get_full_name }}
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4">
+                    {% else %}
+                        <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4">
+                    {% endif %}
+                </section>
             </div>
-
-            <!-- top navigation -->
-            <div class="top_nav">
-                <div class="nav_menu">
-                    <nav>
-                        <div class="nav toggle">
-                            <a id="menu_toggle">
-                                <i class="fa fa-bars"></i>
-                            </a>
-                        </div>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="{% static 'app/images/user.png' %}" alt="">{{ user.get_full_name }}
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li>
-                                        <a href="javascript:;">{% trans 'Profile' %}</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url  'logout' %}">
-                                            <i class="fa fa-sign-out pull-right"></i>{% trans 'Sign out' %}</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- /top navigation -->
-
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <div class="page-title">
-                    <div class="title_left">
-                        <h3 id="title">
-                            {% block title %} {% endblock %}
-                        </h3>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div id="maincontent">
-                    {% block content %} {% endblock %}
-                </div>
-            </div>
-            <!-- /page content -->
-
-            <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    pyVerein by Jannik Heuer - Theme based on Gentelella - Bootstrap Admin Template by
-                    <a href="https://colorlib.com">Colorlib</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
-        </div>
+        </header>
+        <section class="main mdc-top-app-bar--fixed-adjust">
+            {% block content %} {% endblock %}
+        </section>
+        {% include "app/_attributions.html" %}
+        <footer id="page-footer">
+            pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="javascript:showAttributions();" class="mdc-theme--on-primary" title="{% trans 'Attributions' %}">{% trans 'Attributions' %}</a>
+        </footer>
     </div>
 
-    <!-- jQuery -->
-    <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script>
-    <!-- Bootstrap -->
-    <script src="{% static 'app/vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <!-- FastClick -->
-    <script src="{% static 'app/vendors/fastclick/lib/fastclick.js' %}"></script>
+    <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
+    <script src="{% static 'app/vendors/notify/notify.js' %}"></script> 
 
-    <!-- Custom Theme Scripts -->
-    <script src="{% static 'app/build/js/custom.js' %}"></script>
-    <script type="application/javascript">
-        $("li.active").children("ul").slideDown();
-    </script> {% block foot %} {% endblock %}
+    <script>
+        {% if messages %}
+            var messages = [
+                {% for message in messages %}
+                    {
+                        tags: "{{ message.tags }}",
+                        message: "{{ message }}"
+                    },
+                {% endfor %}
+            ];
+            messages.forEach(function(message){
+                if(message['tags'] == 'error'){
+                    delay = 0;
+                }
+                else{
+                    delay = 5000;
+                }
+                $.notify({
+                    message: message['message']
+                },{
+                    type: 'minimalist',
+                    delay: delay,
+                    allow_dismiss: true,
+                    newest_on_top: true,
+                    animate: {
+                        exit: 'animated fadeOutRight'
+                    },
+                    offset: {
+                        x: 20,
+                        y: 70
+                    },
+                    template: '<div data-notify="container" class="alert alert-{0} ' + message['tags'] + '">' +
+                        '<button aria-hidden="true" class="mdc-button close" data-notify="dismiss" title="{% trans 'Dismiss' %}"><i class="mdc-button__icon fa fa-times" aria-hidden="true"></i></button>' +
+                        '<span data-notify="message">{2}</span>' +
+                    '</div>'
+                });
+            })
+        {% endif %}
+        {% if form.errors %}
+            var form_errors = [
+                {% for error in form.non_field_errors %}
+                    {
+                        error: "{{ error }}"
+                    },
+                {% endfor %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        {
+                            error: "{{ error }}"
+                        },
+                    {% endfor %}
+                {% endfor %}
+            ];
+            form_errors.forEach(function(error){
+                $.notify({
+                    message: error['error']
+                },{
+                    type: 'minimalist',
+                    delay: 0,
+                    allow_dismiss: true,
+                    newest_on_top: true,
+                    animate: {
+                        exit: 'animated fadeOutRight'
+                    },
+                    offset: {
+                        x: 20,
+                        y: 70
+                    },
+                    template: '<div data-notify="container" class="alert alert-{0} error">' +
+                        '<button aria-hidden="true" class="mdc-button close" data-notify="dismiss" title="{% trans 'Dismiss' %}"><i class="mdc-button__icon fa fa-times" aria-hidden="true"></i></button>' +
+                        '<span data-notify="message">{2}</span>' +
+                    '</div>'
+                });
+            });
+        {% endif %}
+    </script>
+    <script src="{% static 'app/js/material-components-web.js' %}"></script> 
+    <script src="{% static 'app/js/material.js' %}"></script> 
+    {% block foot %} {% endblock %}
+
 </body>
 
 </html>

@@ -1,0 +1,49 @@
+{% extends 'app/base.html' %} 
+{% load i18n %} 
+{% load widget_tweaks %} 
+{% load static %} 
+{% get_current_language as LANGUAGE_CODE%} 
+
+{% block head %}
+    <!-- iCheck style -->
+    <link rel="stylesheet" href="{% static 'app/vendors/iCheck/skins/square/blue.css' %}"> 
+{% endblock %} 
+
+{% block page_title %} 
+    {% trans 'Edit creditor' %} 
+{% endblock %} 
+
+{% block title %}
+    {{ creditor.number }} {{ creditor.name }}
+{% endblock title %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content  mdc-elevation--z4">
+            <form action="{% url 'finance:creditor_edit' creditor.pk %}" method="POST" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Creditor' %}
+                </div>
+                <div class="form-group full-width">
+                        {% trans 'Creditor name' as name_label%}
+                        {% include "utils/_textfield.html" with field=form.name label=name_label %}
+                    </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'finance:creditor_detail' pk=creditor.pk %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:creditor_list' %}");
+    </script>
+{% endblock %}

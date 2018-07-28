@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Create creditor' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Create creditor' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content  mdc-elevation--z4">
+            <form action="{% url 'finance:creditor_create' %}" method="POST" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Creditor' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Creditor number' as number_label%}
+                    {% include "utils/_textfield.html" with field=form.number label=number_label next='id_name' %}
+                </div>
+                <div class="form-group full-width">
+                        {% trans 'Creditor name' as name_label%}
+                        {% include "utils/_textfield.html" with field=form.name label=name_label %}
+                    </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'finance:creditor_list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:creditor_list' %}");
+    </script>
+{% endblock %}

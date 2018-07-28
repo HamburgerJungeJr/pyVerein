@@ -2,162 +2,161 @@
 {% load i18n %}
 {% load static %}
 
-{% block head %}
-    <!-- Members style -->
-    <link rel="stylesheet" href="{% static 'members/members.css' %}">
-{% endblock %}
-
-{% block title %}
+{% block page_title %}
     {% trans 'Member-Detail' %}
 {% endblock %}
 
+{% block title %}
+    {{ member.get_full_name }}
+{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h1>{{ member.get_full_name }} <small><a href="{% url 'members:edit' member.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></small></h1>
-                </div>
-                <div class="x_content data">
-                    <div class="page-header">
-                        {% trans 'Personal Data' %}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Salutation' %}</div>
-                        <div class="col-md-9 value">{{ member.get_salutation_display }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Firstname' %}</div>
-                        <div class="col-md-9 value">{{ member.first_name|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Lastname' %}</div>
-                        <div class="col-md-9 value">{{ member.last_name|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Birthday' %}</div>
-                        <div class="col-md-9 value">{{ member.birthday|default_if_none:"" }}</div>
-                    </div>
-
-                    <div class="page-header">
-                        {% trans 'Address' %}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Street' %}</div>
-                        <div class="col-md-9 value">{{ member.street|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Zip-Code' %}</div>
-                        <div class="col-md-9 value">{{ member.zipcode|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'City' %}</div>
-                        <div class="col-md-9 value">{{ member.city|default_if_none:"" }}</div>
-                    </div>
-
-                    <div class="page-header">
-                        {% trans 'Contact' %}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Phone' %}</div>
-                        <div class="col-md-9 value">{{ member.phone|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Mobile' %}</div>
-                        <div class="col-md-9 value">{{ member.mobile|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Fax' %}</div>
-                        <div class="col-md-9 value">{{ member.fax|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'EMail' %}</div>
-                        <div class="col-md-9 value">{{ member.email|default_if_none:"" }}</div>
-                    </div>
-
-                    <div class="page-header">
-                        {% trans 'Membership' %}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Membership number' %}</div>
-                        <div class="col-md-9 value">{{ member.membership_number|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Joined at' %}</div>
-                        <div class="col-md-9 value">{{ member.joined_at|default_if_none:"" }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Terminated at' %}</div>
-                        <div class="col-md-9 value">{{ member.terminated_at|default_if_none:"" }}</div>
-                    </div>
-
-                    <div class="page-header">
-                        {% trans 'Payment' %}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Method' %}</div>
-                        <div class="col-md-9 value">{{ member.get_payment_method_display }}</div>
-                    </div>
-                    {% if member.payment_method == 'DE' %}
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'IBAN' %}</div>
-                            <div class="col-md-9 value">{{ member.iban|default_if_none:"" }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'BIC' %}</div>
-                            <div class="col-md-9 value">{{ member.bic|default_if_none:"" }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'Direct debit mandate granted at' %}</div>
-                            <div class="col-md-9 value">{{ member.debit_mandate_at|default_if_none:"" }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'Direct debit reference' %}</div>
-                            <div class="col-md-9 value">{{ member.debit_reference|default_if_none:"" }}</div>
-                        </div>
-                    {% endif %}
-                    <div class="row">
-                        <div class="col-md-3 field-title">{% trans 'Membership paid' %}</div>
-                        <div class="col-md-9 value"></div>
-                    </div>
-
-                    {% if global_preferences.Members__show_additional_field_1 or global_preferences.Members__show_additional_field_2 or global_preferences.Members__show_additional_field_3 or global_preferences.Members__show_additional_field_4 or global_preferences.Members__show_additional_field_5 %}
-                        <div class="page-header">
-                            {% trans 'Additional Information' %}
-                        </div>
-                    {% endif %}
-                    {% if global_preferences.Members__show_additional_field_1 %}
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'Additional field 1' %}</div>
-                            <div class="col-md-9 value">{{ member.field_1|default_if_none:"" }}</div>
-                        </div>
-                    {% endif %}
-                    {% if global_preferences.Members__show_additional_field_2 %}
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'Additional field 2' %}</div>
-                            <div class="col-md-9 value">{{ member.field_2|default_if_none:"" }}</div>
-                        </div>
-                    {% endif %}
-                    {% if global_preferences.Members__show_additional_field_3 %}
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'Additional field 3' %}</div>
-                            <div class="col-md-9 value">{{ member.field_3|default_if_none:"" }}</div>
-                        </div>
-                    {% endif %}
-                    {% if global_preferences.Members__show_additional_field_4 %}
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'Additional field 4' %}</div>
-                            <div class="col-md-9 value">{{ member.field_4|default_if_none:"" }}</div>
-                        </div>
-                    {% endif %}
-                    {% if global_preferences.Members__show_additional_field_5 %}
-                        <div class="row">
-                            <div class="col-md-3 field-title">{% trans 'Additional field 5' %}</div>
-                            <div class="col-md-9 value">{{ member.field_5|default_if_none:"" }}</div>
-                        </div>
-                    {% endif %}
-                </div>
+    <div class="main-narrow form">
+        <div class="detail-content mdc-elevation--z4">
+            <div class="heading mdc-typography--overline">
+                {% trans 'Personal Data' %}
             </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Salutation' %}</div>
+                <div class="field-value">{{ member.get_salutation_display }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Firstname' %}</div>
+                <div class="field-value">{{ member.first_name|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Lastname' %}</div>
+                <div class="field-value">{{ member.last_name|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Birthday' %}</div>
+                <div class="field-value">{{ member.birthday|default_if_none:"" }}</div>
+            </div>
+        
+            <div class="heading mdc-typography--overline">
+                {% trans 'Address' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Street' %}</div>
+                <div class="field-value">{{ member.street|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Zip-Code' %}</div>
+                <div class="field-value">{{ member.zipcode|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'City' %}</div>
+                <div class="field-value">{{ member.city|default_if_none:"" }}</div>
+            </div>
+        
+            <div class="heading mdc-typography--overline">
+                {% trans 'Contact' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Phone' %}</div>
+                <div class="field-value">{{ member.phone|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Mobile' %}</div>
+                <div class="field-value">{{ member.mobile|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Fax' %}</div>
+                <div class="field-value">{{ member.fax|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'EMail' %}</div>
+                <div class="field-value">{{ member.email|default_if_none:"" }}</div>
+            </div>
+        
+            <div class="heading mdc-typography--overline">
+                {% trans 'Membership' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Membership number' %}</div>
+                <div class="field-value">{{ member.membership_number|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Joined at' %}</div>
+                <div class="field-value">{{ member.joined_at|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Terminated at' %}</div>
+                <div class="field-value">{{ member.terminated_at|default_if_none:"" }}</div>
+            </div>
+        
+            <div class="heading mdc-typography--overline">
+                {% trans 'Payment' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Method' %}</div>
+                <div class="field-value">{{ member.get_payment_method_display }}</div>
+            </div>
+            {% if member.payment_method == 'DE' %}
+                <div class="row">
+                    <div class="field-title">{% trans 'IBAN' %}</div>
+                    <div class="field-value">{{ member.iban|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="field-title">{% trans 'BIC' %}</div>
+                    <div class="field-value">{{ member.bic|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="field-title">{% trans 'Direct debit mandate granted at' %}</div>
+                    <div class="field-value">{{ member.debit_mandate_at|default_if_none:"" }}</div>
+                </div>
+                <div class="row">
+                    <div class="field-title">{% trans 'Direct debit reference' %}</div>
+                    <div class="field-value">{{ member.debit_reference|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="field-title">{% trans 'Membership paid' %}</div>
+                <div class="field-value"></div>
+            </div>
+        
+            {% if global_preferences.Members__show_additional_field_1 or global_preferences.Members__show_additional_field_2 or global_preferences.Members__show_additional_field_3 or global_preferences.Members__show_additional_field_4 or global_preferences.Members__show_additional_field_5 %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Additional Information' %}
+                </div>
+            {% endif %}
+            {% if global_preferences.Members__show_additional_field_1 %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Additional field 1' %}</div>
+                    <div class="field-value">{{ member.field_1|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if global_preferences.Members__show_additional_field_2 %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Additional field 2' %}</div>
+                    <div class="field-value">{{ member.field_2|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if global_preferences.Members__show_additional_field_3 %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Additional field 3' %}</div>
+                    <div class="field-value">{{ member.field_3|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if global_preferences.Members__show_additional_field_4 %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Additional field 4' %}</div>
+                    <div class="field-value">{{ member.field_4|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if global_preferences.Members__show_additional_field_5 %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Additional field 5' %}</div>
+                    <div class="field-value">{{ member.field_5|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
         </div>
-    </div>{% endblock %}
+    </div>
+    
+    <a href ="{% url 'members:list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
+            <i class="mdc-fab__icon fa fa-arrow-left"></i>
+        </a>
+    <a href ="{% url 'members:edit' pk=member.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+        <i class="mdc-fab__icon fa fa-pencil-alt"></i>
+    </a>
+{% endblock %}

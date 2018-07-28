@@ -1,0 +1,66 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block page_title %}
+    {% trans 'Userprofile' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Userprofile' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow account">
+        <div class="detail-content mdc-elevation--z4">
+            <div class="row image">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="" class="user_image mdc-elevation--z4">
+                {% else %}
+                    <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user_image mdc-elevation--z4">
+                {% endif %}
+                
+            </div>
+            <div class="heading mdc-typography--overline">
+                {% trans 'Personal Data' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Firstname' %}</div>
+                <div class="field-value">{{ user.first_name|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Lastname' %}</div>
+                <div class="field-value">{{ user.last_name|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Username' %}</div>
+                <div class="field-value">{{ user.username|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Email' %}</div>
+                <div class="field-value">{{ user.email }}</div>
+            </div>
+            <div class="heading mdc-typography--overline">
+                {% trans 'Password' %}
+            </div>
+            <div class="row">
+                <div class="field-title"><a href="{% url 'account:change_password' %}" class="mdc-button mdc-button--raised" title="{% trans 'Change password' %}">{% trans 'Change password' %}</a></div>
+            </div>
+            <div class="heading mdc-typography--overline">
+                {% trans 'Additional information' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Account created' %}</div>
+                <div class="field-value">{{ user.date_joined|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Last login' %}</div>
+                <div class="field-value">{{ user.last_login|default_if_none:"" }}</div>
+            </div>
+        </div>
+    </div>
+
+    <a href ="{% url 'account:edit'%}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+        <i class="mdc-fab__icon fa fa-pencil-alt"></i>
+    </a>
+{% endblock %}

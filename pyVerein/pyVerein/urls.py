@@ -13,13 +13,26 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
+from django.urls import re_path
+from django.views.static import serve
 
 urlpatterns = i18n_patterns(
     url(r'^', include('app.urls')),
+    url(r'^account/', include('account.urls'), name='account'),
     url(r'^members/', include('members.urls'), name='members'),
+    url(r'^finance/', include('finance.urls'), name='finance'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
                             )
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+        re_path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    ]

@@ -1,0 +1,13 @@
+{% load widget_tweaks %}
+
+<div class="mdc-text-field mdc-input">
+    {% if autofocus %}
+        {% render_field field class+="mdc-text-field__input" data-next=next autofocus="" %}
+    {% else %}
+        {% render_field field class+="mdc-text-field__input" data-next=next %}
+    {% endif %}
+    <label class="mdc-floating-label" for="{{ field.id_for_label }}">
+        {{ label }}
+    </label>
+    <div class="mdc-line-ripple"></div>
+</div>

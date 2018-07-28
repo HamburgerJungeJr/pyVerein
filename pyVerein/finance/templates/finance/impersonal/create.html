@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Create impersonal account' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Create impersonal account' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content  mdc-elevation--z4">
+            <form action="{% url 'finance:impersonal_create' %}" method="POST" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Impersonal account' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Impersonal account number' as number_label%}
+                    {% include "utils/_textfield.html" with field=form.number label=number_label next='id_name' %}
+                </div>
+                <div class="form-group full-width">
+                        {% trans 'Impersonal account name' as name_label%}
+                        {% include "utils/_textfield.html" with field=form.name label=name_label %}
+                    </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'finance:impersonal_list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'finance:impersonal_list' %}");
+    </script>
+{% endblock %}

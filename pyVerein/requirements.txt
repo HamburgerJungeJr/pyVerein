@@ -1,7 +1,0 @@
-Django==1.11.4
-django-datatables-view==1.14.0
-django-dynamic-preferences==1.5.1
-django-widget-tweaks==1.4.1
-persisting-theory==0.2.1
-pytz==2017.2
-six==1.11.0

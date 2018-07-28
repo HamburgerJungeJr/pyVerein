@@ -9,12 +9,10 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-build/
 develop-eggs/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -104,3 +102,13 @@ ENV/
 
 # pyCharm
 .idea/
+# VS-Code
+.vscode/
+vscode.code-workspace
+
+# node_modules
+node_modules/
+style-bundle.js
+
+*.old/
+media/*

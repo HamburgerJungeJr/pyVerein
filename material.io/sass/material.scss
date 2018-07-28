@@ -1,0 +1,65 @@
+@import "colors";
+
+$mdc-typography-styles-button: (
+    font-size: 16px,
+);
+
+@import "@material/button/mdc-button";
+@import "@material/top-app-bar/mdc-top-app-bar";
+@import "@material/drawer/mdc-drawer";
+@import "@material/list/mdc-list";
+@import "@material/typography/mdc-typography";
+@import "@material/theme/mdc-theme";
+@import "@material/layout-grid/mdc-layout-grid";
+@import "@material/fab/mdc-fab";
+@import "@material/elevation/mdc-elevation";
+@import "@material/dialog/mdc-dialog";
+@import "@material/textfield/mdc-text-field";
+@import "@material/textfield/helper-text/mdc-text-field-helper-text";
+@import "@material/line-ripple/mdc-line-ripple";
+@import "@material/select/mdc-select";
+@import "@material/form-field/mdc-form-field";
+@import "@material/radio/mdc-radio";
+@import "@material/form-field/mdc-form-field";
+@import "@material/checkbox/mdc-checkbox";
+
+.mdc-list-item{
+    a{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        @include mdc-list-item-primary-text-ink-color(text-primary-on-background);
+    }
+    .mdc-list-group__subheader {
+        font-size: 1rem;
+    }
+    .mdc-list-item__text{
+        font-size: 1.2rem;
+    }
+}
+
+.mdc-fab{
+    @include mdc-fab-accessible(#d50000);
+}
+
+.mdc-button--on-primary{
+    @include mdc-button-filled-accessible($mdc-theme-on-primary);
+}
+
+a.mdc-fab{
+    text-decoration: none;
+}
+
+.mdc-fab--absolute-bottom-right {
+    position: fixed;
+    bottom: 70px;
+    right: 70px;
+}
+
+.mdc-fab--absolute-bottom-left {
+    position: fixed;
+    bottom: 70px;
+    left: 70px;
+}
