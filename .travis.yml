@@ -8,12 +8,12 @@ services: postgresql
 addons:
   postgresql: "9.6"
 
-  env:
-    global:
-      - DJANGO_SETTINGS_MODULE="pyVerein.settings.travis"
-      - PYTHONPATH="/home/travis/build/hamburgerjungejr/pyVerein"
-    matrix:
-      - DJANGO=2.1 DB=postgres
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE="pyVerein.settings.travis"
+    - PYTHONPATH="/home/travis/build/hamburgerjungejr/pyVerein"
+  matrix:
+    - DJANGO=2.1 DB=postgres
 
 #commands to install dependencies
 install:
