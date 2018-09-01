@@ -695,7 +695,8 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
 
         # Generate document_number
         if self.object.document_number is None:
-            max_document_number = Transaction.objects.filter(document_number_generated=True).aggregate(Max('document_number'))['document_number__max']
+            global_preferences = global_preferences_registry.manager()
+            max_document_number = Transaction.objects.filter(Q(document_number_generated=True) & ~Q(document_number__startswith=global_preferences['Finance__reset_prefix'])).aggregate(Max('document_number'))['document_number__max']
             next_document_number =  '1' if max_document_number is None else str(int(max_document_number) + 1)[2:]
             self.object.document_number = str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
             self.object.document_number_generated = True

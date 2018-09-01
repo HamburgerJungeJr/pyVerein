@@ -18,3 +18,4 @@ class AccountAdmin(UserAdmin):
     form = AccountChangeForm
 
 admin.site.register(User, AccountAdmin)
+
