@@ -3,7 +3,6 @@ language: python
 python:
   - "3.5"
   - "3.6"
-  - "3.7"
 services: postgresql
 
 addons:
@@ -14,10 +13,7 @@ addons:
     - DJANGO_SETTINGS_MODULE="pyVerein.settings.travis"
     - PYTHONPATH="/home/travis/build/hamburgerjungejr/pyVerein"
   matrix:
-    - env: DJANGO=2.1 DB=postgres
-      python: 3.7
-      dist: xenial
-      sudo: required
+    - DJANGO=2.1 DB=postgres
 
 #commands to install dependencies
 install:
