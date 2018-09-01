@@ -22,23 +22,25 @@ from django.contrib.messages import get_messages
 # Import Account model
 from .models import Account, CostCenter, CostObject, Transaction
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 from decimal import Decimal
 import random
 import string
 from dynamic_preferences.registries import global_preferences_registry
 
-class CreditorIndexView(LoginRequiredMixin, TemplateView):
+class CreditorIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for creditors
     """
+    permission_required = 'finance.view_creditor'
     template_name = 'finance/creditor/list.html'
 
-class CreditorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreditorCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for creditors
     """
+    permission_required = ('finance.view_creditor', 'finance.add_creditor')
     model = Account
     context_object_name = 'creditor'
     template_name = 'finance/creditor/create.html'
@@ -64,10 +66,11 @@ class CreditorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         
         return super(CreditorCreateView, self).form_valid(form)
 
-class CreditorDetailView(LoginRequiredMixin, DetailView):
+class CreditorDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """
     Detail view for creditors
     """
+    permission_required = 'finance.view_creditor'
     model = Account
     context_object_name = 'creditor'
     template_name = 'finance/creditor/detail.html'
@@ -85,10 +88,11 @@ class CreditorDetailView(LoginRequiredMixin, DetailView):
 
         return context
 
-class CreditorEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CreditorEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for creditors
     """
+    permission_required = ('finance.view_creditor', 'finance.change_creditor')
     model = Account
     context_object_name = 'creditor'
     template_name = 'finance/creditor/edit.html'
@@ -101,10 +105,11 @@ class CreditorEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:creditor_detail', args={self.object.pk})
 
-class CreditorDatatableView(LoginRequiredMixin, BaseDatatableView):
+class CreditorDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for creditors
     """
+    permission_required = 'finance.view_creditor'
     # Use Accountmodel
     model = Account
 
@@ -151,16 +156,18 @@ class CreditorDatatableView(LoginRequiredMixin, BaseDatatableView):
         # Return data
         return json_data
 
-class DebitorIndexView(LoginRequiredMixin, TemplateView):
+class DebitorIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for debitors
     """
+    permission_required = 'finance.view_debitor'
     template_name = 'finance/debitor/list.html'
 
-class DebitorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class DebitorCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for debitors
     """
+    permission_required = ('finance.view_debitor', 'finance.add_debitor')
     model = Account
     context_object_name = 'debitor'
     template_name = 'finance/debitor/create.html'
@@ -186,10 +193,11 @@ class DebitorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         
         return super(DebitorCreateView, self).form_valid(form)
 
-class DebitorDetailView(LoginRequiredMixin, DetailView):
+class DebitorDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """
     Detail view for debitors
     """
+    permission_required = 'finance.view_debitor'
     model = Account
     context_object_name = 'debitor'
     template_name = 'finance/debitor/detail.html'
@@ -207,10 +215,11 @@ class DebitorDetailView(LoginRequiredMixin, DetailView):
 
         return context
 
-class DebitorEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class DebitorEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for debitors
     """
+    permission_required = ('finance.view_debitor', 'finance.change_debitor')
     model = Account
     context_object_name = 'debitor'
     template_name = 'finance/debitor/edit.html'
@@ -223,10 +232,11 @@ class DebitorEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:debitor_detail', args={self.object.pk})
 
-class DebitorDatatableView(LoginRequiredMixin, BaseDatatableView):
+class DebitorDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for debitors
     """
+    permission_required = 'finance.view_debitor'
     # Use Accountmodel
     model = Account
 
@@ -273,16 +283,18 @@ class DebitorDatatableView(LoginRequiredMixin, BaseDatatableView):
         # Return data
         return json_data
 
-class ImpersonalIndexView(LoginRequiredMixin, TemplateView):
+class ImpersonalIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for impersonal accounts
     """
+    permission_required = 'finance.view_impersonal'
     template_name = 'finance/impersonal/list.html'
 
-class ImpersonalCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class ImpersonalCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for impersonal accounts
     """
+    permission_required = ('finance.view_impersonal', 'finance.add_impersonal')
     model = Account
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal/create.html'
@@ -295,10 +307,11 @@ class ImpersonalCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         """
         return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
 
-class ImpersonalDetailView(LoginRequiredMixin, DetailView):
+class ImpersonalDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """
     Detail view for impersonal accounts
     """
+    permission_required = 'finance.view_impersonal'
     model = Account
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal/detail.html'
@@ -316,10 +329,11 @@ class ImpersonalDetailView(LoginRequiredMixin, DetailView):
 
         return context
     
-class ImpersonalEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ImpersonalEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for impersonal accounts
     """
+    permission_required = ('finance.view_impersonal', 'finance.change_impersonal')
     model = Account
     context_object_name = 'impersonal'
     template_name = 'finance/impersonal/edit.html'
@@ -332,10 +346,11 @@ class ImpersonalEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
 
-class ImpersonalDatatableView(LoginRequiredMixin, BaseDatatableView):
+class ImpersonalDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for impersonal accounts
     """
+    permission_required = 'finance.view_impersonal'
     # Use Accountmodel
     model = Account
 
@@ -382,16 +397,18 @@ class ImpersonalDatatableView(LoginRequiredMixin, BaseDatatableView):
         # Return data
         return json_data
 
-class CostCenterIndexView(LoginRequiredMixin, TemplateView):
+class CostCenterIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for costcenter
     """
+    permission_required = 'finance.view_costcenter'
     template_name = 'finance/costcenter/list.html'
 
-class CostCenterCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CostCenterCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for costcenter
     """
+    permission_required = ('finance.view_costcenter', 'finance.add_costcenter')
     model = CostCenter
     context_object_name = 'costcenter'
     template_name = 'finance/costcenter/create.html'
@@ -404,10 +421,11 @@ class CostCenterCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         """
         return reverse_lazy('finance:costcenter_detail', args={self.object.pk})
 
-class CostCenterDetailView(LoginRequiredMixin, DetailView):
+class CostCenterDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """
     Detail view for costcenter
     """
+    permission_required = 'finance.view_costcenter'
     model = CostCenter
     context_object_name = 'costcenter'
     template_name = 'finance/costcenter/detail.html'
@@ -425,10 +443,11 @@ class CostCenterDetailView(LoginRequiredMixin, DetailView):
 
         return context
 
-class CostCenterEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CostCenterEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for costcenter
     """
+    permission_required = ('finance.view_costcenter', 'finance.change_costcenter')
     model = CostCenter
     context_object_name = 'costcenter'
     template_name = 'finance/costcenter/edit.html'
@@ -441,10 +460,11 @@ class CostCenterEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:costcenter_detail', args={self.object.pk})
 
-class CostCenterDatatableView(LoginRequiredMixin, BaseDatatableView):
+class CostCenterDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for costcenter
     """
+    permission_required = 'finance.view_costcenter'
     # Use CostCentermodel
     model = CostCenter
 
@@ -485,16 +505,18 @@ class CostCenterDatatableView(LoginRequiredMixin, BaseDatatableView):
         # Return data
         return json_data
 
-class CostObjectIndexView(LoginRequiredMixin, TemplateView):
+class CostObjectIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for costobject
     """
+    permission_required = 'finance.view_costobject'
     template_name = 'finance/costobject/list.html'
 
-class CostObjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CostObjectCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for costobject
     """
+    permission_required = ('finance.view_costobject', 'finance.add_costobject')
     model = CostObject
     context_object_name = 'costobject'
     template_name = 'finance/costobject/create.html'
@@ -507,10 +529,11 @@ class CostObjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         """
         return reverse_lazy('finance:costobject_detail', args={self.object.pk})
 
-class CostObjectDetailView(LoginRequiredMixin, DetailView):
+class CostObjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """
     Detail view for costobject
     """
+    permission_required = 'finance.view_costobject'
     model = CostObject
     context_object_name = 'costobject'
     template_name = 'finance/costobject/detail.html'
@@ -528,10 +551,11 @@ class CostObjectDetailView(LoginRequiredMixin, DetailView):
 
         return context
 
-class CostObjectEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CostObjectEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for costobject
     """
+    permission_required = ('finance.view_costobject', 'finance.change_costobject')
     model = CostObject
     context_object_name = 'costobject'
     template_name = 'finance/costobject/edit.html'
@@ -544,10 +568,11 @@ class CostObjectEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """
         return reverse_lazy('finance:costobject_detail', args={self.object.pk})
 
-class CostObjectDatatableView(LoginRequiredMixin, BaseDatatableView):
+class CostObjectDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for costobject
     """
+    permission_required = 'finance.view_costobject'
     # Use CostObjectmodel
     model = CostObject
 
@@ -588,16 +613,18 @@ class CostObjectDatatableView(LoginRequiredMixin, BaseDatatableView):
         # Return data
         return json_data
 
-class TransactionIndexView(LoginRequiredMixin, TemplateView):
+class TransactionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for transaction
     """
+    permission_required = 'finance.view_transaction'
     template_name = 'finance/transaction/list.html'
 
-class TransactionCreateView(LoginRequiredMixin, CreateView):
+class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Create view for transaction
     """
+    permission_required = ('finance.view_transaction', 'finance.add_transaction')
     model = Transaction
     context_object_name = 'transaction'
     template_name = 'finance/transaction/create.html'
@@ -748,10 +775,11 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
 
         return HttpResponseRedirect(reverse_lazy('finance:transaction_create_session', kwargs={'session_id':session_id}))
 
-class TransactionDetailView(LoginRequiredMixin, TemplateView):
+class TransactionDetailView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Detail view for transaction
     """
+    permission_required = 'finance.view_transaction'
     model = Transaction
     template_name = 'finance/transaction/detail.html'
 
@@ -766,10 +794,11 @@ class TransactionDetailView(LoginRequiredMixin, TemplateView):
 
         return context
 
-class TransactionEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class TransactionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Edit view for transaction
     """
+    permission_required = ('finance.view_transaction', 'finance.change_transaction')
     model = Transaction
     template_name = 'finance/transaction/edit.html'
     form_class = TransactionEditForm
@@ -791,10 +820,11 @@ class TransactionEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_success_message(self, cleaned_data):
         return _('Receipt {0:s} updated successfully').format(str(self.object.document_number))
  
-class TransactionDatatableView(LoginRequiredMixin, BaseDatatableView):
+class TransactionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
     """
     Datatables.net view for transaction
     """
+    permission_required = 'finance.view_transaction'
     # Use Transactionmodel
     model = Transaction
 
@@ -863,6 +893,7 @@ class TransactionDatatableView(LoginRequiredMixin, BaseDatatableView):
         return json_data
 
 @login_required
+@permission_required('finance.view_account', raise_exception=True)
 def get_account(request, search):
     if search:
         if search.endswith('%'):
@@ -875,6 +906,7 @@ def get_account(request, search):
         return JsonResponse({})
 
 @login_required
+@permission_required('finance.view_costcenter', raise_exception=True)
 def get_cost_center(request, search):
     if search:
         if search.endswith('%'):
@@ -887,6 +919,7 @@ def get_cost_center(request, search):
         return JsonResponse({})
 
 @login_required
+@permission_required('finance.view_costobject', raise_exception=True)
 def get_cost_object(request, search):
     if search:
         if search.endswith('%'):
@@ -908,7 +941,11 @@ def createJson(items):
     return json_data
 
 @login_required
+@permission_required(['finance.view_transaction', 'finance.add_transaction', 'finance.change_transaction'], raise_exception=True)
 def reset_transaction(request, internal_number):
+    """
+    Resets a transaction
+    """
     transactions = Transaction.objects.filter(Q(internal_number=internal_number) & Q(reset=False))
     internal_number = None
 
@@ -938,7 +975,11 @@ def reset_transaction(request, internal_number):
     return HttpResponseRedirect(reverse_lazy('finance:transaction_list'))
 
 @login_required
+@permission_required(['finance.view_transaction', 'finance.add_transaction', 'finance.change_transaction'], raise_exception=True)
 def reset_new_transaction(request, internal_number):
+    """
+    Resets transaction and create new with old values
+    """
     transactions = Transaction.objects.filter(Q(internal_number=internal_number) & Q(reset=False))
     internal_number = None
 
