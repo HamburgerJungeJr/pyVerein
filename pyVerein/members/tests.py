@@ -114,7 +114,7 @@ class MemberTestMethods(TestCase):
         response = self.client.get(reverse('members:create'))
         self.assertEqual(response.status_code, 200)
     
-    def test_member_list_permission(self):
+    def test_member_apiList_permission(self):
         "User should only access member api if view permission is set"
 
         user = User.objects.get(username='temp')
