@@ -15,6 +15,10 @@ addons:
     - PYTHONPATH="/home/travis/build/hamburgerjungejr/pyVerein"
   matrix:
     - DJANGO=2.1 DB=postgres
+    include:
+      - python: 3.7
+        dist: xenial
+        sudo: true
 
 #commands to install dependencies
 install:
