@@ -17,6 +17,19 @@ class Account(ModelBase):
     """
     Account model.
     """
+    class Meta:
+        permissions = (
+            ('view_creditor', "Can view creditor"),
+            ('add_creditor', "Can add creditor"),
+            ('change_creditor', "Can change creditor"),
+            ('view_debitor', "Can view debitor"),
+            ('add_debitor', "Can add debitor"),
+            ('change_debitor', "Can change debitor"),
+            ('view_impersonal', "Can view impersonal"),
+            ('add_impersonal', "Can add impersonal"),
+            ('change_impersonal', "Can change impersonal"),
+        )
+
     # Choices for account type
     CREDITOR = 'CRE'
     DEBITOR = 'DEB'

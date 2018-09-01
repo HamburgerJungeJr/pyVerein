@@ -15,21 +15,24 @@ from django.db.models import Q
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 # Index-View.
-class MemberIndexView(LoginRequiredMixin, TemplateView):
+class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    permission_required = 'members.view_member'
     template_name = 'members/member_list.html'
 
 
 # Detail-View.
-class MemberDetailView(LoginRequiredMixin, DetailView):
+class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = 'members.view_member'
     model = Member
     context_object_name = 'member'
 
 
 # Edit-View.
-class MemberEditView(LoginRequiredMixin, UpdateView):
+class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'members.change_member'
     model = Member
     context_object_name = 'member'
     template_name = 'members/member_edit.html'
@@ -40,7 +43,8 @@ class MemberEditView(LoginRequiredMixin, UpdateView):
 
 
 # Edit-View.
-class MemberCreateView(LoginRequiredMixin, CreateView):
+class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'members.add_member'
     model = Member
     context_object_name = 'member'
     template_name = 'members/member_create.html'
@@ -51,7 +55,8 @@ class MemberCreateView(LoginRequiredMixin, CreateView):
 
 
 # Datatable api view.
-class MemberDatatableView(LoginRequiredMixin, BaseDatatableView):
+class MemberDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
+    permission_required = 'members.view_member'
     # Use Membermodel
     model = Member
 
