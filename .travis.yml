@@ -14,11 +14,10 @@ addons:
     - DJANGO_SETTINGS_MODULE="pyVerein.settings.travis"
     - PYTHONPATH="/home/travis/build/hamburgerjungejr/pyVerein"
   matrix:
-    - DJANGO=2.1 DB=postgres
-    include:
-      - python: 3.7
-        dist: xenial
-        sudo: true
+    - env: DJANGO=2.1 DB=postgres
+      python: 3.7
+      dist: xenial
+      sudo: required
 
 #commands to install dependencies
 install:
