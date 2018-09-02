@@ -6,7 +6,6 @@
     {% trans 'Personal Data' %}
 </div>
 <div class="form-group">
-    {% trans 'Salutation' %}
     {% for radio in form.salutation %}
         {% include "utils/_radio.html" with radio=radio %}
     {% endfor %}
