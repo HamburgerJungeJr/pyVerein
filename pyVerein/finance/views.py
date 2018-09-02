@@ -754,7 +754,8 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
                 self.request.session[session_id + 'transactions'] = transactions
             else:
                 # Get last internal_number
-                internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max'] + 1
+                max_internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max']
+                internal_number = 1 if max_internal_number is None else max_internal_number + 1
                 # Save transactions from session to db
                 for transaction in transactions.values():
                     obj = Transaction()
@@ -862,7 +863,6 @@ class TransactionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, Base
         """
         # Initialize data array
         json_data = []
-
         # Loop through all items in queryset
         for item in qs:
             # Retrieve accounttype
