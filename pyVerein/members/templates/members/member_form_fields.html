@@ -65,8 +65,10 @@
 </div>
 <div class="form-group">
     {% trans 'Membership number' as membership_number_label%}
-    {% include "utils/_textfield.html" with field=form.membership_number label=membership_number_label next='id_joined_at' %}
-    <div class="spacer">&nbsp;</div>
+    {% include "utils/_textfield.html" with field=form.membership_number label=membership_number_label next='id_division' %}
+    
+    {% trans 'Division' as division_label%}
+    {% include "utils/_select.html" with field=form.division label=division_label next='id_joined_at' %}
 </div>
 <div class="form-group">
     {% trans 'Joined at' as joined_at_label%}
