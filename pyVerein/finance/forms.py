@@ -41,7 +41,7 @@ class ImpersonalAccountCreateForm(forms.ModelForm):
         model = Account
         fields = ('number', 'name', 'account_type')
         widgets = {
-            'account_type': forms.RadioSelect()
+            'account_type': forms.RadioSelect(attrs={'class':'mdc-radio__native-control'})
         }
     
     def __init__(self, *args, **kwargs):

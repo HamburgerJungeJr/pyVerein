@@ -22,14 +22,19 @@
                 <div class="heading mdc-typography--overline">
                     {% trans 'Impersonal account' %}
                 </div>
+                <div class="form-group">
+                    {% for radio in form.account_type %}
+                        {% include "utils/_radio.html" with radio=radio %}
+                    {% endfor %}
+                </div>
                 <div class="form-group full-width">
                     {% trans 'Impersonal account number' as number_label%}
                     {% include "utils/_textfield.html" with field=form.number label=number_label next='id_name' %}
                 </div>
                 <div class="form-group full-width">
-                        {% trans 'Impersonal account name' as name_label%}
-                        {% include "utils/_textfield.html" with field=form.name label=name_label %}
-                    </div>
+                    {% trans 'Impersonal account name' as name_label%}
+                    {% include "utils/_textfield.html" with field=form.name label=name_label %}
+                </div>
                 <div class="form-group form-submit">
                     <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
                     <a href="{% url 'finance:impersonal_list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
