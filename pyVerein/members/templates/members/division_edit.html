@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Edit division' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Edit division' %}
+{% endblock %}
+
+{% block content %}
+<div class="main-narrow form">
+    <div class="detail-content  mdc-elevation--z4">
+        <form action="{% url 'divisions:division_edit' division.pk %}" method="POST" id="form">
+            {% include 'members/division_form_fields.html' %}
+            <div class="form-group form-submit">
+                <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                <a href="{% url 'divisions:division_detail' pk=division.pk %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+            </div>
+        </form>
+    </div>
+</div>
+   
+{% endblock %}
+
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+        $('#form').exitOnEsc("{% url 'divisions:division_list' %}");
+    </script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Division-Detail' %}
+{% endblock %}
+
+{% block title %}
+    {{ division.name }}
+{% endblock %}
+
+{% block content %}
+    <table id="members" class="mdl-data-table mdl-js-data-table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Lastname' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Firstname' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Street' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Zip-Code' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'City' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr data-member="{% url 'members:detail' pk=member.pk %}">
+                    <td clasS="mdl-data-table__cell--non-numeric">
+                        {{ member.last_name}}
+                    </td>
+                    <td clasS="mdl-data-table__cell--non-numeric">
+                        {{ member.first_name }}
+                    </td>
+                    <td clasS="mdl-data-table__cell--non-numeric">
+                        {{ member.street }}
+                    </td>
+                    <td clasS="mdl-data-table__cell--non-numeric">
+                        {{ member.zip_code }}
+                    </td>
+                    <td clasS="mdl-data-table__cell--non-numeric">
+                        {{ member.city }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href ="{% url 'members:division_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
+        <i class="mdc-fab__icon fa fa-arrow-left"></i>
+    </a>
+    <a href ="{% url 'members:division_edit' pk=division.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+        <i class="mdc-fab__icon fa fa-pencil-alt"></i>
+    </a>
+{% endblock %}
+
+{% block footer %}
+    <!-- Datatables -->
+    <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
+
+    <script>
+        $('tr').on('click', function(){
+            window.location = $(this).data('member');
+        })
+    </script>
+{% endblock %}
