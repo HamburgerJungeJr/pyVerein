@@ -32,7 +32,7 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 # Edit-View.
 class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'members.change_member'
+    permission_required = ('members.view_member', 'members.change_member')
     model = Member
     context_object_name = 'member'
     template_name = 'members/member_edit.html'
@@ -44,7 +44,7 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 # Edit-View.
 class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'members.add_member'
+    permission_required = ('members.view_member', 'members.add_member')
     model = Member
     context_object_name = 'member'
     template_name = 'members/member_create.html'
@@ -117,7 +117,7 @@ class DivisionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
 
 # Edit-View.
 class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'members.change_division'
+    permission_required = ('members.view_division', 'members.change_division')
     model = Division
     context_object_name = 'division'
     template_name = 'members/division_edit.html'
@@ -129,7 +129,7 @@ class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 # Edit-View.
 class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'members.add_division'
+    permission_required = ('members.view_division', 'members.add_division')
     model = Division
     context_object_name = 'division'
     template_name = 'members/division_create.html'

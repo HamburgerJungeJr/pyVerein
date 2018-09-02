@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Member
+from .models import Member, Division
 from datetime import datetime, timedelta
 from account.models import User
 from django.urls import reverse
@@ -96,8 +96,16 @@ class MemberTestMethods(TestCase):
         response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
-        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
 
+        user.user_permissions.remove(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
         response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
     
@@ -109,8 +117,16 @@ class MemberTestMethods(TestCase):
         response = self.client.get(reverse('members:create'))
         self.assertEqual(response.status_code, 403)
 
-        user.user_permissions.add(Permission.objects.get(codename='add_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        response = self.client.get(reverse('members:create'))
+        self.assertEqual(response.status_code, 403)
 
+        user.user_permissions.remove(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='add_member'))
+        response = self.client.get(reverse('members:create'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
         response = self.client.get(reverse('members:create'))
         self.assertEqual(response.status_code, 200)
     
@@ -125,4 +141,108 @@ class MemberTestMethods(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
 
         response = self.client.get(reverse('members:apiList'))
+        self.assertEqual(response.status_code, 200)
+
+class DivisionTestMethods(TestCase):
+    def setUp(self):
+        # Create user
+        user = User.objects.create_user('temp', 'temp@temp.tld', 'temppass')
+        user.first_name = 'temp_first'
+        user.last_name = 'temp_last'
+        user.save()
+
+        # login with user
+        self.client.login(username='temp', password='temppass')
+
+        # Create division
+        division = Division.objects.create(name='Temp')
+        division.save()
+
+    # Test for __str__ method.
+    def test__str__(self):
+        # Create Member.
+        division = Division.objects.create(name='Temp')
+
+        # Assert if __str__ ist full name.
+        self.assertEqual(str(division), "Temp")
+
+    def test_member_list_permission(self):
+        "User should only access division list if view permission is set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('members:division_list'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+
+        response = self.client.get(reverse('members:division_list'))
+        self.assertEqual(response.status_code, 200)
+  
+    def test_member_detail_permission(self):
+        "User should only access division detail if view permission is set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('members:division_detail', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+
+        response = self.client.get(reverse('members:division_detail', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_member_edit_permission(self):
+        "User should only access division edit if change permission is set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('members:division_edit', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+        response = self.client.get(reverse('members:division_edit', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_division'))
+        user.user_permissions.add(Permission.objects.get(codename='change_division'))
+        response = self.client.get(reverse('members:division_edit', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+        response = self.client.get(reverse('members:division_edit', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_member_create_permission(self):
+        "User should only access division create if add permission is set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('members:division_create'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+        response = self.client.get(reverse('members:division_create'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_division'))
+        user.user_permissions.add(Permission.objects.get(codename='add_division'))
+        response = self.client.get(reverse('members:division_create'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+        response = self.client.get(reverse('members:division_create'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_member_apiList_permission(self):
+        "User should only access division api if view permission is set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('members:division_apiList'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+
+        response = self.client.get(reverse('members:division_apiList'))
         self.assertEqual(response.status_code, 200)
