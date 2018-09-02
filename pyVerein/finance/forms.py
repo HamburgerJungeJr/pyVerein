@@ -65,22 +65,8 @@ class ImpersonalAccountEditForm(forms.ModelForm):
         Form metadata
         """
         model = Account
-        fields = ('name', 'account_type')
-        widgets = {
-            'account_type': forms.RadioSelect()
-        }
-    
-    def __init__(self, *args, **kwargs):
-        """
-        Init form with type choices
-        """
-        TYPES = (
-            (Account.COST, _('Cost')),
-            (Account.INCOME, _('Income')),
-            (Account.ASSET, _('Asset'))
-        )
-        super(ImpersonalAccountEditForm, self).__init__(*args, **kwargs)
-        self.fields['account_type'].choices = TYPES
+        fields = ('name', )
+
 
 class CostCenterCreateForm(forms.ModelForm):
     """
