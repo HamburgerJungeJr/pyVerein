@@ -121,10 +121,23 @@ div.dataTables_wrapper{
         .mdc-input:last-of-type{
             margin-left: 5px;
         }
+        .mdc-input:first-of-type:last-of-type{
+            margin-right:5px;
+            margin-left:0px;
+        }
         .mdc-input:not(:first-of-type):not(:last-of-type){
             margin-right:5px;
             margin-left: 5px;
         }
+        .mdc-text-field-helper-text{
+            display: inline-flex;
+            align-items: flex-end;
+            margin-bottom: 15px;
+            width: 50%
+        }
+    }
+    .spacer{
+        width: 50%;  
     }
     .mdc-input{
         width: 50%;
@@ -134,6 +147,7 @@ div.dataTables_wrapper{
     .full-width{
         .mdc-input{
             width: 100%;
+            margin-right: 0px;
         }
     }
 
@@ -143,7 +157,8 @@ div.dataTables_wrapper{
 }
 .detail-content{
     padding: 20px;
-
+    overflow: auto;
+    
     .row{
         display: flex;
         margin-top: 5px;
@@ -252,6 +267,23 @@ footer#page-footer{
     .mdc-button__icon{
         color: #212121;
     }
+}
+
+@media(max-width: 600px){
+    .form{
+        .form-group{
+            flex-wrap: wrap;
+        }
+        .spacer{
+            display: none;  
+        }
+        .mdc-input{
+            width: 100%;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+        }
+    }
+    
 }
 // html {
 //     height: 100%;

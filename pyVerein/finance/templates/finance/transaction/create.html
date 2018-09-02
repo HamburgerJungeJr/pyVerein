@@ -74,10 +74,12 @@
                 <div class="form-group">
                     {% trans 'Debit' as debit_label %}
                     {% include "utils/_textfield.html" with field=form.debit label=debit_label next='id_credit' %}
+                    <div class="spacer">&nbsp;</div>
                 </div>
                 <div class="form-group">
                     {% trans 'Credit' as credit_label %}
                     {% include "utils/_textfield.html" with field=form.credit label=credit_label next='id_text' %}
+                    <div class="spacer">&nbsp;</div>
                 </div>
                 <div class="form-group full-width">
                     {% trans 'Transaction text' as text_label %}

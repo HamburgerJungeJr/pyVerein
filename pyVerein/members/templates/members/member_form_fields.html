@@ -20,6 +20,7 @@
 <div class="form-group">
     {% trans 'Birthday' as birthday_label%}
     {% include "utils/_textfield.html" with field=form.birthday label=birthday_label next='id_street' %}
+    <div class="spacer">&nbsp;</div>
 </div>
 
 <div class="heading mdc-typography--overline">
@@ -28,6 +29,7 @@
 <div class="form-group">
     {% trans 'Street' as street_label%}
     {% include "utils/_textfield.html" with field=form.street label=street_label next='id_zipcode' %}
+    <div class="spacer">&nbsp;</div>
 </div>
 <div class="form-group">
     {% trans 'Zip-Code' as zipcode_label%}
@@ -50,10 +52,12 @@
 <div class="form-group">
     {% trans 'Email' as email_label%}
     {% include "utils/_textfield.html" with field=form.email label=email_label next='id_fax' %}
+    <div class="spacer">&nbsp;</div>
 </div>
 <div class="form-group">
     {% trans 'Fax' as fax_label%}
     {% include "utils/_textfield.html" with field=form.fax label=fax_label next='id_membership_number' %}
+    <div class="spacer">&nbsp;</div>
 </div>
 
 <div class="heading mdc-typography--overline">
@@ -62,6 +66,7 @@
 <div class="form-group">
     {% trans 'Membership number' as membership_number_label%}
     {% include "utils/_textfield.html" with field=form.membership_number label=membership_number_label next='id_joined_at' %}
+    <div class="spacer">&nbsp;</div>
 </div>
 <div class="form-group">
     {% trans 'Joined at' as joined_at_label%}
@@ -77,6 +82,7 @@
 <div class="form-group">
     {% trans 'Method' as method_label%}
     {% include "utils/_select.html" with field=form.payment_method label=method_label next='id_iban' %}
+    <div class="spacer">&nbsp;</div>
 </div>
 
 <div class="form-group">
