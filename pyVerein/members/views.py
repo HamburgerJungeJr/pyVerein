@@ -16,6 +16,7 @@ from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 # Index-View.
 class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
@@ -31,24 +32,26 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 
 # Edit-View.
-class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = ('members.view_member', 'members.change_member')
     model = Member
     context_object_name = 'member'
     template_name = 'members/member_edit.html'
     form_class = MemberForm
+    success_message = _('Member saved sucessfully')
 
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
 
 
 # Edit-View.
-class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = ('members.view_member', 'members.add_member')
     model = Member
     context_object_name = 'member'
     template_name = 'members/member_create.html'
     form_class = MemberForm
+    success_message = _('Member created successfully')
 
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
@@ -116,24 +119,26 @@ class DivisionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
         return context
 
 # Edit-View.
-class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = ('members.view_division', 'members.change_division')
     model = Division
     context_object_name = 'division'
     template_name = 'members/division_edit.html'
     form_class = DivisionForm
+    success_message = _('Division saved succesfully')
 
     def get_success_url(self):
         return reverse_lazy('members:division_detail', args={self.object.pk})
 
 
 # Edit-View.
-class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = ('members.view_division', 'members.add_division')
     model = Division
     context_object_name = 'division'
     template_name = 'members/division_create.html'
     form_class = DivisionForm
+    success_message = _('Division created successfully')
 
     def get_success_url(self):
         return reverse_lazy('members:division_detail', args={self.object.pk})

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-02 17:59+0200\n"
+"POT-Creation-Date: 2018-09-02 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,12 +97,12 @@ msgid "City"
 msgstr "Stadt"
 
 #: templates/members/division_detail.html:52
-#: templates/members/member_detail.html:156
+#: templates/members/member_detail.html:160
 msgid "Back"
 msgstr "Zurück"
 
 #: templates/members/division_detail.html:55
-#: templates/members/member_detail.html:159
+#: templates/members/member_detail.html:163
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -208,6 +208,7 @@ msgid "Edit division"
 msgstr "Sparte bearbeiten"
 
 #: templates/members/division_form_fields.html:6
+#: templates/members/member_detail.html:80
 #: templates/members/member_form_fields.html:70
 msgid "Division"
 msgstr "Sparte"
@@ -293,76 +294,76 @@ msgstr "Mitgliedschaft"
 msgid "Membership number"
 msgstr "Mitgliedsnummer"
 
-#: templates/members/member_detail.html:80
+#: templates/members/member_detail.html:84
 #: templates/members/member_form_fields.html:74
 msgid "Joined at"
 msgstr "Eingetreten am"
 
-#: templates/members/member_detail.html:84
+#: templates/members/member_detail.html:88
 #: templates/members/member_form_fields.html:77
 msgid "Terminated at"
 msgstr "Ausgetreten am"
 
-#: templates/members/member_detail.html:89
+#: templates/members/member_detail.html:93
 #: templates/members/member_form_fields.html:82
 msgid "Payment"
 msgstr "Bezahlung"
 
-#: templates/members/member_detail.html:92
+#: templates/members/member_detail.html:96
 #: templates/members/member_form_fields.html:85
 msgid "Method"
 msgstr "Zahlungsmethode"
 
-#: templates/members/member_detail.html:97
+#: templates/members/member_detail.html:101
 #: templates/members/member_form_fields.html:91
 msgid "IBAN"
 msgstr "IBAN"
 
-#: templates/members/member_detail.html:101
+#: templates/members/member_detail.html:105
 #: templates/members/member_form_fields.html:94
 msgid "BIC"
 msgstr "BIC"
 
-#: templates/members/member_detail.html:105
+#: templates/members/member_detail.html:109
 #: templates/members/member_form_fields.html:98
 msgid "Direct debit mandate granted at"
 msgstr "SEPA Lastschriftmandat erteilt am"
 
-#: templates/members/member_detail.html:109
+#: templates/members/member_detail.html:113
 #: templates/members/member_form_fields.html:101
 msgid "Direct debit reference"
 msgstr "SEPA Lastschrift Referenz"
 
-#: templates/members/member_detail.html:114
+#: templates/members/member_detail.html:118
 msgid "Membership paid"
 msgstr "Mitgliedsbeitrag bezahlt"
 
-#: templates/members/member_detail.html:120
+#: templates/members/member_detail.html:124
 #: templates/members/member_form_fields.html:108
 msgid "Additional Information"
 msgstr "Zusätzliche Informationen"
 
-#: templates/members/member_detail.html:125
+#: templates/members/member_detail.html:129
 #: templates/members/member_form_fields.html:113
 msgid "Additional field 1"
 msgstr "Zusatzfeld 1"
 
-#: templates/members/member_detail.html:131
+#: templates/members/member_detail.html:135
 #: templates/members/member_form_fields.html:119
 msgid "Additional field 2"
 msgstr "Zusatzfeld 2"
 
-#: templates/members/member_detail.html:137
+#: templates/members/member_detail.html:141
 #: templates/members/member_form_fields.html:125
 msgid "Additional field 3"
 msgstr "Zusatzfeld 3"
 
-#: templates/members/member_detail.html:143
+#: templates/members/member_detail.html:147
 #: templates/members/member_form_fields.html:131
 msgid "Additional field 4"
 msgstr "Zusatzfeld 4"
 
-#: templates/members/member_detail.html:149
+#: templates/members/member_detail.html:153
 #: templates/members/member_form_fields.html:137
 msgid "Additional field 5"
 msgstr "Zusatzfeld 5"
@@ -378,3 +379,19 @@ msgstr "E-Mail"
 #: templates/members/member_list.html:12 templates/members/member_list.html:16
 msgid "Member-List"
 msgstr "Mitgliederliste"
+
+#: views.py:41
+msgid "Member saved sucessfully"
+msgstr "Mitglied wurde erfolgreich gespeichert"
+
+#: views.py:54
+msgid "Member created successfully"
+msgstr "Mitglied wurde erfolgreich erstellt"
+
+#: views.py:128
+msgid "Division saved succesfully"
+msgstr "Sparte wurde erfolgreich gespeichert"
+
+#: views.py:141
+msgid "Division created successfully"
+msgstr "Sparte wurde erfolgreich erstellt"
