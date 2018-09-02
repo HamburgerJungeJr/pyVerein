@@ -77,6 +77,10 @@
                 <div class="field-value">{{ member.membership_number|default_if_none:"" }}</div>
             </div>
             <div class="row">
+                <div class="field-title">{% trans 'Division' %}</div>
+                <div class="field-value">{{ member.division.name|default_if_none:"" }}</div>
+            </div>
+            <div class="row">
                 <div class="field-title">{% trans 'Joined at' %}</div>
                 <div class="field-value">{{ member.joined_at|default_if_none:"" }}</div>
             </div>
