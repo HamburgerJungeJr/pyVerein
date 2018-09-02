@@ -173,7 +173,7 @@ class DivisionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDat
         # Loop through all items in queryset
         for item in qs:
             # Append dictionary with all columns and urls
-            json_data.append({'name': item.name, 'count': Member.objects.filter(division=self.pk).count(),
+            json_data.append({'name': item.name, 'count': Member.objects.filter(division=item.id).count(),
                               'detail_url': reverse('members:division_detail', args=[item.id])})
 
         # Return data

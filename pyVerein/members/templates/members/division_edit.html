@@ -19,11 +19,11 @@
 {% block content %}
 <div class="main-narrow form">
     <div class="detail-content  mdc-elevation--z4">
-        <form action="{% url 'divisions:division_edit' division.pk %}" method="POST" id="form">
+        <form action="{% url 'members:division_edit' division.pk %}" method="POST" id="form">
             {% include 'members/division_form_fields.html' %}
             <div class="form-group form-submit">
                 <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
-                <a href="{% url 'divisions:division_detail' pk=division.pk %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                <a href="{% url 'members:division_detail' pk=division.pk %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
             </div>
         </form>
     </div>
@@ -37,6 +37,6 @@
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
-        $('#form').exitOnEsc("{% url 'divisions:division_list' %}");
+        $('#form').exitOnEsc("{% url 'members:division_list' %}");
     </script>
 {% endblock %}
