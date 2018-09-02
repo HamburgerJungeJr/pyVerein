@@ -115,7 +115,8 @@ div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
   margin-top: 30px; }
 
 .detail-content {
-  padding: 20px; }
+  padding: 20px;
+  overflow: auto; }
   .detail-content .row {
     display: flex;
     margin-top: 5px; }

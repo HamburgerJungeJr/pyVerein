@@ -1,0 +1,122 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Division-Detail' %}
+{% endblock %}
+
+{% block title %}
+    {{ division.name }}
+{% endblock %}
+
+{% block content %}
+    <table id="members" class="mdl-data-table mdl-js-data-table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Lastname' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Firstname' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Street' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Zip-Code' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'City' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr data-member="{% url 'members:detail' pk=member.pk %}">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ member.last_name}}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ member.first_name }}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ member.street }}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ member.zip_code }}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ member.city }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href ="{% url 'members:division_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
+        <i class="mdc-fab__icon fa fa-arrow-left"></i>
+    </a>
+    <a href ="{% url 'members:division_edit' pk=division.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+        <i class="mdc-fab__icon fa fa-pencil-alt"></i>
+    </a>
+{% endblock %}
+
+{% block foot %}
+    <!-- Datatables -->
+    <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            dt = $('#members').on('processing.dt', function (e, settings, processing) {
+                $('#members').css('opacity', processing ? '0.3' : '1.0');
+            }).DataTable({
+                "processing": true,
+                "serverSide": false,
+                "language": {
+                    "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
+                    "sEmptyTable": "{% trans 'sEmptyTable' %}",
+                    "sInfo": "{% trans 'sInfo' %}",
+                    "sInfoEmpty": "{% trans 'sInfoEmpty' %}",
+                    "sInfoFiltered": "{% trans 'sInfoFiltered' %}",
+                    "sInfoPostFix": "{% trans 'sInfoPostfix' %}",
+                    "sInfoThousands": "{% trans 'sInfoThousands' %}",
+                    "sLoadingRecords": "{% trans 'sLoadingRecords' %}",
+                    "sZeroRecords": "{% trans 'sZeroRecords' %}",
+                    "oPaginate": {
+                        "sFirst": "{% trans 'sFirst' %}",
+                        "sLast": "{% trans 'sLast' %}",
+                        "sNext": "{% trans 'sNext' %}",
+                        "sPrevious": "{% trans 'sPrevious' %}"
+                    },
+                    "oAria": {
+                        "sSortAscending": "{% trans 'sSortAscending' %}",
+                        "sSortDescending": "{% trans 'sSortDescending' %}"
+                    }
+                },
+            });
+            // Search
+            $("#members_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
+            $("#datatable-search").on('keyup', function(e) {
+                dt.search(this.value).draw();
+            })
+
+            // Itemsselect
+            $("#members_length").html('<div class="mdc-select">' + $('#members_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+            $(".mdc-select select").addClass("mdc-select__native-control");
+            $('#members_length select').on('change', function (e) {
+                dt.page.len(this.value).draw();
+            });
+            
+
+            // Select
+            select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
+            // Lineripple
+            lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
+            // Textfield
+            textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
+
+            $('tr').on('click', function(){
+                window.location = $(this).data('member');
+            })
+        });
+
+
+    </script>
+{% endblock %}

@@ -46,6 +46,8 @@ class Member(models.Model):
     joined_at = models.DateField(blank=True, null=True)
     # Terminated at
     terminated_at = models.DateField(blank=True, null=True)
+    # Division
+    division = models.ForeignKey('Division', on_delete=models.PROTECT, blank=True, null=True)
 
     # Choices for payment method
     CASH = 'CA'
@@ -78,6 +80,7 @@ class Member(models.Model):
     # Additional field 5
     field_5 = models.CharField(blank=True, null=True, max_length=255)
 
+
     # Return full name
     def get_full_name(self):
         return '{0} {1}'.format(self.first_name, self.last_name)
@@ -92,3 +95,14 @@ class Member(models.Model):
     # Return full name as string representation
     def __str__(self):
         return self.get_full_name()
+
+class Division(models.Model):
+    """
+    Division model
+    """
+
+    # Name
+    name = models.CharField(blank=False, null=False, max_length=255)
+
+    def __str__(self):
+        return self.name

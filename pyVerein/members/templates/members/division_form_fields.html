@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% csrf_token %}
+<div class="heading mdc-typography--overline">
+    {% trans 'Division' %}
+</div>
+<div class="form-group full-width">
+    {% trans 'Name' as name_label%}
+    {% include "utils/_textfield.html" with field=form.name label=name_label %}
+</div>
