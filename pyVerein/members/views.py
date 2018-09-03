@@ -21,7 +21,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 # Index-View.
 class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'members.view_member'
-    template_name = 'members/member_list.html'
+    template_name = 'members/member/list.html'
 
 
 # Detail-View.
@@ -29,6 +29,7 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = 'members.view_member'
     model = Member
     context_object_name = 'member'
+    template_name = 'members/member/detail.html'
 
 
 # Edit-View.
@@ -36,7 +37,7 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     permission_required = ('members.view_member', 'members.change_member')
     model = Member
     context_object_name = 'member'
-    template_name = 'members/member_edit.html'
+    template_name = 'members/member/edit.html'
     form_class = MemberForm
     success_message = _('Member saved sucessfully')
 
@@ -49,7 +50,7 @@ class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
     permission_required = ('members.view_member', 'members.add_member')
     model = Member
     context_object_name = 'member'
-    template_name = 'members/member_create.html'
+    template_name = 'members/member/create.html'
     form_class = MemberForm
     success_message = _('Member created successfully')
 
@@ -102,7 +103,7 @@ class MemberDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatat
 # Index-View.
 class DivisionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'members.view_division'
-    template_name = 'members/division_list.html'
+    template_name = 'members/division/list.html'
 
 
 # Detail-View.
@@ -110,6 +111,7 @@ class DivisionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
     permission_required = 'members.view_division'
     model = Division
     context_object_name = 'division'
+    template_name = 'members/division/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(DivisionDetailView, self).get_context_data(**kwargs)
@@ -123,7 +125,7 @@ class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
     permission_required = ('members.view_division', 'members.change_division')
     model = Division
     context_object_name = 'division'
-    template_name = 'members/division_edit.html'
+    template_name = 'members/division/edit.html'
     form_class = DivisionForm
     success_message = _('Division saved succesfully')
 
@@ -136,7 +138,7 @@ class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     permission_required = ('members.view_division', 'members.add_division')
     model = Division
     context_object_name = 'division'
-    template_name = 'members/division_create.html'
+    template_name = 'members/division/create.html'
     form_class = DivisionForm
     success_message = _('Division created successfully')
 
