@@ -130,4 +130,7 @@ class Subscription(models.Model):
     # Amount
     amount = models.DecimalField(blank=False, null=False, max_digits=12, decimal_places=2)
     # Payment frequency
-    payment_frequency = models.CharField(choices=PAYMENT_FREQUENCY, max_length=3)
+    payment_frequency = models.CharField(choices=PAYMENT_FREQUENCY, max_length=3, default=YEARLY)
+
+    def __str__(self):
+        return self.name
