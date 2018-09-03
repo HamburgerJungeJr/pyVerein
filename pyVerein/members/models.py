@@ -118,7 +118,7 @@ class Subscription(models.Model):
     QUARTERLY = 'QUA'
     HALFYEARLY = 'HAL'
     YEARLY = 'YEA'
-    PAYMENT_METHODS = (
+    PAYMENT_FREQUENCY = (
         (MONTHLY, _('Monthly')),
         (QUARTERLY, _('Quarterly')),
         (HALFYEARLY, _('Half-Yearly')),
@@ -129,5 +129,5 @@ class Subscription(models.Model):
     name = models.CharField(blank=False, null=False, max_length=255)
     # Amount
     amount = models.DecimalField(blank=False, null=False, max_digits=12, decimal_places=2)
-    # Payment method
-    payment_method = models.CharField(choices=PAYMENT_METHODS, max_length=3)
+    # Payment frequency
+    payment_frequency = models.CharField(choices=PAYMENT_FREQUENCY, max_length=3)
