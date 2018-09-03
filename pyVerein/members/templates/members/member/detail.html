@@ -96,6 +96,10 @@
                 <div class="field-title">{% trans 'Method' %}</div>
                 <div class="field-value">{{ member.get_payment_method_display }}</div>
             </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Subscription' %}</div>
+                <div class="field-value">{{ member.subscription|default_if_none:"" }}</div>
+            </div>
             {% if member.payment_method == 'DE' %}
                 <div class="row">
                     <div class="field-title">{% trans 'IBAN' %}</div>

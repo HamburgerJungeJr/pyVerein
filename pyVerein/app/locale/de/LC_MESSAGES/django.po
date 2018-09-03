@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-27 14:44+0200\n"
+"POT-Creation-Date: 2018-09-04 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,100 +18,108 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/app/_attributions.html:6 app/templates/app/base.html:73
-#: app/templates/registration/login.html:92
+#: templates/app/_attributions.html:6 templates/app/base.html:78
+#: templates/registration/login.html:92
 msgid "Attributions"
 msgstr "Lizenzen"
 
-#: app/templates/app/_attributions.html:15
+#: templates/app/_attributions.html:15
 msgid "CC BY-NC-ND 4.0"
 msgstr "CC BY-NC-ND 4.0"
 
-#: app/templates/app/_attributions.html:15
+#: templates/app/_attributions.html:15
 msgid "Open at behance.net"
 msgstr "Auf behance.net öffnen"
 
-#: app/templates/app/_attributions.html:19
+#: templates/app/_attributions.html:19
 msgid "Close"
 msgstr "Schließen"
 
-#: app/templates/app/_drawer.html:7 app/templates/app/dashboard.html:10
-#: app/templates/app/dashboard.html:14
+#: templates/app/_drawer.html:7 templates/app/dashboard.html:10
+#: templates/app/dashboard.html:14
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: app/templates/app/_drawer.html:11
+#: templates/app/_drawer.html:11
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: app/templates/app/_drawer.html:18 app/templates/app/_drawer.html:21
-#: app/templates/app/_drawer.html:23
+#: templates/app/_drawer.html:18 templates/app/_drawer.html:21
+#: templates/app/_drawer.html:23
 msgid "Members"
 msgstr "Mitglieder"
 
-#: app/templates/app/_drawer.html:30
+#: templates/app/_drawer.html:27 templates/app/_drawer.html:29
+msgid "Divisions"
+msgstr "Sparten"
+
+#: templates/app/_drawer.html:33 templates/app/_drawer.html:35
+msgid "Subscriptions"
+msgstr "Beiträge"
+
+#: templates/app/_drawer.html:42
 msgid "Finance"
 msgstr "Finanzen"
 
-#: app/templates/app/_drawer.html:33 app/templates/app/_drawer.html:35
+#: templates/app/_drawer.html:45 templates/app/_drawer.html:47
 msgid "Transactions"
 msgstr "Belege"
 
-#: app/templates/app/_drawer.html:39 app/templates/app/_drawer.html:41
+#: templates/app/_drawer.html:51 templates/app/_drawer.html:53
 msgid "Debitors"
 msgstr "Debitoren"
 
-#: app/templates/app/_drawer.html:45 app/templates/app/_drawer.html:47
+#: templates/app/_drawer.html:57 templates/app/_drawer.html:59
 msgid "Creditors"
 msgstr "Kreditoren"
 
-#: app/templates/app/_drawer.html:51 app/templates/app/_drawer.html:53
+#: templates/app/_drawer.html:63 templates/app/_drawer.html:65
 msgid "Impersonal"
 msgstr "Sachkonten"
 
-#: app/templates/app/_drawer.html:57 app/templates/app/_drawer.html:59
+#: templates/app/_drawer.html:69 templates/app/_drawer.html:71
 msgid "Cost centers"
 msgstr "Kostenstellen"
 
-#: app/templates/app/_drawer.html:63 app/templates/app/_drawer.html:65
+#: templates/app/_drawer.html:75 templates/app/_drawer.html:77
 msgid "Cost objects"
 msgstr "Kostenträger"
 
-#: app/templates/app/_drawer.html:72
+#: templates/app/_drawer.html:84
 msgid "User"
 msgstr "Benutzer"
 
-#: app/templates/app/_drawer.html:75 app/templates/app/_drawer.html:77
+#: templates/app/_drawer.html:87 templates/app/_drawer.html:89
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/base.html:112 app/templates/app/base.html:149
+#: templates/app/base.html:117 templates/app/base.html:154
 msgid "Dismiss"
 msgstr "Ausblenden"
 
-#: app/templates/registration/login.html:49
+#: templates/registration/login.html:49
 msgid "Log In"
 msgstr "Anmeldung"
 
-#: app/templates/registration/login.html:57
+#: templates/registration/login.html:57
 msgid "Your username and password didnt match. Please try again."
 msgstr ""
 "Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
 
-#: app/templates/registration/login.html:62
+#: templates/registration/login.html:62
 msgid ""
 "Your account doesnt have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr "Dieser Benutzer hat keine Berechtigung für diese Seite."
 
-#: app/templates/registration/login.html:72
+#: templates/registration/login.html:72
 msgid "Username"
 msgstr "Benutzername"
 
-#: app/templates/registration/login.html:79
+#: templates/registration/login.html:79
 msgid "Password"
 msgstr "Passwort"
 
-#: app/templates/registration/login.html:84
+#: templates/registration/login.html:84
 msgid "Login"
 msgstr "Anmelden"

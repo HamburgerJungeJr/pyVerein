@@ -83,8 +83,10 @@
 </div>
 <div class="form-group">
     {% trans 'Method' as method_label%}
-    {% include "utils/_select.html" with field=form.payment_method label=method_label next='id_iban' %}
-    <div class="spacer">&nbsp;</div>
+    {% include "utils/_select.html" with field=form.payment_method label=method_label next='id_subscription' %}
+
+    {% trans 'Subscription' as subscription_label%}
+    {% include "utils/_select.html" with field=form.subscription label=subscription_label next='id_iban' %}
 </div>
 
 <div class="form-group">

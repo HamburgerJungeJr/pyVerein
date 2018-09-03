@@ -25,8 +25,14 @@
                     </li>
                     <li class="mdc-list-item {% base_url_class 'members:division_list' 'mdc-list-item--activated'%}">
                         <a href="{% url 'members:division_list' %}" title="{% trans 'Divisions' %}">
-                            <span class="mdc-list-item__graphic fa fa-users" aria-hidden="true"></span>
+                            <span class="mdc-list-item__graphic fa fa-sitemap" aria-hidden="true"></span>
                             <span class="mdc-list-item__text">{% trans 'Divisions' %}</span>
+                        </a>
+                    </li>
+                    <li class="mdc-list-item {% base_url_class 'members:subscription_list' 'mdc-list-item--activated'%}">
+                        <a href="{% url 'members:subscription_list' %}" title="{% trans 'Subscriptions' %}">
+                            <span class="mdc-list-item__graphic fa fa-money-bill-alt" aria-hidden="true"></span>
+                            <span class="mdc-list-item__text">{% trans 'Subscriptions' %}</span>
                         </a>
                     </li>
                 </ul>

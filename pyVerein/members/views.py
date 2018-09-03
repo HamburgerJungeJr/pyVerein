@@ -5,8 +5,8 @@ from django.urls import reverse, reverse_lazy
 # Import members.
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 # Import Member.
-from .forms import MemberForm, DivisionForm
-from .models import Member, Division
+from .forms import MemberForm, DivisionForm, SubscriptionForm
+from .models import Member, Division, Subscription
 # Import datatablesview.
 from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
@@ -21,7 +21,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 # Index-View.
 class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'members.view_member'
-    template_name = 'members/member_list.html'
+    template_name = 'members/member/list.html'
 
 
 # Detail-View.
@@ -29,6 +29,7 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = 'members.view_member'
     model = Member
     context_object_name = 'member'
+    template_name = 'members/member/detail.html'
 
 
 # Edit-View.
@@ -36,7 +37,7 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     permission_required = ('members.view_member', 'members.change_member')
     model = Member
     context_object_name = 'member'
-    template_name = 'members/member_edit.html'
+    template_name = 'members/member/edit.html'
     form_class = MemberForm
     success_message = _('Member saved sucessfully')
 
@@ -49,7 +50,7 @@ class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
     permission_required = ('members.view_member', 'members.add_member')
     model = Member
     context_object_name = 'member'
-    template_name = 'members/member_create.html'
+    template_name = 'members/member/create.html'
     form_class = MemberForm
     success_message = _('Member created successfully')
 
@@ -102,7 +103,7 @@ class MemberDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatat
 # Index-View.
 class DivisionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'members.view_division'
-    template_name = 'members/division_list.html'
+    template_name = 'members/division/list.html'
 
 
 # Detail-View.
@@ -110,6 +111,7 @@ class DivisionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
     permission_required = 'members.view_division'
     model = Division
     context_object_name = 'division'
+    template_name = 'members/division/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(DivisionDetailView, self).get_context_data(**kwargs)
@@ -123,7 +125,7 @@ class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
     permission_required = ('members.view_division', 'members.change_division')
     model = Division
     context_object_name = 'division'
-    template_name = 'members/division_edit.html'
+    template_name = 'members/division/edit.html'
     form_class = DivisionForm
     success_message = _('Division saved succesfully')
 
@@ -136,7 +138,7 @@ class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     permission_required = ('members.view_division', 'members.add_division')
     model = Division
     context_object_name = 'division'
-    template_name = 'members/division_create.html'
+    template_name = 'members/division/create.html'
     form_class = DivisionForm
     success_message = _('Division created successfully')
 
@@ -180,6 +182,92 @@ class DivisionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDat
             # Append dictionary with all columns and urls
             json_data.append({'name': item.name, 'count': Member.objects.filter(division=item.id).count(),
                               'detail_url': reverse('members:division_detail', args=[item.id])})
+
+        # Return data
+        return json_data
+
+# Index-View.
+class SubscriptionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    permission_required = 'members.view_subscription'
+    template_name = 'members/subscription/list.html'
+
+
+# Detail-View.
+class SubscriptionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = 'members.view_subscription'
+    model = Subscription
+    context_object_name = 'subscription'
+    template_name = 'members/subscription/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SubscriptionDetailView, self).get_context_data(**kwargs)
+
+        context['members'] = Member.objects.filter(subscription=self.object.pk)
+
+        return context
+
+# Edit-View.
+class SubscriptionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = ('members.view_subscription', 'members.change_subscription')
+    model = Subscription
+    context_object_name = 'subscription'
+    template_name = 'members/subscription/edit.html'
+    form_class = SubscriptionForm
+    success_message = _('Subscription saved succesfully')
+
+    def get_success_url(self):
+        return reverse_lazy('members:subscription_detail', args={self.object.pk})
+
+
+# Edit-View.
+class SubscriptionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = ('members.view_subscription', 'members.add_subscription')
+    model = Subscription
+    context_object_name = 'subscription'
+    template_name = 'members/subscription/create.html'
+    form_class = SubscriptionForm
+    success_message = _('Subscription created successfully')
+
+    def get_success_url(self):
+        return reverse_lazy('members:subscription_detail', args={self.object.pk})
+
+
+# Datatable api view.
+class SubscriptionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
+    permission_required = 'members.view_subscription'
+    # Use Subscriptionmodel
+    model = Subscription
+
+    # Define displayed columns.
+    columns = ['name']
+
+    # Define columns used for ordering.
+    order_columns = ['name']
+
+    # Set maximum returned rows to prevent attacks.
+    max_rows = 500
+
+    # Filter rows.
+    def filter_queryset(self, qs):
+        # Read GET parameters.
+        search = self.request.GET.get(u'search[value]', None)
+        if search:
+            qs = qs.filter(
+                Q(name__icontains=search))
+
+        # Return filtered data.
+        return qs
+
+    # Prepare results to return as dict with urls
+    def prepare_results(self, qs):
+        # Initialize data array
+        json_data = []
+
+        # Loop through all items in queryset
+        for item in qs:
+            # Append dictionary with all columns and urls
+            json_data.append({'name': item.name, 'amount': item.amount, 'payment_frequency': item.payment_frequency, 'count': Member.objects.filter(subscription=item.id).count(),
+                              'detail_url': reverse('members:subscription_detail', args=[item.id])})
 
         # Return data
         return json_data
