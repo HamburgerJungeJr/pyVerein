@@ -68,6 +68,8 @@ class Member(models.Model):
     debit_mandate_at = models.DateField(blank=True, null=True)
     # Direct debit reference
     debit_reference = models.CharField(blank=True, null=True, max_length=100)
+    # Subscription
+    subscription = models.ForeignKey('Subscription', on_delete=models.PROTECT, blank=True, null=True)
 
     # Additional field 1
     field_1 = models.CharField(blank=True, null=True, max_length=255)
@@ -106,3 +108,26 @@ class Division(models.Model):
 
     def __str__(self):
         return self.name
+
+class Subscription(models.Model):
+    """
+    Subscription model
+    """
+
+    MONTHLY = 'MON'
+    QUARTERLY = 'QUA'
+    HALFYEARLY = 'HAL'
+    YEARLY = 'YEA'
+    PAYMENT_METHODS = (
+        (MONTHLY, _('Monthly')),
+        (QUARTERLY, _('Quarterly')),
+        (HALFYEARLY, _('Half-Yearly')),
+        (YEARLY, _('Yearly'))
+    )
+
+    # Name
+    name = models.CharField(blank=False, null=False, max_length=255)
+    # Amount
+    amount = models.DecimalField(blank=False, null=False, max_digits=12, decimal_places=2)
+    # Payment method
+    payment_method = models.CharField(choices=PAYMENT_METHODS, max_length=3)
