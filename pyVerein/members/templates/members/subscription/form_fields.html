@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% csrf_token %}
+<div class="heading mdc-typography--overline">
+    {% trans 'Subscription' %}
+</div>
+<div class="form-group full-width">
+    {% for radio in form.payment_frequency %}
+        {% include "utils/_radio.html" with field=radio %}
+    {% endfor %}
+</div>
+<div class="form-group full-width">
+    {% trans 'Name' as name_label%}
+    {% include "utils/_textfield.html" with field=form.name label=name_label %}
+</div>
+<div class="form-group full-width">
+    {% trans 'Amount' as amount_label%}
+    {% include "utils/_textfield.html" with field=form.amount label=amount_label %}
+</div>

@@ -9,21 +9,21 @@
 {% endblock %}
 
 {% block page_title %}
-    {% trans 'Create division' %}
+    {% trans 'Create subscription' %}
 {% endblock %}
 
 {% block title %}
-    {% trans 'Create division' %}
+    {% trans 'Create subscription' %}
 {% endblock %}
 
 {% block content %}
     <div class="main-narrow form">
         <div class="detail-content  mdc-elevation--z4">
-            <form action="{% url 'members:division_create' %}" method="POST" id="form">
-                {% include 'members/division/form_fields.html' %}
+            <form action="{% url 'members:subscription_create' %}" method="POST" id="form">
+                {% include 'members/subscription/form_fields.html' %}
                 <div class="form-group form-submit">
                     <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
-                    <a href="{% url 'members:division_list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                    <a href="{% url 'members:subscription_list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
                 </div>
             </form>
         </div>
@@ -36,6 +36,6 @@
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
-        $('#form').exitOnEsc("{% url 'members:division_list' %}");
+        $('#form').exitOnEsc("{% url 'members:subscription_list' %}");
     </script>
 {% endblock %}
