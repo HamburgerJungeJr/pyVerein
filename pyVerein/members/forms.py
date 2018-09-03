@@ -1,5 +1,5 @@
 from django import forms
-from .models import Member, Division
+from .models import Member, Division, Subscription
 
 
 class MemberForm(forms.ModelForm):
@@ -18,3 +18,11 @@ class DivisionForm(forms.ModelForm):
     class Meta:
         model = Division
         fields = ('name', )
+
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ('name', 'amount', 'payment_frequency')
+        widgets = {
+            'payment_frequency': forms.RadioSelect(attrs={'class':'mdc-radio__native-control'})
+        }
