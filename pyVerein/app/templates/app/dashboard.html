@@ -17,16 +17,19 @@
 
 {% block content %}
 <div class="dashboard">
-
-    <div class="mdc-card ">
-        <h4 class="mdc-typography--headline4">{% trans 'Members' %}</h4>
-        <div id="membersChart" width="400" height="400"></div>
-    </div>
-
-    <div class="mdc-card ">
-        <h4 class="mdc-typography--headline4">{% trans 'Bank accounts' %}</h4>
-        <div id="bankAccountsChart" width="400" height="400"></div>
-    </div>
+    {% if perms.members.view_member %}
+        <div class="mdc-card ">
+            <h4 class="mdc-typography--headline4">{% trans 'Members' %}</h4>
+            <div id="membersChart" width="400" height="400"></div>
+        </div>
+    {% endif %}
+    
+    {% if perms.finance.view_account %}
+        <div class="mdc-card ">
+            <h4 class="mdc-typography--headline4">{% trans 'Bank accounts' %}</h4>
+            <div id="bankAccountsChart" width="400" height="400"></div>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}
@@ -35,6 +38,7 @@
     <script src="{% static 'app/vendors/c3/d3.min.js' %}"></script>
     <script src="{% static 'app/vendors/c3/c3.min.js' %}"></script>
     <script>
+        {% if perms.members.view_member %}
         // Members
         memberRawData = [
             {% for division in divisions %} 
@@ -77,7 +81,8 @@
                 width: 400
             },
         });
-
+        {% endif %}
+        {% if perms.finance.view_account %}
         // Bankaccounts
         bankAccountsRawData = [
             {% for bank_account in bank_accounts %} 
@@ -122,6 +127,6 @@
                 width: 400
             },
         });
-
+        {% endif %}
     </script>
 {% endblock %}
