@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-04 11:48+0200\n"
+"POT-Creation-Date: 2018-09-04 17:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,11 @@ msgstr "Profil"
 msgid "Dismiss"
 msgstr "Ausblenden"
 
-#: templates/app/dashboard.html:37
+#: templates/app/dashboard.html:27
+msgid "Bank accounts"
+msgstr "Bankkonten"
+
+#: templates/app/dashboard.html:42
 msgid "Not selected"
 msgstr "Keine Auswahl"
 

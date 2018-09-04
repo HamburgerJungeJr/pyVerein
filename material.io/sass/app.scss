@@ -272,9 +272,10 @@ footer#page-footer{
 .dashboard{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
 
     .mdc-card{
-        width: 350px;
+        width: 450px;
         text-align: center;
 
         .mdc-typography--headline4{
@@ -291,7 +292,7 @@ footer#page-footer{
 }
 
 .c3-chart-arcs-title{
-    font-size: 40px;
+    font-size: 30px;
 }
 
 @media(max-width: 600px){

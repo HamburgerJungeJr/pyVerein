@@ -201,9 +201,10 @@ footer#page-footer {
 
 .dashboard {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  justify-content: space-evenly; }
   .dashboard .mdc-card {
-    width: 350px;
+    width: 450px;
     text-align: center; }
     .dashboard .mdc-card .mdc-typography--headline4 {
       margin-top: 10px;
@@ -215,7 +216,7 @@ footer#page-footer {
   font-size: 16px; }
 
 .c3-chart-arcs-title {
-  font-size: 40px; }
+  font-size: 30px; }
 
 @media (max-width: 600px) {
   .form .form-group {

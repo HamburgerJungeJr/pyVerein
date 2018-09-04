@@ -20,7 +20,12 @@
 
     <div class="mdc-card ">
         <h4 class="mdc-typography--headline4">{% trans 'Members' %}</h4>
-        <div id="membersChart" width="300" height="300"></div>
+        <div id="membersChart" width="400" height="400"></div>
+    </div>
+
+    <div class="mdc-card ">
+        <h4 class="mdc-typography--headline4">{% trans 'Bank accounts' %}</h4>
+        <div id="bankAccountsChart" width="400" height="400"></div>
     </div>
 </div>
 
@@ -66,7 +71,56 @@
                         return value;
                     }
                 }
-            }
+            },
+            size: {
+                height: 400,
+                width: 400
+            },
+        });
+
+        // Bankaccounts
+        bankAccountsRawData = [
+            {% for bank_account in bank_accounts %} 
+                {
+                    'name': '{{ bank_account.account__name }}', 
+                    'debit': {{ bank_account.debit|stringformat:'0.2f' }},
+                    'credit': {{ bank_account.credit|stringformat:'0.2f' }}
+                },
+            {% endfor %}
+        ];
+        bankAccountsData = [];
+        bankAccountsSum = 0;
+        bankAccountsRawData.forEach(function(val){
+            balance = val['debit'] - val['credit'];
+            bankAccountsData.push([val['name'], balance]);
+            bankAccountsSum += balance;
+        });
+        var chart = c3.generate({
+            bindto: '#bankAccountsChart',
+            data: {
+              columns: bankAccountsData,
+              type: 'donut',
+            },
+            donut: {
+                width: 70,
+                title: bankAccountsSum + ' {{ global_preferences.Finance__currency }}',
+                label: {
+                    format: function (value, ratio, id) {
+                        return value + ' {{ global_preferences.Finance__currency }}';
+                    } 
+                }
+            },
+            tooltip: {
+                format: {
+                    value: function (value, ratio, id) {
+                        return value + ' {{ global_preferences.Finance__currency }}';
+                    }
+                }
+            },
+            size: {
+                height: 400,
+                width: 400
+            },
         });
 
     </script>
