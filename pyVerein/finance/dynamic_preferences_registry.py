@@ -13,3 +13,11 @@ class ResetPrefix(StringPreference):
     name = 'reset_prefix'
     default = ''
     verbose_name = "Documentnumber prefix for reset receipts"
+
+# Register input for currency
+@global_preferences_registry.register
+class Currency(StringPreference):
+    section = finance
+    name = 'currency'
+    default = '€'
+    verbose_name = "Currency sign"

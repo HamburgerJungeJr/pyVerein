@@ -4,6 +4,7 @@
 {% load static %}
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'app/vendors/c3/c3.min.css' %}">
 {% endblock %}
 
 {% block page_title %}
@@ -15,5 +16,238 @@
 {% endblock %}
 
 {% block content %}
+<div class="dashboard">
+    {% if perms.members.view_member %}
+        <div class="mdc-card small">
+            <h4 class="mdc-typography--headline4">{% trans 'Members' %}</h4>
+            <div id="membersChart" class="chart"></div>
+        </div>
+    {% endif %}
+    
+    {% if perms.finance.view_account %}
+        <div class="mdc-card small">
+            <h4 class="mdc-typography--headline4">{% trans 'Bank accounts' %}</h4>
+            <div id="bankAccountsChart" class="chart"></div>
+        </div>
+    {% endif %}
 
+    {% if perms.finance.view_costcenter %}
+        <div class="mdc-card large">
+            <h4 class="mdc-typography--headline4">{% trans 'Costcenter' %}</h4>
+            <div id="costCenterChart" class="chart"></div>
+        </div>
+    {% endif %}
+
+    {% if perms.finance.view_costobject %}
+        <div class="mdc-card large">
+            <h4 class="mdc-typography--headline4">{% trans 'Costobject' %}</h4>
+            <div id="costObjectChart" class="chart"></div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block foot %}
+    <script src="{% static 'app/vendors/c3/d3.min.js' %}"></script>
+    <script src="{% static 'app/vendors/c3/c3.min.js' %}"></script>
+    <script src="{% static 'app/vendors/decimal.js/decimal.min.js' %}"></script>
+    <script>
+        {% if perms.members.view_member %}
+        // Members
+        memberRawData = [
+            {% for division in divisions %} 
+                {
+                    'name': '{{ division.division__name|default_if_none:_("Not selected") }}', 
+                    'members': {{ division.members }}
+                },
+            {% endfor %}
+        ];
+        memberData = [];
+        memberSum = 0;
+        memberRawData.forEach(function(val){
+            memberData.push([val['name'], val['members']]);
+            memberSum += val['members'];
+        });
+        var chart = c3.generate({
+            bindto: '#membersChart',
+            data: {
+              columns: memberData,
+              type: 'donut',
+            },
+            donut: {
+                width: 70,
+                title: memberSum,
+                label: {
+                  format: function (value, ratio, id) {
+                    return value;
+                  }
+                }
+            },
+            tooltip: {
+                format: {
+                    value: function (value, ratio, id) {
+                        return value;
+                    }
+                }
+            },
+            size: {
+                height: 400,
+                width: 400
+            },
+        });
+        {% endif %}
+        {% if perms.finance.view_account %}
+        // Bankaccounts
+        bankAccountsRawData = [
+            {% for bank_account in bank_accounts %} 
+                {
+                    'name': '{{ bank_account.account__name }}', 
+                    'debit': new Decimal({{ bank_account.debit|default_if_none:0|stringformat:'0.2f' }}),
+                    'credit': new Decimal({{ bank_account.credit|default_if_none:0|stringformat:'0.2f' }})
+                },
+            {% endfor %}
+        ];
+        bankAccountsData = [];
+        bankAccountsSum = new Decimal(0);
+        bankAccountsRawData.forEach(function(val){
+            balance = val['debit'].sub(val['credit']);
+            bankAccountsData.push([val['name'], balance]);
+            bankAccountsSum = bankAccountsSum.plus(balance);
+        });
+        var chart = c3.generate({
+            bindto: '#bankAccountsChart',
+            data: {
+              columns: bankAccountsData,
+              type: 'donut',
+            },
+            donut: {
+                width: 70,
+                title: bankAccountsSum.toFixed(2) + ' {{ global_preferences.Finance__currency }}',
+                label: {
+                    format: function (value, ratio, id) {
+                        return value.toFixed(2);
+                    } 
+                }
+            },
+            tooltip: {
+                format: {
+                    value: function (value, ratio, id) {
+                        return value.toFixed(2) + ' {{ global_preferences.Finance__currency }}';
+                    }
+                }
+            },
+            size: {
+                height: 400,
+                width: 400
+            },
+        });
+        {% endif %}
+        {% if perms.finance.view_costcenter %}
+        // costcenter
+        costCenterRawData = [
+            {% for costcenter in cost_center %} 
+                {
+                    'name': '{{ costcenter.name }}', 
+                    'debit': new Decimal({{ costcenter.debit|default_if_none:0|stringformat:'0.2f' }}),
+                    'credit': new Decimal({{ costcenter.credit|default_if_none:0|stringformat:'0.2f' }})
+                },
+            {% endfor %}
+        ];
+        costCenterData = ['{% trans 'Balance' %}'];
+        costCenterCategories = []
+        costCenterRawData.forEach(function(val){
+            balance = val['credit'].sub(val['debit']);
+            costCenterData.push(balance);
+            costCenterCategories.push(val['name']);
+        });
+        var costcenterchart = c3.generate({
+            bindto: '#costCenterChart',
+            data: {
+                columns: [costCenterData],
+                type: 'bar',
+            },
+            tooltip: {
+
+                format: {
+                    value: function (value, ratio, id) {
+                        return value + ' {{ global_preferences.Finance__currency }}';
+                    }
+                }
+            },
+            size: {
+                height: 400,
+            },
+            legend: {
+                show: false, 
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: costCenterCategories
+                }
+            },
+            grid: {
+                y: {
+                    lines: [
+                        {value: 0},
+                    ]
+                }
+            }
+        });
+        {% endif %}
+        {% if perms.finance.view_costobject %}
+        // costobject
+        costObjectRawData = [
+            {% for costobject in cost_object %} 
+                {
+                    'name': '{{ costobject.name }}', 
+                    'debit': new Decimal({{ costobject.debit|default_if_none:0|stringformat:'0.2f' }}),
+                    'credit': new Decimal({{ costobject.credit|default_if_none:0|stringformat:'0.2f' }})
+                },
+            {% endfor %}
+        ];
+        costObjectData = ['{% trans 'Balance' %}'];
+        costObjectCategories = []
+        costObjectRawData.forEach(function(val){
+            balance = val['credit'].sub(val['debit']);
+            costObjectData.push(balance);
+            costObjectCategories.push(val['name']);
+        });
+        var costobjectchart = c3.generate({
+            bindto: '#costObjectChart',
+            data: {
+                columns: [costObjectData],
+                type: 'bar',
+            },
+            tooltip: {
+
+                format: {
+                    value: function (value, ratio, id) {
+                        return value + ' {{ global_preferences.Finance__currency }}';
+                    }
+                }
+            },
+            size: {
+                height: 400,
+            },
+            legend: {
+                show: false, 
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: costObjectCategories
+                }
+            },
+            grid: {
+                y: {
+                    lines: [
+                        {value: 0},
+                    ]
+                }
+            }
+        });
+        {% endif %}
+    </script>
 {% endblock %}

@@ -269,6 +269,44 @@ footer#page-footer{
     }
 }
 
+.dashboard{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-between;
+
+    .mdc-card{
+        text-align: center;
+        margin-bottom: 20px;
+
+        .mdc-typography--headline4{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chart{
+            margin: 10px;
+        }
+    }
+    .mdc-card.small{
+        width: 450px;
+    }
+
+    .mdc-card.large{
+        width: 100%;
+    }
+}
+
+.c3-legend-item text,
+.c3-chart-arc text,
+.c3-tooltip td{
+    font-size: 16px;
+}
+
+.c3-chart-arcs-title{
+    font-size: 30px;
+}
+
 @media(max-width: 600px){
     .form{
         .form-group{
@@ -285,53 +323,3 @@ footer#page-footer{
     }
     
 }
-// html {
-//     height: 100%;
-// }
-
-// body{
-//     height: 100%;   
-//     overflow: hidden;
-//     margin: 0px;
-//     display: flex;
-//     box-sizing: border-box;
-// }
-
-// .column {
-//     min-height: 100%;
-//     max-height: 100%;
-//     display: flex;
-//     flex-direction: column;
-//     flex-grow: 1;
-//     overflow-y: auto;
-// }
-// section.main{
-//     flex-grow: 1;
-//     overflow-y: auto;
-// }
-
-// footer{
-//     font-size: x-small;
-// }
-
-
-
-// .data .row{
-//     margin-bottom: 5px;
-// }
-// .data .field-title{
-//     text-align: right;
-//     margin-top: 4px;
-// }
-
-// .data .value .radio_choices{
-//     margin-top: 4px;
-// }
-
-// .data .info p{
-//     margin-top: 6px;
-// }
-
-// .table a{
-//     text-decoration: underline;
-// }
