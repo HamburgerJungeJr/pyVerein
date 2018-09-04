@@ -4,6 +4,7 @@
 {% load static %}
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'app/vendors/c3/c3.min.css' %}">
 {% endblock %}
 
 {% block page_title %}
@@ -15,5 +16,58 @@
 {% endblock %}
 
 {% block content %}
+<div class="dashboard">
 
+    <div class="mdc-card ">
+        <h4 class="mdc-typography--headline4">{% trans 'Members' %}</h4>
+        <div id="membersChart" width="300" height="300"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block foot %}
+    <script src="{% static 'app/vendors/c3/d3.min.js' %}"></script>
+    <script src="{% static 'app/vendors/c3/c3.min.js' %}"></script>
+    <script>
+        // Members
+        memberRawData = [
+            {% for division in divisions %} 
+                {
+                    'name': '{{ division.name }}', 
+                    'members': {{ division.members }}
+                },
+            {% endfor %}
+        ];
+        memberData = [];
+        memberSum = 0;
+        memberRawData.forEach(function(val){
+            memberData.push([val['name'], val['members']]);
+            memberSum += val['members'];
+        });
+        var chart = c3.generate({
+            bindto: '#membersChart',
+            data: {
+              columns: memberData,
+              type: 'donut',
+            },
+            donut: {
+                width: 70,
+                title: memberSum,
+                label: {
+                  format: function (value, ratio, id) {
+                    return value;
+                  }
+                }
+            },
+            tooltip: {
+                format: {
+                    value: function (value, ratio, id) {
+                        return value;
+                    }
+                }
+            }
+        });
+
+    </script>
 {% endblock %}

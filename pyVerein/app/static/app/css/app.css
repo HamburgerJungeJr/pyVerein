@@ -199,6 +199,24 @@ footer#page-footer {
   .alert-minimalist.debug .mdc-button__icon {
     color: #212121; }
 
+.dashboard {
+  display: flex;
+  flex-wrap: wrap; }
+  .dashboard .mdc-card {
+    width: 350px;
+    text-align: center; }
+    .dashboard .mdc-card .mdc-typography--headline4 {
+      margin-top: 10px;
+      margin-bottom: 10px; }
+
+.c3-legend-item text,
+.c3-chart-arc text,
+.c3-tooltip td {
+  font-size: 16px; }
+
+.c3-chart-arcs-title {
+  font-size: 40px; }
+
 @media (max-width: 600px) {
   .form .form-group {
     flex-wrap: wrap; }
