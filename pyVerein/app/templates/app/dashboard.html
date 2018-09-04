@@ -18,16 +18,30 @@
 {% block content %}
 <div class="dashboard">
     {% if perms.members.view_member %}
-        <div class="mdc-card ">
+        <div class="mdc-card small">
             <h4 class="mdc-typography--headline4">{% trans 'Members' %}</h4>
-            <div id="membersChart" width="400" height="400"></div>
+            <div id="membersChart" class="chart"></div>
         </div>
     {% endif %}
     
     {% if perms.finance.view_account %}
-        <div class="mdc-card ">
+        <div class="mdc-card small">
             <h4 class="mdc-typography--headline4">{% trans 'Bank accounts' %}</h4>
-            <div id="bankAccountsChart" width="400" height="400"></div>
+            <div id="bankAccountsChart" class="chart"></div>
+        </div>
+    {% endif %}
+
+    {% if perms.finance.view_costcenter %}
+        <div class="mdc-card large">
+            <h4 class="mdc-typography--headline4">{% trans 'Costcenter' %}</h4>
+            <div id="costCenterChart" class="chart"></div>
+        </div>
+    {% endif %}
+
+    {% if perms.finance.view_costobject %}
+        <div class="mdc-card large">
+            <h4 class="mdc-typography--headline4">{% trans 'Costobject' %}</h4>
+            <div id="costObjectChart" class="chart"></div>
         </div>
     {% endif %}
 </div>
@@ -127,6 +141,112 @@
                 height: 400,
                 width: 400
             },
+        });
+        {% endif %}
+        {% if perms.finance.view_costcenter %}
+        // costcenter
+        costCenterRawData = [
+            {% for costcenter in cost_center %} 
+                {
+                    'name': '{{ costcenter.name }}', 
+                    'debit': new Decimal({{ costcenter.debit|default_if_none:0|stringformat:'0.2f' }}),
+                    'credit': new Decimal({{ costcenter.credit|default_if_none:0|stringformat:'0.2f' }})
+                },
+            {% endfor %}
+        ];
+        costCenterData = ['{% trans 'Balance' %}'];
+        costCenterCategories = []
+        costCenterRawData.forEach(function(val){
+            balance = val['credit'].sub(val['debit']);
+            costCenterData.push(balance);
+            costCenterCategories.push(val['name']);
+        });
+        var costcenterchart = c3.generate({
+            bindto: '#costCenterChart',
+            data: {
+                columns: [costCenterData],
+                type: 'bar',
+            },
+            tooltip: {
+
+                format: {
+                    value: function (value, ratio, id) {
+                        return value + ' {{ global_preferences.Finance__currency }}';
+                    }
+                }
+            },
+            size: {
+                height: 400,
+            },
+            legend: {
+                show: false, 
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: costCenterCategories
+                }
+            },
+            grid: {
+                y: {
+                    lines: [
+                        {value: 0},
+                    ]
+                }
+            }
+        });
+        {% endif %}
+        {% if perms.finance.view_costobject %}
+        // costobject
+        costObjectRawData = [
+            {% for costobject in cost_object %} 
+                {
+                    'name': '{{ costobject.name }}', 
+                    'debit': new Decimal({{ costobject.debit|default_if_none:0|stringformat:'0.2f' }}),
+                    'credit': new Decimal({{ costobject.credit|default_if_none:0|stringformat:'0.2f' }})
+                },
+            {% endfor %}
+        ];
+        costObjectData = ['{% trans 'Balance' %}'];
+        costObjectCategories = []
+        costObjectRawData.forEach(function(val){
+            balance = val['credit'].sub(val['debit']);
+            costObjectData.push(balance);
+            costObjectCategories.push(val['name']);
+        });
+        var costobjectchart = c3.generate({
+            bindto: '#costObjectChart',
+            data: {
+                columns: [costObjectData],
+                type: 'bar',
+            },
+            tooltip: {
+
+                format: {
+                    value: function (value, ratio, id) {
+                        return value + ' {{ global_preferences.Finance__currency }}';
+                    }
+                }
+            },
+            size: {
+                height: 400,
+            },
+            legend: {
+                show: false, 
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: costObjectCategories
+                }
+            },
+            grid: {
+                y: {
+                    lines: [
+                        {value: 0},
+                    ]
+                }
+            }
         });
         {% endif %}
     </script>

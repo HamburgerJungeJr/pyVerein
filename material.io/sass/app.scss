@@ -273,14 +273,27 @@ footer#page-footer{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    align-content: space-between;
 
     .mdc-card{
         text-align: center;
+        margin-bottom: 20px;
 
         .mdc-typography--headline4{
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
+        .chart{
+            margin: 10px;
+        }
+    }
+    .mdc-card.small{
+        width: 450px;
+    }
+
+    .mdc-card.large{
+        width: 100%;
     }
 }
 

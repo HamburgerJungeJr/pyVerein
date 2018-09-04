@@ -202,12 +202,20 @@ footer#page-footer {
 .dashboard {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly; }
+  justify-content: space-evenly;
+  align-content: space-between; }
   .dashboard .mdc-card {
-    text-align: center; }
+    text-align: center;
+    margin-bottom: 20px; }
     .dashboard .mdc-card .mdc-typography--headline4 {
       margin-top: 10px;
       margin-bottom: 10px; }
+    .dashboard .mdc-card .chart {
+      margin: 10px; }
+  .dashboard .mdc-card.small {
+    width: 450px; }
+  .dashboard .mdc-card.large {
+    width: 100%; }
 
 .c3-legend-item text,
 .c3-chart-arc text,

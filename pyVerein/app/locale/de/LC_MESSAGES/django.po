@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-04 17:35+0200\n"
+"POT-Creation-Date: 2018-09-04 20:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,13 +97,25 @@ msgstr "Profil"
 msgid "Dismiss"
 msgstr "Ausblenden"
 
-#: templates/app/dashboard.html:27
+#: templates/app/dashboard.html:29
 msgid "Bank accounts"
 msgstr "Bankkonten"
 
-#: templates/app/dashboard.html:42
+#: templates/app/dashboard.html:36
+msgid "Costcenter"
+msgstr "Kostenstellen"
+
+#: templates/app/dashboard.html:43
+msgid "Costobject"
+msgstr "Kostenträger"
+
+#: templates/app/dashboard.html:61
 msgid "Not selected"
 msgstr "Keine Auswahl"
+
+#: templates/app/dashboard.html:157 templates/app/dashboard.html:210
+msgid "Balance"
+msgstr "Saldo"
 
 #: templates/registration/login.html:49
 msgid "Log In"
@@ -131,9 +143,3 @@ msgstr "Passwort"
 #: templates/registration/login.html:84
 msgid "Login"
 msgstr "Anmelden"
-
-#~ msgid " %(division.division__name|default_if_none:\"Not selected\")s "
-#~ msgstr " %(division.division__name|default_if_none:\"Keine Auswahl\")s "
-
-#~ msgid " %(name)s "
-#~ msgstr "test %(name)s"
