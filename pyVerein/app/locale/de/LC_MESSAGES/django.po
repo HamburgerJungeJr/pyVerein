@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-04 00:50+0200\n"
+"POT-Creation-Date: 2018-09-04 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,8 +35,8 @@ msgstr "Auf behance.net öffnen"
 msgid "Close"
 msgstr "Schließen"
 
-#: templates/app/_drawer.html:7 templates/app/dashboard.html:10
-#: templates/app/dashboard.html:14
+#: templates/app/_drawer.html:7 templates/app/dashboard.html:11
+#: templates/app/dashboard.html:15
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -45,7 +45,7 @@ msgid "Sign out"
 msgstr "Abmelden"
 
 #: templates/app/_drawer.html:18 templates/app/_drawer.html:21
-#: templates/app/_drawer.html:23
+#: templates/app/_drawer.html:23 templates/app/dashboard.html:22
 msgid "Members"
 msgstr "Mitglieder"
 
@@ -97,6 +97,10 @@ msgstr "Profil"
 msgid "Dismiss"
 msgstr "Ausblenden"
 
+#: templates/app/dashboard.html:37
+msgid "Not selected"
+msgstr "Keine Auswahl"
+
 #: templates/registration/login.html:49
 msgid "Log In"
 msgstr "Anmeldung"
@@ -123,3 +127,9 @@ msgstr "Passwort"
 #: templates/registration/login.html:84
 msgid "Login"
 msgstr "Anmelden"
+
+#~ msgid " %(division.division__name|default_if_none:\"Not selected\")s "
+#~ msgstr " %(division.division__name|default_if_none:\"Keine Auswahl\")s "
+
+#~ msgid " %(name)s "
+#~ msgstr "test %(name)s"

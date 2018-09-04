@@ -34,7 +34,7 @@
         memberRawData = [
             {% for division in divisions %} 
                 {
-                    'name': '{{ division.name }}', 
+                    'name': '{{ division.division__name|default_if_none:_("Not selected") }}', 
                     'members': {{ division.members }}
                 },
             {% endfor %}

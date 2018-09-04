@@ -14,6 +14,7 @@
     },
     "dependencies": {
         "@material/button": "^0.37.0",
+        "@material/card": "^0.39.1",
         "@material/checkbox": "^0.37.1",
         "@material/dialog": "^0.37.0",
         "@material/drawer": "^0.36.1",
