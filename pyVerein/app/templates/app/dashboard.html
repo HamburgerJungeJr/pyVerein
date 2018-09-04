@@ -37,6 +37,7 @@
 {% block foot %}
     <script src="{% static 'app/vendors/c3/d3.min.js' %}"></script>
     <script src="{% static 'app/vendors/c3/c3.min.js' %}"></script>
+    <script src="{% static 'app/vendors/decimal.js/decimal.min.js' %}"></script>
     <script>
         {% if perms.members.view_member %}
         // Members
@@ -88,17 +89,17 @@
             {% for bank_account in bank_accounts %} 
                 {
                     'name': '{{ bank_account.account__name }}', 
-                    'debit': {{ bank_account.debit|stringformat:'0.2f' }},
-                    'credit': {{ bank_account.credit|stringformat:'0.2f' }}
+                    'debit': new Decimal({{ bank_account.debit|default_if_none:0|stringformat:'0.2f' }}),
+                    'credit': new Decimal({{ bank_account.credit|default_if_none:0|stringformat:'0.2f' }})
                 },
             {% endfor %}
         ];
         bankAccountsData = [];
-        bankAccountsSum = 0;
+        bankAccountsSum = new Decimal(0);
         bankAccountsRawData.forEach(function(val){
-            balance = val['debit'] - val['credit'];
+            balance = val['debit'].sub(val['credit']);
             bankAccountsData.push([val['name'], balance]);
-            bankAccountsSum += balance;
+            bankAccountsSum = bankAccountsSum.plus(balance);
         });
         var chart = c3.generate({
             bindto: '#bankAccountsChart',
@@ -108,17 +109,17 @@
             },
             donut: {
                 width: 70,
-                title: bankAccountsSum + ' {{ global_preferences.Finance__currency }}',
+                title: bankAccountsSum.toFixed(2) + ' {{ global_preferences.Finance__currency }}',
                 label: {
                     format: function (value, ratio, id) {
-                        return value + ' {{ global_preferences.Finance__currency }}';
+                        return value.toFixed(2) + ' {{ global_preferences.Finance__currency }}';
                     } 
                 }
             },
             tooltip: {
                 format: {
                     value: function (value, ratio, id) {
-                        return value + ' {{ global_preferences.Finance__currency }}';
+                        return value.toFixed(2) + ' {{ global_preferences.Finance__currency }}';
                     }
                 }
             },

@@ -204,7 +204,6 @@ footer#page-footer {
   flex-wrap: wrap;
   justify-content: space-evenly; }
   .dashboard .mdc-card {
-    width: 450px;
     text-align: center; }
     .dashboard .mdc-card .mdc-typography--headline4 {
       margin-top: 10px;
