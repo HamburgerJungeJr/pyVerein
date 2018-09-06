@@ -112,3 +112,5 @@ style-bundle.js
 
 *.old/
 media/*
+
+custom_translations/*/LC_MESSAGES

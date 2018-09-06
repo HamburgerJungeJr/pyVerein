@@ -24,6 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # Application definition
 
 INSTALLED_APPS = [
+    'custom_translations.apps.CustomTranslationsConfig',
     'account.apps.AccountConfig',
     'app.apps.AppConfig',
     'members.apps.MembersConfig',
@@ -115,6 +116,7 @@ LANGUAGES = (
     ('de', _('German'))
 )
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -133,3 +135,4 @@ AUTHOR_UPDATED_BY_FIELD_NAME = 'last_modified_by'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTH_USER_MODEL = 'account.User'
+
