@@ -129,6 +129,56 @@ class DebitorTestMethods(TestCase):
 
         response = self.client.get(reverse('finance:debitor_apiList'))
         self.assertEqual(response.status_code, 200)
+    
+    def test_debitor_clearing_permission(self):
+        "User should only access clearing if view & add & change transation permissions are set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('finance:debitor_clear', args={Account.objects.get(number='10000').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
+        response = self.client.get(reverse('finance:debitor_clear', args={Account.objects.get(number='10000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='view_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='add_transaction'))
+        response = self.client.get(reverse('finance:debitor_clear', args={Account.objects.get(number='10000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='add_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
+        response = self.client.get(reverse('finance:debitor_clear', args={Account.objects.get(number='10000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='change_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='add_transaction'))
+        response = self.client.get(reverse('finance:debitor_clear', args={Account.objects.get(number='10000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.remove(Permission.objects.get(codename='add_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
+        response = self.client.get(reverse('finance:debitor_clear', args={Account.objects.get(number='10000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.remove(Permission.objects.get(codename='change_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='add_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
+        response = self.client.get(reverse('finance:debitor_clear', args={Account.objects.get(number='10000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='add_transaction'))
+        user.user_permissions.remove(Permission.objects.get(codename='change_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='add_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
+        response = self.client.get(reverse('finance:debitor_clear', args={Account.objects.get(number='10000').pk}))
+        self.assertEqual(response.status_code, 200)
 
 class CreditorTestMethods(TestCase):
     def setUp(self):
@@ -225,6 +275,57 @@ class CreditorTestMethods(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='view_creditor'))
 
         response = self.client.get(reverse('finance:creditor_apiList'))
+        self.assertEqual(response.status_code, 200)
+
+        
+    def test_creditor_clearing_perm7ssion(self):
+        "User should only access clearing if view & add & change transation permissions are set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('finance:creditor_clear', args={Account.objects.get(number='70000').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
+        response = self.client.get(reverse('finance:creditor_clear', args={Account.objects.get(number='70000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='view_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='add_transaction'))
+        response = self.client.get(reverse('finance:creditor_clear', args={Account.objects.get(number='70000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='add_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
+        response = self.client.get(reverse('finance:creditor_clear', args={Account.objects.get(number='70000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='change_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='add_transaction'))
+        response = self.client.get(reverse('finance:creditor_clear', args={Account.objects.get(number='70000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.remove(Permission.objects.get(codename='add_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
+        response = self.client.get(reverse('finance:creditor_clear', args={Account.objects.get(number='70000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.remove(Permission.objects.get(codename='change_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='add_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
+        response = self.client.get(reverse('finance:creditor_clear', args={Account.objects.get(number='70000').pk}))
+        self.assertEqual(response.status_code, 403)
+        user.user_permissions.remove(Permission.objects.get(codename='add_transaction'))
+        user.user_permissions.remove(Permission.objects.get(codename='change_transaction'))
+
+        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='add_transaction'))
+        user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
+        response = self.client.get(reverse('finance:creditor_clear', args={Account.objects.get(number='70000').pk}))
         self.assertEqual(response.status_code, 200)
 
 class ImpersonalTestMethods(TestCase):
