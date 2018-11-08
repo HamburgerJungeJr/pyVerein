@@ -817,6 +817,9 @@ class TransactionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Templat
         context['date'] = transactions[0].date
         context['document_number'] = transactions[0].document_number
         context['internal_number'] = transactions[0].internal_number
+        if transactions[0].clearing_number:
+            context['cleared_transactions'] = Transaction.objects.filter(clearing_number=transactions[0].clearing_number)
+            context['clearing_number'] = transactions[0].clearing_number
 
         return context
 
@@ -980,6 +983,11 @@ def reset_transaction(request, internal_number):
     else:
         # Get last internal_number
         internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max'] + 1
+        for transaction in transactions:
+            if transaction.clearing_number != None:
+                messages.error(request, _('Receipt can not be reset because it was already cleared. Reset clearing before resetting this receipt.'))
+                return HttpResponseRedirect(reverse_lazy('finance:transaction_detail', kwargs={'internal_number':transaction.internal_number}))
+
     for transaction in transactions:
         transaction.reset = True
         transaction.save()
@@ -1018,6 +1026,10 @@ def reset_new_transaction(request, internal_number):
     else:
         # Get last internal_number
         internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max'] + 1
+        for transaction in transactions:
+            if transaction.clearing_number != None:
+                messages.error(request, _('Receipt can not be reset because it was already cleared. Reset clearing before resetting this receipt.'))
+                return HttpResponseRedirect(reverse_lazy('finance:transaction_detail', kwargs={'internal_number':transaction.internal_number}))
     for key, transaction in enumerate(transactions):
         # Add transaction to session data
         session_transactions[key] = {
@@ -1061,13 +1073,27 @@ def clear_transaction(request):
 
     transactions = request.POST.getlist("transactions[]", None)
     if transactions is not None:
-        print(transactions)
         max_clearing_number = Transaction.objects.all().aggregate(Max('clearing_number'))['clearing_number__max']
         clearing_number =  1 if max_clearing_number is None else max_clearing_number + 1
         for transaction in transactions:
-            print(transaction)
             tr = Transaction.objects.filter(Q(internal_number=transaction) & Q(account__clearing=True)).first()
             tr.clearing_number = clearing_number
             tr.save()
         messages.success(request, _('Receipt cleared successfully'))
+    return JsonResponse({'success': True})
+
+@login_required
+@permission_required(['finance.view_transaction', 'finance.add_transaction', 'finance.change_transaction'], raise_exception=True)
+def reset_cleared_transaction(request):
+    """
+    Reset clearing state of the given clearing number
+    """
+
+    clearing_number = request.POST.get("clearing_number", None)
+    if clearing_number is not None:
+        transactions = Transaction.objects.filter(clearing_number=clearing_number)
+        for transaction in transactions:
+            transaction.clearing_number = None
+            transaction.save()
+        messages.success(request, _('Receipt clearing reset successfully'))
     return JsonResponse({'success': True})

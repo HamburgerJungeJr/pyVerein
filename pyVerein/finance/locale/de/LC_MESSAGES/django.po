@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 12:43+0100\n"
+"POT-Creation-Date: 2018-11-08 13:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgstr "Kostenstelle erstellen"
 #: templates/finance/costobject/detail.html:29
 #: templates/finance/transaction/create.html:92
 #: templates/finance/transaction/create.html:116
-#: templates/finance/transaction/detail.html:46
+#: templates/finance/transaction/detail.html:62
 #: templates/finance/transaction/edit.html:77
 #: templates/finance/transaction/edit.html:101
 #: templates/finance/transaction/list.html:31
@@ -103,6 +103,7 @@ msgstr "Speichern"
 #: templates/finance/impersonal/create.html:40
 #: templates/finance/impersonal/edit.html:34
 #: templates/finance/transaction/create.html:103
+#: templates/finance/transaction/detail.html:32
 #: templates/finance/transaction/edit.html:33
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -118,7 +119,8 @@ msgstr "Kostenstelle"
 #: templates/finance/debitor/detail.html:25
 #: templates/finance/impersonal/detail.html:25
 #: templates/finance/transaction/create.html:57
-#: templates/finance/transaction/detail.html:31
+#: templates/finance/transaction/detail.html:47
+#: templates/finance/transaction/detail.html:101
 #: templates/finance/transaction/edit.html:51
 #: templates/finance/transaction/list.html:26
 msgid "Document number"
@@ -132,7 +134,8 @@ msgstr "Belegnummer"
 #: templates/finance/impersonal/detail.html:27
 #: templates/finance/transaction/create.html:85
 #: templates/finance/transaction/create.html:113
-#: templates/finance/transaction/detail.html:43
+#: templates/finance/transaction/detail.html:59
+#: templates/finance/transaction/detail.html:102
 #: templates/finance/transaction/edit.html:70
 #: templates/finance/transaction/edit.html:98
 #: templates/finance/transaction/list.html:28
@@ -147,7 +150,8 @@ msgstr "Buchungstext"
 #: templates/finance/impersonal/detail.html:28
 #: templates/finance/transaction/create.html:75
 #: templates/finance/transaction/create.html:114
-#: templates/finance/transaction/detail.html:44
+#: templates/finance/transaction/detail.html:60
+#: templates/finance/transaction/detail.html:103
 #: templates/finance/transaction/edit.html:62
 #: templates/finance/transaction/edit.html:99
 #: templates/finance/transaction/list.html:29
@@ -162,7 +166,8 @@ msgstr "Soll"
 #: templates/finance/impersonal/detail.html:29
 #: templates/finance/transaction/create.html:80
 #: templates/finance/transaction/create.html:115
-#: templates/finance/transaction/detail.html:45
+#: templates/finance/transaction/detail.html:61
+#: templates/finance/transaction/detail.html:104
 #: templates/finance/transaction/edit.html:66
 #: templates/finance/transaction/edit.html:100
 #: templates/finance/transaction/list.html:30
@@ -174,7 +179,7 @@ msgstr "Haben"
 #: templates/finance/costobject/detail.html:30
 #: templates/finance/transaction/create.html:97
 #: templates/finance/transaction/create.html:117
-#: templates/finance/transaction/detail.html:47
+#: templates/finance/transaction/detail.html:63
 #: templates/finance/transaction/edit.html:82
 #: templates/finance/transaction/edit.html:102
 #: templates/finance/transaction/list.html:32
@@ -187,6 +192,7 @@ msgstr "Kostenträger"
 #: templates/finance/creditor/detail.html:36
 #: templates/finance/debitor/detail.html:36
 #: templates/finance/impersonal/detail.html:36
+#: templates/finance/transaction/detail.html:114
 #: templates/finance/transaction/list.html:85
 msgid "Show receipt"
 msgstr "Beleg bearbeiten"
@@ -217,7 +223,7 @@ msgstr "Saldo"
 #: templates/finance/creditor/detail.html:67
 #: templates/finance/debitor/detail.html:67
 #: templates/finance/impersonal/detail.html:67
-#: templates/finance/transaction/detail.html:80
+#: templates/finance/transaction/detail.html:136
 msgid "Back"
 msgstr "Zurück"
 
@@ -225,7 +231,7 @@ msgstr "Zurück"
 #: templates/finance/creditor/detail.html:70
 #: templates/finance/debitor/detail.html:70
 #: templates/finance/impersonal/detail.html:70
-#: templates/finance/transaction/detail.html:83
+#: templates/finance/transaction/detail.html:139
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -536,7 +542,7 @@ msgstr "Auszifferung"
 #: templates/finance/debitor/detail.html:26
 #: templates/finance/impersonal/detail.html:26
 #: templates/finance/transaction/create.html:54
-#: templates/finance/transaction/detail.html:27
+#: templates/finance/transaction/detail.html:43
 #: templates/finance/transaction/edit.html:47
 #: templates/finance/transaction/list.html:25
 msgid "Date"
@@ -655,7 +661,7 @@ msgid "Close"
 msgstr "Schließen"
 
 #: templates/finance/transaction/create.html:51
-#: templates/finance/transaction/detail.html:24
+#: templates/finance/transaction/detail.html:40
 #: templates/finance/transaction/edit.html:44
 msgid "General"
 msgstr "Allgemein"
@@ -667,7 +673,8 @@ msgstr "Buchung"
 
 #: templates/finance/transaction/create.html:64
 #: templates/finance/transaction/create.html:112
-#: templates/finance/transaction/detail.html:42
+#: templates/finance/transaction/detail.html:58
+#: templates/finance/transaction/detail.html:100
 #: templates/finance/transaction/edit.html:58
 #: templates/finance/transaction/edit.html:97
 #: templates/finance/transaction/list.html:27
@@ -713,11 +720,30 @@ msgstr "Konto auswählen"
 msgid "Receipt-Detail"
 msgstr "Belegdetails"
 
-#: templates/finance/transaction/detail.html:36
+#: templates/finance/transaction/detail.html:25
+#: templates/finance/transaction/detail.html:33
+#: templates/finance/transaction/detail.html:143
+msgid "Reset clearing"
+msgstr "Auszifferung aufheben"
+
+#: templates/finance/transaction/detail.html:29
+msgid "Do you really want to reset this clearing?"
+msgstr "Diese Auszifferung wirklich aufheben?"
+
+#: templates/finance/transaction/detail.html:33
+#: templates/finance/transaction/edit.html:34
+msgid "Reset"
+msgstr "Stornieren"
+
+#: templates/finance/transaction/detail.html:52
 #: templates/finance/transaction/list.html:12
 #: templates/finance/transaction/list.html:16
 msgid "Transactions"
 msgstr "Buchungen"
+
+#: templates/finance/transaction/detail.html:94
+msgid "Cleared transactions"
+msgstr "Auszifferungsnachweis"
 
 #: templates/finance/transaction/edit.html:14
 #: templates/finance/transaction/edit.html:18
@@ -731,10 +757,6 @@ msgstr "Beleg stornieren"
 #: templates/finance/transaction/edit.html:30
 msgid "Do you really want to reset this receipt?"
 msgstr "Diesen Beleg wirklich stornieren?"
-
-#: templates/finance/transaction/edit.html:34
-msgid "Reset"
-msgstr "Stornieren"
 
 #: templates/finance/transaction/edit.html:35
 msgid "Reset & New"
@@ -800,18 +822,28 @@ msgstr "Kostenträger wurde erfolgreich gespeichert"
 msgid "Transaction {0:s} saved successfully"
 msgstr "Beleg {0:s} wurde erfolgreich erfasst"
 
-#: views.py:847
+#: views.py:850
 msgid "Receipt {0:s} updated successfully"
 msgstr "Beleg {0:s} wurde erfolgreich aktualisiert"
 
-#: views.py:978 views.py:1016
+#: views.py:981 views.py:1024
 msgid "Receipt already reset"
 msgstr "Beleg wurde bereits storniert"
 
-#: views.py:999 views.py:1052
+#: views.py:988
+msgid ""
+"Receipt can not be reset because it was already cleared. Reset clearing "
+"before resetting this receipt."
+msgstr "Beleg konnte nicht stortiert werden, da dieser Teil einer Auszifferung ist. Vor dem Stornieren erst die Auszifferung aufheben."
+
+#: views.py:1007 views.py:1060
 msgid "Receipt reset successfully"
 msgstr "Beleg wurde erfolgreich storniert"
 
-#: views.py:1072
+#: views.py:1078
 msgid "Receipt cleared successfully"
 msgstr "Beleg wurde erfolgreich ausgeziffert"
+
+#: views.py:1094
+msgid "Receipt clearing reset successfully"
+msgstr "Auszifferung wurde erfolgreich aufgehoben"

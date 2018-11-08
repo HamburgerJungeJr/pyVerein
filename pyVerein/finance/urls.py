@@ -51,5 +51,6 @@ urlpatterns = [
     url(r'^api/account/(?P<search>.+)$', views.get_account, name='account_search'),
     url(r'^api/costcenter/(?P<search>.+)$', views.get_cost_center, name='costcenter_search'),
     url(r'^api/costobject/(?P<search>.+)$', views.get_cost_object, name='costobject_search'),
-    url(r'^api/clear/$', views.clear_transaction, name='clear_transactions'),
+    url(r'^api/clearing/$', views.clear_transaction, name='clear_transactions'),
+    url(r'^api/clearing/reset/$', views.reset_cleared_transaction, name='reset_cleared_transactions'),
 ] 
