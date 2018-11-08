@@ -78,10 +78,17 @@ class CreditorDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
     def get_context_data(self, **kwargs):
         context = super(CreditorDetailView, self).get_context_data(**kwargs)
 
-        context['transactions'] = Transaction.objects.filter(account=self.object.number)
+        print(self.request.GET.get('show-cleared', None))
+        if self.request.GET.get('show-cleared', None) == 'True':
+            context['transactions'] = Transaction.objects.filter(account=self.object.number)
+            debit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None))
+            debit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None)).aggregate(Sum('credit'))['credit__sum']
 
-        debit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
         context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
@@ -104,6 +111,23 @@ class CreditorEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
         Return detail url as success url
         """
         return reverse_lazy('finance:creditor_detail', args={self.object.pk})
+
+class CreditorClearingView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    """
+    Index view for creditors
+    """
+    permission_required = ('finance.view_clearing', 'finance.add_clearing')
+    template_name = 'finance/creditor/clearing.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreditorClearingView, self).get_context_data(**kwargs)
+
+        account = self.kwargs.get('account', '')
+        if account is not '':
+            context['transactions'] = Transaction.objects.filter(Q(account=account) & Q(clearing_number=None))
+            context['account'] = Account.objects.get(pk=account)
+        return context
+        
 
 class CreditorDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
     """
@@ -1027,3 +1051,23 @@ def reset_new_transaction(request, internal_number):
 
     messages.success(request, _('Receipt reset successfully'))
     return HttpResponseRedirect(reverse_lazy('finance:transaction_create_step', kwargs={'session_id':session_id, 'step': 0}))
+
+@login_required
+@permission_required(['finance.view_transaction', 'finance.add_transaction', 'finance.change_transaction'], raise_exception=True)
+def clear_transaction(request):
+    """
+    Clear the given transactions
+    """
+
+    transactions = request.POST.getlist("transactions[]", None)
+    if transactions is not None:
+        print(transactions)
+        max_clearing_number = Transaction.objects.all().aggregate(Max('clearing_number'))['clearing_number__max']
+        clearing_number =  1 if max_clearing_number is None else max_clearing_number + 1
+        for transaction in transactions:
+            print(transaction)
+            tr = Transaction.objects.filter(Q(internal_number=transaction) & Q(account__clearing=True)).first()
+            tr.clearing_number = clearing_number
+            tr.save()
+        messages.success(request, _('Receipt cleared successfully'))
+    return JsonResponse({'success': True})
