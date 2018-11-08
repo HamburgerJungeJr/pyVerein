@@ -101,6 +101,8 @@
 <script src="{% static 'app/vendors/decimal.js/decimal.min.js' %}"></script>
 <script>
     $(document).ready(function () {
+        clearing_amount = new Decimal(0)
+        internal_numbers = []
         dt = $('#transactions').on('processing.dt', function (e, settings, processing) {
             $('#transactions').css('opacity', processing ? '0.3' : '1.0');
         }).DataTable({
@@ -129,7 +131,21 @@
             },
             "columnDefs": [
                 { "width": "15px", "targets": 0 }
-            ]
+            ],
+            "drawCallback": function() {
+                $(".select-clearing").off("change");
+                $(".select-clearing").change(function() {
+                    if ($(this).is(':checked')){
+                        clearing_amount = clearing_amount.plus($(this).data("amount"));
+                        internal_numbers.push($(this).data("internalnumber"))
+                    }
+                    else{
+                        clearing_amount = clearing_amount.minus($(this).data("amount"));
+                        internal_numbers.splice(internal_numbers.indexOf($(this).data("internalnumber")),1)
+                    }
+                    $('#clearing_amount').html(clearing_amount.toFixed(2));
+                })
+             },
         });
         // Search
         $("#transactions_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
@@ -151,20 +167,6 @@
         lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
         // Textfield
         textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
-
-        clearing_amount = new Decimal(0)
-        internal_numbers = []
-        $(".select-clearing").change(function() {
-            if ($(this).is(':checked')){
-                clearing_amount = clearing_amount.plus($(this).data("amount"));
-                internal_numbers.push($(this).data("internalnumber"))
-            }
-            else{
-                clearing_amount = clearing_amount.minus($(this).data("amount"));
-                internal_numbers.splice(internal_numbers.indexOf($(this).data("internalnumber")),1)
-            }
-            $('#clearing_amount').html(clearing_amount.toFixed(2));
-        })
 
         $.ajaxSetup({ 
             beforeSend: function(xhr, settings) {
