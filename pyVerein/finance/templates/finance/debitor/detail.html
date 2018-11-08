@@ -70,6 +70,9 @@
     <a href ="{% url 'finance:debitor_edit' pk=debitor.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>    
+    <a href ="{% url 'finance:debitor_clear' account=debitor.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right second" aria-label="" title="{% trans 'Clearing' %}">
+        <i class="mdc-fab__icon far fa-check-square"></i>
+    </a>   
 {% endblock %}
 
 {% block foot %}
@@ -112,13 +115,23 @@
             })
 
             // Itemsselect
-            $("#transactions_length").html('<div class="mdc-select">' + $('#transactions_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+            $("#transactions_length").html('<div class="mdc-select">' + $('#transactions_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div><div class="mdc-form-field"><div class="mdc-checkbox"><input type="checkbox" id="show_cleared" class="mdc-checkbox__native-control" /><div class="mdc-checkbox__background"><svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24"><path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/></svg><div class="mdc-checkbox__mixedmark"></div></div></div><label for="show_cleared">{% trans 'Show cleared transactions' %}</label></div>');
             $(".mdc-select select").addClass("mdc-select__native-control");
             $('#transactions_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
             
-
+            if (location.search == '?show-cleared=True'){
+                $('#show_cleared').prop('checked', true);
+            }
+            $("#show_cleared").change(function() {
+                if ($(this).is(':checked')){
+                    location.search = '?show-cleared=True'
+                }
+                else{
+                    location.search = ''
+                }
+            });
             // Select
             select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
             // Lineripple

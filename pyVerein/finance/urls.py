@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^debitor/(?P<pk>[0-9]+)/$', views.DebitorDetailView.as_view(), name='debitor_detail'),
     url(r'^debitor/(?P<pk>[0-9]+)/edit/$', views.DebitorEditView.as_view(), name='debitor_edit'),
     url(r'^debitor/new/$', views.DebitorCreateView.as_view(), name='debitor_create'),
+    url(r'^debitor/(?P<account>[0-9]+)/clearing/$', views.DebitorClearingView.as_view(), name='debitor_clear'),
 
     url(r'^impersonal/$', views.ImpersonalIndexView.as_view(), name='impersonal_list'),
     url(r'^impersonal/data/$', views.ImpersonalDatatableView.as_view(), name='impersonal_apiList'),

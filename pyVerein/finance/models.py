@@ -49,8 +49,6 @@ class Account(ModelBase):
     name = models.CharField(max_length=255, blank=False, null=False)
     # Account type: debitor/creditor/cost/income
     account_type = models.CharField(blank=False, null=False, choices=ACCOUNT_TYPES, max_length=3, default=COST)
-    # Is Account enabled for clearing
-    clearing = models.BooleanField(blank=False, null=False, default=False)
 
 @with_author
 class CostCenter(ModelBase):
