@@ -12,12 +12,14 @@ urlpatterns = [
     url(r'^creditor/(?P<pk>[0-9]+)/$', views.CreditorDetailView.as_view(), name='creditor_detail'),
     url(r'^creditor/(?P<pk>[0-9]+)/edit/$', views.CreditorEditView.as_view(), name='creditor_edit'),
     url(r'^creditor/new/$', views.CreditorCreateView.as_view(), name='creditor_create'),
+    url(r'^creditor/(?P<account>[0-9]+)/clearing/$', views.CreditorClearingView.as_view(), name='creditor_clear'),
 
     url(r'^debitor/$', views.DebitorIndexView.as_view(), name='debitor_list'),
     url(r'^debitor/data/$', views.DebitorDatatableView.as_view(), name='debitor_apiList'),
     url(r'^debitor/(?P<pk>[0-9]+)/$', views.DebitorDetailView.as_view(), name='debitor_detail'),
     url(r'^debitor/(?P<pk>[0-9]+)/edit/$', views.DebitorEditView.as_view(), name='debitor_edit'),
     url(r'^debitor/new/$', views.DebitorCreateView.as_view(), name='debitor_create'),
+    url(r'^debitor/(?P<account>[0-9]+)/clearing/$', views.DebitorClearingView.as_view(), name='debitor_clear'),
 
     url(r'^impersonal/$', views.ImpersonalIndexView.as_view(), name='impersonal_list'),
     url(r'^impersonal/data/$', views.ImpersonalDatatableView.as_view(), name='impersonal_apiList'),
@@ -50,4 +52,6 @@ urlpatterns = [
     url(r'^api/account/(?P<search>.+)$', views.get_account, name='account_search'),
     url(r'^api/costcenter/(?P<search>.+)$', views.get_cost_center, name='costcenter_search'),
     url(r'^api/costobject/(?P<search>.+)$', views.get_cost_object, name='costobject_search'),
+    url(r'^api/clearing/$', views.clear_transaction, name='clear_transactions'),
+    url(r'^api/clearing/reset/$', views.reset_cleared_transaction, name='reset_cleared_transactions'),
 ] 

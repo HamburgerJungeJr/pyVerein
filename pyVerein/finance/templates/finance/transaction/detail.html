@@ -18,6 +18,22 @@
 {% endblock %}
 
 {% block content %}
+    <aside class="mdc-dialog" id="reset-dialog">
+        <div class="mdc-dialog__surface">
+            <header class="mdc-dialog__header">
+                <h2 class="mdc-dialog__header__title">
+                    {% trans 'Reset clearing' %}
+                </h2>
+            </header>
+            <section id="mdc-dialog-with-list-description" class="mdc-dialog__body">
+                {% trans 'Do you really want to reset this clearing?' %}
+            </section>
+            <footer class="mdc-dialog__footer">
+                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--raised" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</button>
+                <button type="button" class="mdc-button mdc-button" id="reset_button" title="{% trans 'Reset' %}">{% trans 'Reset clearing' %}</button>
+            </footer>
+        </div>
+    </aside>
     <div class="main">
         <div class="detail-content mdc-elevation--z4">
             <div class="heading mdc-typography--overline">
@@ -73,14 +89,103 @@
                     </tbody>
                 </table>
             </div>
-            
+            {% if cleared_transactions %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Cleared transactions' %}
+                </div>
+                <div class="row">
+                    <table id="cleared-transactions" class="mdl-data-table mdl-js-data-table mdl-data-table--non-linkable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="mdl-data-table__cell--non-numeric">{% trans 'Account' %}</th>
+                                <th class="mdl-data-table__cell--non-numeric">{% trans 'Document number' %}</th>
+                                <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
+                                <th>{% trans 'Debit' %}</th>
+                                <th>{% trans 'Credit' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in cleared_transactions %}
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        {{ transaction.account.number }}
+                                    </td>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}">
+                                            {{ transaction.document_number }}
+                                        </a>
+                                    </td>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        {{ transaction.text }}
+                                    </td>
+                                    <td>
+                                        {{ transaction.debit|default_if_none:"" }}
+                                    </td>
+                                    <td>
+                                        {{ transaction.credit|default_if_none:"" }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
         </div>
     </div>
     
     <a href ="{% url 'finance:transaction_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
             <i class="mdc-fab__icon fa fa-arrow-left"></i>
-        </a>
+    </a>
     <a href ="{% url 'finance:transaction_edit' internal_number=internal_number pk=transactions.0.pk%}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
+    {% if cleared_transactions %}
+        <a href="#" id="btn-reset-clearing" class="mdc-fab mdc-fab--absolute-bottom-right second" aria-label="" title="{% trans 'Reset clearing' %}">
+            <i class="mdc-fab__icon fa fa-eraser"></i>
+        </a>
+    {% endif %}
 {% endblock %}
+
+{% block foot %}
+    {% if cleared_transactions %}
+        <script>
+            $(document).ready(function () {
+                const reset_dialog = new mdc.dialog.MDCDialog(document.querySelector('#reset-dialog'));
+                $('#reset_dialog_button').click(function() {
+                });
+                
+                $('#reset_button').click(function() {
+                    $.post("{% url 'finance:reset_cleared_transactions' %}", {"clearing_number": {{ clearing_number }}}, function (){
+                        location.reload();
+                    }, "json");
+                });
+                $.ajaxSetup({ 
+                    beforeSend: function(xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    } 
+                });
+                $("#btn-reset-clearing").click(function (){
+                    reset_dialog.lastFocusedTarget = this;
+                    reset_dialog.show();
+                });
+            });
+            
+            function getCookie(name){
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        </script>
+    {% endif %}
+{% endblock foot %}

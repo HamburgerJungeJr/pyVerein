@@ -105,3 +105,5 @@ class Transaction(ModelBase):
     internal_number = models.IntegerField(null=False, blank=False, default=0)
     # Is transaction reset
     reset = models.BooleanField(blank=False, null=False, default=False)
+    # Clearing Number
+    clearing_number = models.IntegerField(null=True, blank=True)
