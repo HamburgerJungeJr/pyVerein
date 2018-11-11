@@ -832,7 +832,7 @@ class TransactionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Templat
     def get_context_data(self, **kwargs):
         context = super(TransactionDetailView, self).get_context_data(**kwargs)
         
-        transactions = Transaction.objects.filter(internal_number=kwargs['internal_number'])
+        transactions = Transaction.objects.filter(internal_number=kwargs['internal_number']).order_by('-clearing_number')
         context['transactions'] = transactions
         context['date'] = transactions[0].date
         context['document_number'] = transactions[0].document_number
@@ -1096,7 +1096,7 @@ def clear_transaction(request):
         max_clearing_number = Transaction.objects.all().aggregate(Max('clearing_number'))['clearing_number__max']
         clearing_number =  1 if max_clearing_number is None else max_clearing_number + 1
         for transaction in transactions:
-            tr = Transaction.objects.filter(Q(internal_number=transaction) & (Q(account__account_type=Account.CREDITOR) | Q(account__account_type=Account.DEBITOR))).first()
+            tr = Transaction.objects.get(pk=transaction)
             tr.clearing_number = clearing_number
             tr.save()
         messages.success(request, _('Receipt cleared successfully'))

@@ -38,9 +38,9 @@
                             <div class="mdc-form-field">
                                 <div class="mdc-checkbox">
                                     {% if transaction.debit != None %}
-                                        <input type="checkbox" id="{{ transaction.internal_number }}" class="mdc-checkbox__native-control select-clearing" data-amount="-{{ transaction.debit|unlocalize }}" data-internalnumber="{{ transaction.internal_number}}" />
+                                        <input type="checkbox" id="{{ transaction.pk }}" class="mdc-checkbox__native-control select-clearing" data-amount="-{{ transaction.debit|unlocalize }}" data-transaction="{{ transaction.pk}}" />
                                     {% else %}
-                                        <input type="checkbox" id="{{ transaction.internal_number }}" class="mdc-checkbox__native-control select-clearing" data-amount="{{ transaction.credit|unlocalize }}" data-internalnumber="{{ transaction.internal_number}}" />
+                                        <input type="checkbox" id="{{ transaction.pk }}" class="mdc-checkbox__native-control select-clearing" data-amount="{{ transaction.credit|unlocalize }}" data-transaction="{{ transaction.pk}}" />
                                     {% endif %}
                                     <div class="mdc-checkbox__background">
                                     <svg class="mdc-checkbox__checkmark"
@@ -102,7 +102,7 @@
 <script>
     $(document).ready(function () {
         clearing_amount = new Decimal(0)
-        internal_numbers = []
+        transactions = []
         dt = $('#transactions').on('processing.dt', function (e, settings, processing) {
             $('#transactions').css('opacity', processing ? '0.3' : '1.0');
         }).DataTable({
@@ -137,11 +137,11 @@
                 $(".select-clearing").change(function() {
                     if ($(this).is(':checked')){
                         clearing_amount = clearing_amount.plus($(this).data("amount"));
-                        internal_numbers.push($(this).data("internalnumber"))
+                        transactions.push($(this).data("transaction"))
                     }
                     else{
                         clearing_amount = clearing_amount.minus($(this).data("amount"));
-                        internal_numbers.splice(internal_numbers.indexOf($(this).data("internalnumber")),1)
+                        transactions.splice(transactions.indexOf($(this).data("transaction")),1)
                     }
                     $('#clearing_amount').html(clearing_amount.toFixed(2));
                 })
@@ -183,10 +183,9 @@
             clear();
         });
         function clear(){
-            console.log(internal_numbers);
-            if (internal_numbers.length > 0 && clearing_amount == 0) {
+            if (transactions.length > 0 && clearing_amount == 0) {
                 event.preventDefault();
-                $.post("{% url 'finance:clear_transactions' %}", {"transactions": internal_numbers}, function (){
+                $.post("{% url 'finance:clear_transactions' %}", {"transactions": transactions}, function (){
                     location.reload();
                 }, "json");
             }
