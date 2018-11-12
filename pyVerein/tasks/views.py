@@ -1,17 +1,11 @@
 """
 Viewmodule for tasks app
 """
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 # Import views
 from django.views.generic import TemplateView
-# Import reverse.
-from django.urls import reverse, reverse_lazy
 # Import localization
 from django.utils.translation import ugettext_lazy as _
-# Import MessageMixin
-from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.messages import get_messages
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
