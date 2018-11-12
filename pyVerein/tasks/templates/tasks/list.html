@@ -1,0 +1,144 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Tasks' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Tasks' %}
+{% endblock %}
+
+{% block content %}
+    <aside class="mdc-dialog" id="info-dialog">
+        <div class="mdc-dialog__surface">
+            <header class="mdc-dialog__header">
+                <h2 class="mdc-dialog__header__title">
+                    {% trans 'Info' %}
+                </h2>
+            </header>
+            <section class="mdc-dialog__body mdc-dialog__body--scrollable">
+                <p>
+                </p>
+            </section>
+            <footer class="mdc-dialog__footer">
+                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined" title="{% trans 'Close' %}">{% trans 'Close' %}</button>
+            </footer>
+        </div>
+    </aside>
+    <table id="tasklist" class="mdl-data-table dataTable"
+            cellspacing="0"
+            width="100%">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric"></th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Task name' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Description' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Action' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="apply-subscriptions">
+                <td class="mdl-data-table__cell--non-numeric state"></td>
+                <td class="mdl-data-table__cell--non-numeric">{% trans 'Apply Subscriptions' %}</td>
+                <td class="mdl-data-table__cell--non-numeric">{% trans 'Generate transaction for subscription of each member.' %}</td>
+                <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block foot %}
+    <!-- Datatables -->
+    <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
+    
+    <!-- Cookie.js -->
+    <script src="{% static 'app/js/cookie.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            dt = $('#tasklist').on('processing.dt', function (e, settings, processing) {
+                $('#tasklist').css('opacity', processing ? '0.3' : '1.0');
+            }).DataTable({
+                "processing": true,
+                "language": {
+                    "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
+                    "sEmptyTable": "{% trans 'sEmptyTable' %}",
+                    "sInfo": "{% trans 'sInfo' %}",
+                    "sInfoEmpty": "{% trans 'sInfoEmpty' %}",
+                    "sInfoFiltered": "{% trans 'sInfoFiltered' %}",
+                    "sInfoPostFix": "{% trans 'sInfoPostfix' %}",
+                    "sInfoThousands": "{% trans 'sInfoThousands' %}",
+                    "sLoadingRecords": "{% trans 'sLoadingRecords' %}",
+                    "sZeroRecords": "{% trans 'sZeroRecords' %}",
+                    "oPaginate": {
+                        "sFirst": "{% trans 'sFirst' %}",
+                        "sLast": "{% trans 'sLast' %}",
+                        "sNext": "{% trans 'sNext' %}",
+                        "sPrevious": "{% trans 'sPrevious' %}"
+                    },
+                    "oAria": {
+                        "sSortAscending": "{% trans 'sSortAscending' %}",
+                        "sSortDescending": "{% trans 'sSortDescending' %}"
+                    }
+                }
+            });
+            // Search
+            $("#tasklist_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
+            $("#datatable-search").on('keyup', function(e) {
+                dt.search(this.value).draw();
+            })
+
+            // Itemsselect
+            $("#tasklist_length").html('<div class="mdc-select">' + $('#tasklist_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+            $(".mdc-select select").addClass("mdc-select__native-control");
+            $('#tasklist_length select').on('change', function (e) {
+                dt.page.len(this.value).draw();
+            });
+
+            $.ajaxSetup({ 
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                } 
+            });
+            
+            $("#apply-subscriptions .run").click(function() {
+                $("#apply-subscriptions .state").html('<i class="fas fa-spin fa-sync-alt"></i>');
+                $.post("{% url 'tasks:apply_subscriptions' %}", function(data) {
+                    switch (data["state"].toLowerCase()){
+                        case "success":
+                            $("#apply-subscriptions .state").html('<i class="fas fa-check-circle"></i>');
+                            break;
+                        case "missed":
+                            $("#apply-subscriptions .state").html('<i class="fas fa-check-circle"></i><a onclick="missed_info();" data-missed="' + data["missed"].join("<br/>") + '"<i class="fas fa-exclamation-circle"></i></a>');
+                            break;
+                    }
+                    
+                });
+            });
+
+            // Select
+            select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
+            // Lineripple
+            lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
+            // Textfield
+            textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
+            // Info dialog
+            info_dialog = new mdc.dialog.MDCDialog(document.querySelector("#info-dialog"));
+        });
+        
+        function missed_info(){
+            $("#info-dialog .mdc-dialog__body p").html("<h5>{% trans 'Members for which subscription could not be applied:' %}</h5>" + $("#apply-subscriptions .state a").data("missed"));
+            info_dialog.lastFocusedTarget = this;
+            info_dialog.show();
+        }
+    </script>
+{% endblock %}

@@ -21,6 +21,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.messages import get_messages
 # Import Account model
 from .models import Account, CostCenter, CostObject, Transaction
+from utils.views import generate_document_number, generate_internal_number
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
@@ -739,10 +740,7 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
 
         # Generate document_number
         if self.object.document_number is None:
-            global_preferences = global_preferences_registry.manager()
-            max_document_number = Transaction.objects.filter(Q(document_number_generated=True) & ~Q(document_number__startswith=global_preferences['Finance__reset_prefix'])).aggregate(Max('document_number'))['document_number__max']
-            next_document_number =  '1' if max_document_number is None else str(int(max_document_number) + 1)[2:]
-            self.object.document_number = str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
+            self.object.document_number = generate_document_number()
             self.object.document_number_generated = True
         # Save object to commit the changes
         #self.object.save()
@@ -797,9 +795,7 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
             if debit_sum != credit_sum:
                 self.request.session[session_id + 'transactions'] = transactions
             else:
-                # Get last internal_number
-                max_internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max']
-                internal_number = 1 if max_internal_number is None else max_internal_number + 1
+                internal_number = generate_internal_number()
                 # Save transactions from session to db
                 for transaction in transactions.values():
                     obj = Transaction()

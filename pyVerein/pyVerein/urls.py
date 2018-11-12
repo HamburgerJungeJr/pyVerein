@@ -25,6 +25,7 @@ urlpatterns = i18n_patterns(
     url(r'^account/', include('account.urls'), name='account'),
     url(r'^members/', include('members.urls'), name='members'),
     url(r'^finance/', include('finance.urls'), name='finance'),
+    url(r'^tasks/', include('tasks.urls'), name='tasks'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
                             )
