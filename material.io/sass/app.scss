@@ -307,6 +307,11 @@ footer#page-footer{
     font-size: 30px;
 }
 
+table .mdc-select{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 @media(max-width: 600px){
     .form{
         .form-group{

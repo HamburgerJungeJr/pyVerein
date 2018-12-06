@@ -12,9 +12,10 @@ from django.contrib.auth.decorators import login_required, permission_required
 from dynamic_preferences.registries import global_preferences_registry
 
 from members.models import Member, Subscription
-from finance.models import Transaction, Account, CostCenter, CostObject
+from finance.models import Transaction, Account, CostCenter, CostObject, ClosureTransaction, ClosureBalance
 from utils.views import generate_document_number, generate_internal_number
 import datetime
+from decimal import Decimal
 from django.db.models import Q
 
 class TaskIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
@@ -23,6 +24,11 @@ class TaskIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     permission_required = 'taks.view_tasks'
     template_name = 'tasks/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TaskIndexView, self).get_context_data(**kwargs)
+        context["accounting_years"] = Transaction.objects.values('accounting_year').distinct()
+        return context
 
 @login_required
 @permission_required(['taks.view_tasks', 'taks.run_tasks'])
@@ -94,3 +100,67 @@ def apply_subscriptions(request):
             return JsonResponse({
                 'state': 'Success'
             })
+
+@login_required
+@permission_required(['taks.view_tasks', 'taks.run_tasks'])
+def apply_annualclosure(request):
+    """
+    Create Closuretransaction for annual closure
+    """
+
+    if request.method == "POST":
+        year = request.POST.get("year", None)
+        if year is not None and ClosureTransaction.objects.filter(accounting_year=year).count() == 0:
+            # Cost & Income transactions
+            transactions = Transaction.objects.filter(accounting_year=year)
+            for transaction in transactions:
+                ct = ClosureTransaction()
+                ct.account_number = transaction.account.number
+                ct.account_name = transaction.account.name
+                ct.date = transaction.date
+                ct.document_number = transaction.document_number
+                ct.text = transaction.text
+                ct.debit = transaction.debit
+                ct.credit = transaction.credit
+                ct.cost_center_number = transaction.cost_center.number if transaction.cost_center else None
+                ct.cost_center_name = transaction.cost_center.name if transaction.cost_center else None
+                ct.cost_center_description = transaction.cost_center.description if transaction.cost_center else None
+                ct.cost_object_number = transaction.cost_object.number if transaction.cost_object else None
+                ct.cost_object_name = transaction.cost_object.name if transaction.cost_object else None
+                ct.cost_object_description = transaction.cost_object.description if transaction.cost_object else None
+                ct.document_number_generated = transaction.document_number_generated
+                ct.internal_number = transaction.internal_number
+                ct.reset = transaction.reset
+                ct.clearing_number = transaction.clearing_number
+                ct.accounting_year = transaction.accounting_year
+                ct.save()
+            
+            # Claims & Liabilities transactions
+            claims = Decimal(0)
+            liabilities = Decimal(0)
+            
+            for transaction in Transaction.objects.filter((Q(account__account_type=Account.DEBITOR) | Q(account__account_type=Account.CREDITOR)) & Q(clearing_number=None)):
+                if transaction.account.account_type == Account.CREDITOR:
+                    if transaction.credit:
+                        liabilities += transaction.credit
+                    else:
+                        liabilities -= transaction.debit
+                else:
+                    if transaction.debit:
+                        claims += transaction.debit
+                    else:
+                        claims -= transaction.credit
+
+            cb = ClosureBalance()
+            cb.year = year
+            cb.claims = claims
+            cb.liabilities = liabilities
+            cb.save()
+
+            return JsonResponse({
+                'state': 'Success'
+            })
+        return JsonResponse({
+            'state': 'Failed',
+            'message': _('No year selected or year already closed.')
+        })  

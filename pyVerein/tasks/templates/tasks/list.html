@@ -41,6 +41,7 @@
                 <th class="mdl-data-table__cell--non-numeric"></th>
                 <th class="mdl-data-table__cell--non-numeric">{% trans 'Task name' %}</th>
                 <th class="mdl-data-table__cell--non-numeric">{% trans 'Description' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Options' %}</th>
                 <th class="mdl-data-table__cell--non-numeric">{% trans 'Action' %}</th>
             </tr>
         </thead>
@@ -49,6 +50,24 @@
                 <td class="mdl-data-table__cell--non-numeric state"></td>
                 <td class="mdl-data-table__cell--non-numeric">{% trans 'Apply Subscriptions' %}</td>
                 <td class="mdl-data-table__cell--non-numeric">{% trans 'Generate transaction for subscription of each member.' %}</td>
+                <td class="mdl-data-table__cell--non-numeric"></td>
+                <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
+            </tr>
+            <tr id="apply-annualclosure">
+                <td class="mdl-data-table__cell--non-numeric state"></td>
+                <td class="mdl-data-table__cell--non-numeric">{% trans 'Apply annual closure transactions' %}</td>
+                <td class="mdl-data-table__cell--non-numeric">{% trans 'Generate transactions for annual closure.' %}</td>
+                <td class="mdl-data-table__cell--non-numeric">
+                    <div class="mdc-select mdc-input">
+                        <select class="mdc-select__native-control">
+                            {% for year in accounting_years %}
+                                <option value="{{ year.accounting_year }}">{{ year.accounting_year }}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="mdc-floating-label">{% trans 'Accounting year'%}</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </td>
                 <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
             </tr>
         </tbody>
@@ -112,13 +131,28 @@
             
             $("#apply-subscriptions .run").click(function() {
                 $("#apply-subscriptions .state").html('<i class="fas fa-spin fa-sync-alt"></i>');
-                $.post("{% url 'tasks:apply_subscriptions' %}", function(data) {
+                $.post("{% url 'tasks:apply_annualclosure' %}", function(data) {
                     switch (data["state"].toLowerCase()){
                         case "success":
                             $("#apply-subscriptions .state").html('<i class="fas fa-check-circle"></i>');
                             break;
                         case "missed":
                             $("#apply-subscriptions .state").html('<i class="fas fa-check-circle"></i><a onclick="missed_info();" data-missed="' + data["missed"].join("<br/>") + '"<i class="fas fa-exclamation-circle"></i></a>');
+                            break;
+                    }
+                    
+                });
+            });
+
+            $("#apply-annualclosure .run").click(function() {
+                $("#apply-annualclosure .state").html('<i class="fas fa-spin fa-sync-alt"></i>');
+                $.post("{% url 'tasks:apply_annualclosure' %}", {'year': $("#apply-annualclosure select").val()}, function(data) {
+                    switch (data["state"].toLowerCase()){
+                        case "success":
+                            $("#apply-annualclosure .state").html('<i class="fas fa-check-circle"></i>');
+                            break;
+                        case "failed":
+                            $("#apply-annualclosure .state").html('<i class="fas fa-times-circle"></i><a onclick="annualclosure_info();" data-message="' + data["message"] + '"<i class="fas fa-exclamation-circle"></i></a>');
                             break;
                     }
                     
@@ -137,6 +171,12 @@
         
         function missed_info(){
             $("#info-dialog .mdc-dialog__body p").html("<h5>{% trans 'Members for which subscription could not be applied:' %}</h5>" + $("#apply-subscriptions .state a").data("missed"));
+            info_dialog.lastFocusedTarget = this;
+            info_dialog.show();
+        }
+
+        function annualclosure_info(){
+            $("#info-dialog .mdc-dialog__body p").html("<h5>{% trans 'The following error occured:' %}</h5>" + $("#apply-annualclosure .state a").data("message"));
             info_dialog.lastFocusedTarget = this;
             info_dialog.show();
         }

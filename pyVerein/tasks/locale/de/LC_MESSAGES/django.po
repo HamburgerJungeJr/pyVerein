@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-12 11:32+0100\n"
+"POT-Creation-Date: 2018-12-06 14:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,90 +39,115 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: templates/tasks/list.html:44
+msgid "Options"
+msgstr "Optionen"
+
+#: templates/tasks/list.html:45
 msgid "Action"
 msgstr "Aktion"
 
-#: templates/tasks/list.html:50
+#: templates/tasks/list.html:51
 msgid "Apply Subscriptions"
 msgstr "Mitgliedsbeiträge übernehmen"
 
-#: templates/tasks/list.html:51
+#: templates/tasks/list.html:52
 msgid "Generate transaction for subscription of each member."
 msgstr "Erstellt Buchungen für die Beiträge der Mitglieder"
 
-#: templates/tasks/list.html:52
+#: templates/tasks/list.html:54 templates/tasks/list.html:71
 msgid "Run"
 msgstr "Ausführen"
 
-#: templates/tasks/list.html:74
+#: templates/tasks/list.html:58
+msgid "Apply annual closure transactions"
+msgstr "Jahresabschluss erstellen"
+
+#: templates/tasks/list.html:59
+msgid "Generate transactions for annual closure."
+msgstr "Erstellt Buchungen für den Jahresabschluss"
+
+#: templates/tasks/list.html:67
+msgid "Accounting year"
+msgstr "Wirtschaftsjahr"
+
+#: templates/tasks/list.html:93
 msgid "sEmptyTable"
 msgstr "Keine Daten in der Tabelle vorhanden."
 
-#: templates/tasks/list.html:75
+#: templates/tasks/list.html:94
 msgid "sInfo"
 msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: templates/tasks/list.html:76
+#: templates/tasks/list.html:95
 msgid "sInfoEmpty"
 msgstr "0 bis 0 von 0 Einträgen"
 
-#: templates/tasks/list.html:77
+#: templates/tasks/list.html:96
 msgid "sInfoFiltered"
 msgstr "(gefiltert von _MAX_ Einträgen)"
 
-#: templates/tasks/list.html:78
+#: templates/tasks/list.html:97
 msgid "sInfoPostfix"
 msgstr " "
 
-#: templates/tasks/list.html:79
+#: templates/tasks/list.html:98
 msgid "sInfoThousands"
 msgstr "."
 
-#: templates/tasks/list.html:80
+#: templates/tasks/list.html:99
 msgid "sLoadingRecords"
 msgstr "Wird geladen..."
 
-#: templates/tasks/list.html:81
+#: templates/tasks/list.html:100
 msgid "sZeroRecords"
 msgstr "Keine Einträge vorhanden."
 
-#: templates/tasks/list.html:83
+#: templates/tasks/list.html:102
 msgid "sFirst"
 msgstr "Erste"
 
-#: templates/tasks/list.html:84
+#: templates/tasks/list.html:103
 msgid "sLast"
 msgstr "Letzte"
 
-#: templates/tasks/list.html:85
+#: templates/tasks/list.html:104
 msgid "sNext"
 msgstr "Nächste"
 
-#: templates/tasks/list.html:86
+#: templates/tasks/list.html:105
 msgid "sPrevious"
 msgstr "Vorherige"
 
-#: templates/tasks/list.html:89
+#: templates/tasks/list.html:108
 msgid "sSortAscending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: templates/tasks/list.html:90
+#: templates/tasks/list.html:109
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: templates/tasks/list.html:95
+#: templates/tasks/list.html:114
 msgid "sSearch"
 msgstr "Suchen"
 
-#: templates/tasks/list.html:101
+#: templates/tasks/list.html:120
 msgid "sLengthMenu"
 msgstr "_MENU_ Einträge anzeigen"
 
-#: templates/tasks/list.html:139
+#: templates/tasks/list.html:173
 msgid "Members for which subscription could not be applied:"
-msgstr "Mitglieder, für die keine Beitragsinformationen übernommen werden konnten"
+msgstr ""
+"Mitglieder, für die keine Beitragsinformationen übernommen werden konnten:"
+
+#: templates/tasks/list.html:179
+msgid "The following error occured:"
+msgstr "Folgende Fehler traten auf:"
 
 #: views.py:52 views.py:56 views.py:59 views.py:62 views.py:68 views.py:77
 #, python-brace-format
 msgid "Subscription - {membership_number} - {last_name}, {first_name}"
 msgstr "Beitrag - {membership_number} - {last_name}, {first_name}"
+
+#: views.py:165
+msgid "No year selected or year already closed."
+msgstr "Kein Wirtschaftsjahr ausgewählt, oder Jahr wurde bereits abgeschlossen"
