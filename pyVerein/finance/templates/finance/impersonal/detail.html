@@ -56,7 +56,7 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'Saldo' %} {{ saldo }}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Saldo' %} {{ saldo|floatformat:2 }}</th>
                 <th>{{ debit_sum|floatformat:2 }}</th>
                 <th>{{ credit_sum|floatformat:2 }}</th>
                 

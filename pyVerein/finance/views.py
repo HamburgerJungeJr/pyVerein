@@ -370,7 +370,10 @@ class ImpersonalDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVi
         credit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('credit'))['credit__sum']
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
-        context['saldo'] = (debit_sum if debit_sum else 0) - (credit_sum if credit_sum else 0)
+        if self.object.account_type == Account.COST or self.object.account_type == Account.ASSET:
+            context['saldo'] = (debit_sum if debit_sum else 0) - (credit_sum if credit_sum else 0) 
+        elif self.object.account_type == Account.INCOME:
+            context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
 
         return context
     
