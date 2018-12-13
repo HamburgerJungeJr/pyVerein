@@ -33,13 +33,12 @@
             </tr>
         </thead>
     </table>
-    <a href ="{% url 'finance:transaction_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}">
+    <a href ="{% url 'finance:transaction_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
     </a>
 {% endblock %}
 
-{% block foot %}
-    <!-- Datatables -->
+{% block foot %}<!-- Datatables -->
     <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
     <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
     <script>
@@ -82,14 +81,14 @@
                         {
                             "data": "document_number",
                             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                                $(nTd).html("<a href='" + oData.transaction_url + "' title='{% trans 'Show receipt' %}'>" + oData.document_number + "</a>");
+                                $(nTd).html("<a href='" + oData.transaction_url + "' title='{% trans 'Show receipt' %}' target='_blank'>" + oData.document_number + "</a>");
                             },
                             "className": "mdl-data-table__cell--non-numeric"
                         },
                         {
                             "data": "account",
                             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                                $(nTd).html("<a href='" + oData.account_url + "' title='{% trans 'Show account' %}'>" + oData.account + "</a>");
+                                $(nTd).html("<a href='" + oData.account_url + "' title='{% trans 'Show account' %}' target='_blank'>" + oData.account + "</a>");
                             },
                             "className": "mdl-data-table__cell--non-numeric"
                         },
@@ -106,14 +105,14 @@
                         {
                             "data": "cost_center",
                             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                                $(nTd).html("<a href='" + oData.cost_center_url + "' title='{% trans 'Show cost center' %}'>" + oData.cost_center + "</a>");
+                                $(nTd).html("<a href='" + oData.cost_center_url + "' title='{% trans 'Show cost center' %}' target='_blank'>" + oData.cost_center + "</a>");
                             },
                             "className": "mdl-data-table__cell--non-numeric"
                         },
                         {
                             "data": "cost_object",
                             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                                $(nTd).html("<a href='" + oData.cost_object_url + "' title='{% trans 'Show cost object' %}'>" + oData.cost_object + "</a>");
+                                $(nTd).html("<a href='" + oData.cost_object_url + "' title='{% trans 'Show cost object' %}' target='_blank'>" + oData.cost_object + "</a>");
                             },
                             "className": "mdl-data-table__cell--non-numeric"
                         },
@@ -139,7 +138,6 @@
             lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
             // Textfield
             textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
-        })
-        ;
+        });
     </script>
 {% endblock %}

@@ -49,16 +49,12 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href ="{% url 'members:division_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
-        <i class="mdc-fab__icon fa fa-arrow-left"></i>
-    </a>
     <a href ="{% url 'members:division_edit' pk=division.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
 {% endblock %}
 
-{% block foot %}
-    <!-- Datatables -->
+{% block foot %}<!-- Datatables -->
     <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
     <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
 
@@ -113,7 +109,7 @@
             textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
 
             $('tr').on('click', function(){
-                window.location = $(this).data('member');
+                window.open($(this).data('member'));
             })
         });
 

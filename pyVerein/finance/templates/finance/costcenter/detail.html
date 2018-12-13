@@ -34,7 +34,7 @@
             {% for transaction in transactions %}
                 <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}">
+                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}" target="_blank">
                             {{ transaction.document_number }}
                         </a>
                     </td>
@@ -49,14 +49,14 @@
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {% if transaction.cost_center%}
-                            <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.pk %}" title="{% trans 'Show cost center' %}">
+                            <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.pk %}" title="{% trans 'Show cost center' %}" target="_blank">
                                 {{ transaction.cost_center.number }} {{ transaction.cost_center.name }}
                             </a>
                         {% endif %}
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {% if transaction.cost_object%}
-                            <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.pk %}" title="{% trans 'Show cost object' %}">
+                            <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.pk %}" title="{% trans 'Show cost object' %}" target="_blank">
                                 {{ transaction.cost_object.number }} {{ transaction.cost_object.name }}
                             </a>
                         {% endif %}
@@ -75,10 +75,7 @@
             </tr>
         </tfoot>
     </table>
-    <a href ="{% url 'finance:costcenter_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
-        <i class="mdc-fab__icon fa fa-arrow-left"></i>
-    </a>
-    <a href ="{% url 'finance:costcenter_edit' pk=costcenter.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+    <a href="{% url 'finance:costcenter_edit' pk=costcenter.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>    
 {% endblock %}
