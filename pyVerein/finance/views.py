@@ -87,8 +87,7 @@ class CreditorDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
             context['transactions'] = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None))
             debit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None)).aggregate(Sum('debit'))['debit__sum']
             credit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None)).aggregate(Sum('credit'))['credit__sum']
-
-        
+       
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
         context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
@@ -364,17 +363,26 @@ class ImpersonalDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVi
     def get_context_data(self, **kwargs):
         context = super(ImpersonalDetailView, self).get_context_data(**kwargs)
 
-        context['transactions'] = Transaction.objects.filter(account=self.object.number)
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.filter(account=self.object.number)
+            debit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(account=self.object.number) & Q(accounting_year=year))
+            debit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(accounting_year=year)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(accounting_year=year)).aggregate(Sum('credit'))['credit__sum']
 
-        debit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('credit'))['credit__sum']
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
         if self.object.account_type == Account.COST or self.object.account_type == Account.ASSET:
             context['saldo'] = (debit_sum if debit_sum else 0) - (credit_sum if credit_sum else 0) 
         elif self.object.account_type == Account.INCOME:
             context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
-
+        context['accounting_years'] = Transaction.objects.values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
         return context
     
 class ImpersonalEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -481,13 +489,23 @@ class CostCenterDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVi
     def get_context_data(self, **kwargs):
         context = super(CostCenterDetailView, self).get_context_data(**kwargs)
 
-        context['transactions'] = Transaction.objects.filter(cost_center=self.object.number)
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.filter(cost_center=self.object.number)
+            debit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(cost_center=self.object.number) & Q(accounting_year=year))
+            debit_sum = Transaction.objects.filter(Q(cost_center=self.object.number) & Q(accounting_year=year)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(Q(cost_center=self.object.number) & Q(accounting_year=year)).aggregate(Sum('credit'))['credit__sum']
 
-        debit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('credit'))['credit__sum']
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
         context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
+        context['accounting_years'] = Transaction.objects.values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
 
         return context
 
@@ -589,13 +607,23 @@ class CostObjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVi
     def get_context_data(self, **kwargs):
         context = super(CostObjectDetailView, self).get_context_data(**kwargs)
 
-        context['transactions'] = Transaction.objects.filter(cost_object=self.object.number)
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.filter(cost_object=self.object.number)
+            debit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(cost_object=self.object.number) & Q(accounting_year=year))
+            debit_sum = Transaction.objects.filter(Q(cost_object=self.object.number) & Q(accounting_year=year)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(Q(cost_object=self.object.number) & Q(accounting_year=year)).aggregate(Sum('credit'))['credit__sum']
 
-        debit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('credit'))['credit__sum']
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
         context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
+        context['accounting_years'] = Transaction.objects.values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
 
         return context
 
