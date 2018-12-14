@@ -6,10 +6,7 @@
                 <a href="{% url 'app:index' %}" class="site_title" title="{% trans 'Dashboard' %}">
                     <img src="{% static 'app/images/logo_white.png' %}" />
                 </a>
-            </div>
-            <a href="{% url  'logout' %}" class="mdc-fab mdc-fab--mini mdc-fab__logout" aria-label="{% trans 'Sign out' %}" title="{% trans 'Sign out' %}">
-                <span class="mdc-fab__icon fa fa-power-off"></span>
-            </a>                 
+            </div>           
         </div>
     </div>
     <div class="mdc-drawer__content">
@@ -54,11 +51,21 @@
                 <span class="mdc-list-item__text">{% trans 'Cost objects' %}</span>
             </a>
             <hr class="mdc-list-divider">
+            <h3 class="mdc-list-group__subheader">{% trans 'Tasks' %}</h3>
+            <a href="{% url 'tasks:task_list' %}" title="{% trans 'Tasks' %}" class="mdc-list-item {% base_url_class 'tasks:task_list' 'mdc-list-item--activated'%}">
+                <span class="mdc-list-item__graphic fa fa-tasks" aria-hidden="true"></span>
+                <span class="mdc-list-item__text">{% trans 'Tasks' %}</span>
+            </a>
+            <hr class="mdc-list-divider">
             <h3 class="mdc-list-group__subheader">{% trans 'User' %}</h3>
             <a href="{% url 'account:detail' %}" title="{% trans 'Profile' %}" class="mdc-list-item {% base_url_class 'account:detail' 'mdc-list-item--activated'%}">
                 <span class="mdc-list-item__graphic fa fa-user" aria-hidden="true"></span>
                 <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
             </a>
+            <a href="{% url  'logout' %}" title="{% trans 'Sign out' %}" class="mdc-list-item {% base_url_class 'account:detail' 'mdc-list-item--activated'%}">
+                <span class="mdc-list-item__graphic fa fa-sign-out-alt" aria-hidden="true"></span>
+                <span class="mdc-list-item__text">{% trans 'Sign out' %}</span>
+            </a>      
         </nav>
     </div>
 </aside>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-04 20:00+0200\n"
+"POT-Creation-Date: 2018-12-14 01:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/app/_attributions.html:6 templates/app/base.html:78
+#: templates/app/_attributions.html:6 templates/app/base.html:79
 #: templates/registration/login.html:92
 msgid "Attributions"
 msgstr "Lizenzen"
@@ -35,65 +35,70 @@ msgstr "Auf behance.net öffnen"
 msgid "Close"
 msgstr "Schließen"
 
-#: templates/app/_drawer.html:7 templates/app/dashboard.html:11
+#: templates/app/_drawer.html:6 templates/app/dashboard.html:11
 #: templates/app/dashboard.html:15
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: templates/app/_drawer.html:11
-msgid "Sign out"
-msgstr "Abmelden"
-
-#: templates/app/_drawer.html:18 templates/app/_drawer.html:21
-#: templates/app/_drawer.html:23 templates/app/dashboard.html:22
+#: templates/app/_drawer.html:14 templates/app/_drawer.html:15
+#: templates/app/_drawer.html:17 templates/app/dashboard.html:22
 msgid "Members"
 msgstr "Mitglieder"
 
-#: templates/app/_drawer.html:27 templates/app/_drawer.html:29
+#: templates/app/_drawer.html:19 templates/app/_drawer.html:21
 msgid "Divisions"
 msgstr "Sparten"
 
-#: templates/app/_drawer.html:33 templates/app/_drawer.html:35
+#: templates/app/_drawer.html:23 templates/app/_drawer.html:25
 msgid "Subscriptions"
 msgstr "Beiträge"
 
-#: templates/app/_drawer.html:42
+#: templates/app/_drawer.html:28
 msgid "Finance"
 msgstr "Finanzen"
 
-#: templates/app/_drawer.html:45 templates/app/_drawer.html:47
+#: templates/app/_drawer.html:29 templates/app/_drawer.html:31
 msgid "Transactions"
 msgstr "Belege"
 
-#: templates/app/_drawer.html:51 templates/app/_drawer.html:53
+#: templates/app/_drawer.html:33 templates/app/_drawer.html:35
 msgid "Debitors"
 msgstr "Debitoren"
 
-#: templates/app/_drawer.html:57 templates/app/_drawer.html:59
+#: templates/app/_drawer.html:37 templates/app/_drawer.html:39
 msgid "Creditors"
 msgstr "Kreditoren"
 
-#: templates/app/_drawer.html:63 templates/app/_drawer.html:65
+#: templates/app/_drawer.html:41 templates/app/_drawer.html:43
 msgid "Impersonal"
 msgstr "Sachkonten"
 
-#: templates/app/_drawer.html:69 templates/app/_drawer.html:71
+#: templates/app/_drawer.html:45 templates/app/_drawer.html:47
 msgid "Cost centers"
 msgstr "Kostenstellen"
 
-#: templates/app/_drawer.html:75 templates/app/_drawer.html:77
+#: templates/app/_drawer.html:49 templates/app/_drawer.html:51
 msgid "Cost objects"
 msgstr "Kostenträger"
 
-#: templates/app/_drawer.html:84
+#: templates/app/_drawer.html:54 templates/app/_drawer.html:55
+#: templates/app/_drawer.html:57
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#: templates/app/_drawer.html:60
 msgid "User"
 msgstr "Benutzer"
 
-#: templates/app/_drawer.html:87 templates/app/_drawer.html:89
+#: templates/app/_drawer.html:61 templates/app/_drawer.html:63
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/app/base.html:117 templates/app/base.html:154
+#: templates/app/_drawer.html:65 templates/app/_drawer.html:67
+msgid "Sign out"
+msgstr "Abmelden"
+
+#: templates/app/base.html:118 templates/app/base.html:155
 msgid "Dismiss"
 msgstr "Ausblenden"
 
@@ -109,11 +114,11 @@ msgstr "Kostenstellen"
 msgid "Costobject"
 msgstr "Kostenträger"
 
-#: templates/app/dashboard.html:61
+#: templates/app/dashboard.html:60
 msgid "Not selected"
 msgstr "Keine Auswahl"
 
-#: templates/app/dashboard.html:157 templates/app/dashboard.html:210
+#: templates/app/dashboard.html:156 templates/app/dashboard.html:209
 msgid "Balance"
 msgstr "Saldo"
 

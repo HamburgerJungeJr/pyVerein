@@ -58,7 +58,8 @@
                 <td class="mdl-data-table__cell--non-numeric">{% trans 'Apply annual closure transactions' %}</td>
                 <td class="mdl-data-table__cell--non-numeric">{% trans 'Generate transactions for annual closure.' %}</td>
                 <td class="mdl-data-table__cell--non-numeric">
-                    <div class="mdc-select mdc-input">
+                    <div class="mdc-select">
+                        <i class="mdc-select__dropdown-icon"></i>
                         <select class="mdc-select__native-control">
                             {% for year in accounting_years %}
                                 <option value="{{ year.accounting_year }}">{{ year.accounting_year }}</option>
