@@ -1,7 +1,7 @@
 """
 Viewmodule for tasks app
 """
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
 # Import views
 from django.views.generic import TemplateView
 # Import localization
@@ -31,7 +31,7 @@ class TaskIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         return context
 
 @login_required
-@permission_required(['tasks.view_tasks', 'tasks.run_tasks', 'tasks.run_subscription_task'])
+@permission_required(['tasks.view_tasks', 'tasks.run_tasks', 'tasks.run_subscription_task'], raise_exception=True)
 def apply_subscriptions(request):
     """
     Generate transaction for membersubscriptions
@@ -100,9 +100,11 @@ def apply_subscriptions(request):
             return JsonResponse({
                 'state': 'Success'
             })
+    else:
+        return HttpResponseBadRequest()
 
 @login_required
-@permission_required(['tasks.view_tasks', 'tasks.run_tasks', 'tasks.run_closure_task'])
+@permission_required(['tasks.view_tasks', 'tasks.run_tasks', 'tasks.run_closure_task'], raise_exception=True)
 def apply_annualclosure(request):
     """
     Create Closuretransaction for annual closure
@@ -164,3 +166,5 @@ def apply_annualclosure(request):
             'state': 'Failed',
             'message': _('No year selected or year already closed.')
         })  
+    else:
+        return HttpResponseBadRequest()
