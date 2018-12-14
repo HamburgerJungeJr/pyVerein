@@ -38,23 +38,12 @@ section.main{
 }
 
 .main-navigation {
-    .mdc-list-group__subheader{
-        margin-left: 72px;
-    }
-    
     .logo{
         width: 100%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center; 
-    }
-
-    .mdc-fab__logout{
-        position: absolute;
-        text-decoration: unset;
-        top: calc(100% - 20px);
-        left: 1rem;
     }
 }
 
@@ -71,11 +60,13 @@ section.main{
 div.dataTables_wrapper{
     div.dataTables_length{
         .mdc-select{
-        width: 150px;
-        margin-top: 15px;
+            width: 150px;
         }
     }
     div.dataTables_filter {
+        display: flex;
+        justify-content: flex-end;
+        
         input{
             margin-left: 0px;
         }
@@ -86,7 +77,6 @@ div.dataTables_wrapper{
         div#accounting_year_filter{
             width: 150px;
             margin-right: 15px;
-            padding-bottom: 2px;
         }
     }
 }
@@ -143,6 +133,7 @@ div.dataTables_wrapper{
     }
     .spacer{
         width: 50%;  
+        margin-left: 5px;
     }
     .mdc-input{
         width: 50%;

@@ -91,19 +91,11 @@
             })
 
             // Itemsselect
-            $("#costobjectlist_length").html('<div class="mdc-select">' + $('#costobjectlist_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+            $("#costobjectlist_length").html('<div class="mdc-select"><i class="mdc-select__dropdown-icon"></i>' + $('#costobjectlist_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
             $(".mdc-select select").addClass("mdc-select__native-control");
             $('#costobjectlist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
-            
-
-            // Select
-            select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
-            // Lineripple
-            lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
-            // Textfield
-            textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
         })
         ;
     </script>

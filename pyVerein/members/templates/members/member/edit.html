@@ -23,7 +23,7 @@
             {% include 'members/member/form_fields.html' %}
             <div class="form-group form-submit">
                 <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
-                <a href="{% url 'members:detail' pk=member.pk %}" class="mdc-button" title="{% trans 'Cancel' %}" target="_blank">{% trans 'Cancel' %}</a>
+                <a href="{% url 'members:detail' pk=member.pk %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
             </div>
         </form>
     </div>

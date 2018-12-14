@@ -1,13 +1,22 @@
+$(document).ready(function () {
 // Top App Bar
 const topAppBarElement = document.querySelector('.mdc-top-app-bar');
 if (topAppBarElement != null){
     const topAppBar = new mdc.topAppBar.MDCTopAppBar(topAppBarElement);
 }
 
+// Account-Menu
+var account_menu_sel = document.querySelector('#account-menu');
+if (account_menu_sel != null){
+    let menu = mdc.menu.MDCMenu.attachTo(account_menu_sel);
+    document.querySelector('a.account-menu').onclick = function() {
+        menu.open = !menu.open;
+    }
+}
 // Drawer
-var drawer_sel = document.querySelector('.mdc-drawer--temporary');
+var drawer_sel = document.querySelector('.mdc-drawer--modal');
 if (drawer_sel != null){
-    let drawer = new mdc.drawer.MDCTemporaryDrawer(drawer_sel);
+    let drawer = mdc.drawer.MDCDrawer.attachTo(drawer_sel);
     document.querySelector('.menu').addEventListener('click', () => drawer.open = !drawer.open);
 }
 // Floating action button
@@ -34,7 +43,6 @@ if (ripple_sel != null){
     ripple_sel.forEach(function (val){
         mdc.lineRipple.MDCLineRipple.attachTo(val);
     })
-   
 }
 
 // Textfield
@@ -100,3 +108,4 @@ if (formField_sel != null){
         }
     })
 }
+});

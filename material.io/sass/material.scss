@@ -23,6 +23,9 @@ $mdc-typography-styles-button: (
 @import "@material/form-field/mdc-form-field";
 @import "@material/checkbox/mdc-checkbox";
 @import "@material/card/mdc-card";
+@import "@material/list/mdc-list";
+@import "@material/menu-surface/mdc-menu-surface";
+@import "@material/menu/mdc-menu";
 
 .mdc-list-item{
     a{
@@ -68,6 +71,9 @@ a.mdc-fab{
     bottom: 140px;
 }
 .mdc-select{
-    margin-top: 12px;
-    margin-bottom: 8px;
+    @include mdc-select-container-fill-color($mdc-theme-background)
+}
+
+.mdc-text-field{
+    @include mdc-text-field-fill-color($mdc-theme-background)
 }
