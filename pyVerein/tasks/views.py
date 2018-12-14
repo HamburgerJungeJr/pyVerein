@@ -22,7 +22,7 @@ class TaskIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for creditors
     """
-    permission_required = 'taks.view_tasks'
+    permission_required = 'tasks.view_tasks'
     template_name = 'tasks/list.html'
 
     def get_context_data(self, **kwargs):
@@ -31,7 +31,7 @@ class TaskIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         return context
 
 @login_required
-@permission_required(['taks.view_tasks', 'taks.run_tasks'])
+@permission_required(['tasks.view_tasks', 'tasks.run_tasks', 'tasks.run_subscription_task'])
 def apply_subscriptions(request):
     """
     Generate transaction for membersubscriptions
@@ -102,7 +102,7 @@ def apply_subscriptions(request):
             })
 
 @login_required
-@permission_required(['taks.view_tasks', 'taks.run_tasks'])
+@permission_required(['tasks.view_tasks', 'tasks.run_tasks', 'tasks.run_closure_task'])
 def apply_annualclosure(request):
     """
     Create Closuretransaction for annual closure

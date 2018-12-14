@@ -46,31 +46,35 @@
             </tr>
         </thead>
         <tbody>
-            <tr id="apply-subscriptions">
-                <td class="mdl-data-table__cell--non-numeric state"></td>
-                <td class="mdl-data-table__cell--non-numeric">{% trans 'Apply Subscriptions' %}</td>
-                <td class="mdl-data-table__cell--non-numeric">{% trans 'Generate transaction for subscription of each member.' %}</td>
-                <td class="mdl-data-table__cell--non-numeric"></td>
-                <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
-            </tr>
-            <tr id="apply-annualclosure">
-                <td class="mdl-data-table__cell--non-numeric state"></td>
-                <td class="mdl-data-table__cell--non-numeric">{% trans 'Apply annual closure transactions' %}</td>
-                <td class="mdl-data-table__cell--non-numeric">{% trans 'Generate transactions for annual closure.' %}</td>
-                <td class="mdl-data-table__cell--non-numeric">
-                    <div class="mdc-select">
-                        <i class="mdc-select__dropdown-icon"></i>
-                        <select class="mdc-select__native-control">
-                            {% for year in accounting_years %}
-                                <option value="{{ year.accounting_year }}">{{ year.accounting_year }}</option>
-                            {% endfor %}
-                        </select>
-                        <label class="mdc-floating-label">{% trans 'Accounting year'%}</label>
-                        <div class="mdc-line-ripple"></div>
-                    </div>
-                </td>
-                <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
-            </tr>
+            {% if perms.tasks.run_subscription_task %}
+                <tr id="apply-subscriptions">
+                    <td class="mdl-data-table__cell--non-numeric state"></td>
+                    <td class="mdl-data-table__cell--non-numeric">{% trans 'Apply Subscriptions' %}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{% trans 'Generate transaction for subscription of each member.' %}</td>
+                    <td class="mdl-data-table__cell--non-numeric"></td>
+                    <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
+                </tr>
+            {% endif %}
+            {% if perms.tasks.run_closure_task %}
+                <tr id="apply-annualclosure">
+                    <td class="mdl-data-table__cell--non-numeric state"></td>
+                    <td class="mdl-data-table__cell--non-numeric">{% trans 'Apply annual closure transactions' %}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{% trans 'Generate transactions for annual closure.' %}</td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <div class="mdc-select">
+                            <i class="mdc-select__dropdown-icon"></i>
+                            <select class="mdc-select__native-control">
+                                {% for year in accounting_years %}
+                                    <option value="{{ year.accounting_year }}">{{ year.accounting_year }}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="mdc-floating-label">{% trans 'Accounting year'%}</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 {% endblock %}

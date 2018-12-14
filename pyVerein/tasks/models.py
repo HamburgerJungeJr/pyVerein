@@ -7,6 +7,7 @@ class TasksPermissionModel(models.Model):
         managed = False 
 
         permissions = ( 
-            ('view_tasks', 'Can view tasks.'),  
             ('run_tasks', 'Can run tasks'), 
+            ('run_subscription_task', 'Can run subscription task'),
+            ('run_closure_task', 'Can run closure task')
         )
