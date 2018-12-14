@@ -1,4 +1,4 @@
-from dynamic_preferences.types import BooleanPreference
+from dynamic_preferences.types import BooleanPreference, IntegerPreference
 from dynamic_preferences.preferences import Section
 from dynamic_preferences.registries import global_preferences_registry
 
@@ -45,3 +45,11 @@ class ShowAdditionalField5(BooleanPreference):
     name = 'show_additional_field_5'
     default = False
     verbose_name = "Show additional field 5"
+
+# Register input for keeping terminated members timespan
+@global_preferences_registry.register
+class KeepMembers(IntegerPreference):
+    section = members
+    name = 'keep_terminated_members'
+    default = 365
+    verbose_name = "Keep terminated members for days after termination"

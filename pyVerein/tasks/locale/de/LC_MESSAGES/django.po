@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 14:32+0100\n"
+"POT-Creation-Date: 2018-12-15 00:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,100 +46,110 @@ msgstr "Optionen"
 msgid "Action"
 msgstr "Aktion"
 
-#: templates/tasks/list.html:51
+#: templates/tasks/list.html:52
 msgid "Apply Subscriptions"
 msgstr "Mitgliedsbeiträge übernehmen"
 
-#: templates/tasks/list.html:52
+#: templates/tasks/list.html:53
 msgid "Generate transaction for subscription of each member."
 msgstr "Erstellt Buchungen für die Beiträge der Mitglieder"
 
-#: templates/tasks/list.html:54 templates/tasks/list.html:71
+#: templates/tasks/list.html:55 templates/tasks/list.html:75
+#: templates/tasks/list.html:84
 msgid "Run"
 msgstr "Ausführen"
 
-#: templates/tasks/list.html:58
+#: templates/tasks/list.html:61
 msgid "Apply annual closure transactions"
 msgstr "Jahresabschluss erstellen"
 
-#: templates/tasks/list.html:59
+#: templates/tasks/list.html:62
 msgid "Generate transactions for annual closure."
 msgstr "Erstellt Buchungen für den Jahresabschluss"
 
-#: templates/tasks/list.html:67
+#: templates/tasks/list.html:71
 msgid "Accounting year"
 msgstr "Wirtschaftsjahr"
 
-#: templates/tasks/list.html:93
+#: templates/tasks/list.html:81
+msgid "Delete terminated members"
+msgstr "Ausgetretene Mitglieder löschen"
+
+#: templates/tasks/list.html:82
+msgid ""
+"Delete all members which are longer than the set span of days terminated."
+msgstr "Alle Mitglieder löschen, deren Austritsdatum mehr als die festgelegte anzahl an Tagen zurückliegt."
+
+#: templates/tasks/list.html:106
 msgid "sEmptyTable"
 msgstr "Keine Daten in der Tabelle vorhanden."
 
-#: templates/tasks/list.html:94
+#: templates/tasks/list.html:107
 msgid "sInfo"
 msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: templates/tasks/list.html:95
+#: templates/tasks/list.html:108
 msgid "sInfoEmpty"
 msgstr "0 bis 0 von 0 Einträgen"
 
-#: templates/tasks/list.html:96
+#: templates/tasks/list.html:109
 msgid "sInfoFiltered"
 msgstr "(gefiltert von _MAX_ Einträgen)"
 
-#: templates/tasks/list.html:97
+#: templates/tasks/list.html:110
 msgid "sInfoPostfix"
 msgstr " "
 
-#: templates/tasks/list.html:98
+#: templates/tasks/list.html:111
 msgid "sInfoThousands"
 msgstr "."
 
-#: templates/tasks/list.html:99
+#: templates/tasks/list.html:112
 msgid "sLoadingRecords"
 msgstr "Wird geladen..."
 
-#: templates/tasks/list.html:100
+#: templates/tasks/list.html:113
 msgid "sZeroRecords"
 msgstr "Keine Einträge vorhanden."
 
-#: templates/tasks/list.html:102
+#: templates/tasks/list.html:115
 msgid "sFirst"
 msgstr "Erste"
 
-#: templates/tasks/list.html:103
+#: templates/tasks/list.html:116
 msgid "sLast"
 msgstr "Letzte"
 
-#: templates/tasks/list.html:104
+#: templates/tasks/list.html:117
 msgid "sNext"
 msgstr "Nächste"
 
-#: templates/tasks/list.html:105
+#: templates/tasks/list.html:118
 msgid "sPrevious"
 msgstr "Vorherige"
 
-#: templates/tasks/list.html:108
+#: templates/tasks/list.html:121
 msgid "sSortAscending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: templates/tasks/list.html:109
+#: templates/tasks/list.html:122
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: templates/tasks/list.html:114
+#: templates/tasks/list.html:127
 msgid "sSearch"
 msgstr "Suchen"
 
-#: templates/tasks/list.html:120
+#: templates/tasks/list.html:133
 msgid "sLengthMenu"
 msgstr "_MENU_ Einträge anzeigen"
 
-#: templates/tasks/list.html:173
+#: templates/tasks/list.html:191
 msgid "Members for which subscription could not be applied:"
 msgstr ""
 "Mitglieder, für die keine Beitragsinformationen übernommen werden konnten:"
 
-#: templates/tasks/list.html:179
+#: templates/tasks/list.html:197
 msgid "The following error occured:"
 msgstr "Folgende Fehler traten auf:"
 
@@ -148,6 +158,6 @@ msgstr "Folgende Fehler traten auf:"
 msgid "Subscription - {membership_number} - {last_name}, {first_name}"
 msgstr "Beitrag - {membership_number} - {last_name}, {first_name}"
 
-#: views.py:165
+#: views.py:167
 msgid "No year selected or year already closed."
 msgstr "Kein Wirtschaftsjahr ausgewählt, oder Jahr wurde bereits abgeschlossen"

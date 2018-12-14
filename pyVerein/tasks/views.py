@@ -168,3 +168,24 @@ def apply_annualclosure(request):
         })  
     else:
         return HttpResponseBadRequest()
+
+@login_required
+@permission_required(['tasks.view_tasks', 'tasks.run_tasks', 'tasks.run_delete_terminated_members_task'], raise_exception=True)
+def delete_terminated_members(request):
+    """
+    Deletes terminated members
+    """
+
+    if request.method == "POST":
+        global_preferences = global_preferences_registry.manager()
+        # Get all terminated members which are longer than "Keep terminated members" days terminated
+        members = [member.pk for member in Member.objects.all() if member.is_terminated() and (member.terminated_at + datetime.timedelta(days=global_preferences['Members__keep_terminated_members'])) < datetime.datetime.now().date()]
+        # Delete these members
+        for member in Member.objects.filter(pk__in=members):
+            member.delete()
+        
+        return JsonResponse({
+            'state': 'Success'
+        })
+    else:
+        return HttpResponseBadRequest()
