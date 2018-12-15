@@ -85,3 +85,11 @@ class DivisionCostObject(StringPreference):
     name = 'division_cost_object'
     default = ''
     verbose_name = "Cost object for subscriptions of members"
+
+# Register switch for skipping subscription fee for period of joining
+@global_preferences_registry.register
+class SkipFirstSubscription(BooleanPreference):
+    section = members
+    name = 'skip_first_subscription'
+    default = False
+    verbose_name = "Skip first subscription"

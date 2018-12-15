@@ -45,18 +45,27 @@ def apply_subscriptions(request):
             if member.subscription and member.membership_number:
                 # Determine how many subscriptions need to be applied
                 transaction_count = 0
-                if member.subscription.payment_frequency == Subscription.YEARLY and not Transaction.objects.filter(Q(account=global_preferences['Tasks__subscription_income_account']) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count():
+                if member.subscription.payment_frequency == Subscription.YEARLY and not Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count():
                     transaction_count = 1
+                    if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
+                        transaction_count -= 1
                 
                 if member.subscription.payment_frequency == Subscription.HALFYEARLY:
-                    transaction_count = (2 - ((datetime.date.today().month - 1) // 6)) - Transaction.objects.filter(Q(account=global_preferences['Tasks__subscription_income_account']) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
+                    transaction_count = (2 - ((datetime.date.today().month - 1) // 6)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
+                    if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
+                        transaction_count -= 1
 
                 if member.subscription.payment_frequency == Subscription.QUARTERLY:
-                    transaction_count = (4 - ((datetime.date.today().month - 1) // 3)) - Transaction.objects.filter(Q(account=global_preferences['Tasks__subscription_income_account']) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
-      
+                    transaction_count = (4 - ((datetime.date.today().month - 1) // 3)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
+                    if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
+                        transaction_count -= 1
+
                 if member.subscription.payment_frequency == Subscription.MONTHLY:
-                    transaction_count = (12 - (datetime.date.today().month - 1)) - Transaction.objects.filter(Q(account=global_preferences['Tasks__subscription_income_account']) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
+                    transaction_count = (12 - (datetime.date.today().month - 1)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
+                    if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
+                        transaction_count -= 1
             
+                
                 for i in range(0, transaction_count):
                     income_transaction = Transaction()
                     income_transaction.account = member.division.get_income_account()
