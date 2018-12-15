@@ -39,10 +39,6 @@ def apply_subscriptions(request):
 
     if request.method == "POST":
         global_preferences = global_preferences_registry.manager()
-        income_account = Account.objects.get(number=global_preferences['Tasks__subscription_income_account'])
-        debitor_account = Account.objects.get(number=global_preferences['Tasks__subscription_debitor_account'])
-        cost_center = CostCenter.objects.get(number=global_preferences['Tasks__subscription_cost_center'])
-        cost_object = CostObject.objects.get(number=global_preferences['Tasks__subscription_cost_object'])
         missed_members = []
         members = [member.pk for member in Member.objects.all() if not member.is_terminated()]
         for member in Member.objects.filter(pk__in=members):
@@ -63,16 +59,16 @@ def apply_subscriptions(request):
             
                 for i in range(0, transaction_count):
                     income_transaction = Transaction()
-                    income_transaction.account = income_account
+                    income_transaction.account = member.division.get_income_account()
                     income_transaction.date = datetime.datetime.now()
                     income_transaction.text = _("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name)
                     income_transaction.credit = member.subscription.amount
-                    income_transaction.cost_center = cost_center
-                    income_transaction.cost_object = cost_object
+                    income_transaction.cost_center = member.division.get_cost_center()
+                    income_transaction.cost_object = member.division.get_cost_object()
 
 
                     debitor_transaction = Transaction()
-                    debitor_transaction.account = debitor_account
+                    debitor_transaction.account = member.division.get_debitor_account()
                     debitor_transaction.date = datetime.datetime.now()
                     debitor_transaction.text = _("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name)
                     debitor_transaction.debit = member.subscription.amount

@@ -3,7 +3,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 # Import datetime
 from datetime import datetime
-
+from finance.models import Account, CostCenter, CostObject
+from dynamic_preferences.registries import global_preferences_registry
 
 # Member model.
 class Member(models.Model):
@@ -105,9 +106,53 @@ class Division(models.Model):
 
     # Name
     name = models.CharField(blank=False, null=False, max_length=255)
+    income_account = models.ForeignKey(Account, blank=True, null=True, on_delete=models.PROTECT, related_name='+')
+    debitor_account = models.ForeignKey(Account, blank=True, null=True, on_delete=models.PROTECT, related_name='+')
+    cost_center = models.ForeignKey(CostCenter, blank=True, null=True, on_delete=models.PROTECT, related_name='+')
+    cost_object = models.ForeignKey(CostObject, blank=True, null=True, on_delete=models.PROTECT, related_name='+')
 
     def __str__(self):
         return self.name
+
+    def get_income_account(self):
+        """
+        Returns the assigned income account, if set, otherwise the global default
+        """
+        if self.income_account:
+            return self.income_account
+        else:
+            global_preferences = global_preferences_registry.manager()
+            return CostCenter.objects.get(pk=global_preferences['Members__division_income_account'])
+            
+    def get_debitor_account(self):
+        """
+        Returns the assigned debitor account, if set, otherwise the global default
+        """
+        if self.debitor_account:
+            return self.debitor_account
+        else:
+            global_preferences = global_preferences_registry.manager()
+            return CostCenter.objects.get(pk=global_preferences['Members__division_debitor_account'])
+
+    def get_cost_center(self):
+        """
+        Returns the assigned cost center, if set, otherwise the global default
+        """
+        if self.cost_center:
+            return self.cost_center
+        else:
+            global_preferences = global_preferences_registry.manager()
+            return CostCenter.objects.get(pk=global_preferences['Members__division_cost_center'])
+
+    def get_cost_object(self):
+        """
+        Returns the assigned cost object, if set, otherwise the global default
+        """
+        if self.cost_object:
+            return self.cost_object
+        else:
+            global_preferences = global_preferences_registry.manager()
+            return CostCenter.objects.get(pk=global_preferences['Members__division_cost_object'])
 
 class Subscription(models.Model):
     """

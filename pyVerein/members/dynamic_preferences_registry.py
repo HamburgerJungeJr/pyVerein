@@ -1,4 +1,4 @@
-from dynamic_preferences.types import BooleanPreference, IntegerPreference
+from dynamic_preferences.types import BooleanPreference, IntegerPreference, StringPreference
 from dynamic_preferences.preferences import Section
 from dynamic_preferences.registries import global_preferences_registry
 
@@ -53,3 +53,35 @@ class KeepMembers(IntegerPreference):
     name = 'keep_terminated_members'
     default = 365
     verbose_name = "Keep terminated members for days after termination"
+
+# Register input for division income account
+@global_preferences_registry.register
+class DivisionIncomeAccount(StringPreference):
+    section = members
+    name = 'division_income_account'
+    default = ''
+    verbose_name = "Incomeaccount for subscriptions of members"
+
+# Register input for division debitor account
+@global_preferences_registry.register
+class DivisionDebitorAccount(StringPreference):
+    section = members
+    name = 'division_debitor_account'
+    default = ''
+    verbose_name = "Debitoraccount for subscriptions of members"
+
+# Register input for division cost center
+@global_preferences_registry.register
+class DivisionCostCenter(StringPreference):
+    section = members
+    name = 'division_cost_center'
+    default = ''
+    verbose_name = "Cost center for subscriptions of members"
+
+# Register input for division cost object
+@global_preferences_registry.register
+class DivisionCostObject(StringPreference):
+    section = members
+    name = 'division_cost_object'
+    default = ''
+    verbose_name = "Cost object for subscriptions of members"
