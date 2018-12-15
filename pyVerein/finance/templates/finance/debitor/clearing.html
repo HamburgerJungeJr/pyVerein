@@ -55,7 +55,7 @@
                             </div>
                         </td>
                         <td class="mdl-data-table__cell--non-numeric">
-                            <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}">
+                            <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}" target="_blank">
                                 {{ transaction.document_number }}
                             </a>
                         </td>
@@ -85,9 +85,6 @@
                 </tr>
             </tfoot>
         </table>  
-        <a href ="{% url 'finance:debitor_detail' pk=account.pk %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
-            <i class="mdc-fab__icon fa fa-arrow-left"></i>
-        </a>
         <a href="#" id="btn-clear" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Clear transactions' %}">
             <i class="mdc-fab__icon fa fa-check"></i>
         </a>   
@@ -99,6 +96,9 @@
 
 <!-- Decimal.js -->
 <script src="{% static 'app/vendors/decimal.js/decimal.min.js' %}"></script>
+
+<!-- Cookie.js -->
+<script src="{% static 'app/js/cookie.js' %}"></script>
 <script>
     $(document).ready(function () {
         clearing_amount = new Decimal(0)
@@ -154,19 +154,12 @@
         })
 
         // Itemsselect
-        $("#transactions_length").html('<div class="mdc-select">' + $('#transactions_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');        
+        $("#transactions_length").html('<div class="mdc-select"><i class="mdc-select__dropdown-icon"></i>' + $('#transactions_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');        
         $(".mdc-select select").addClass("mdc-select__native-control");
         $('#transactions_length select').on('change', function (e) {
             dt.page.len(this.value).draw();
         });
         
-
-        // Select
-        select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
-        // Lineripple
-        lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
-        // Textfield
-        textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
 
         $.ajaxSetup({ 
             beforeSend: function(xhr, settings) {
@@ -191,22 +184,5 @@
             }
         }
     });
-    
-    function getCookie(name){
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
 </script>
 {% endblock foot %}

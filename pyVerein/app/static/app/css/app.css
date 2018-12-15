@@ -28,21 +28,12 @@ section.main {
 .mdc-list-item__graphic.fa {
   font-size: 1.2rem; }
 
-.main-navigation .mdc-list-group__subheader {
-  margin-left: 72px; }
-
 .main-navigation .logo {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center; }
-
-.main-navigation .mdc-fab__logout {
-  position: absolute;
-  text-decoration: unset;
-  top: calc(100% - 20px);
-  left: 1rem; }
 
 .mdc-top-app-bar .mdc-top-app-bar__title {
   font-size: 1.5rem; }
@@ -53,14 +44,18 @@ section.main {
   height: 50px; }
 
 div.dataTables_wrapper div.dataTables_length .mdc-select {
-  width: 150px;
-  margin-top: 15px; }
+  width: 150px; }
 
-div.dataTables_wrapper div.dataTables_filter input {
-  margin-left: 0px; }
-
-div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
-  width: 220px; }
+div.dataTables_wrapper div.dataTables_filter {
+  display: flex;
+  justify-content: flex-end; }
+  div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0px; }
+  div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
+    width: 220px; }
+  div.dataTables_wrapper div.dataTables_filter div#accounting_year_filter {
+    width: 150px;
+    margin-right: 15px; }
 
 .mdl-data-table td,
 .mdl-data-table th {
@@ -101,7 +96,8 @@ div.dataTables_wrapper div.dataTables_filter .mdc-text-field {
     width: 50%; }
 
 .form .spacer {
-  width: 50%; }
+  width: 50%;
+  margin-left: 5px; }
 
 .form .mdc-input {
   width: 50%;
@@ -224,6 +220,10 @@ footer#page-footer {
 
 .c3-chart-arcs-title {
   font-size: 30px; }
+
+table .mdc-select {
+  margin-top: 0px;
+  margin-bottom: 0px; }
 
 @media (max-width: 600px) {
   .form .form-group {

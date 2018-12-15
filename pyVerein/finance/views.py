@@ -21,6 +21,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.messages import get_messages
 # Import Account model
 from .models import Account, CostCenter, CostObject, Transaction
+from utils.views import generate_document_number, generate_internal_number
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
@@ -86,8 +87,7 @@ class CreditorDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
             context['transactions'] = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None))
             debit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None)).aggregate(Sum('debit'))['debit__sum']
             credit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(clearing_number=None)).aggregate(Sum('credit'))['credit__sum']
-
-        
+       
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
         context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
@@ -363,14 +363,26 @@ class ImpersonalDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVi
     def get_context_data(self, **kwargs):
         context = super(ImpersonalDetailView, self).get_context_data(**kwargs)
 
-        context['transactions'] = Transaction.objects.filter(account=self.object.number)
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.filter(account=self.object.number)
+            debit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(account=self.object.number) & Q(accounting_year=year))
+            debit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(accounting_year=year)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(Q(account=self.object.number) & Q(accounting_year=year)).aggregate(Sum('credit'))['credit__sum']
 
-        debit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(account=self.object.number).aggregate(Sum('credit'))['credit__sum']
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
-        context['saldo'] = (debit_sum if debit_sum else 0) - (credit_sum if credit_sum else 0)
-
+        if self.object.account_type == Account.COST or self.object.account_type == Account.ASSET:
+            context['saldo'] = (debit_sum if debit_sum else 0) - (credit_sum if credit_sum else 0) 
+        elif self.object.account_type == Account.INCOME:
+            context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
+        context['accounting_years'] = Transaction.objects.values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
         return context
     
 class ImpersonalEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -477,13 +489,23 @@ class CostCenterDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVi
     def get_context_data(self, **kwargs):
         context = super(CostCenterDetailView, self).get_context_data(**kwargs)
 
-        context['transactions'] = Transaction.objects.filter(cost_center=self.object.number)
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.filter(cost_center=self.object.number)
+            debit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(cost_center=self.object.number) & Q(accounting_year=year))
+            debit_sum = Transaction.objects.filter(Q(cost_center=self.object.number) & Q(accounting_year=year)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(Q(cost_center=self.object.number) & Q(accounting_year=year)).aggregate(Sum('credit'))['credit__sum']
 
-        debit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(cost_center=self.object.number).aggregate(Sum('credit'))['credit__sum']
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
         context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
+        context['accounting_years'] = Transaction.objects.values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
 
         return context
 
@@ -585,13 +607,23 @@ class CostObjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVi
     def get_context_data(self, **kwargs):
         context = super(CostObjectDetailView, self).get_context_data(**kwargs)
 
-        context['transactions'] = Transaction.objects.filter(cost_object=self.object.number)
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.filter(cost_object=self.object.number)
+            debit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('credit'))['credit__sum']
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(cost_object=self.object.number) & Q(accounting_year=year))
+            debit_sum = Transaction.objects.filter(Q(cost_object=self.object.number) & Q(accounting_year=year)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter(Q(cost_object=self.object.number) & Q(accounting_year=year)).aggregate(Sum('credit'))['credit__sum']
 
-        debit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('debit'))['debit__sum']
-        credit_sum = Transaction.objects.filter(cost_object=self.object.number).aggregate(Sum('credit'))['credit__sum']
         context['debit_sum'] = debit_sum if debit_sum else 0
         context['credit_sum'] = credit_sum if credit_sum else 0
         context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0)
+        context['accounting_years'] = Transaction.objects.values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
 
         return context
 
@@ -736,13 +768,11 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
         self.object = form.save(commit = False)
 
         session_id = self.kwargs.get('session_id', '')
+        global_preferences = global_preferences_registry.manager()
 
         # Generate document_number
         if self.object.document_number is None:
-            global_preferences = global_preferences_registry.manager()
-            max_document_number = Transaction.objects.filter(Q(document_number_generated=True) & ~Q(document_number__startswith=global_preferences['Finance__reset_prefix'])).aggregate(Max('document_number'))['document_number__max']
-            next_document_number =  '1' if max_document_number is None else str(int(max_document_number) + 1)[2:]
-            self.object.document_number = str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
+            self.object.document_number = generate_document_number()
             self.object.document_number_generated = True
         # Save object to commit the changes
         #self.object.save()
@@ -797,9 +827,7 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
             if debit_sum != credit_sum:
                 self.request.session[session_id + 'transactions'] = transactions
             else:
-                # Get last internal_number
-                max_internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max']
-                internal_number = 1 if max_internal_number is None else max_internal_number + 1
+                internal_number = generate_internal_number()
                 # Save transactions from session to db
                 for transaction in transactions.values():
                     obj = Transaction()
@@ -813,6 +841,7 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
                     obj.cost_object = CostObject.objects.get(number=transaction['cost_object']) if transaction['cost_object'] is not None else None
                     obj.document_number_generated = transaction['document_number_generated']
                     obj.internal_number = internal_number
+                    obj.accounting_year = global_preferences['Finance__accounting_year']
                     obj.save()
                 messages.success(self.request, _('Transaction {0:s} saved successfully').format(transactions['0']['document_number']))
                 # Clear session

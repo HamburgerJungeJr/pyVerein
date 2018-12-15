@@ -34,7 +34,7 @@
             {% for transaction in transactions %}
                 <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}">
+                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}" target="_blank">
                             {{ transaction.document_number }}
                         </a>
                     </td>
@@ -49,14 +49,14 @@
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {% if transaction.cost_center%}
-                            <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.pk %}" title="{% trans 'Show cost center' %}">
+                            <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.pk %}" title="{% trans 'Show cost center' %}" target="_blank">
                                 {{ transaction.cost_center.number }} {{ transaction.cost_center.name }}
                             </a>
                         {% endif %}
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {% if transaction.cost_object%}
-                            <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.pk %}" title="{% trans 'Show cost object' %}">
+                            <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.pk %}" title="{% trans 'Show cost object' %}" target="_blank">
                                 {{ transaction.cost_object.number }} {{ transaction.cost_object.name }}
                             </a>
                         {% endif %}
@@ -70,15 +70,12 @@
                 <th></th>
                 <th>{{ debit_sum|floatformat:2 }}</th>
                 <th>{{ credit_sum|floatformat:2 }}</th>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'Saldo' %} {{ saldo }}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Saldo' %} {{ saldo|floatformat:2 }}</th>
                 <th></th>
             </tr>
         </tfoot>
     </table>
-    <a href ="{% url 'finance:costcenter_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
-        <i class="mdc-fab__icon fa fa-arrow-left"></i>
-    </a>
-    <a href ="{% url 'finance:costcenter_edit' pk=costcenter.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+    <a href="{% url 'finance:costcenter_edit' pk=costcenter.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>    
 {% endblock %}
@@ -115,26 +112,23 @@
                 }
             },
         });
-        // Search
-        $("#transactions_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
+        // Search & Year
+        accounting_year_select = '<div class="mdc-select" id="accounting_year_filter"><i class="mdc-select__dropdown-icon"></i><select id="year_filter" name="year_filter" aria-controls="transactions" class="form-control input-sm mdc-select__native-control"><option value="0" {% if year.accounting_year == accounting_year %}selected="selected"{% endif %}>{% trans 'All' %}</option>{% for year in accounting_years %}<option value="{{ year.accounting_year }}" {% if year.accounting_year == accounting_year %}selected="selected"{% endif %}>{{ year.accounting_year }}</option>{% endfor %}</select><label class="mdc-floating-label mdc-floating-label--float-above">{% trans 'Accounting_year' %}</label><div class="mdc-line-ripple"></div></div>';
+        $("#transactions_filter").html(accounting_year_select + '<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
         $("#datatable-search").on('keyup', function(e) {
             dt.search(this.value).draw();
         })
+        $("#year_filter").change(function(e){
+            window.location = "{% url 'finance:costcenter_detail' pk=costcenter.pk %}?year=" + this.value
+        });
 
         // Itemsselect
-        $("#transactions_length").html('<div class="mdc-select">' + $('#transactions_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+        $("#transactions_length").html('<div class="mdc-select"><i class="mdc-select__dropdown-icon"></i>' + $('#transactions_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
         $(".mdc-select select").addClass("mdc-select__native-control");
         $('#transactions_length select').on('change', function (e) {
             dt.page.len(this.value).draw();
         });
         
-
-        // Select
-        select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
-        // Lineripple
-        lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
-        // Textfield
-        textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
     });
 </script>
 {% endblock foot %}

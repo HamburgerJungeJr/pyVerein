@@ -19,14 +19,5 @@
                 form.submit();
             }
         });
-    };  
-
-    $.fn.exitOnEsc = function(returnUrl) {
-        this.keydown(function (event) {
-            if (event.which == 27) {
-                event.preventDefault();
-                window.location = returnUrl
-            }
-        });
-    };  
+    };
 }(jQuery));

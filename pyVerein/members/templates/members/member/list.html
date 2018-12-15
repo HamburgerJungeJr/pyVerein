@@ -30,13 +30,12 @@
             </tr>
         </thead>
     </table>
-    <a href ="{% url 'members:create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}">
+    <a href ="{% url 'members:create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
     </a>
 {% endblock %}
 
-{% block foot %}
-    <!-- Datatables -->
+{% block foot %}<!-- Datatables -->
     <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
     <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
     <script>
@@ -96,7 +95,7 @@
                 "createdRow":
                     function (row, data, index) {
                         $(row).click(function () {
-                            window.location = data.detail_url;
+                            window.open(data.detail_url);
                         });
                     }
             });
@@ -107,19 +106,11 @@
             })
 
             // Itemsselect
-            $("#memberslist_length").html('<div class="mdc-select">' + $('#memberslist_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+            $("#memberslist_length").html('<div class="mdc-select"><i class="mdc-select__dropdown-icon"></i>' + $('#memberslist_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
             $(".mdc-select select").addClass("mdc-select__native-control");
             $('#memberslist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
-            
-
-            // Select
-            select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
-            // Lineripple
-            lineRipple = new mdc.lineRipple.MDCLineRipple(document.querySelector('.mdc-line-ripple'));
-            // Textfield
-            textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
         })
         ;
     </script>

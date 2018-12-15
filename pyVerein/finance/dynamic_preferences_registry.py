@@ -21,3 +21,11 @@ class Currency(StringPreference):
     name = 'currency'
     default = '€'
     verbose_name = "Currency sign"
+
+# Register input for currency
+@global_preferences_registry.register
+class AccountingYear(StringPreference):
+    section = finance
+    name = 'accounting_year'
+    default = ''
+    verbose_name = "Acounting year"

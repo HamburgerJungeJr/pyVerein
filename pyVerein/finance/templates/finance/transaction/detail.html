@@ -67,7 +67,21 @@
                         {% for transaction in transactions %}
                             <tr>
                                 <td class="mdl-data-table__cell--non-numeric">
-                                    {{ transaction.account.number }}
+                                    {% if transaction.account.account_type == 'DEB' %}
+                                        <a href="{% url 'finance:debitor_detail' pk=transaction.account.number %}" title="{% trans 'Show Account' %}" target="_blank">
+                                            {{ transaction.account.number }}
+                                        </a>
+                                    {% endif %}
+                                    {% if transaction.account.account_type == 'CRE' %}
+                                        <a href="{% url 'finance:creditor_detail' pk=transaction.account.number %}" title="{% trans 'Show Account' %}" target="_blank">
+                                            {{ transaction.account.number }}
+                                        </a>
+                                    {% endif %}
+                                    {% if transaction.account.account_type == 'COS' or transaction.account.account_type == 'INC' or transaction.account.account_type == 'ASS' %}
+                                        <a href="{% url 'finance:impersonal_detail' pk=transaction.account.number %}" title="{% trans 'Show Account' %}" target="_blank">
+                                            {{ transaction.account.number }}
+                                        </a>
+                                    {% endif %}
                                 </td>
                                 <td class="mdl-data-table__cell--non-numeric">
                                     {{ transaction.text }}
@@ -79,10 +93,18 @@
                                     {{ transaction.credit|default_if_none:"" }}
                                 </td>
                                 <td>
-                                    {{ transaction.cost_center.number|default_if_none:"" }}
+                                    {% if transaction.cost_center.number %}
+                                        <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.number %}" title="{% trans 'Show cost center' %}" target="_blank">
+                                            {{ transaction.cost_center.number }}
+                                        </a>
+                                    {% endif %}
                                 </td>
                                 <td>
-                                    {{ transaction.cost_object.number|default_if_none:"" }}
+                                        {% if transaction.cost_object.number %}
+                                        <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.number %}" title="{% trans 'Show cost object' %}" target="_blank">
+                                            {{ transaction.cost_object.number }}
+                                        </a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
@@ -132,10 +154,7 @@
             {% endif %}
         </div>
     </div>
-    
-    <a href ="{% url 'finance:transaction_list' %}" class="mdc-fab mdc-fab--absolute-bottom-left" aria-label="" title="{% trans 'Back' %}">
-            <i class="mdc-fab__icon fa fa-arrow-left"></i>
-    </a>
+
     <a href ="{% url 'finance:transaction_edit' internal_number=internal_number pk=transactions.0.pk%}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
@@ -146,8 +165,7 @@
     {% endif %}
 {% endblock %}
 
-{% block foot %}
-    {% if cleared_transactions %}
+{% block foot %}{% if cleared_transactions %}
         <script>
             $(document).ready(function () {
                 const reset_dialog = new mdc.dialog.MDCDialog(document.querySelector('#reset-dialog'));

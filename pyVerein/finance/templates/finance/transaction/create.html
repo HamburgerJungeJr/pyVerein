@@ -157,9 +157,6 @@
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
-        {% if not transactions %}
-            $('#form').exitOnEsc("{% url 'finance:transaction_list' %}");
-        {% endif %}
     </script>
     
     <!-- Inputmask -->

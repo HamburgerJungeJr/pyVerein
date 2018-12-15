@@ -45,11 +45,8 @@
 {% endblock %}
 
 {% block foot %}
-    <!-- Keys -->
-    <script src="{% static 'app/js/keys.js' %}"></script>
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
-        $('#form').exitOnEsc("{% url 'finance:costobject_list' %}");
     </script>
 {% endblock %}

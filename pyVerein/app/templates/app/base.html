@@ -53,7 +53,8 @@
 
 <body class="mdc-typography">
     {% include "app/_drawer.html" %}
-    <div class="main">
+    <div class="mdc-drawer-scrim"></div>
+    <div class="mdc-drawer-app-content main">
         <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
             <div class="mdc-top-app-bar__row">
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
@@ -159,9 +160,8 @@
         {% endif %}
     </script>
     <script src="{% static 'app/js/material-components-web.js' %}"></script> 
-    <script src="{% static 'app/js/material.js' %}"></script> 
     {% block foot %} {% endblock %}
-
+    <script src="{% static 'app/js/material.js' %}"></script> 
 </body>
 
 </html>

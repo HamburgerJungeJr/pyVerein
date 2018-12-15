@@ -30,8 +30,7 @@
     </div>
 {% endblock %}
 
-{% block foot %}
-    <!-- Inputmask -->
+{% block foot %}<!-- Inputmask -->
     <script src="{% static 'app/vendors/jquery.inputmask/dist/jquery.inputmask.bundle.js' %}"></script>
     <script>
         $("#id_birthday").inputmask({
@@ -51,11 +50,11 @@
             showMaskOnHover: false,
         });
     </script>
+    
     <!-- Keys -->
     <script src="{% static 'app/js/keys.js' %}"></script>
     <script>
         $('#form').saveOnTimes();
         $('#form').nextOnEnter();
-        $('#form').exitOnEsc("{% url 'members:list' %}");
     </script>
 {% endblock %}
