@@ -18,7 +18,13 @@ class MemberForm(forms.ModelForm):
 class DivisionForm(forms.ModelForm):
     class Meta:
         model = Division
-        fields = ('name', )
+        fields = ('name', 'income_account', 'debitor_account', 'cost_center', 'cost_object')
+        widgets = {
+            'income_account': forms.TextInput(),
+            'debitor_account': forms.TextInput(),
+            'cost_center': forms.TextInput(),
+            'cost_object': forms.TextInput(),
+        }
 
 class SubscriptionForm(forms.ModelForm):
     class Meta:

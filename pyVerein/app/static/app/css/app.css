@@ -78,7 +78,8 @@ div.dataTables_wrapper div.dataTables_filter {
   padding-right: 24%; }
 
 .form .form-group {
-  display: flex; }
+  display: flex;
+  margin-bottom: 5px; }
   .form .form-group .mdc-input:first-of-type {
     margin-right: 5px; }
   .form .form-group .mdc-input:last-of-type {
@@ -92,8 +93,10 @@ div.dataTables_wrapper div.dataTables_filter {
   .form .form-group .mdc-text-field-helper-text {
     display: inline-flex;
     align-items: flex-end;
-    margin-bottom: 15px;
-    width: 50%; }
+    margin-bottom: 10px;
+    width: 50%;
+    margin-left: 5px;
+    margin-right: 0px; }
 
 .form .spacer {
   width: 50%;
@@ -109,6 +112,8 @@ div.dataTables_wrapper div.dataTables_filter {
 
 .form .form-submit {
   margin-top: 30px; }
+  .form .form-submit input {
+    margin-right: 10px; }
 
 .detail-content {
   padding: 20px;

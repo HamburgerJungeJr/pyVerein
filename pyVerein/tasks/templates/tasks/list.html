@@ -144,7 +144,7 @@
             
             $("#apply-subscriptions .run").click(function() {
                 $("#apply-subscriptions .state").html('<i class="fas fa-spin fa-sync-alt"></i>');
-                $.post("{% url 'tasks:apply_annualclosure' %}", function(data) {
+                $.post("{% url 'tasks:apply_subscriptions' %}", function(data) {
                     switch (data["state"].toLowerCase()){
                         case "success":
                             $("#apply-subscriptions .state").html('<i class="fas fa-check-circle"></i>');

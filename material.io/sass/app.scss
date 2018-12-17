@@ -109,6 +109,7 @@ div.dataTables_wrapper{
 .form{ 
     .form-group{
         display: flex;
+        margin-bottom: 5px;
         
         .mdc-input:first-of-type{
             margin-right:5px;
@@ -127,8 +128,10 @@ div.dataTables_wrapper{
         .mdc-text-field-helper-text{
             display: inline-flex;
             align-items: flex-end;
-            margin-bottom: 15px;
-            width: 50%
+            margin-bottom: 10px;
+            width: 50%;
+            margin-left: 5px;
+            margin-right: 0px;
         }
     }
     .spacer{
@@ -149,6 +152,10 @@ div.dataTables_wrapper{
 
     .form-submit{
         margin-top: 30px;
+
+        input{
+            margin-right:10px;
+        }
     }
 }
 .detail-content{
