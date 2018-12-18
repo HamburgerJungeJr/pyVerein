@@ -11,7 +11,8 @@ from dynamic_preferences.registries import global_preferences_registry
 def index(request):
     global_preferences = global_preferences_registry.manager()
 
-    divisions = Member.objects.values('division__name').annotate(members=Count('id'))
+    members = [member.pk for member in Member.objects.all() if not member.is_terminated()]
+    divisions = Member.objects.filter(pk__in=members).values('division__name').annotate(members=Count('id'))
 
     bank_account_pref = global_preferences['Dashboard__bank_accounts'].split(',')
     bank_accounts = Transaction.objects.filter(account__in=bank_account_pref).order_by('account__number').values('account__name').annotate(debit=Sum('debit'), credit=Sum('credit'))
