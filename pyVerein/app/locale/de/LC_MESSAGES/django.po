@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 01:45+0100\n"
+"POT-Creation-Date: 2018-12-19 17:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,15 +23,45 @@ msgstr ""
 msgid "Attributions"
 msgstr "Lizenzen"
 
-#: templates/app/_attributions.html:15
-msgid "CC BY-NC-ND 4.0"
-msgstr "CC BY-NC-ND 4.0"
+#: templates/app/_attributions.html:12 templates/app/_attributions.html:19
+#: templates/app/_attributions.html:26 templates/app/_attributions.html:33
+#: templates/app/_attributions.html:40 templates/app/_attributions.html:47
+#: templates/app/_attributions.html:54 templates/app/_attributions.html:61
+#: templates/app/_attributions.html:68 templates/app/_attributions.html:75
+#: templates/app/_attributions.html:82 templates/app/_attributions.html:89
+#: templates/app/_attributions.html:90
+msgid "by"
+msgstr "von"
 
-#: templates/app/_attributions.html:15
-msgid "Open at behance.net"
-msgstr "Auf behance.net öffnen"
+#: templates/app/_attributions.html:13 templates/app/_attributions.html:20
+#: templates/app/_attributions.html:27 templates/app/_attributions.html:34
+#: templates/app/_attributions.html:41 templates/app/_attributions.html:48
+#: templates/app/_attributions.html:55 templates/app/_attributions.html:62
+#: templates/app/_attributions.html:69 templates/app/_attributions.html:76
+#: templates/app/_attributions.html:83 templates/app/_attributions.html:90
+msgid "Published under"
+msgstr "Veröffentlicht unter"
 
-#: templates/app/_attributions.html:19
+#: templates/app/_attributions.html:13 templates/app/_attributions.html:20
+#: templates/app/_attributions.html:27 templates/app/_attributions.html:34
+#: templates/app/_attributions.html:41 templates/app/_attributions.html:48
+#: templates/app/_attributions.html:55 templates/app/_attributions.html:62
+#: templates/app/_attributions.html:69 templates/app/_attributions.html:76
+#: templates/app/_attributions.html:83 templates/app/_attributions.html:90
+msgid "at"
+msgstr "auf"
+
+#: templates/app/_attributions.html:13 templates/app/_attributions.html:20
+#: templates/app/_attributions.html:27 templates/app/_attributions.html:34
+#: templates/app/_attributions.html:41 templates/app/_attributions.html:48
+#: templates/app/_attributions.html:55 templates/app/_attributions.html:62
+#: templates/app/_attributions.html:69 templates/app/_attributions.html:76
+#: templates/app/_attributions.html:83
+msgid "Open at"
+msgstr "Öffnen auf"
+
+
+#: templates/app/_attributions.html:94
 msgid "Close"
 msgstr "Schließen"
 
@@ -40,61 +70,61 @@ msgstr "Schließen"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: templates/app/_drawer.html:14 templates/app/_drawer.html:15
-#: templates/app/_drawer.html:17 templates/app/dashboard.html:22
+#: templates/app/_drawer.html:15 templates/app/_drawer.html:18
+#: templates/app/_drawer.html:20 templates/app/dashboard.html:22
 msgid "Members"
 msgstr "Mitglieder"
 
-#: templates/app/_drawer.html:19 templates/app/_drawer.html:21
+#: templates/app/_drawer.html:24 templates/app/_drawer.html:26
 msgid "Divisions"
 msgstr "Sparten"
 
-#: templates/app/_drawer.html:23 templates/app/_drawer.html:25
+#: templates/app/_drawer.html:30 templates/app/_drawer.html:32
 msgid "Subscriptions"
 msgstr "Beiträge"
 
-#: templates/app/_drawer.html:28
+#: templates/app/_drawer.html:39
 msgid "Finance"
 msgstr "Finanzen"
 
-#: templates/app/_drawer.html:29 templates/app/_drawer.html:31
+#: templates/app/_drawer.html:42 templates/app/_drawer.html:44
 msgid "Transactions"
 msgstr "Belege"
 
-#: templates/app/_drawer.html:33 templates/app/_drawer.html:35
+#: templates/app/_drawer.html:48 templates/app/_drawer.html:50
 msgid "Debitors"
 msgstr "Debitoren"
 
-#: templates/app/_drawer.html:37 templates/app/_drawer.html:39
+#: templates/app/_drawer.html:54 templates/app/_drawer.html:56
 msgid "Creditors"
 msgstr "Kreditoren"
 
-#: templates/app/_drawer.html:41 templates/app/_drawer.html:43
+#: templates/app/_drawer.html:60 templates/app/_drawer.html:62
 msgid "Impersonal"
 msgstr "Sachkonten"
 
-#: templates/app/_drawer.html:45 templates/app/_drawer.html:47
+#: templates/app/_drawer.html:66 templates/app/_drawer.html:68
 msgid "Cost centers"
 msgstr "Kostenstellen"
 
-#: templates/app/_drawer.html:49 templates/app/_drawer.html:51
+#: templates/app/_drawer.html:72 templates/app/_drawer.html:74
 msgid "Cost objects"
 msgstr "Kostenträger"
 
-#: templates/app/_drawer.html:54 templates/app/_drawer.html:55
-#: templates/app/_drawer.html:57
+#: templates/app/_drawer.html:81 templates/app/_drawer.html:84
+#: templates/app/_drawer.html:86
 msgid "Tasks"
 msgstr "Aufgaben"
 
-#: templates/app/_drawer.html:60
+#: templates/app/_drawer.html:92
 msgid "User"
 msgstr "Benutzer"
 
-#: templates/app/_drawer.html:61 templates/app/_drawer.html:63
+#: templates/app/_drawer.html:93 templates/app/_drawer.html:95
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/app/_drawer.html:65 templates/app/_drawer.html:67
+#: templates/app/_drawer.html:97 templates/app/_drawer.html:99
 msgid "Sign out"
 msgstr "Abmelden"
 
