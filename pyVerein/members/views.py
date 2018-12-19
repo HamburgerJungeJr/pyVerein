@@ -33,14 +33,6 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     context_object_name = 'member'
     template_name = 'members/member/detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(MemberDetailView, self).get_context_data(**kwargs)
-
-        context['membership_paid'] = (Transaction.objects.filter(Q(text__icontains=self.object.membership_number) & Q(accounting_year=global_preferences_registry.manager()['Finance__accounting_year']) & Q(account__account_type='DEB')).exclude(Q(clearing_number=None)).count() > 0)
-
-        return context
-
-
 # Edit-View.
 class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = ('members.view_member', 'members.change_member')

@@ -118,16 +118,6 @@
                     <div class="field-value">{{ member.debit_reference|default_if_none:"" }}</div>
                 </div>
             {% endif %}
-            <div class="row">
-                <div class="field-title">{% trans 'Membership paid' %}</div>
-                <div class="field-value">
-                    {% if membership_paid %}
-                        <i class="fas fa-check"></i>
-                    {% else %}
-                        <i class="fas fa-times"></i>
-                    {% endif %}
-                </div>
-            </div>
             {% endif %}
 
             {% if global_preferences.Members__show_additional_field_1 or global_preferences.Members__show_additional_field_2 or global_preferences.Members__show_additional_field_3 or global_preferences.Members__show_additional_field_4 or global_preferences.Members__show_additional_field_5 %}
