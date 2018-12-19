@@ -17,22 +17,21 @@
 {% endblock %}
 
 {% block content %}
-    <aside class="mdc-dialog" id="info-dialog">
-        <div class="mdc-dialog__surface">
-            <header class="mdc-dialog__header">
-                <h2 class="mdc-dialog__header__title">
-                    {% trans 'Info' %}
-                </h2>
-            </header>
-            <section class="mdc-dialog__body mdc-dialog__body--scrollable">
-                <p>
-                </p>
-            </section>
-            <footer class="mdc-dialog__footer">
-                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined" title="{% trans 'Close' %}">{% trans 'Close' %}</button>
-            </footer>
+    <div class="mdc-dialog" id="info-dialog">
+        <div class="mdc-dialog__scrim"></div>
+        <div class="mdc-dialog__container">
+            <div class="mdc-dialog__surface">
+                <h2 class="mdc-dialog__title">{% trans 'Info' %}</h2>
+                <section class="mdc-dialog__content">
+                    <p>
+                    </p>
+                </section>
+                <footer class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-dialog__button" title="{% trans 'Close' %}" data-mdc-dialog-action="close">{% trans 'Close' %}</button>
+                </footer>
+            </div>
         </div>
-    </aside>
+    </div>
     <table id="tasklist" class="mdl-data-table dataTable"
             cellspacing="0"
             width="100%">
@@ -190,13 +189,13 @@
         function missed_info(){
             $("#info-dialog .mdc-dialog__body p").html("<h5>{% trans 'Members for which subscription could not be applied:' %}</h5>" + $("#apply-subscriptions .state a").data("missed"));
             info_dialog.lastFocusedTarget = this;
-            info_dialog.show();
+            info_dialog.open();
         }
 
         function annualclosure_info(){
             $("#info-dialog .mdc-dialog__body p").html("<h5>{% trans 'The following error occured:' %}</h5>" + $("#apply-annualclosure .state a").data("message"));
             info_dialog.lastFocusedTarget = this;
-            info_dialog.show();
+            info_dialog.open();
         }
     </script>
 {% endblock %}

@@ -19,30 +19,31 @@
 {% endblock %}
 
 {% block content %}
-    <aside class="mdc-dialog" id="selection-dialog">
-        <div class="mdc-dialog__surface">
-            <header class="mdc-dialog__header">
-                <h2 class="mdc-dialog__header__title">
+    <div class="mdc-dialog" id="selection-dialog">
+        <div class="mdc-dialog__scrim"></div>
+        <div class="mdc-dialog__container">
+            <div class="mdc-dialog__surface">
+                <h2 class="mdc-dialog__title">
                 </h2>
-            </header>
-            <section id="mdc-dialog-with-list-description" class="mdc-dialog__body mdc-dialog__body--scrollable">
-                <table id="selection-list" class="mdl-data-table dataTable"
-                    cellspacing="0"
-                    width="100%">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                </table>
-            </section>
-            <footer class="mdc-dialog__footer">
-                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined" title="{% trans 'Close' %}">{% trans 'Close' %}</button>
-            </footer>
+                <section class="mdc-dialog__content">
+                    <table id="selection-list" class="mdl-data-table dataTable"
+                        cellspacing="0"
+                        width="100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+                <footer class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-dialog__button mdc-button--outlined" title="{% trans 'Close' %}" data-mdc-dialog-action="close">{% trans 'Close' %}</button>
+                </footer>
+            </div>
         </div>
-    </aside>
+    </div>
     <div class="main form">
         <div class="detail-content  mdc-elevation--z4">
             <form action="{{ save_url }}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
@@ -232,7 +233,7 @@
                             $('#selection-dialog .mdc-dialog__header__title').html(modal_header)
                             
                             selection_dialog.lastFocusedTarget = this;
-                            selection_dialog.show();
+                            selection_dialog.open();
                             break;
                     }
                 });

@@ -31,11 +31,11 @@ if (fabRipple_sel != null){
 var attribution_dialog_sel = document.querySelector('#attribution-dialog');
 if (attribution_dialog_sel != null){
     var attribution_dialog = new mdc.dialog.MDCDialog(attribution_dialog_sel);    
+    $('#show-attributions').click(function() {
+        attribution_dialog.open();
+    });
 }
-function showAttributions() {
-    attribution_dialog.lastFocusedTarget = this;
-    attribution_dialog.show();
-}
+
 
 // Lineripple
 var ripple_sel = document.querySelectorAll('.mdc-line-ripple');

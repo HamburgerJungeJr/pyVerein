@@ -7,6 +7,7 @@ from django.views.generic import TemplateView, DetailView, UpdateView, CreateVie
 # Import Member.
 from .forms import MemberForm, DivisionForm, SubscriptionForm
 from .models import Member, Division, Subscription
+from finance.models import Transaction
 # Import datatablesview.
 from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
@@ -17,6 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from dynamic_preferences.registries import global_preferences_registry
 
 # Index-View.
 class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
@@ -30,7 +32,6 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Member
     context_object_name = 'member'
     template_name = 'members/member/detail.html'
-
 
 # Edit-View.
 class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):

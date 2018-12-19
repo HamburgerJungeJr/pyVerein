@@ -88,7 +88,7 @@
                 <div class="field-title">{% trans 'Terminated at' %}</div>
                 <div class="field-value">{{ member.terminated_at|default_if_none:"" }}</div>
             </div>
-        
+            {% if perms.members.view_payment %}
             <div class="heading mdc-typography--overline">
                 {% trans 'Payment' %}
             </div>
@@ -118,11 +118,8 @@
                     <div class="field-value">{{ member.debit_reference|default_if_none:"" }}</div>
                 </div>
             {% endif %}
-            <div class="row">
-                <div class="field-title">{% trans 'Membership paid' %}</div>
-                <div class="field-value"></div>
-            </div>
-        
+            {% endif %}
+
             {% if global_preferences.Members__show_additional_field_1 or global_preferences.Members__show_additional_field_2 or global_preferences.Members__show_additional_field_3 or global_preferences.Members__show_additional_field_4 or global_preferences.Members__show_additional_field_5 %}
                 <div class="heading mdc-typography--overline">
                     {% trans 'Additional Information' %}
