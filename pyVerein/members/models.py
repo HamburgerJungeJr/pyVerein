@@ -8,6 +8,11 @@ from dynamic_preferences.registries import global_preferences_registry
 
 # Member model.
 class Member(models.Model):
+    class Meta:
+        permissions = ( 
+            ('view_payment', 'Can view payment details'), 
+        )
+
     # Choices for salutation
     MR = 'MR'
     MRS = 'MRS'
