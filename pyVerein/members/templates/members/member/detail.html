@@ -120,7 +120,13 @@
             {% endif %}
             <div class="row">
                 <div class="field-title">{% trans 'Membership paid' %}</div>
-                <div class="field-value"></div>
+                <div class="field-value">
+                    {% if membership_paid %}
+                        <i class="fas fa-check"></i>
+                    {% else %}
+                        <i class="fas fa-times"></i>
+                    {% endif %}
+                </div>
             </div>
             {% endif %}
 
