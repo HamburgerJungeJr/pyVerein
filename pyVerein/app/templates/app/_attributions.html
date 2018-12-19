@@ -1,22 +1,21 @@
 {% load i18n %}
-<aside class="mdc-dialog" id="attribution-dialog">
-    <div class="mdc-dialog__surface">
-        <header class="mdc-dialog__header">
-            <h2 class="mdc-dialog__header__title">
-                {% trans 'Attributions' %}
-            </h2>
-        </header>
-        <section class="mdc-dialog__body mdc-dialog__body--scrollable">
-            <p>
-                <h3>
-                    Standard Avatar-Image
-                </h3>
-                <span class="mdc-typography--overline">Free avatars flat icons</span> by Dmitriy Bondarchuk<br />
-                Published under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="{% trans 'CC BY-NC-ND 4.0' %}" >CC BY-NC-ND 4.0</a> at <a href="https://www.behance.net/gallery/47035405/Free-avatars-flat-icons" title="{% trans 'Open at behance.net' %}">behance.net</a>
-            </p>
-        </section>
-        <footer class="mdc-dialog__footer">
-            <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--outlined" title="{% trans 'Close' %}">{% trans 'Close' %}</button>
-        </footer>
+<div class="mdc-dialog" id="attribution-dialog">
+    <div class="mdc-dialog__scrim"></div>
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface">
+            <h2 class="mdc-dialog__title">{% trans 'Attributions' %}</h2>
+            <section class="mdc-dialog__content">
+                <p>
+                    <h3>
+                        Standard Avatar-Image
+                    </h3>
+                    <span class="mdc-typography--overline">Free avatars flat icons</span> by Dmitriy Bondarchuk<br />
+                    Published under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="{% trans 'CC BY-NC-ND 4.0' %}" >CC BY-NC-ND 4.0</a> at <a href="https://www.behance.net/gallery/47035405/Free-avatars-flat-icons" title="{% trans 'Open at behance.net' %}">behance.net</a>
+                </p>
+            </section>
+            <footer class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button mdc-button--outlined" title="{% trans 'Close' %}" data-mdc-dialog-action="close">{% trans 'Close' %}</button>
+            </footer>
+        </div>
     </div>
-</aside>
+</div>

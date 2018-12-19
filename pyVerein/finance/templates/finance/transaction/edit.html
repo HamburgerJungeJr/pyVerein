@@ -19,23 +19,22 @@
 {% endblock %}
 
 {% block content %}
-    <aside class="mdc-dialog" id="reset-dialog">
-        <div class="mdc-dialog__surface">
-            <header class="mdc-dialog__header">
-                <h2 class="mdc-dialog__header__title">
-                    {% trans 'Reset Receipt' %}
-                </h2>
-            </header>
-            <section id="mdc-dialog-with-list-description" class="mdc-dialog__body">
-                {% trans 'Do you really want to reset this receipt?' %}
-            </section>
-            <footer class="mdc-dialog__footer">
-                <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel mdc-button--raised" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</button>
-                <button type="button" class="mdc-button mdc-button" id="reset_button" title="{% trans 'Reset' %}">{% trans 'Reset' %}</button>
-                <button type="button" class="mdc-button mdc-button" id="reset_new_button" title="{% trans 'Reset & New' %}">{% trans 'Reset & New' %}</button>
-            </footer>
+    <div class="mdc-dialog" id="reset-dialog">
+        <div class="mdc-dialog__scrim"></div>
+        <div class="mdc-dialog__container">
+            <div class="mdc-dialog__surface">
+                <h2 class="mdc-dialog__title">{% trans 'Reset Receipt' %}</h2>
+                <section class="mdc-dialog__content">
+                        {% trans 'Do you really want to reset this receipt?' %}
+                </section>
+                <footer class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-dialog__button" title="{% trans 'Cancel' %}" data-mdc-dialog-action="close">{% trans 'Cancel' %}</button>
+                    <button type="button" class="mdc-button" id="reset_button" title="{% trans 'Reset' %}">{% trans 'Reset' %}</button>
+                    <button type="button" class="mdc-button" id="reset_new_button" title="{% trans 'Reset & New' %}">{% trans 'Reset & New' %}</button>
+                </footer>
+            </div>
         </div>
-    </aside>
+    </div>
     <div class="main form">
         <div class="detail-content  mdc-elevation--z4">
             <form action="{{ save_url }}" method="POST" class="form-horizontal" data-toggle="validator" id="form">
@@ -156,7 +155,7 @@
         const reset_dialog = new mdc.dialog.MDCDialog(document.querySelector('#reset-dialog'));
         $('#reset_dialog_button').click(function() {
             reset_dialog.lastFocusedTarget = this;
-            reset_dialog.show();
+            reset_dialog.open();
         });
         
         $('#reset_button').click(function() {
