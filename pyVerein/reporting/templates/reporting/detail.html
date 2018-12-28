@@ -1,0 +1,93 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load filename %}
+
+{% block page_title %}
+    {% trans 'Report-Detail' %}
+{% endblock %}
+
+{% block title %}
+    {{ report.name }}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'app/vendors/dropzone.js/dropzone.min.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content mdc-elevation--z4">
+            <div class="heading mdc-typography--overline">
+                {% trans 'Report' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Description' %}</div>
+                <div class="field-value">{{ report.description }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Reportdefinition' %}</div>
+                <div class="field-value"><a href="{% url 'reporting:download_report' pk=report.pk %}" class="mdc-button mdc-button--raised" title="{% trans 'Download reportdefinition' %}" target="blank">{% trans 'Download' %}</a></div>
+            </div>
+            <div class="heading mdc-typography--overline">
+                {% trans 'Resources' %}
+            </div>
+            <div class="row">
+                <table id="resources" class="mdl-data-table mdl-js-data-table mdl-data-table--non-linkable" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric">{% trans 'Filename' %}</th>
+                            <th class="mdl-data-table__cell--non-numeric">{% trans 'Action' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for resource in resources %}
+                            <tr>
+                                <td class="mdl-data-table__cell--non-numeric">
+                                    {{ resource.resource|filename }}
+                                </td>
+                                <td class="mdl-data-table__cell--non-numeric">
+                                    <form action="{% url 'reporting:delete_resource' pk=resource.pk %}" method="POST">{% csrf_token %}<a href="#" class="submit" title="{% trans 'Delete' %}">{% trans 'Delete' %}</a></form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <form action="{% url 'reporting:upload_resource' pk=report.pk %}" method="POST" enctype="multipart/form-data" class="dropzone" id="resource_upload">
+                    <div class="dz-message">
+                        <div class="drag-icon-cph">
+                            <i class="mdc-fab__icon fa fa-upload"></i>
+                        </div>
+                        <h3>{% trans 'Drop files here or click to upload.' %}</h3>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <a href ="{% url 'reporting:edit' pk=report.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+        <i class="mdc-fab__icon fa fa-pencil-alt"></i>
+    </a>
+{% endblock %}
+
+{% block foot %}
+    <!-- Cookie.js -->
+    <script src="{% static 'app/js/cookie.js' %}"></script>
+    <script src="{% static 'app/vendors/dropzone.js/dropzone.min.js' %}"></script>
+    <script>
+        Dropzone.options.resourceUpload = {
+            paramName: "resource",
+            uploadMultiple: false,
+            headers: {
+                "X-CSRFToken": getCookie('csrftoken')
+            }
+        }
+        $('a.submit').on('click', function(){
+            $(this).parent().submit();
+        })
+    </script>
+{% endblock %}

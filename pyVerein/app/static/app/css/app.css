@@ -235,6 +235,15 @@ table .mdc-select {
 #attribution-dialog h4 {
   margin-bottom: 0px; }
 
+.dropzone {
+  border-style: dashed;
+  width: 100%;
+  border-color: #2979FF;
+  min-height: 220px; }
+  .dropzone .fa {
+    font-size: xx-large;
+    color: #2979FF; }
+
 @media (max-width: 600px) {
   .form .form-group {
     flex-wrap: wrap; }

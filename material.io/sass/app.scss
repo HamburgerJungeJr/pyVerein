@@ -324,6 +324,18 @@ table .mdc-select{
     }
 }
 
+.dropzone{
+    border-style: dashed;
+    width: 100%;
+    border-color: $mdc-theme-primary;
+    min-height: 220px;
+
+    .fa{
+        font-size: xx-large;
+        color: $mdc-theme-primary;
+    }
+}
+
 @media(max-width: 600px){
     .form{
         .form-group{
