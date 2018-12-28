@@ -1,3 +1,8 @@
+# Import django-admin.
 from django.contrib import admin
 
-# Register your models here.
+# Import member model.
+from .models import Report
+
+# Register report in admin.
+admin.site.register(Report)
