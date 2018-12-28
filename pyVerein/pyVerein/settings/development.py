@@ -13,8 +13,6 @@ STATICFILES_DIRS = [
     '../static/',
 ]
 
-MEDIA_ROOT = '../media'
-
 # Debug Toolbar
 INSTALLED_APPS += [
     
@@ -33,3 +31,5 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+SENDFILE_BACKEND = 'sendfile.backends.development'

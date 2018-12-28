@@ -6,7 +6,7 @@ from pyVerein.settings.base import *
 
 import dj_database_url
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.environ['STATIC_ROOT']
 
 ALLOWED_HOSTS = [os.environ['DJANGO_PROD_HOST']]
 
@@ -16,3 +16,5 @@ ALLOWED_HOSTS = [os.environ['DJANGO_PROD_HOST']]
 DATABASES = {
     'default': dj_database_url.config()
 }
+
+SENDFILE_BACKEND = os.environ['SENDFILE_BACKEND']

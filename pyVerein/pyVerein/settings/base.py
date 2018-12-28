@@ -122,10 +122,10 @@ LANGUAGES = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = os.environ['STATIC_URL']
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = os.environ['MEDIA_URL']
+MEDIA_ROOT = os.environ['MEDIA_ROOT']
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = 'app:index'
@@ -138,3 +138,5 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTH_USER_MODEL = 'account.User'
 
+SENDFILE_URL = os.environ['SENDFILE_URL']
+SENDFILE_ROOT = os.environ['SENDFILE_ROOT']
