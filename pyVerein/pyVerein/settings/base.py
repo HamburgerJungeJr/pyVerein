@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'members.apps.MembersConfig',
     'finance.apps.FinanceConfig',
+    'reporting.apps.ReportingConfig',
     'tasks.apps.TasksConfig',
     'utils.apps.UtilsConfig',
     
