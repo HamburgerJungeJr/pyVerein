@@ -335,6 +335,19 @@ table .mdc-select{
         color: $mdc-theme-primary;
     }
 }
+ul.ckeckbox-multiple-select{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    li.mdc-list-item{
+        width: 150px;
+
+        span.mdc-list-item__graphic{
+            margin-right: 10px;
+        }
+    }
+}
 
 @media(max-width: 600px){
     .form{

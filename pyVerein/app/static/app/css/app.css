@@ -244,6 +244,15 @@ table .mdc-select {
     font-size: xx-large;
     color: #2979FF; }
 
+ul.ckeckbox-multiple-select {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap; }
+  ul.ckeckbox-multiple-select li.mdc-list-item {
+    width: 150px; }
+    ul.ckeckbox-multiple-select li.mdc-list-item span.mdc-list-item__graphic {
+      margin-right: 10px; }
+
 @media (max-width: 600px) {
   .form .form-group {
     flex-wrap: wrap; }
