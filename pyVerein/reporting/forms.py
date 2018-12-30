@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ('name', 'description', 'report', 'model')
+        fields = ('name', 'description', 'report', 'model', 'jsonql_query')
         widgets = {
             'report': FileInput(),
             'model': CheckboxSelectMultiple(attrs={'class': 'mdc-checkbox__native-control'})

@@ -30,7 +30,15 @@
             </div>
             <div class="row">
                 <div class="field-title">{% trans 'Reportdefinition' %}</div>
-                <div class="field-value"><a href="{% url 'reporting:download_report' pk=report.pk %}" class="mdc-button mdc-button--raised" title="{% trans 'Download reportdefinition' %}" target="blank">{% trans 'Download' %}</a></div>
+                <div class="field-value"><a href="{% url 'reporting:download_report' pk=report.pk %}" title="{% trans 'Download reportdefinition' %}" target="blank">{% trans 'Download' %}</a></div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'JSONQL-Query' %}</div>
+                <div class="field-value">{{ report.jsonql_query }}</div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Models' %}</div>
+                <div class="field-value">{% for model in models %}{{ model }} {% endfor %}</div>
             </div>
             <div class="heading mdc-typography--overline">
                 {% trans 'Resources' %}

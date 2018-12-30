@@ -52,6 +52,8 @@ class Report(ModelBase):
 
     model = SeparatedValuesField(null=False, blank=False, max_length=255, choices=MODELS, default=[MEMBER])
 
+    jsonql_query = models.TextField(null=False, blank=False)
+
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
         
     def clean(self, *args, **kwargs):

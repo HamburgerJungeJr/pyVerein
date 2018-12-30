@@ -16,6 +16,10 @@
 <div class="form-group full-width">
     {% include "utils/_checkboxmultipleselect.html" with field=form.model %}
 </div>
+<div class="form-group full-width">
+        {% trans 'JSONQL-Query' as jsonql_query_label%}
+        {% include "utils/_textarea.html" with field=form.jsonql_query label=jsonql_query_label %}
+    </div>
 <div class="form-group">
     {% trans 'Reportdefinition' as definition_label%}
     {% render_field form.report  style="display:none" accept=".jrxml"%}

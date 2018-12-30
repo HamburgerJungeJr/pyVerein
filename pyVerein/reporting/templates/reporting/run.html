@@ -1,0 +1,80 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load filename %}
+
+{% block page_title %}
+    {% trans 'Run report' %}
+{% endblock %}
+
+{% block title %}
+    {% blocktrans with report_name=report.name %}Run report: {{ report_name }}{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'app/vendors/dropzone.js/dropzone.min.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content mdc-elevation--z4">
+            <form action="{% url 'reporting:run' report.pk %}" method="POST" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Parameter' %}
+                </div>
+                {% for parameter in parameters %}
+                    <div class="row full-width">
+                        <div class="mdc-text-field mdc-input">
+                            <input type="text" class="mdc-text-field__input" name="{{ parameter }}" id="{{ parameter }}" required>
+                            <label class="mdc-floating-label" for="{{ parameter }}">
+                                {{ parameter }}
+                            </label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Options' %}
+                </div>
+                <div class="row">
+                    <div class="mdc-select mdc-input">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <select id="format" name="format" class="mdc-select__native-control">
+                            {% for format in formats %}
+                                <option value="{{ format }}">{{ format|upper }}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="mdc-floating-label">{% trans 'Fileformat' %}</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Run' %}" title="{% trans 'Run' %}" />
+                    <a href="javascript:window.close()" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <!-- Cookie.js -->
+    <script src="{% static 'app/js/cookie.js' %}"></script>
+    <script src="{% static 'app/vendors/dropzone.js/dropzone.min.js' %}"></script>
+    <script>
+        Dropzone.options.resourceUpload = {
+            paramName: "resource",
+            uploadMultiple: false,
+            headers: {
+                "X-CSRFToken": getCookie('csrftoken')
+            }
+        }
+        $('a.submit').on('click', function(){
+            $(this).parent().submit();
+        })
+    </script>
+{% endblock %}
