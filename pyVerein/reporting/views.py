@@ -24,8 +24,8 @@ from sendfile import sendfile
 import io
 import uuid
 import json
-from pyreportjasper import JasperPy
-from pyreportjasper.jasperpy import FORMATS as JASPER_FORMATS
+from utils.jasperpy import JasperPy
+from utils.jasperpy import FORMATS as JASPER_FORMATS
 
 # Index-View.
 class ReportIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
