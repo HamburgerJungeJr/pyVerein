@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load widget_tweaks %}
 {% load static %}
+{% load filename %}
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block head %}
@@ -42,6 +43,7 @@
             
             $('#info_reportdefinition').html(file.name);
         });
+        $('#info_reportdefinition').html('{{ report.report|filename }}');
     </script>
     <!-- Keys -->
     <script src="{% static 'app/js/keys.js' %}"></script>

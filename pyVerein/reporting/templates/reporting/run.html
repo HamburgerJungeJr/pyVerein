@@ -24,7 +24,7 @@
             <form action="{% url 'reporting:run' report.pk %}" method="POST" id="form">
                 {% csrf_token %}
                 <div class="heading mdc-typography--overline">
-                    {% trans 'Parameter' %}
+                    {% trans 'Parameters' %}
                 </div>
                 {% for parameter in parameters %}
                     <div class="row full-width">
