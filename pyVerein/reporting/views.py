@@ -7,8 +7,8 @@ from django.db import Error
 # Import Report.
 from .forms import ReportForm, ResourceForm
 from .models import Report, Resource
-from members.models import Member, Division
-from members.serializer import MemberJSONSerializer, DivisionJSONSerializer
+from members.models import Member, Division, Subscription
+from members.serializer import MemberJSONSerializer, DivisionJSONSerializer, SubscriptionJSONSerializer
 #from finance.models import Transaction, Account, CostCenter, CostObject, ClosureBalance, ClosureTransaction
 import os
 from django.conf import settings
@@ -157,7 +157,10 @@ def run_report(request, pk):
                 'model': Division,
                 'serializer': DivisionJSONSerializer,
             },
-            # 'SUB': Subscription,
+            'SUB': {
+                'model': Subscription,
+                'serializer': SubscriptionJSONSerializer,
+            },
             # 'ACC': Account,
             # 'COC': CostCenter,
             # 'COO': CostObject,
