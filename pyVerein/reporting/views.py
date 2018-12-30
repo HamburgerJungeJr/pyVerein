@@ -9,7 +9,8 @@ from .forms import ReportForm, ResourceForm
 from .models import Report, Resource
 from members.models import Member, Division, Subscription
 from members.serializer import MemberJSONSerializer, DivisionJSONSerializer, SubscriptionJSONSerializer
-#from finance.models import Transaction, Account, CostCenter, CostObject, ClosureBalance, ClosureTransaction
+from finance.models import Transaction, Account, CostCenter, CostObject, ClosureBalance, ClosureTransaction
+from finance.serializer import TransactionJSONSerializer, AccountJSONSerializer, CostCenterJSONSerializer, CostObjectJSONSerializer, ClosureBalanceJSONSerializer, ClosureTransactionJSONSerializer
 import os
 from django.conf import settings
 
@@ -161,12 +162,30 @@ def run_report(request, pk):
                 'model': Subscription,
                 'serializer': SubscriptionJSONSerializer,
             },
-            # 'ACC': Account,
-            # 'COC': CostCenter,
-            # 'COO': CostObject,
-            # 'TRA': Transaction,
-            # 'CTR': ClosureTransaction,
-            # 'CBA': ClosureBalance,
+            'ACC': {
+                'model': Account,
+                'serializer': AccountJSONSerializer,
+            },
+            'COC': {
+                'model': CostCenter,
+                'serializer': CostCenterJSONSerializer,
+            },
+            'COO': {
+                'model': CostObject,
+                'serializer': CostObjectJSONSerializer,
+            },
+            'TRA': {
+                'model': Transaction,
+                'serializer': TransactionJSONSerializer,
+            },
+            'CTR': {
+                'model': ClosureTransaction,
+                'serializer': ClosureTransactionJSONSerializer,
+            },
+            'CBA': {
+                'model': ClosureBalance,
+                'serializer': ClosureBalanceJSONSerializer,
+            }
         }
         json_data = {}
         for model in set(report.model):
