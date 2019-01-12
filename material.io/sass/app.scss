@@ -136,6 +136,12 @@ div.dataTables_wrapper{
         .mdc-text-field.mdc-text-field--textarea{
             margin-top: 20px;
         }
+        >label{
+            color: rgba(0, 0, 0, 0.6);
+            left: 16px;
+            display: inline-block;
+            position: relative;
+        }
     }
     .spacer{
         width: 50%;  

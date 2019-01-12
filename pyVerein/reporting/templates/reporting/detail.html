@@ -41,6 +41,33 @@
                 <div class="field-value">{% for model in models %}{{ model }} {% endfor %}</div>
             </div>
             <div class="heading mdc-typography--overline">
+                {% trans 'Access restrictions' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'User' %}</div>
+                <div class="field-value">
+                    {% if report.user.all %}
+                        {% for user in report.user.all %}
+                            {{ user }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% trans 'Access not restricted' %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Groups' %}</div>
+                <div class="field-value">
+                    {% if report.groups.all %}
+                        {% for group in report.groups.all %}
+                            {{ group }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% trans 'Access not restricted' %}
+                    {% endif %}
+                </div>
+                </div>
+            <div class="heading mdc-typography--overline">
                 {% trans 'Resources' %}
             </div>
             <div class="row">

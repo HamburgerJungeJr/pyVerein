@@ -2,7 +2,7 @@
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponseBadRequest, JsonResponse, HttpResponseRedirect
+from django.http import HttpResponseBadRequest, JsonResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.db import Error
 # Import Report.
 from .forms import ReportForm, ResourceForm
@@ -26,6 +26,8 @@ import uuid
 import json
 from utils.jasperpy import JasperPy
 from utils.jasperpy import FORMATS as JASPER_FORMATS
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 # Index-View.
 class ReportIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -121,8 +123,12 @@ def run_report(request, pk):
     """
     Run report and return generated file
     """
-    # Get report definition
     report = Report.objects.get(pk=pk)
+    # Check if user can access report
+    if not report.is_access_granted(request.user):
+        return HttpResponseForbidden()
+    
+    # Get report definition
     report_definition = report.report.path
     jasperpy = JasperPy()
     parameters = jasperpy.list_parameters(report_definition).keys()
@@ -199,19 +205,23 @@ def run_report(request, pk):
         # Output file
         output_filepath = os.path.join(settings.MEDIA_ROOT, "protected/reports/{}/output/{}-{}".format(report.uuid, report.name, str(uuid.uuid4())))
         os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
+        try:
+            jasperpy.process(
+                input_file=report_definition,
+                output_file=output_filepath,
+                format_list=[file_format],
+                db_connection={
+                    'driver': 'jsonql',
+                    'data_file': data_filepath,
+                    'jsonql_query': report.jsonql_query
+                },
+                resource=os.path.join(settings.MEDIA_ROOT, 'protected/reports/{}/resource/'.format(report.uuid)),
+                parameters=parameter_map
+            )
+        except NameError as err:
+            messages.error(request, err)
+            return HttpResponseRedirect(reverse_lazy('reporting:run', kwargs={'pk': pk}))
 
-        jasperpy.process(
-            input_file=report_definition,
-            output_file=output_filepath,
-            format_list=[file_format],
-            db_connection={
-                'driver': 'jsonql',
-                'data_file': data_filepath,
-                'jsonql_query': report.jsonql_query
-            },
-            resource=os.path.join(settings.MEDIA_ROOT, 'protected/reports/{}/resource/'.format(report.uuid)),
-            parameters=parameter_map
-        )
         return sendfile(request, output_filepath + '.' + file_format)
     else:
         return HttpResponseBadRequest()

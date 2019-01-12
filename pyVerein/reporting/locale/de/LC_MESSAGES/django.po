@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-30 13:25+0100\n"
+"POT-Creation-Date: 2019-01-13 00:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,11 +62,11 @@ msgstr "Berichtsdefinition darf nicht leer sein"
 msgid "Create report"
 msgstr "Bericht anlegen"
 
-#: templates/reporting/create.html:21 templates/reporting/edit.html:25
+#: templates/reporting/create.html:21 templates/reporting/edit.html:26
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/reporting/create.html:22 templates/reporting/edit.html:26
+#: templates/reporting/create.html:22 templates/reporting/edit.html:27
 #: templates/reporting/run.html:57
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -84,7 +84,7 @@ msgstr "Bericht"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: templates/reporting/detail.html:32 templates/reporting/form_fields.html:24
+#: templates/reporting/detail.html:32 templates/reporting/form_fields.html:29
 msgid "Reportdefinition"
 msgstr "Berichtsdefinition"
 
@@ -96,39 +96,55 @@ msgstr "Berichtsdefinition herunterladen"
 msgid "Download"
 msgstr "Download"
 
-#: templates/reporting/detail.html:36 templates/reporting/form_fields.html:20
+#: templates/reporting/detail.html:36 templates/reporting/form_fields.html:25
 msgid "JSONQL-Query"
 msgstr "JSONQL-Abfrage"
 
-#: templates/reporting/detail.html:40
+#: templates/reporting/detail.html:40 templates/reporting/form_fields.html:18
 msgid "Models"
 msgstr "Datenmodelle"
 
-#: templates/reporting/detail.html:44
+#: templates/reporting/detail.html:44 templates/reporting/form_fields.html:35
+msgid "Access restrictions"
+msgstr "Zugriffsbeschränkungen"
+
+#: templates/reporting/detail.html:47 templates/reporting/form_fields.html:39
+msgid "User"
+msgstr "Benutzer"
+
+#: templates/reporting/detail.html:54 templates/reporting/detail.html:66
+msgid "Access not restricted"
+msgstr "Zugriff nicht beschränkt"
+
+#: templates/reporting/detail.html:59 templates/reporting/form_fields.html:47
+msgid "Groups"
+msgstr "Gruppen"
+
+#: templates/reporting/detail.html:71
 msgid "Resources"
 msgstr "Ressourcen"
 
-#: templates/reporting/detail.html:50
+#: templates/reporting/detail.html:77
 msgid "Filename"
 msgstr "Dateiname"
 
-#: templates/reporting/detail.html:51 templates/reporting/list.html:25
+#: templates/reporting/detail.html:78 templates/reporting/list.html:25
 msgid "Action"
 msgstr "Aktion"
 
-#: templates/reporting/detail.html:61
+#: templates/reporting/detail.html:88
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/reporting/detail.html:74
+#: templates/reporting/detail.html:101
 msgid "Drop files here or click to upload."
 msgstr "Ziehen und Ablegen oder hier klicken, um Dateien hochzuladen"
 
-#: templates/reporting/detail.html:80
+#: templates/reporting/detail.html:107
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: templates/reporting/edit.html:12 templates/reporting/edit.html:16
+#: templates/reporting/edit.html:13 templates/reporting/edit.html:17
 msgid "Edit report"
 msgstr "Bericht bearbeiten"
 
@@ -136,11 +152,11 @@ msgstr "Bericht bearbeiten"
 msgid "Name"
 msgstr "Name"
 
-#: templates/reporting/form_fields.html:26
+#: templates/reporting/form_fields.html:31
 msgid "Select reportdefinition (*.jrxml)"
 msgstr "Berichtsdefinition auswählen (*.jrxml)"
 
-#: templates/reporting/form_fields.html:26
+#: templates/reporting/form_fields.html:31
 msgid "Select reportdefinition"
 msgstr "Berichtsdefinition auswählen"
 
@@ -241,10 +257,10 @@ msgstr "Optionen"
 msgid "Fileformat"
 msgstr "Dateiformat"
 
-#: views.py:59
+#: views.py:61
 msgid "Report saved sucessfully"
 msgstr "Bericht wurde erfolgreich gespeichert"
 
-#: views.py:71
+#: views.py:73
 msgid "Report created successfully"
 msgstr "Bericht wurde erfolgreich erstellt"

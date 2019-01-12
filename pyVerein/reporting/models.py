@@ -1,6 +1,6 @@
 from django.db import models
 from author.decorators import with_author
-from utils.models import ModelBase
+from utils.models import ModelBase, AccessRestrictedModel
 from django.utils.translation import ugettext_lazy as _
 from django.forms import ValidationError
 import uuid
@@ -12,7 +12,7 @@ def get_report_path(instance, filename):
     """
     return "protected/reports/{}/definition/{}".format(instance.uuid, filename)
 
-class Report(ModelBase):
+class Report(ModelBase, AccessRestrictedModel):
     """
     Model for storing reports
     """
