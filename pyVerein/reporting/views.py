@@ -51,6 +51,10 @@ class ReportDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
         return context
 
+    def has_permission(self):
+        super_perm = super(ReportDetailView, self).has_permission()
+        return super_perm and Report.objects.get(pk=self.kwargs['pk']).is_access_granted(self.request.user)
+
 # Edit-View.
 class ReportEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = ('reporting.view_report', 'reporting.change_report')
@@ -62,6 +66,10 @@ class ReportEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse_lazy('reporting:detail', args={self.object.pk})
+    
+    def has_permission(self):
+        super_perm = super(ReportEditView, self).has_permission()
+        return super_perm and Report.objects.get(pk=self.kwargs['pk']).is_access_granted(self.request.user)
 
 # Edit-View.
 class ReportCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -82,8 +90,14 @@ def upload_resource(request, pk):
     Upload for report resources
     """
     if request.method == 'POST':
+        report = Report.objects.get(pk=pk)
+
+        # Check if user can access report
+        if not report.is_access_granted(request.user):
+            return HttpResponseForbidden()
+
         try:
-            resource = Resource(report=Report.objects.get(pk=pk), resource=request.FILES['resource'])
+            resource = Resource(report=report, resource=request.FILES['resource'])
             resource.save()
         except Error as err:
             return JsonResponse({'error': err})
@@ -101,6 +115,11 @@ def delete_resource(request, pk):
     if request.method == 'POST':
         resource = Resource.objects.get(pk=pk)
         report = resource.report
+
+        # Check if user can access report
+        if not report.is_access_granted(request.user):
+            return HttpResponseForbidden()
+
         resource.delete()
         if os.path.isfile(os.path.join(settings.MEDIA_ROOT, resource.resource.path)):
             os.remove(os.path.join(settings.MEDIA_ROOT, resource.resource.path))
@@ -114,7 +133,12 @@ def download_report(request, pk):
     """
     Download reportdefinition with X-SENDFILE header
     """
-    file = Report.objects.get(pk=pk).report
+    report = Report.objects.get(pk=pk)
+    # Check if user can access report
+    if not report.is_access_granted(request.user):
+        return HttpResponseForbidden()
+
+    file = report.report
     return sendfile(request, file.path, attachment=True, attachment_filename=os.path.basename(file.name))
 
 @login_required
