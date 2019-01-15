@@ -1,6 +1,6 @@
 # Import reverse.
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseBadRequest, JsonResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.db import Error
@@ -30,11 +30,18 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
 # Index-View.
-class ReportIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class ReportIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'reporting.view_report'
-    model = Report
-    context_object_name = 'reports'
     template_name = 'reporting/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ReportIndexView, self).get_context_data(**kwargs)
+
+        reports = Report.objects.all()
+        context['reports'] = [report for report in reports if report.is_access_granted(self.request.user)]
+
+        return context
+
 
 # Detail-View.
 class ReportDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
