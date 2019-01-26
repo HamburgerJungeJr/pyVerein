@@ -28,10 +28,11 @@ install:
   - pip install -q -r requirements_production.txt
 
 before_script:
+  - cd pyVerein
   - psql -c 'create database travis_ci_db;' -U postgres
-  - python pyVerein/manage.py migrate --noinput
-  - python pyVerein/manage.py collectstatic --noinput
+  - python manage.py migrate --noinput
+  - python manage.py collectstatic --noinput
 
 #command to run the test suite
 script:
-  - python pyVerein/manage.py test
+  - python manage.py test
