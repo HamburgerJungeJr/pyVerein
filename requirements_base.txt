@@ -7,6 +7,6 @@ pytz==2018.4
 six>=1.11.0,<1.12
 django-author>=1.0.2,<1.1
 Pillow>=5.2.0,<5.3
-pyreportjasper>=1.0,<1.1
 django-sendfile2>=0.4,<0.5
 django-separatedvaluesfield>=0.6,<0.7
+https://github.com/HamburgerJungeJr/pyreportjasper/archive/master.zip

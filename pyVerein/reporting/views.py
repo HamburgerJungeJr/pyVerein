@@ -24,8 +24,7 @@ from sendfile import sendfile
 import io
 import uuid
 import json
-from utils.jasperpy import JasperPy
-from utils.jasperpy import FORMATS as JASPER_FORMATS
+from pyreportjasper.jasperpy import JasperPy, FORMATS as JASPER_FORMATS
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
