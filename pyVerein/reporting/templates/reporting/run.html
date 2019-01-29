@@ -12,10 +12,6 @@
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'app/vendors/dropzone.js/dropzone.min.css' %}">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
-    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -62,19 +58,4 @@
 {% endblock %}
 
 {% block foot %}
-    <!-- Cookie.js -->
-    <script src="{% static 'app/js/cookie.js' %}"></script>
-    <script src="{% static 'app/vendors/dropzone.js/dropzone.min.js' %}"></script>
-    <script>
-        Dropzone.options.resourceUpload = {
-            paramName: "resource",
-            uploadMultiple: false,
-            headers: {
-                "X-CSRFToken": getCookie('csrftoken')
-            }
-        }
-        $('a.submit').on('click', function(){
-            $(this).parent().submit();
-        })
-    </script>
 {% endblock %}
