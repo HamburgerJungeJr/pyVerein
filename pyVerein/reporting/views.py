@@ -2,7 +2,7 @@
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponseBadRequest, JsonResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseBadRequest, JsonResponse, HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.db import Error
 # Import Report.
 from .forms import ReportForm, ResourceForm
@@ -253,5 +253,98 @@ def run_report(request, pk):
             return HttpResponseRedirect(reverse_lazy('reporting:run', kwargs={'pk': pk}))
 
         return sendfile(request, output_filepath + '.' + file_format)
+    else:
+        return HttpResponseBadRequest()
+
+@login_required
+@permission_required(['reporting.view_report', 'reporting.download_data'], raise_exception=True)
+def download_data(request):
+    """
+    Download data for designing reports
+    """
+    if request.method == 'GET':
+        context = {}
+        return render(request, 'reporting/download_data.html', context)
+        
+    
+    if request.method == 'POST':
+        # Get POST-Parameter
+        models = request.POST.getlist('models')
+        if not models:
+            return HttpResponseBadRequest()
+        
+        records = request.POST.get('records', None)
+        if not records:
+            return HttpResponseBadRequest()
+
+        # Create data-JSON file
+        modelmap = {
+            'MEM': {
+                'model': Member,
+                'serializer': MemberJSONSerializer,
+                'permission': 'reporting.download_member_data'
+            },
+            'DIV': {
+                'model': Division,
+                'serializer': DivisionJSONSerializer,
+                'permission': 'reporting.download_division_data'
+            },
+            'SUB': {
+                'model': Subscription,
+                'serializer': SubscriptionJSONSerializer,
+                'permission': 'reporting.download_subscription_data'
+            },
+            'ACC': {
+                'model': Account,
+                'serializer': AccountJSONSerializer,
+                'permission': 'reporting.download_account_data'
+            },
+            'COC': {
+                'model': CostCenter,
+                'serializer': CostCenterJSONSerializer,
+                'permission': 'reporting.download_costcenter_data'
+            },
+            'COO': {
+                'model': CostObject,
+                'serializer': CostObjectJSONSerializer,
+                'permission': 'reporting.download_costobject_data'
+            },
+            'TRA': {
+                'model': Transaction,
+                'serializer': TransactionJSONSerializer,
+                'permission': 'reporting.download_transaction_data'
+            },
+            'CTR': {
+                'model': ClosureTransaction,
+                'serializer': ClosureTransactionJSONSerializer,
+                'permission': 'reporting.download_closuretransaction_data'
+            },
+            'CBA': {
+                'model': ClosureBalance,
+                'serializer': ClosureBalanceJSONSerializer,
+                'permission': 'reporting.download_closurebalance_data'
+            }
+        }
+        json_data = {}
+        if records == 'all':
+            for model in models:
+                # Check if user is allowed to download data
+                if not request.user.has_perm(modelmap[model]['permission']):
+                    return HttpResponseForbidden()
+
+                json_data.update(modelmap[model]['serializer']().serialize(modelmap[model]['model'].objects.all()))
+        elif records == '50':
+            for model in models:
+                # Check if user is allowed to download data
+                if not request.user.has_perm(modelmap[model]['permission']):
+                    return HttpResponseForbidden()
+
+                json_data.update(modelmap[model]['serializer']().serialize(modelmap[model]['model'].objects.all()[:50]))
+        else:
+            return HttpResponseBadRequest()
+
+        response = JsonResponse(json_data)
+        response['Content-Disposition'] = 'attachment; filename=models.json'
+        return response
     else:
         return HttpResponseBadRequest()

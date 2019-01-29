@@ -41,8 +41,11 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href ="{% url 'reporting:create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Create' %}" target="_blank">
+    <a href="{% url 'reporting:create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Create' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
+    </a>
+    <a href="{% url 'reporting:download_data' %}" class="mdc-fab mdc-fab--absolute-bottom-right second" aria-label="" title="{% trans 'Download data' %}" target="_blank">
+        <i class="mdc-fab__icon fa fa-download"></i>
     </a>
 {% endblock %}
 

@@ -20,6 +20,16 @@ class Report(ModelBase, AccessRestrictedModel):
     class Meta:
         permissions = (
             ('run_report', 'Can run report'),
+            ('download_data', 'Can download data'),
+            ('download_member_data', 'Can download member data'),
+            ('download_division_data', 'Can download division data'),
+            ('download_subscription_data', 'Can download subscription data'),
+            ('download_account_data', 'Can download account data'),
+            ('download_costcenter_data', 'Can download costcenter data'),
+            ('download_costobject_data', 'Can download costobject data'),
+            ('download_transaction_data', 'Can download transaction data'),
+            ('download_closuretransaction_data', 'Can download closuretransaction data'),
+            ('download_closurebalance_data', 'Can download closurebalance data'),
         )
 
     MEMBER = 'MEM'

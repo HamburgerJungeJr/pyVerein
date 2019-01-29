@@ -8,6 +8,7 @@ from tempfile import mkdtemp
 from django.conf import settings
 from shutil import rmtree
 from django.contrib.auth.models import Group
+import itertools
 
 class ReportTestMethods(TestCase):
     @classmethod
@@ -235,3 +236,68 @@ class ReportTestMethods(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='view_report'))
         response = self.client.get(reverse('reporting:create'))
         self.assertEqual(response.status_code, 200)
+
+    def test_report_download_data_permission(self):
+        "User should only be able to download data if view_report and download_data permission is set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('reporting:download_data'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_report'))
+        response = self.client.get(reverse('reporting:download_data'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_report'))
+        user.user_permissions.add(Permission.objects.get(codename='download_data'))
+        response = self.client.get(reverse('reporting:download_data'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_report'))
+        response = self.client.get(reverse('reporting:download_data'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_report_data_download_model_permission(self):
+        "User should only be able to download data if according permission is set"
+
+        user = User.objects.get(username='temp')
+        user.user_permissions.add(Permission.objects.get(codename='view_report'))
+        user.user_permissions.add(Permission.objects.get(codename='download_data'))
+
+        permissions = [
+            'download_member_data',
+            'download_division_data',
+            'download_subscription_data',
+            'download_account_data',
+            'download_costcenter_data',
+            'download_costobject_data',
+            'download_transaction_data',
+            'download_closuretransaction_data',
+            'download_closurebalance_data'
+        ]
+
+        permissionmap = {
+            'MEM': 'download_member_data',
+            'DIV': 'download_division_data',
+            'SUB': 'download_subscription_data',
+            'ACC': 'download_account_data',
+            'COC': 'download_costcenter_data',
+            'COO': 'download_costobject_data',
+            'TRA': 'download_transaction_data',
+            'CTR': 'download_closuretransaction_data',
+            'CBA': 'download_closurebalance_data'
+        }
+
+
+        for model in permissionmap:
+            response = self.client.post(reverse('reporting:download_data'), {'models': model, 'records': 'all'})
+            self.assertEqual(response.status_code, 403)
+
+            for permission in permissions:
+                p = Permission.objects.get(codename=permission)
+                user.user_permissions.add(p)
+                response = self.client.post(reverse('reporting:download_data'), {'models': model, 'records': 'all'})
+                self.assertEqual(response.status_code, 200 if permission == permissionmap[model] else 403)
+
+                user.user_permissions.remove(p)
