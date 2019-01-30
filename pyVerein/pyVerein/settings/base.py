@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'members.apps.MembersConfig',
     'finance.apps.FinanceConfig',
+    'reporting.apps.ReportingConfig',
     'tasks.apps.TasksConfig',
     'utils.apps.UtilsConfig',
     
@@ -118,14 +119,6 @@ LANGUAGES = (
 )
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-STATIC_URL = '/static/'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = 'app:index'
 LOGOUT_REDIRECT_URL = 'login'
@@ -136,4 +129,3 @@ AUTHOR_UPDATED_BY_FIELD_NAME = 'last_modified_by'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTH_USER_MODEL = 'account.User'
-

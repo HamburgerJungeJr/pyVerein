@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import Permission
 from datetime import date
 from .models import Account, CostObject, CostCenter, Transaction
+from dynamic_preferences.registries import global_preferences_registry
 
 class AccountTestMethods(TestCase):
     def setUp(self):
@@ -19,6 +20,8 @@ class AccountTestMethods(TestCase):
         # Create account
         account = Account.objects.create(number='99999', name='TempAccount', account_type=Account.DEBITOR)
         account.save()
+
+        global_preferences_registry.manager()['Finance__accounting_year'] = str(date.today().year)
 
     def test_account_search_api_permission(self):
         "User should only access account search api if view permission is set"
@@ -48,6 +51,7 @@ class DebitorTestMethods(TestCase):
         debitor = Account.objects.create(number='10000', name='TempDebitor', account_type=Account.DEBITOR)
         debitor.save()
 
+        global_preferences_registry.manager()['Finance__accounting_year'] = str(date.today().year)
 
     def test_debitor_list_permission(self):
         "User should only access debitor list if view permission is set"
@@ -195,6 +199,7 @@ class CreditorTestMethods(TestCase):
         creditor = Account.objects.create(number='70000', name='TempCreditor', account_type=Account.CREDITOR)
         creditor.save()
 
+        global_preferences_registry.manager()['Finance__accounting_year'] = str(date.today().year)
 
     def test_creditor_list_permission(self):
         "User should only access creditor list if view permission is set"
@@ -343,6 +348,7 @@ class ImpersonalTestMethods(TestCase):
         impersonal = Account.objects.create(number='4000', name='TempImpersonal', account_type=Account.INCOME)
         impersonal.save()
 
+        global_preferences_registry.manager()['Finance__accounting_year'] = str(date.today().year)
 
     def test_impersonal_list_permission(self):
         "User should only access impersonal list if view permission is set"
@@ -440,6 +446,7 @@ class CostCenterTestMethods(TestCase):
         costcenter = CostCenter.objects.create(number='101', name='TempCostCenter')
         costcenter.save()
 
+        global_preferences_registry.manager()['Finance__accounting_year'] = str(date.today().year)
 
     def test_costcenter_list_permission(self):
         "User should only access costcenter list if view permission is set"
@@ -549,6 +556,8 @@ class CostObjectTestMethods(TestCase):
         # Create costobject
         costobject = CostObject.objects.create(number='101', name='TempCostObject')
         costobject.save()
+
+        global_preferences_registry.manager()['Finance__accounting_year'] = str(date.today().year)
 
 
     def test_costobject_list_permission(self):
@@ -663,6 +672,7 @@ class TransactionTestMethods(TestCase):
         transaction = Transaction.objects.create(account=debitor, date=date.today(), document_number='12345', text='document', debit=123.45, internal_number=1)
         transaction.save()
 
+        global_preferences_registry.manager()['Finance__accounting_year'] = str(date.today().year)
 
     def test_transaction_list_permission(self):
         "User should only access transaction list if view permission is set"

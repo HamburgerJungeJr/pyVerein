@@ -1,0 +1,250 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load filename %}
+
+{% block page_title %}
+    {% trans 'Download data' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Download data' %}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content mdc-elevation--z4">
+            <form action="{% url 'reporting:download_data' %}" method="POST" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Models' %}
+                </div>
+                {% if perms.reporting.download_member_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="MEM" class="mdc-checkbox__native-control" id="member">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="member">
+                                {% trans 'Member' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.reporting.download_division_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="DIV" class="mdc-checkbox__native-control" id="division">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="division">
+                                {% trans 'Division' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.reporting.download_subscription_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="SUB" class="mdc-checkbox__native-control" id="subscription">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="subscription">
+                                {% trans 'Subscription' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.reporting.download_account_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="ACC" class="mdc-checkbox__native-control" id="account">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="account">
+                                {% trans 'Account' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.reporting.download_costcenter_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="COC" class="mdc-checkbox__native-control" id="costcenter">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="costcenter">
+                                {% trans 'Cost center' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.reporting.download_costobject_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="COO" class="mdc-checkbox__native-control" id="costobject">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="costobject">
+                                {% trans 'Cost object' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.reporting.download_transaction_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="TRA" class="mdc-checkbox__native-control" id="transaction">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="transaction">
+                                {% trans 'Transaction' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.reporting.download_closuretransaction_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="CTR" class="mdc-checkbox__native-control" id="closuretransaction">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="closuretransaction">
+                                {% trans 'Closuretransaction' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.reporting.download_closurebalance_data %}
+                    <div class="row">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" name="models" value="CBA" class="mdc-checkbox__native-control" id="closurebalance">
+                                <div class="mdc-checkbox__background">
+                                <svg class="mdc-checkbox__checkmark"
+                                        viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="closurebalance">
+                                {% trans 'Closurebalance' %}
+                            </label>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="mdc-form-field">
+                        <div class="mdc-radio">
+                            <input type="radio" name="records" value="all" class="mdc-radio__native-control" id="all_records" checked>
+                            <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
+                            </div>
+                        </div>
+                        <label for="all_records">
+                            {% trans 'All records' %}
+                        </label>
+                    </div>
+                    <div class="mdc-form-field">
+                        <div class="mdc-radio">
+                            <input type="radio" name="records" value="50" class="mdc-radio__native-control" id="50_records">
+                            <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
+                            </div>
+                        </div>
+                        <label for="50_records">
+                            {% trans 'Top 50 records' %}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Download' %}" title="{% trans 'Download' %}" />
+                    <a href="javascript:window.close()" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+{% endblock %}

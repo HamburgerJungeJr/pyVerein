@@ -133,6 +133,15 @@ div.dataTables_wrapper{
             margin-left: 5px;
             margin-right: 0px;
         }
+        .mdc-text-field.mdc-text-field--textarea{
+            margin-top: 20px;
+        }
+        >label{
+            color: rgba(0, 0, 0, 0.6);
+            left: 16px;
+            display: inline-block;
+            position: relative;
+        }
     }
     .spacer{
         width: 50%;  
@@ -318,6 +327,31 @@ table .mdc-select{
 #attribution-dialog{
     h4{
         margin-bottom: 0px;
+    }
+}
+
+.dropzone{
+    border-style: dashed;
+    width: 100%;
+    border-color: $mdc-theme-primary;
+    min-height: 220px;
+
+    .fa{
+        font-size: xx-large;
+        color: $mdc-theme-primary;
+    }
+}
+ul.ckeckbox-multiple-select{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    li.mdc-list-item{
+        width: 150px;
+
+        span.mdc-list-item__graphic{
+            margin-right: 10px;
+        }
     }
 }
 

@@ -13,8 +13,6 @@ STATICFILES_DIRS = [
     '../static/',
 ]
 
-MEDIA_ROOT = '../media'
-
 # Debug Toolbar
 INSTALLED_APPS += [
     
@@ -33,3 +31,15 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+
+STATIC_URL = os.environ['STATIC_URL']
+
+MEDIA_URL = os.environ['MEDIA_URL']
+MEDIA_ROOT = os.environ['MEDIA_ROOT']
+
+SENDFILE_URL = os.environ['SENDFILE_URL']
+SENDFILE_ROOT = os.environ['SENDFILE_ROOT']
+SENDFILE_BACKEND = 'sendfile.backends.development'

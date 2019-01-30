@@ -3,15 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from author.decorators import with_author
 from django.db.models import Q
-
-class ModelBase(models.Model):
-    class Meta:
-        abstract = True
-
-    # Created at
-    created_at = models.DateTimeField(auto_now_add=True)
-    # Modified at
-    modified_at = models.DateTimeField(auto_now=True)
+from utils.models import ModelBase
 
 @with_author
 class Account(ModelBase):

@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block page_title %}
+    {% trans 'Create report' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Create report' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content  mdc-elevation--z4">
+            <form action="{% url 'reporting:create' %}" method="POST" id="form" enctype="multipart/form-data">
+                {% include 'reporting/form_fields.html' %}
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'reporting:list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <script>
+        $('#reportdefinition').click(function (e){
+            $('#id_report').click();
+            e.preventDefault();
+        });
+        $('#id_report').change(function(e){
+            file = this.files[0];
+            
+            $('#info_reportdefinition').html(file.name);
+        });
+    </script>
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+    </script>
+{% endblock %}

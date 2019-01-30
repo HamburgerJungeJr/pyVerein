@@ -1,9 +1,13 @@
 {% load widget_tweaks %}
-
 <div class="mdc-text-field mdc-text-field--textarea mdc-input">
     {% render_field field class+="mdc-text-field__input" %}
-    <label class="mdc-floating-label" for="{{ field.id_for_label }}">
-        {{ label }}
-    </label>
-    <div class="mdc-line-ripple"></div>
+    <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+        <label class="mdc-floating-label" for="{{ field.id_for_label }}">
+                {{ label }}
+            </label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+    </div>
 </div>

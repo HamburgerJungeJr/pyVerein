@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% csrf_token %}
+<div class="heading mdc-typography--overline">
+    {% trans 'Report' %}
+</div>
+<div class="form-group full-width">
+    {% trans 'Name' as name_label%}
+    {% include "utils/_textfield.html" with field=form.name label=name_label next='id_description' %}
+</div>
+<div class="form-group full-width">
+    {% trans 'Description' as description_label%}
+    {% include "utils/_textarea.html" with field=form.description label=description_label %}
+</div>
+<div class="form-group full-width">
+    <label>
+        {% trans 'Models' %}
+    </label>
+</div>
+<div class="form-group full-width">
+    {% include "utils/_checkboxmultipleselect.html" with field=form.model %}
+</div>
+<div class="form-group full-width">
+    {% trans 'JSONQL-Query' as jsonql_query_label%}
+    {% include "utils/_textarea.html" with field=form.jsonql_query label=jsonql_query_label %}
+</div>
+<div class="form-group">
+    {% trans 'Reportdefinition' as definition_label%}
+    {% render_field form.report  style="display:none" accept=".jrxml"%}
+    <input type="button" id="reportdefinition" class="mdc-button mdc-button--raised" value="{% trans 'Select reportdefinition (*.jrxml)' %}" title="{% trans 'Select reportdefinition' %}" />
+    <p id="info_reportdefinition" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true"></p>
+</div>
+<div class="heading mdc-typography--overline">
+    {% trans 'Access restrictions' %}
+</div>
+<div class="form-group full-width">
+    <label>
+        {% trans 'User' %}
+    </label>
+</div>
+<div class="form-group full-width">
+    {% include "utils/_checkboxmultipleselect.html" with field=form.user %}
+</div>
+<div class="form-group full-width">
+    <label>
+        {% trans 'Groups' %}
+    </label>
+</div>
+<div class="form-group full-width">
+    {% include "utils/_checkboxmultipleselect.html" with field=form.groups %}
+</div>

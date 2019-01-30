@@ -1,0 +1,308 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-30 11:58+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: reporting/models.py:46 reporting/templates/reporting/download_data.html:41
+msgid "Member"
+msgstr "Mitglied"
+
+#: reporting/models.py:47 reporting/templates/reporting/download_data.html:62
+msgid "Division"
+msgstr "Sparte"
+
+#: reporting/models.py:48 reporting/templates/reporting/download_data.html:83
+msgid "Subscription"
+msgstr "Beitrag"
+
+#: reporting/models.py:49 reporting/templates/reporting/download_data.html:104
+msgid "Account"
+msgstr "Konto"
+
+#: reporting/models.py:50
+msgid "Costcenter"
+msgstr "Kostenstelle"
+
+#: reporting/models.py:51
+msgid "Costobject"
+msgstr "Kostenträger"
+
+#: reporting/models.py:52 reporting/templates/reporting/download_data.html:167
+msgid "Transaction"
+msgstr "Buchung"
+
+#: reporting/models.py:53 reporting/templates/reporting/download_data.html:188
+msgid "Closuretransaction"
+msgstr "Abschlussbuchung"
+
+#: reporting/models.py:54 reporting/templates/reporting/download_data.html:209
+msgid "Closurebalance"
+msgstr "Abschlusssaldo"
+
+#: reporting/models.py:72
+msgid "Report must not be empty"
+msgstr "Berichtsdefinition darf nicht leer sein"
+
+#: reporting/templates/reporting/create.html:8
+#: reporting/templates/reporting/create.html:12
+msgid "Create report"
+msgstr "Bericht anlegen"
+
+#: reporting/templates/reporting/create.html:21
+#: reporting/templates/reporting/edit.html:26
+msgid "Save"
+msgstr "Speichern"
+
+#: reporting/templates/reporting/create.html:22
+#: reporting/templates/reporting/download_data.html:242
+#: reporting/templates/reporting/edit.html:27
+#: reporting/templates/reporting/run.html:53
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: reporting/templates/reporting/detail.html:7
+msgid "Report-Detail"
+msgstr "Berichtsdetails"
+
+#: reporting/templates/reporting/detail.html:25
+#: reporting/templates/reporting/form_fields.html:6
+msgid "Report"
+msgstr "Bericht"
+
+#: reporting/templates/reporting/detail.html:28
+#: reporting/templates/reporting/form_fields.html:13
+#: reporting/templates/reporting/list.html:24
+msgid "Description"
+msgstr "Beschreibung"
+
+#: reporting/templates/reporting/detail.html:32
+#: reporting/templates/reporting/form_fields.html:29
+msgid "Reportdefinition"
+msgstr "Berichtsdefinition"
+
+#: reporting/templates/reporting/detail.html:33
+msgid "Download reportdefinition"
+msgstr "Berichtsdefinition herunterladen"
+
+#: reporting/templates/reporting/detail.html:33
+#: reporting/templates/reporting/download_data.html:241
+msgid "Download"
+msgstr "Herunterladen"
+
+#: reporting/templates/reporting/detail.html:36
+#: reporting/templates/reporting/form_fields.html:25
+msgid "JSONQL-Query"
+msgstr "JSONQL-Abfrage"
+
+#: reporting/templates/reporting/detail.html:40
+#: reporting/templates/reporting/download_data.html:23
+#: reporting/templates/reporting/form_fields.html:18
+msgid "Models"
+msgstr "Datenmodelle"
+
+#: reporting/templates/reporting/detail.html:44
+#: reporting/templates/reporting/form_fields.html:35
+msgid "Access restrictions"
+msgstr "Zugriffsbeschränkungen"
+
+#: reporting/templates/reporting/detail.html:47
+#: reporting/templates/reporting/form_fields.html:39
+msgid "User"
+msgstr "Benutzer"
+
+#: reporting/templates/reporting/detail.html:54
+#: reporting/templates/reporting/detail.html:66
+msgid "Access not restricted"
+msgstr "Zugriff nicht beschränkt"
+
+#: reporting/templates/reporting/detail.html:59
+#: reporting/templates/reporting/form_fields.html:47
+msgid "Groups"
+msgstr "Gruppen"
+
+#: reporting/templates/reporting/detail.html:71
+msgid "Resources"
+msgstr "Ressourcen"
+
+#: reporting/templates/reporting/detail.html:77
+msgid "Filename"
+msgstr "Dateiname"
+
+#: reporting/templates/reporting/detail.html:78
+#: reporting/templates/reporting/list.html:25
+msgid "Action"
+msgstr "Aktion"
+
+#: reporting/templates/reporting/detail.html:88
+msgid "Delete"
+msgstr "Löschen"
+
+#: reporting/templates/reporting/detail.html:101
+msgid "Drop files here or click to upload."
+msgstr "Ziehen und Ablegen oder hier klicken, um Dateien hochzuladen"
+
+#: reporting/templates/reporting/detail.html:107
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: reporting/templates/reporting/download_data.html:7
+#: reporting/templates/reporting/download_data.html:11
+#: reporting/templates/reporting/list.html:47
+msgid "Download data"
+msgstr "Daten herunterladen"
+
+#: reporting/templates/reporting/download_data.html:125
+msgid "Cost center"
+msgstr "Kostenstelle"
+
+#: reporting/templates/reporting/download_data.html:146
+msgid "Cost object"
+msgstr "Kostenträger"
+
+#: reporting/templates/reporting/download_data.html:224
+msgid "All records"
+msgstr "Alle Datensätze"
+
+#: reporting/templates/reporting/download_data.html:236
+msgid "Top 50 records"
+msgstr "50 Datensätze"
+
+#: reporting/templates/reporting/edit.html:13
+#: reporting/templates/reporting/edit.html:17
+msgid "Edit report"
+msgstr "Bericht bearbeiten"
+
+#: reporting/templates/reporting/form_fields.html:9
+#: reporting/templates/reporting/list.html:23
+msgid "Name"
+msgstr "Name"
+
+#: reporting/templates/reporting/form_fields.html:31
+msgid "Select reportdefinition (*.jrxml)"
+msgstr "Berichtsdefinition auswählen (*.jrxml)"
+
+#: reporting/templates/reporting/form_fields.html:31
+msgid "Select reportdefinition"
+msgstr "Berichtsdefinition auswählen"
+
+#: reporting/templates/reporting/list.html:12
+#: reporting/templates/reporting/list.html:16
+msgid "Report-List"
+msgstr "Berichte"
+
+#: reporting/templates/reporting/list.html:38
+#: reporting/templates/reporting/run.html:52
+msgid "Run"
+msgstr "Ausführen"
+
+#: reporting/templates/reporting/list.html:44
+msgid "Create"
+msgstr "Hinzufügen"
+
+#: reporting/templates/reporting/list.html:65
+msgid "sEmptyTable"
+msgstr "Keine Daten in der Tabelle vorhanden."
+
+#: reporting/templates/reporting/list.html:66
+msgid "sInfo"
+msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
+
+#: reporting/templates/reporting/list.html:67
+msgid "sInfoEmpty"
+msgstr "0 bis 0 von 0 Einträgen"
+
+#: reporting/templates/reporting/list.html:68
+msgid "sInfoFiltered"
+msgstr "(gefiltert von _MAX_ Einträgen)"
+
+#: reporting/templates/reporting/list.html:69
+msgid "sInfoPostfix"
+msgstr " "
+
+#: reporting/templates/reporting/list.html:70
+msgid "sInfoThousands"
+msgstr "."
+
+#: reporting/templates/reporting/list.html:71
+msgid "sLoadingRecords"
+msgstr "Wird geladen..."
+
+#: reporting/templates/reporting/list.html:72
+msgid "sZeroRecords"
+msgstr "Keine Einträge vorhanden."
+
+#: reporting/templates/reporting/list.html:74
+msgid "sFirst"
+msgstr "Erste"
+
+#: reporting/templates/reporting/list.html:75
+msgid "sLast"
+msgstr "Letzte"
+
+#: reporting/templates/reporting/list.html:76
+msgid "sNext"
+msgstr "Nächste"
+
+#: reporting/templates/reporting/list.html:77
+msgid "sPrevious"
+msgstr "Vorherige"
+
+#: reporting/templates/reporting/list.html:80
+msgid "sSortAscending"
+msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
+
+#: reporting/templates/reporting/list.html:81
+msgid "sSortDescending"
+msgstr ": aktivieren, um Spalte absteigend zu sortieren"
+
+#: reporting/templates/reporting/list.html:86
+msgid "sSearch"
+msgstr "Suchen"
+
+#: reporting/templates/reporting/list.html:92
+msgid "sLengthMenu"
+msgstr "Einträge anzeigen"
+
+#: reporting/templates/reporting/run.html:7
+msgid "Run report"
+msgstr "Bericht ausführen"
+
+#: reporting/templates/reporting/run.html:11
+#, python-format
+msgid "Run report: %(report_name)s"
+msgstr "Bericht ausführen: %(report_name)s"
+
+#: reporting/templates/reporting/run.html:23
+msgid "Parameters"
+msgstr "Parameter"
+
+#: reporting/templates/reporting/run.html:37
+msgid "Options"
+msgstr "Optionen"
+
+#: reporting/templates/reporting/run.html:47
+msgid "Fileformat"
+msgstr "Dateiformat"
+
+#: reporting/views.py:71
+msgid "Report saved sucessfully"
+msgstr "Bericht wurde erfolgreich gespeichert"
+
+#: reporting/views.py:87
+msgid "Report created successfully"
+msgstr "Bericht wurde erfolgreich erstellt"

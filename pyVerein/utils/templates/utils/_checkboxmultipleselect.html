@@ -1,0 +1,25 @@
+{% load widget_tweaks %}
+
+<ul class="mdc-list ckeckbox-multiple-select" role="group">
+    {% for option in field %}
+        <li class="mdc-list-item" role="checkbox">
+            <span class="mdc-list-item__graphic">
+            <div class="mdc-checkbox">
+                {{ option.tag }}
+                <div class="mdc-checkbox__background">
+                <svg class="mdc-checkbox__checkmark"
+                        viewBox="0 0 24 24">
+                    <path class="mdc-checkbox__checkmark-path"
+                        fill="none"
+                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                </svg>
+                <div class="mdc-checkbox__mixedmark"></div>
+                </div>
+            </div>
+            </span>
+            <label for="{{ option.id_for_label }}" class="mdc-list-item__text">
+                {{ option.choice_label }}
+            </label>
+        </li>
+    {% endfor %}
+</ul>
