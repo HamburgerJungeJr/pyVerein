@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-28 17:50+0200\n"
+"POT-Creation-Date: 2019-01-30 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,84 +18,92 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:12
+#: account/forms.py:12
 msgid "Reset profile image"
 msgstr "Profilbild zurücksetzen"
 
-#: templates/account/change_password.html:7
-#: templates/account/change_password.html:11
-#: templates/account/change_password.html:36
-#: templates/account/user_detail.html:47
+#: account/templates/account/change_password.html:7
+#: account/templates/account/change_password.html:11
+#: account/templates/account/change_password.html:36
+#: account/templates/account/user_detail.html:47
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: templates/account/change_password.html:21
-#: templates/account/user_detail.html:44
+#: account/templates/account/change_password.html:21
+#: account/templates/account/user_detail.html:44
 msgid "Password"
 msgstr "Passwort"
 
-#: templates/account/change_password.html:24
+#: account/templates/account/change_password.html:24
 msgid "Old password"
 msgstr "Akutelles Passwort"
 
-#: templates/account/change_password.html:28
+#: account/templates/account/change_password.html:28
 msgid "New password"
 msgstr "Neues Passwort"
 
-#: templates/account/change_password.html:32
+#: account/templates/account/change_password.html:32
 msgid "Confirm password"
 msgstr "Passwort bestätigen"
 
-#: templates/account/change_password.html:37
-#: templates/account/user_edit.html:54
+#: account/templates/account/change_password.html:37
+#: account/templates/account/user_edit.html:54
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/account/user_detail.html:6 templates/account/user_detail.html:10
-#: templates/account/user_edit.html:7 templates/account/user_edit.html:11
+#: account/templates/account/user_detail.html:6
+#: account/templates/account/user_detail.html:10
+#: account/templates/account/user_edit.html:7
+#: account/templates/account/user_edit.html:11
 msgid "Userprofile"
 msgstr "Benutzerprofil"
 
-#: templates/account/user_detail.html:25 templates/account/user_edit.html:34
+#: account/templates/account/user_detail.html:25
+#: account/templates/account/user_edit.html:34
 msgid "Personal Data"
 msgstr "Persönliche Daten"
 
-#: templates/account/user_detail.html:28 templates/account/user_edit.html:37
+#: account/templates/account/user_detail.html:28
+#: account/templates/account/user_edit.html:37
 msgid "Firstname"
 msgstr "Vorname"
 
-#: templates/account/user_detail.html:32 templates/account/user_edit.html:41
+#: account/templates/account/user_detail.html:32
+#: account/templates/account/user_edit.html:41
 msgid "Lastname"
 msgstr "Nachname"
 
-#: templates/account/user_detail.html:36 templates/account/user_edit.html:45
+#: account/templates/account/user_detail.html:36
+#: account/templates/account/user_edit.html:45
 msgid "Username"
 msgstr "Benutzername"
 
-#: templates/account/user_detail.html:40 templates/account/user_edit.html:49
+#: account/templates/account/user_detail.html:40
+#: account/templates/account/user_edit.html:49
 msgid "Email"
 msgstr "E-Mail"
 
-#: templates/account/user_detail.html:50
+#: account/templates/account/user_detail.html:50
 msgid "Additional information"
 msgstr "Zusätzliche Informationen"
 
-#: templates/account/user_detail.html:53
+#: account/templates/account/user_detail.html:53
 msgid "Account created"
 msgstr "Konto erstellt"
 
-#: templates/account/user_detail.html:57
+#: account/templates/account/user_detail.html:57
 msgid "Last login"
 msgstr "Letzer Login"
 
-#: templates/account/user_detail.html:63 templates/account/user_edit.html:26
+#: account/templates/account/user_detail.html:63
+#: account/templates/account/user_edit.html:26
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: templates/account/user_edit.html:53
+#: account/templates/account/user_edit.html:53
 msgid "Save"
 msgstr "Speichern"
 
-#: views.py:48
+#: account/views.py:48
 msgid "Your password was successfully updated!"
 msgstr "Passwort wurde erfolgreich geändert"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-19 17:50+0100\n"
+"POT-Creation-Date: 2019-01-30 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,163 +18,193 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/app/_attributions.html:6 templates/app/base.html:79
-#: templates/registration/login.html:92
+#: app/templates/app/_attributions.html:6 app/templates/app/base.html:79
+#: app/templates/registration/login.html:92
 msgid "Attributions"
 msgstr "Lizenzen"
 
-#: templates/app/_attributions.html:12 templates/app/_attributions.html:19
-#: templates/app/_attributions.html:26 templates/app/_attributions.html:33
-#: templates/app/_attributions.html:40 templates/app/_attributions.html:47
-#: templates/app/_attributions.html:54 templates/app/_attributions.html:61
-#: templates/app/_attributions.html:68 templates/app/_attributions.html:75
-#: templates/app/_attributions.html:82 templates/app/_attributions.html:89
-#: templates/app/_attributions.html:90
+#: app/templates/app/_attributions.html:12
+#: app/templates/app/_attributions.html:19
+#: app/templates/app/_attributions.html:26
+#: app/templates/app/_attributions.html:33
+#: app/templates/app/_attributions.html:40
+#: app/templates/app/_attributions.html:47
+#: app/templates/app/_attributions.html:54
+#: app/templates/app/_attributions.html:61
+#: app/templates/app/_attributions.html:68
+#: app/templates/app/_attributions.html:75
+#: app/templates/app/_attributions.html:82
+#: app/templates/app/_attributions.html:89
 msgid "by"
 msgstr "von"
 
-#: templates/app/_attributions.html:13 templates/app/_attributions.html:20
-#: templates/app/_attributions.html:27 templates/app/_attributions.html:34
-#: templates/app/_attributions.html:41 templates/app/_attributions.html:48
-#: templates/app/_attributions.html:55 templates/app/_attributions.html:62
-#: templates/app/_attributions.html:69 templates/app/_attributions.html:76
-#: templates/app/_attributions.html:83 templates/app/_attributions.html:90
+#: app/templates/app/_attributions.html:13
+#: app/templates/app/_attributions.html:20
+#: app/templates/app/_attributions.html:27
+#: app/templates/app/_attributions.html:34
+#: app/templates/app/_attributions.html:41
+#: app/templates/app/_attributions.html:48
+#: app/templates/app/_attributions.html:55
+#: app/templates/app/_attributions.html:62
+#: app/templates/app/_attributions.html:69
+#: app/templates/app/_attributions.html:76
+#: app/templates/app/_attributions.html:83
+#: app/templates/app/_attributions.html:90
 msgid "Published under"
 msgstr "Veröffentlicht unter"
 
-#: templates/app/_attributions.html:13 templates/app/_attributions.html:20
-#: templates/app/_attributions.html:27 templates/app/_attributions.html:34
-#: templates/app/_attributions.html:41 templates/app/_attributions.html:48
-#: templates/app/_attributions.html:55 templates/app/_attributions.html:62
-#: templates/app/_attributions.html:69 templates/app/_attributions.html:76
-#: templates/app/_attributions.html:83 templates/app/_attributions.html:90
+#: app/templates/app/_attributions.html:13
+#: app/templates/app/_attributions.html:20
+#: app/templates/app/_attributions.html:27
+#: app/templates/app/_attributions.html:34
+#: app/templates/app/_attributions.html:41
+#: app/templates/app/_attributions.html:48
+#: app/templates/app/_attributions.html:55
+#: app/templates/app/_attributions.html:62
+#: app/templates/app/_attributions.html:69
+#: app/templates/app/_attributions.html:76
+#: app/templates/app/_attributions.html:83
+#: app/templates/app/_attributions.html:90
 msgid "at"
 msgstr "auf"
 
-#: templates/app/_attributions.html:13 templates/app/_attributions.html:20
-#: templates/app/_attributions.html:27 templates/app/_attributions.html:34
-#: templates/app/_attributions.html:41 templates/app/_attributions.html:48
-#: templates/app/_attributions.html:55 templates/app/_attributions.html:62
-#: templates/app/_attributions.html:69 templates/app/_attributions.html:76
-#: templates/app/_attributions.html:83
+#: app/templates/app/_attributions.html:13
+#: app/templates/app/_attributions.html:20
+#: app/templates/app/_attributions.html:27
+#: app/templates/app/_attributions.html:34
+#: app/templates/app/_attributions.html:41
+#: app/templates/app/_attributions.html:48
+#: app/templates/app/_attributions.html:55
+#: app/templates/app/_attributions.html:62
+#: app/templates/app/_attributions.html:69
+#: app/templates/app/_attributions.html:76
+#: app/templates/app/_attributions.html:83
+#: app/templates/app/_attributions.html:90
 msgid "Open at"
 msgstr "Öffnen auf"
 
-
-#: templates/app/_attributions.html:94
+#: app/templates/app/_attributions.html:94
 msgid "Close"
 msgstr "Schließen"
 
-#: templates/app/_drawer.html:6 templates/app/dashboard.html:11
-#: templates/app/dashboard.html:15
+#: app/templates/app/_drawer.html:6 app/templates/app/dashboard.html:11
+#: app/templates/app/dashboard.html:15
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: templates/app/_drawer.html:15 templates/app/_drawer.html:18
-#: templates/app/_drawer.html:20 templates/app/dashboard.html:22
+#: app/templates/app/_drawer.html:15 app/templates/app/_drawer.html:18
+#: app/templates/app/_drawer.html:20 app/templates/app/dashboard.html:22
 msgid "Members"
 msgstr "Mitglieder"
 
-#: templates/app/_drawer.html:24 templates/app/_drawer.html:26
+#: app/templates/app/_drawer.html:24 app/templates/app/_drawer.html:26
 msgid "Divisions"
 msgstr "Sparten"
 
-#: templates/app/_drawer.html:30 templates/app/_drawer.html:32
+#: app/templates/app/_drawer.html:30 app/templates/app/_drawer.html:32
 msgid "Subscriptions"
 msgstr "Beiträge"
 
-#: templates/app/_drawer.html:39
+#: app/templates/app/_drawer.html:39
 msgid "Finance"
 msgstr "Finanzen"
 
-#: templates/app/_drawer.html:42 templates/app/_drawer.html:44
+#: app/templates/app/_drawer.html:42 app/templates/app/_drawer.html:44
 msgid "Transactions"
 msgstr "Belege"
 
-#: templates/app/_drawer.html:48 templates/app/_drawer.html:50
+#: app/templates/app/_drawer.html:48 app/templates/app/_drawer.html:50
 msgid "Debitors"
 msgstr "Debitoren"
 
-#: templates/app/_drawer.html:54 templates/app/_drawer.html:56
+#: app/templates/app/_drawer.html:54 app/templates/app/_drawer.html:56
 msgid "Creditors"
 msgstr "Kreditoren"
 
-#: templates/app/_drawer.html:60 templates/app/_drawer.html:62
+#: app/templates/app/_drawer.html:60 app/templates/app/_drawer.html:62
 msgid "Impersonal"
 msgstr "Sachkonten"
 
-#: templates/app/_drawer.html:66 templates/app/_drawer.html:68
+#: app/templates/app/_drawer.html:66 app/templates/app/_drawer.html:68
 msgid "Cost centers"
 msgstr "Kostenstellen"
 
-#: templates/app/_drawer.html:72 templates/app/_drawer.html:74
+#: app/templates/app/_drawer.html:72 app/templates/app/_drawer.html:74
 msgid "Cost objects"
 msgstr "Kostenträger"
 
-#: templates/app/_drawer.html:81 templates/app/_drawer.html:84
-#: templates/app/_drawer.html:86
+#: app/templates/app/_drawer.html:81 app/templates/app/_drawer.html:84
+#: app/templates/app/_drawer.html:86
 msgid "Tasks"
 msgstr "Aufgaben"
 
-#: templates/app/_drawer.html:92
+#: app/templates/app/_drawer.html:93
+msgid "Reporting"
+msgstr "Berichtswesen"
+
+#: app/templates/app/_drawer.html:96 app/templates/app/_drawer.html:98
+msgid "Reports"
+msgstr "Berichte"
+
+#: app/templates/app/_drawer.html:104
 msgid "User"
 msgstr "Benutzer"
 
-#: templates/app/_drawer.html:93 templates/app/_drawer.html:95
+#: app/templates/app/_drawer.html:105 app/templates/app/_drawer.html:107
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/app/_drawer.html:97 templates/app/_drawer.html:99
+#: app/templates/app/_drawer.html:109 app/templates/app/_drawer.html:111
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: templates/app/base.html:118 templates/app/base.html:155
+#: app/templates/app/base.html:118 app/templates/app/base.html:155
 msgid "Dismiss"
 msgstr "Ausblenden"
 
-#: templates/app/dashboard.html:29
+#: app/templates/app/dashboard.html:29
 msgid "Bank accounts"
 msgstr "Bankkonten"
 
-#: templates/app/dashboard.html:36
+#: app/templates/app/dashboard.html:36
 msgid "Costcenter"
 msgstr "Kostenstellen"
 
-#: templates/app/dashboard.html:43
+#: app/templates/app/dashboard.html:43
 msgid "Costobject"
 msgstr "Kostenträger"
 
-#: templates/app/dashboard.html:60
+#: app/templates/app/dashboard.html:60
 msgid "Not selected"
 msgstr "Keine Auswahl"
 
-#: templates/app/dashboard.html:156 templates/app/dashboard.html:209
+#: app/templates/app/dashboard.html:156 app/templates/app/dashboard.html:209
 msgid "Balance"
 msgstr "Saldo"
 
-#: templates/registration/login.html:49
+#: app/templates/registration/login.html:49
 msgid "Log In"
 msgstr "Anmeldung"
 
-#: templates/registration/login.html:57
+#: app/templates/registration/login.html:57
 msgid "Your username and password didnt match. Please try again."
 msgstr ""
 "Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
 
-#: templates/registration/login.html:62
+#: app/templates/registration/login.html:62
 msgid ""
 "Your account doesnt have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr "Dieser Benutzer hat keine Berechtigung für diese Seite."
 
-#: templates/registration/login.html:72
+#: app/templates/registration/login.html:72
 msgid "Username"
 msgstr "Benutzername"
 
-#: templates/registration/login.html:79
+#: app/templates/registration/login.html:79
 msgid "Password"
 msgstr "Passwort"
 
-#: templates/registration/login.html:84
+#: app/templates/registration/login.html:84
 msgid "Login"
 msgstr "Anmelden"
