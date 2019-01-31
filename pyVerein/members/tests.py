@@ -131,19 +131,6 @@ class MemberTestMethods(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
         response = self.client.get(reverse('members:create'))
         self.assertEqual(response.status_code, 200)
-    
-    def test_member_apiList_permission(self):
-        "User should only access member api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('members:apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_member'))
-
-        response = self.client.get(reverse('members:apiList'))
-        self.assertEqual(response.status_code, 200)
 
     def test_member_field_permission(self):
         "User should only be able to see field if permission is set"
@@ -402,19 +389,6 @@ class DivisionTestMethods(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='view_division'))
         response = self.client.get(reverse('members:division_create'))
         self.assertEqual(response.status_code, 200)
-    
-    def test_division_apiList_permission(self):
-        "User should only access division api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('members:division_apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_division'))
-
-        response = self.client.get(reverse('members:division_apiList'))
-        self.assertEqual(response.status_code, 200)
 
 class SubscriptionTestMethods(TestCase):
     def setUp(self):
@@ -505,17 +479,4 @@ class SubscriptionTestMethods(TestCase):
 
         user.user_permissions.add(Permission.objects.get(codename='view_subscription'))
         response = self.client.get(reverse('members:subscription_create'))
-        self.assertEqual(response.status_code, 200)
-    
-    def test_subscription_apiList_permission(self):
-        "User should only access subscription api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('members:subscription_apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_subscription'))
-
-        response = self.client.get(reverse('members:subscription_apiList'))
         self.assertEqual(response.status_code, 200)
