@@ -9,8 +9,6 @@ from django.views.generic import TemplateView, DetailView, UpdateView, CreateVie
 from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountCreateForm, ImpersonalAccountEditForm, CostCenterCreateForm, CostCenterEditForm, CostObjectCreateForm, CostObjectEditForm, TransactionCreateForm, TransactionEditForm
 # Import reverse.
 from django.urls import reverse, reverse_lazy
-# Import datatablesview.
-from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
 from django.db.models import Q, Max, Sum
 # Import localization

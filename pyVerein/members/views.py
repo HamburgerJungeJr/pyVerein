@@ -8,8 +8,6 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from .forms import MemberForm, DivisionForm, SubscriptionForm
 from .models import Member, Division, Subscription
 from finance.models import Transaction
-# Import datatablesview.
-from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
 from django.db.models import Q
 
