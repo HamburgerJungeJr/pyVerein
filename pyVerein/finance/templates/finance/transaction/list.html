@@ -22,16 +22,58 @@
             width="100%">
         <thead>
             <tr>
-                <th>{% trans 'Date' %}</th>
-                <th>{% trans 'Document number' %}</th>
-                <th>{% trans 'Account' %}</th>
-                <th>{% trans 'Transaction text' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Date' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Document number' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Account' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
                 <th>{% trans 'Debit' %}</th>
                 <th>{% trans 'Credit' %}</th>
-                <th>{% trans 'Cost center' %}</th>
-                <th>{% trans 'Cost object' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost center' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost object' %}</th>
             </tr>
         </thead>
+        <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ transaction.date}}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}" target="_blank">{{ transaction.document_number }}</a>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {% if transaction.account.account_type == "DEB" %}
+                            <a href="{% url 'finance:debitor_detail' pk=transaction.account.pk %}" title="{% trans 'Show account' %}" target="_blank">{{ transaction.account.number }}</a>
+                        {% endif %}
+                        {% if transaction.account.account_type == "CRE" %}
+                            <a href="{% url 'finance:creditor_detail' pk=transaction.account.pk %}" title="{% trans 'Show account' %}" target="_blank">{{ transaction.account.number }}</a>
+                        {% endif %}
+                        {% if transaction.account.account_type == "COS" or transaction.account.account_type == "INC" or transaction.account.account_type == "ASS"%}
+                            <a href="{% url 'finance:impersonal_detail' pk=transaction.account.pk %}" title="{% trans 'Show account' %}" target="_blank">{{ transaction.account.number }}</a>
+                        {% endif %}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ transaction.text }}
+                    </td>
+                    <td>
+                        {{ transaction.debit|default_if_none:"" }}
+                    </td>
+                    <td>
+                        {{ transaction.credit|default_if_none:"" }}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {% if transaction.cost_center %}
+                            <a href="{% url 'finance:costcenter_detail' pk=transaction.cost_center.pk %}" title="{% trans 'Show cost center' %}" target="_blank">{{ transaction.cost_center.number }}</a>
+                        {% endif %}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                            {% if transaction.cost_object %}
+                            <a href="{% url 'finance:costobject_detail' pk=transaction.cost_object.pk %}" title="{% trans 'Show cost object' %}" target="_blank">{{ transaction.cost_object.number }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
     <a href ="{% url 'finance:transaction_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
@@ -47,8 +89,7 @@
                 $('#transactionlist').css('opacity', processing ? '0.3' : '1.0');
             }).DataTable({
                 "processing": true,
-                "serverSide": true,
-                "ajax": "{% url 'finance:transaction_apiList' %}",
+                "serverSide": false,
                 "language": {
                     "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
                     "sEmptyTable": "{% trans 'sEmptyTable' %}",
@@ -70,53 +111,6 @@
                         "sSortDescending": "{% trans 'sSortDescending' %}"
                     }
                 },
-                "processing":
-                    true,
-                "columns":
-                    [
-                        {
-                            "data": "date",
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                        {
-                            "data": "document_number",
-                            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                                $(nTd).html("<a href='" + oData.transaction_url + "' title='{% trans 'Show receipt' %}' target='_blank'>" + oData.document_number + "</a>");
-                            },
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                        {
-                            "data": "account",
-                            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                                $(nTd).html("<a href='" + oData.account_url + "' title='{% trans 'Show account' %}' target='_blank'>" + oData.account + "</a>");
-                            },
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                        {
-                            "data": "text",
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                        {
-                            "data": "debit"
-                        },
-                        {
-                            "data": "credit"
-                        },
-                        {
-                            "data": "cost_center",
-                            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                                $(nTd).html("<a href='" + oData.cost_center_url + "' title='{% trans 'Show cost center' %}' target='_blank'>" + oData.cost_center + "</a>");
-                            },
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                        {
-                            "data": "cost_object",
-                            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                                $(nTd).html("<a href='" + oData.cost_object_url + "' title='{% trans 'Show cost object' %}' target='_blank'>" + oData.cost_object + "</a>");
-                            },
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                    ],
             });
             // Search
             $("#transactionlist_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');

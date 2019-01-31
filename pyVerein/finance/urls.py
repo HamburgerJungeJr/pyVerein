@@ -35,7 +35,6 @@ urlpatterns = [
     url(r'^costobject/new/$', views.CostObjectCreateView.as_view(), name='costobject_create'),
 
     url(r'^transaction/$', views.TransactionIndexView.as_view(), name='transaction_list'),
-    url(r'^transaction/data/$', views.TransactionDatatableView.as_view(), name='transaction_apiList'),
     url(r'^transaction/(?P<internal_number>[0-9]+)/$', views.TransactionDetailView.as_view(), name='transaction_detail'),
     url(r'^transaction/(?P<internal_number>[0-9]+)/edit/(?P<pk>[0-9]+)/$', views.TransactionEditView.as_view(), name='transaction_edit'),
     url(r'^transaction/new/$', views.TransactionCreateView.as_view(), name='transaction_create'),

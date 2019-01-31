@@ -487,6 +487,13 @@ class TransactionIndexView(LoginRequiredMixin, PermissionRequiredMixin, Template
     permission_required = 'finance.view_transaction'
     template_name = 'finance/transaction/list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(TransactionIndexView, self).get_context_data(**kwargs)
+
+        context['transactions'] = Transaction.objects.all()
+
+        return context
+
 class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Create view for transaction
@@ -560,9 +567,6 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
 
         session_id = self.kwargs.get('session_id', '')
         global_preferences = global_preferences_registry.manager()
-
-        # Save object to commit the changes
-        #self.object.save()
 
         # Save object to session
         transactions = self.request.session.get(session_id + 'transactions')
@@ -692,77 +696,6 @@ class TransactionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMe
 
     def get_success_message(self, cleaned_data):
         return _('Receipt {0:s} updated successfully').format(str(self.object.document_number))
- 
-class TransactionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for transaction
-    """
-    permission_required = 'finance.view_transaction'
-    # Use Transactionmodel
-    model = Transaction
-
-    # Define displayed columns.
-    columns = ['date','document_number',  'account', 'text', 'debit', 'credit', 'cost_center', 'cost_object']
-
-    # Define columns used for ordering.
-    order_columns = ['date', 'document_number', 'account', 'text', 'debit', 'credit', 'cost_center', 'cost_object']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(
-                Q(document_number__icontains=search) | 
-                Q(account__number__icontains=search) | 
-                Q(text__icontains=search) | 
-                Q(cost_center__number__icontains=search) | 
-                Q(cost_object__number__icontains=search)
-            )
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-        # Loop through all items in queryset
-        for item in qs:
-            # Retrieve accounttype
-            account_url = None
-            if item.account.account_type == Account.DEBITOR: 
-                account_url = reverse('finance:debitor_detail', args=[item.account.number])
-            if item.account.account_type == Account.CREDITOR: 
-                account_url = reverse('finance:creditor_detail', args=[item.account.number])
-            if item.account.account_type == Account.COST or item.account.account_type == Account.INCOME or item.account.account_type == Account.ASSET: 
-                account_url = reverse('finance:impersonal_detail', args=[item.account.number])
-
-            # Append dictionary with all columns and urls
-            json_data.append({
-                'document_number': item.document_number, 
-                'date': item.date.strftime('%d.%m.%Y'), 
-                'account': item.account.number, 
-                'text': item.text, 
-                'debit': item.debit, 
-                'credit': item.credit, 
-                'cost_center': item.cost_center.number if item.cost_center is not None else '', 
-                'cost_object': item.cost_object.number if item.cost_object is not None else '', 
-                'transaction_url': reverse('finance:transaction_detail', args=[item.internal_number]),
-                'account_url': account_url,
-                'cost_center_url': reverse('finance:costcenter_detail', args=[item.cost_center.number]) if item.cost_center is not None else '',
-                'cost_object_url': reverse('finance:costobject_detail', args=[item.cost_object.number]) if item.cost_object is not None else ''
-            })
-
-        # Return data
-        return json_data
 
 @login_required
 @permission_required('finance.view_account', raise_exception=True)
