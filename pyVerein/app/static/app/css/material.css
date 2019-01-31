@@ -3466,6 +3466,8 @@ a.mdc-list-item {
       background-color: transparent; }
     .mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {
       padding: 0; }
+  .mdc-text-field--fullwidth.mdc-text-field--textarea .mdc-text-field__input {
+    resize: vertical; }
 
 .mdc-text-field--fullwidth.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea) {
   border-bottom-color: #b00020;

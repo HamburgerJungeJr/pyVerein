@@ -88,6 +88,21 @@
                 <div class="field-title">{% trans 'Terminated at' %}</div>
                 <div class="field-value">{{ member.terminated_at|default_if_none:"" }}</div>
             </div>
+            {% if perms.members.view_subscription %}
+            <div class="heading mdc-typography--overline">
+                {% trans 'Subscription' %}
+            </div>
+            <div class="row">
+                <div class="field-title">{% trans 'Subscription' %}</div>
+                <div class="field-value">
+                    {% if member.subscription %}
+                        {% for subscription in member.subscription.all %}
+                            {{ subscription.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
             {% if perms.members.view_payment %}
             <div class="heading mdc-typography--overline">
                 {% trans 'Payment' %}
@@ -95,10 +110,6 @@
             <div class="row">
                 <div class="field-title">{% trans 'Method' %}</div>
                 <div class="field-value">{{ member.get_payment_method_display }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Subscription' %}</div>
-                <div class="field-value">{{ member.subscription|default_if_none:"" }}</div>
             </div>
             {% if member.payment_method == 'DE' %}
                 <div class="row">

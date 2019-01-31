@@ -75,7 +75,7 @@ class Member(models.Model):
     # Direct debit reference
     debit_reference = models.CharField(blank=True, null=True, max_length=100)
     # Subscription
-    subscription = models.ForeignKey('Subscription', on_delete=models.PROTECT, blank=True, null=True)
+    subscription = models.ManyToManyField('Subscription', blank=True)
 
     # Additional field 1
     field_1 = models.CharField(blank=True, null=True, max_length=255)

@@ -43,56 +43,57 @@ def apply_subscriptions(request):
         members = [member.pk for member in Member.objects.all() if not member.is_terminated()]
         for member in Member.objects.filter(pk__in=members):
             if member.subscription and member.membership_number:
-                # Determine how many subscriptions need to be applied
-                transaction_count = 0
-                if member.subscription.payment_frequency == Subscription.YEARLY and not Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count():
-                    transaction_count = 1
-                    if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
-                        transaction_count -= 1
+                for subscription in member.subscription.all():
+                    # Determine how many subscriptions need to be applied
+                    transaction_count = 0
+                    if subscription.payment_frequency == Subscription.YEARLY and not Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {subscription_name} - {membership_number} - {last_name}, {first_name}").format(subscription_name=subscription.name, membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count():
+                        transaction_count = 1
+                        if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
+                            transaction_count -= 1
+                    
+                    if subscription.payment_frequency == Subscription.HALFYEARLY:
+                        transaction_count = (2 - ((datetime.date.today().month - 1) // 6)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {subscription_name} - {membership_number} - {last_name}, {first_name}").format(subscription_name=subscription.name, membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
+                        if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
+                            transaction_count -= 1
+
+                    if subscription.payment_frequency == Subscription.QUARTERLY:
+                        transaction_count = (4 - ((datetime.date.today().month - 1) // 3)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {subscription_name} - {membership_number} - {last_name}, {first_name}").format(subscription_name=subscription.name, membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
+                        if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
+                            transaction_count -= 1
+
+                    if subscription.payment_frequency == Subscription.MONTHLY:
+                        transaction_count = (12 - (datetime.date.today().month - 1)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {subscription_name} - {membership_number} - {last_name}, {first_name}").format(subscription_name=subscription.name, membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
+                        if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
+                            transaction_count -= 1
                 
-                if member.subscription.payment_frequency == Subscription.HALFYEARLY:
-                    transaction_count = (2 - ((datetime.date.today().month - 1) // 6)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
-                    if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
-                        transaction_count -= 1
-
-                if member.subscription.payment_frequency == Subscription.QUARTERLY:
-                    transaction_count = (4 - ((datetime.date.today().month - 1) // 3)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
-                    if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
-                        transaction_count -= 1
-
-                if member.subscription.payment_frequency == Subscription.MONTHLY:
-                    transaction_count = (12 - (datetime.date.today().month - 1)) - Transaction.objects.filter(Q(account=member.division.get_income_account()) & Q(text=_("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
-                    if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
-                        transaction_count -= 1
-            
-                
-                for i in range(0, transaction_count):
-                    income_transaction = Transaction()
-                    income_transaction.account = member.division.get_income_account()
-                    income_transaction.date = datetime.datetime.now()
-                    income_transaction.text = _("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name)
-                    income_transaction.credit = member.subscription.amount
-                    income_transaction.cost_center = member.division.get_cost_center()
-                    income_transaction.cost_object = member.division.get_cost_object()
+                    
+                    for i in range(0, transaction_count):
+                        income_transaction = Transaction()
+                        income_transaction.account = member.division.get_income_account()
+                        income_transaction.date = datetime.datetime.now()
+                        income_transaction.text = _("Subscription - {subscription_name} - {membership_number} - {last_name}, {first_name}").format(subscription_name=subscription.name, membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name)
+                        income_transaction.credit = subscription.amount
+                        income_transaction.cost_center = member.division.get_cost_center()
+                        income_transaction.cost_object = member.division.get_cost_object()
 
 
-                    debitor_transaction = Transaction()
-                    debitor_transaction.account = member.division.get_debitor_account()
-                    debitor_transaction.date = datetime.datetime.now()
-                    debitor_transaction.text = _("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name)
-                    debitor_transaction.debit = member.subscription.amount
+                        debitor_transaction = Transaction()
+                        debitor_transaction.account = member.division.get_debitor_account()
+                        debitor_transaction.date = datetime.datetime.now()
+                        debitor_transaction.text = _("Subscription - {subscription_name} - {membership_number} - {last_name}, {first_name}").format(subscription_name=subscription.name, membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name)
+                        debitor_transaction.debit = subscription.amount
 
-                    document_number = generate_document_number()
-                    internal_number = generate_internal_number()
-                    income_transaction.document_number = document_number
-                    income_transaction.document_number_generated = True
-                    income_transaction.internal_number = internal_number
-                    debitor_transaction.document_number = document_number
-                    debitor_transaction.document_number_generated = True
-                    debitor_transaction.internal_number = internal_number
+                        document_number = generate_document_number()
+                        internal_number = generate_internal_number()
+                        income_transaction.document_number = document_number
+                        income_transaction.document_number_generated = True
+                        income_transaction.internal_number = internal_number
+                        debitor_transaction.document_number = document_number
+                        debitor_transaction.document_number_generated = True
+                        debitor_transaction.internal_number = internal_number
 
-                    income_transaction.save()
-                    debitor_transaction.save()
+                        income_transaction.save()
+                        debitor_transaction.save()
             else:
                 missed_members.append("%s - %s, %s" % (member.membership_number, member.last_name, member.first_name))
         
