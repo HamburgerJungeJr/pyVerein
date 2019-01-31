@@ -18,26 +18,26 @@
 
 {% block content %}
     <table id="debitorlist" class="mdl-data-table dataTable"
-            cellspacing="0"
-            width="100%">
-            <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">{% trans 'Debitor number' %}</th>
-                        <th class="mdl-data-table__cell--non-numeric">{% trans 'Debitor name' %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for debitor in debitors %}
-                        <tr data-debitor="{% url 'finance:debitor_detail' pk=debitor.pk %}">
-                            <td class="mdl-data-table__cell--non-numeric">
-                                {{ debitor.number}}
-                            </td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                                {{ debitor.name }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
+        cellspacing="0"
+        width="100%">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Debitor number' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Debitor name' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for debitor in debitors %}
+                <tr data-debitor="{% url 'finance:debitor_detail' pk=debitor.pk %}">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ debitor.number}}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ debitor.name }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
     <a href ="{% url 'finance:debitor_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
