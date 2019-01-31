@@ -13,154 +13,200 @@
 {% block content %}
     <div class="main-narrow form">
         <div class="detail-content mdc-elevation--z4">
-            <div class="heading mdc-typography--overline">
-                {% trans 'Personal Data' %}
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Salutation' %}</div>
-                <div class="field-value">{{ member.get_salutation_display }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Firstname' %}</div>
-                <div class="field-value">{{ member.first_name|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Lastname' %}</div>
-                <div class="field-value">{{ member.last_name|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Birthday' %}</div>
-                <div class="field-value">{{ member.birthday|default_if_none:"" }}</div>
-            </div>
-        
-            <div class="heading mdc-typography--overline">
-                {% trans 'Address' %}
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Street' %}</div>
-                <div class="field-value">{{ member.street|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Zip-Code' %}</div>
-                <div class="field-value">{{ member.zipcode|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'City' %}</div>
-                <div class="field-value">{{ member.city|default_if_none:"" }}</div>
-            </div>
-        
-            <div class="heading mdc-typography--overline">
-                {% trans 'Contact' %}
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Phone' %}</div>
-                <div class="field-value">{{ member.phone|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Mobile' %}</div>
-                <div class="field-value">{{ member.mobile|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Fax' %}</div>
-                <div class="field-value">{{ member.fax|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'EMail' %}</div>
-                <div class="field-value">{{ member.email|default_if_none:"" }}</div>
-            </div>
-        
-            <div class="heading mdc-typography--overline">
-                {% trans 'Membership' %}
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Membership number' %}</div>
-                <div class="field-value">{{ member.membership_number|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Division' %}</div>
-                <div class="field-value">{{ member.division.name|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Joined at' %}</div>
-                <div class="field-value">{{ member.joined_at|default_if_none:"" }}</div>
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Terminated at' %}</div>
-                <div class="field-value">{{ member.terminated_at|default_if_none:"" }}</div>
-            </div>
-            {% if perms.members.view_subscription %}
-            <div class="heading mdc-typography--overline">
-                {% trans 'Subscription' %}
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Subscription' %}</div>
-                <div class="field-value">
-                    {% if member.subscription %}
-                        {% for subscription in member.subscription.all %}
-                            {{ subscription.name }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    {% endif %}
+            {% if perms.members.view_field_salutation or perms.members.view_field_first_name or perms.members.view_field_last_name or perms.members.view_field_birthday %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Personal Data' %}
                 </div>
-            </div>
             {% endif %}
-            {% if perms.members.view_payment %}
-            <div class="heading mdc-typography--overline">
-                {% trans 'Payment' %}
-            </div>
-            <div class="row">
-                <div class="field-title">{% trans 'Method' %}</div>
-                <div class="field-value">{{ member.get_payment_method_display }}</div>
-            </div>
+            {% if perms.members.view_field_salutation %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Salutation' %}</div>
+                    <div class="field-value">{{ member.get_salutation_display }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_first_name %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Firstname' %}</div>
+                    <div class="field-value">{{ member.first_name|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_last_name %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Lastname' %}</div>
+                    <div class="field-value">{{ member.last_name|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_birthday %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Birthday' %}</div>
+                    <div class="field-value">{{ member.birthday|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_street or perms.members.view_field_zipcode or perms.members.view_field_city %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Address' %}
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_street %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Street' %}</div>
+                    <div class="field-value">{{ member.street|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_zipcode %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Zip-Code' %}</div>
+                    <div class="field-value">{{ member.zipcode|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_city %}
+                <div class="row">
+                    <div class="field-title">{% trans 'City' %}</div>
+                    <div class="field-value">{{ member.city|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_phone or perms.members.view_field_mobile or perms.members.view_field_fax or perms.members.view_field_email %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Contact' %}
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_phone %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Phone' %}</div>
+                    <div class="field-value">{{ member.phone|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_mobile %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Mobile' %}</div>
+                    <div class="field-value">{{ member.mobile|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_fax %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Fax' %}</div>
+                    <div class="field-value">{{ member.fax|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_email %}
+                <div class="row">
+                    <div class="field-title">{% trans 'EMail' %}</div>
+                    <div class="field-value">{{ member.email|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_membership_number or perms.members.view_field_division or perms.members.view_field_joined_at or perms.members.view_field_terminated_at %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Membership' %}
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_membership_number %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Membership number' %}</div>
+                    <div class="field-value">{{ member.membership_number|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_division %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Division' %}</div>
+                    <div class="field-value">{{ member.division.name|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_joined_at %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Joined at' %}</div>
+                    <div class="field-value">{{ member.joined_at|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_terminated_at %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Terminated at' %}</div>
+                    <div class="field-value">{{ member.terminated_at|default_if_none:"" }}</div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_subscription %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Subscription' %}
+                </div>
+            {% endif %} 
+            {% if perms.members.view_field_subscription %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Subscription' %}</div>
+                    <div class="field-value">
+                        {% if member.subscription %}
+                            {% for subscription in member.subscription.all %}
+                                {{ subscription.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_payment_method or perms.members.view_field_iban or perms.members.view_field_bic or perms.members.view_field_debit_mandate_at or perms.members.view_field_debit_reference %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Payment' %}
+                </div>
+            {% endif %}
+            {% if perms.members.view_field_payment_method %}
+                <div class="row">
+                    <div class="field-title">{% trans 'Method' %}</div>
+                    <div class="field-value">{{ member.get_payment_method_display }}</div>
+                </div>
+            {% endif %}
             {% if member.payment_method == 'DE' %}
-                <div class="row">
-                    <div class="field-title">{% trans 'IBAN' %}</div>
-                    <div class="field-value">{{ member.iban|default_if_none:"" }}</div>
-                </div>
-                <div class="row">
-                    <div class="field-title">{% trans 'BIC' %}</div>
-                    <div class="field-value">{{ member.bic|default_if_none:"" }}</div>
-                </div>
-                <div class="row">
-                    <div class="field-title">{% trans 'Direct debit mandate granted at' %}</div>
-                    <div class="field-value">{{ member.debit_mandate_at|default_if_none:"" }}</div>
-                </div>
-                <div class="row">
-                    <div class="field-title">{% trans 'Direct debit reference' %}</div>
-                    <div class="field-value">{{ member.debit_reference|default_if_none:"" }}</div>
-                </div>
+                {% if perms.members.view_field_iban %}
+                    <div class="row">
+                        <div class="field-title">{% trans 'IBAN' %}</div>
+                        <div class="field-value">{{ member.iban|default_if_none:"" }}</div>
+                    </div>
+                {% endif %}
+                {% if perms.members.view_field_bic %}
+                    <div class="row">
+                        <div class="field-title">{% trans 'BIC' %}</div>
+                        <div class="field-value">{{ member.bic|default_if_none:"" }}</div>
+                    </div>
+                {% endif %}
+                {% if perms.members.view_field_debit_mandate_at %}
+                    <div class="row">
+                        <div class="field-title">{% trans 'Direct debit mandate granted at' %}</div>
+                        <div class="field-value">{{ member.debit_mandate_at|default_if_none:"" }}</div>
+                    </div>
+                {% endif %}
+                {% if perms.members.view_field_debit_reference %}
+                    <div class="row">
+                        <div class="field-title">{% trans 'Direct debit reference' %}</div>
+                        <div class="field-value">{{ member.debit_reference|default_if_none:"" }}</div>
+                    </div>
+                {% endif %}
             {% endif %}
-            {% endif %}
-
-            {% if global_preferences.Members__show_additional_field_1 or global_preferences.Members__show_additional_field_2 or global_preferences.Members__show_additional_field_3 or global_preferences.Members__show_additional_field_4 or global_preferences.Members__show_additional_field_5 %}
+            {% if global_preferences.Members__show_additional_field_1 and perms.members.view_field_field_1 or global_preferences.Members__show_additional_field_2 and perms.members.view_field_field_2 or global_preferences.Members__show_additional_field_3 and perms.members.view_field_field_3 or global_preferences.Members__show_additional_field_4 and perms.members.view_field_field_4 or global_preferences.Members__show_additional_field_5 and perms.members.view_field_field_5 %}
                 <div class="heading mdc-typography--overline">
                     {% trans 'Additional Information' %}
                 </div>
             {% endif %}
-            {% if global_preferences.Members__show_additional_field_1 %}
+            {% if global_preferences.Members__show_additional_field_1 and perms.members.view_field_field_1 %}
                 <div class="row">
                     <div class="field-title">{% trans 'Additional field 1' %}</div>
                     <div class="field-value">{{ member.field_1|default_if_none:"" }}</div>
                 </div>
             {% endif %}
-            {% if global_preferences.Members__show_additional_field_2 %}
+            {% if global_preferences.Members__show_additional_field_2 and perms.members.view_field_field_2 %}
                 <div class="row">
                     <div class="field-title">{% trans 'Additional field 2' %}</div>
                     <div class="field-value">{{ member.field_2|default_if_none:"" }}</div>
                 </div>
             {% endif %}
-            {% if global_preferences.Members__show_additional_field_3 %}
+            {% if global_preferences.Members__show_additional_field_3 and perms.members.view_field_field_3 %}
                 <div class="row">
                     <div class="field-title">{% trans 'Additional field 3' %}</div>
                     <div class="field-value">{{ member.field_3|default_if_none:"" }}</div>
                 </div>
             {% endif %}
-            {% if global_preferences.Members__show_additional_field_4 %}
+            {% if global_preferences.Members__show_additional_field_4 and perms.members.view_field_field_4 %}
                 <div class="row">
                     <div class="field-title">{% trans 'Additional field 4' %}</div>
                     <div class="field-value">{{ member.field_4|default_if_none:"" }}</div>
                 </div>
             {% endif %}
-            {% if global_preferences.Members__show_additional_field_5 %}
+            {% if global_preferences.Members__show_additional_field_5 and perms.members.view_field_field_5 %}
                 <div class="row">
                     <div class="field-title">{% trans 'Additional field 5' %}</div>
                     <div class="field-value">{{ member.field_5|default_if_none:"" }}</div>
