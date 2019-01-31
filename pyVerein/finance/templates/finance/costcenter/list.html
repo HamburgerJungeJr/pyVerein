@@ -18,14 +18,26 @@
 
 {% block content %}
     <table id="costcenterlist" class="mdl-data-table dataTable"
-            cellspacing="0"
-            width="100%">
+        cellspacing="0"
+        width="100%">
         <thead>
             <tr>
-                <th>{% trans 'Cost center number' %}</th>
-                <th>{% trans 'Cost center name' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost center number' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Cost center name' %}</th>
             </tr>
         </thead>
+        <tbody>
+            {% for costcenter in costcenters %}
+                <tr data-costcenter="{% url 'finance:costcenter_detail' pk=costcenter.pk %}">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ costcenter.number}}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ costcenter.name }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
     <a href="{% url 'finance:costcenter_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
@@ -41,8 +53,7 @@
                 $('#costcenterlist').css('opacity', processing ? '0.3' : '1.0');
             }).DataTable({
                 "processing": true,
-                "serverSide": true,
-                "ajax": "{% url 'finance:costcenter_apiList' %}",
+                "serverSide": false,
                 "language": {
                     "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
                     "sEmptyTable": "{% trans 'sEmptyTable' %}",
@@ -64,25 +75,6 @@
                         "sSortDescending": "{% trans 'sSortDescending' %}"
                     }
                 },
-                "processing":
-                    true,
-                "columns":
-                    [
-                        {
-                            "data": "number",
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                        {
-                            "data": "name",
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                    ],
-                "createdRow":
-                    function (row, data, index) {
-                        $(row).click(function () {
-                            window.open(data.detail_url);
-                        });
-                    }
             });
             // Search
             $("#costcenterlist_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
@@ -95,6 +87,9 @@
             $(".mdc-select select").addClass("mdc-select__native-control");
             $('#costcenterlist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
+            });
+            $('tbody tr').click(function () {
+                window.open($(this).data('costcenter'));
             });
         })
         ;

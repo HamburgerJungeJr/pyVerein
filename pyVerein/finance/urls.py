@@ -25,7 +25,6 @@ urlpatterns = [
     url(r'^impersonal/new/$', views.ImpersonalCreateView.as_view(), name='impersonal_create'),
 
     url(r'^costcenter/$', views.CostCenterIndexView.as_view(), name='costcenter_list'),
-    url(r'^costcenter/data/$', views.CostCenterDatatableView.as_view(), name='costcenter_apiList'),
     url(r'^costcenter/(?P<pk>[0-9]+)/$', views.CostCenterDetailView.as_view(), name='costcenter_detail'),
     url(r'^costcenter/(?P<pk>[0-9]+)/edit/$', views.CostCenterEditView.as_view(), name='costcenter_edit'),
     url(r'^costcenter/new/$', views.CostCenterCreateView.as_view(), name='costcenter_create'),
