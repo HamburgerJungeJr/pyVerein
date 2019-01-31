@@ -770,10 +770,6 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
         session_id = self.kwargs.get('session_id', '')
         global_preferences = global_preferences_registry.manager()
 
-        # Generate document_number
-        if self.object.document_number is None:
-            self.object.document_number = generate_document_number()
-            self.object.document_number_generated = True
         # Save object to commit the changes
         #self.object.save()
 
@@ -827,23 +823,31 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
             if debit_sum != credit_sum:
                 self.request.session[session_id + 'transactions'] = transactions
             else:
+                # Generate document_number
+                if transactions['0']['document_number'] is None:
+                    document_number = generate_document_number()
+                    document_number_generated = True
+                else:
+                    document_number = transactions['0']['document_number']
+                    document_number_generated = False
+
                 internal_number = generate_internal_number()
                 # Save transactions from session to db
                 for transaction in transactions.values():
                     obj = Transaction()
                     obj.account = Account.objects.get(number=transaction['account'])
                     obj.date = datetime.datetime.strptime(transaction['date'], '%d.%m.%Y')
-                    obj.document_number = transaction['document_number']
+                    obj.document_number = document_number if document_number else transaction['document_number']
                     obj.text = transaction['text']
                     obj.debit = Decimal(transaction['debit']) if transaction['debit'] is not None else None
                     obj.credit = Decimal(transaction['credit']) if transaction['credit'] is not None else None
                     obj.cost_center = CostCenter.objects.get(number=transaction['cost_center']) if transaction['cost_center'] is not None else None
                     obj.cost_object = CostObject.objects.get(number=transaction['cost_object']) if transaction['cost_object'] is not None else None
-                    obj.document_number_generated = transaction['document_number_generated']
+                    obj.document_number_generated = document_number_generated
                     obj.internal_number = internal_number
                     obj.accounting_year = global_preferences['Finance__accounting_year']
                     obj.save()
-                messages.success(self.request, _('Transaction {0:s} saved successfully').format(transactions['0']['document_number']))
+                messages.success(self.request, _('Transaction {0:s} saved successfully').format(document_number))
                 # Clear session
                 del self.request.session[session_id + 'transactions']
                 return HttpResponseRedirect(reverse_lazy('finance:transaction_create'))
