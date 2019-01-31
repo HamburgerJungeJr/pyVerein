@@ -8,7 +8,6 @@ app_name = 'members'
 # Set url-patterns
 urlpatterns = [
     url(r'^member/$', views.MemberIndexView.as_view(), name='list'),
-    url(r'^member/data/$', views.MemberDatatableView.as_view(), name='apiList'),
     url(r'^member/(?P<pk>[0-9]+)/$', views.MemberDetailView.as_view(), name='detail'),
     url(r'^member/edit/(?P<pk>[0-9]+)/$', views.MemberEditView.as_view(), name='edit'),
     url(r'^member/new/$', views.MemberCreateView.as_view(), name='create'),
