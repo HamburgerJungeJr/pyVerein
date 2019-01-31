@@ -60,11 +60,24 @@ class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
         return reverse_lazy('members:detail', args={self.object.pk})
 
 # Index-View.
-class DivisionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class DivisionIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'members.view_division'
     template_name = 'members/division/list.html'
+    model = Division
+    context_object_name = 'divisions'
 
+    def get_context_data(self, **kwargs):
+        context = super(DivisionIndexView, self).get_context_data(**kwargs)
 
+        context['divisions'] = []
+        for division in Division.objects.all():
+            context['divisions'].append({
+                'pk': division.pk,
+                'name': division.name,
+                'members': Member.objects.filter(division=division.pk).count()
+            })
+
+        return context
 # Detail-View.
 class DivisionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = 'members.view_division'
@@ -103,47 +116,6 @@ class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 
     def get_success_url(self):
         return reverse_lazy('members:division_detail', args={self.object.pk})
-
-
-# Datatable api view.
-class DivisionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    permission_required = 'members.view_division'
-    # Use Divisionmodel
-    model = Division
-
-    # Define displayed columns.
-    columns = ['name']
-
-    # Define columns used for ordering.
-    order_columns = ['name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    # Filter rows.
-    def filter_queryset(self, qs):
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(
-                Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    # Prepare results to return as dict with urls
-    def prepare_results(self, qs):
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'name': item.name, 'count': Member.objects.filter(division=item.id).count(),
-                              'detail_url': reverse('members:division_detail', args=[item.id])})
-
-        # Return data
-        return json_data
 
 # Index-View.
 class SubscriptionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):

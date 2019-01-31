@@ -13,7 +13,6 @@ urlpatterns = [
     url(r'^member/new/$', views.MemberCreateView.as_view(), name='create'),
 
     url(r'^division/$', views.DivisionIndexView.as_view(), name='division_list'),
-    url(r'^division/data/$', views.DivisionDatatableView.as_view(), name='division_apiList'),
     url(r'^division/(?P<pk>[0-9]+)/$', views.DivisionDetailView.as_view(), name='division_detail'),
     url(r'^division/edit/(?P<pk>[0-9]+)/$', views.DivisionEditView.as_view(), name='division_edit'),
     url(r'^division/new/$', views.DivisionCreateView.as_view(), name='division_create'),

@@ -22,10 +22,22 @@
             width="100%">
         <thead>
             <tr>
-                <th>{% trans 'Name' %}</th>
-                <th>{% trans 'Members' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Name' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Members' %}</th>
             </tr>
         </thead>
+        <tbody>
+            {% for division in divisions %}
+                <tr data-division="{% url 'members:division_detail' pk=division.pk %}">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ division.name}}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ division.members }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
     <a href ="{% url 'members:division_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
@@ -41,8 +53,7 @@
                 $('#divisionslist').css('opacity', processing ? '0.3' : '1.0');
             }).DataTable({
                 "processing": true,
-                "serverSide": true,
-                "ajax": "{% url 'members:division_apiList' %}",
+                "serverSide": false,
                 "language": {
                     "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
                     "sEmptyTable": "{% trans 'sEmptyTable' %}",
@@ -64,25 +75,6 @@
                         "sSortDescending": "{% trans 'sSortDescending' %}"
                     }
                 },
-                "processing":
-                    true,
-                "columns":
-                    [
-                        {
-                            "data": "name",
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                        {
-                            "data": "count",
-                            "className": "mdl-data-table__cell--non-numeric"
-                        },
-                    ],
-                "createdRow":
-                    function (row, data, index) {
-                        $(row).click(function () {
-                            window.open(data.detail_url);
-                        });
-                    }
             });
             // Search
             $("#divisionslist_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
@@ -96,7 +88,9 @@
             $('#divisionslist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
-        })
-        ;
+        });
+        $('tbody tr').click(function () {
+            window.open($(this).data('division'));
+        });
     </script>
 {% endblock %}
