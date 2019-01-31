@@ -14,7 +14,6 @@ urlpatterns = [
     url(r'^creditor/(?P<account>[0-9]+)/clearing/$', views.CreditorClearingView.as_view(), name='creditor_clear'),
 
     url(r'^debitor/$', views.DebitorIndexView.as_view(), name='debitor_list'),
-    url(r'^debitor/data/$', views.DebitorDatatableView.as_view(), name='debitor_apiList'),
     url(r'^debitor/(?P<pk>[0-9]+)/$', views.DebitorDetailView.as_view(), name='debitor_detail'),
     url(r'^debitor/(?P<pk>[0-9]+)/edit/$', views.DebitorEditView.as_view(), name='debitor_edit'),
     url(r'^debitor/new/$', views.DebitorCreateView.as_view(), name='debitor_create'),
