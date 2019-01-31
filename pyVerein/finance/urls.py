@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^costcenter/new/$', views.CostCenterCreateView.as_view(), name='costcenter_create'),
 
     url(r'^costobject/$', views.CostObjectIndexView.as_view(), name='costobject_list'),
-    url(r'^costobject/data/$', views.CostObjectDatatableView.as_view(), name='costobject_apiList'),
     url(r'^costobject/(?P<pk>[0-9]+)/$', views.CostObjectDetailView.as_view(), name='costobject_detail'),
     url(r'^costobject/(?P<pk>[0-9]+)/edit/$', views.CostObjectEditView.as_view(), name='costobject_edit'),
     url(r'^costobject/new/$', views.CostObjectCreateView.as_view(), name='costobject_create'),

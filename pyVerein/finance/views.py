@@ -407,6 +407,13 @@ class CostObjectIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateV
     permission_required = 'finance.view_costobject'
     template_name = 'finance/costobject/list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(CostObjectIndexView, self).get_context_data(**kwargs)
+
+        context['costobjects'] = CostObject.objects.all()
+
+        return context
+
 class CostObjectCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for costobject
@@ -472,51 +479,6 @@ class CostObjectEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
         Return detail url as success url
         """
         return reverse_lazy('finance:costobject_detail', args={self.object.pk})
-
-class CostObjectDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for costobject
-    """
-    permission_required = 'finance.view_costobject'
-    # Use CostObjectmodel
-    model = CostObject
-
-    # Define displayed columns.
-    columns = ['number', 'name']
-
-    # Define columns used for ordering.
-    order_columns = ['number', 'name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:costobject_detail', args=[item.number])})
-
-        # Return data
-        return json_data
 
 class TransactionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
