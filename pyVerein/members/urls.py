@@ -18,7 +18,6 @@ urlpatterns = [
     url(r'^division/new/$', views.DivisionCreateView.as_view(), name='division_create'),
 
     url(r'^subscription/$', views.SubscriptionIndexView.as_view(), name='subscription_list'),
-    url(r'^subscription/data/$', views.SubscriptionDatatableView.as_view(), name='subscription_apiList'),
     url(r'^subscription/(?P<pk>[0-9]+)/$', views.SubscriptionDetailView.as_view(), name='subscription_detail'),
     url(r'^subscription/edit/(?P<pk>[0-9]+)/$', views.SubscriptionEditView.as_view(), name='subscription_edit'),
     url(r'^subscription/new/$', views.SubscriptionCreateView.as_view(), name='subscription_create')

@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404 as get
 # Import reverse.
 from django.urls import reverse, reverse_lazy
 # Import members.
-from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
 # Import Member.
 from .forms import MemberForm, DivisionForm, SubscriptionForm
 from .models import Member, Division, Subscription
@@ -118,10 +118,24 @@ class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
         return reverse_lazy('members:division_detail', args={self.object.pk})
 
 # Index-View.
-class SubscriptionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class SubscriptionIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'members.view_subscription'
     template_name = 'members/subscription/list.html'
+    model = Subscription
+    context_object_name = 'subscriptions'
 
+    def get_context_data(self, **kwargs):
+        context = super(SubscriptionIndexView, self).get_context_data(**kwargs)
+
+        context['subscriptions'] = []
+        for subscription in Subscription.objects.all():
+            context['subscriptions'].append({
+                'pk': subscription.pk,
+                'name': subscription.name,
+                'members': Member.objects.filter(subscription=subscription.pk).count()
+            })
+
+        return context
 
 # Detail-View.
 class SubscriptionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -161,44 +175,3 @@ class SubscriptionCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
 
     def get_success_url(self):
         return reverse_lazy('members:subscription_detail', args={self.object.pk})
-
-
-# Datatable api view.
-class SubscriptionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    permission_required = 'members.view_subscription'
-    # Use Subscriptionmodel
-    model = Subscription
-
-    # Define displayed columns.
-    columns = ['name']
-
-    # Define columns used for ordering.
-    order_columns = ['name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    # Filter rows.
-    def filter_queryset(self, qs):
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(
-                Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    # Prepare results to return as dict with urls
-    def prepare_results(self, qs):
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'name': item.name, 'amount': item.amount, 'payment_frequency': item.payment_frequency, 'count': Member.objects.filter(subscription=item.id).count(),
-                              'detail_url': reverse('members:subscription_detail', args=[item.id])})
-
-        # Return data
-        return json_data
