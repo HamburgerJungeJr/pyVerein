@@ -320,57 +320,6 @@ class ImpersonalEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
         """
         return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
 
-class ImpersonalDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for impersonal accounts
-    """
-    permission_required = 'finance.view_impersonal'
-    # Use Accountmodel
-    model = Account
-
-    # Define displayed columns.
-    columns = ['number', 'name']
-
-    # Define columns used for ordering.
-    order_columns = ['number', 'name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def get_initial_queryset(self):
-        """
-        Filter only impersonal accounts
-        """
-        return Account.objects.filter(Q(account_type=Account.INCOME) | Q(account_type=Account.COST) | Q(account_type=Account.ASSET))
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:impersonal_detail', args=[item.number])})
-
-        # Return data
-        return json_data
-
 class CostCenterIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for costcenter
