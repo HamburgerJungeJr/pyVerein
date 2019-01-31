@@ -488,7 +488,16 @@ class TransactionIndexView(LoginRequiredMixin, PermissionRequiredMixin, Template
     def get_context_data(self, **kwargs):
         context = super(TransactionIndexView, self).get_context_data(**kwargs)
 
-        context['transactions'] = Transaction.objects.all()
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.all()
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(accounting_year=year))
+    
+        context['accounting_years'] = Transaction.objects.values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
 
         return context
 

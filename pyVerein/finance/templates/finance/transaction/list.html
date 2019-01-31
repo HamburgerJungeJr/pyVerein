@@ -112,11 +112,15 @@
                     }
                 },
             });
-            // Search
-            $("#transactionlist_filter").html('<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
+            // Search & Year
+            accounting_year_select = '<div class="mdc-select" id="accounting_year_filter"><i class="mdc-select__dropdown-icon"></i><select id="year_filter" name="year_filter" class="form-control input-sm"><option value="0" {% if year.accounting_year == accounting_year %}selected="selected"{% endif %}>{% trans 'All' %}</option>{% for year in accounting_years %}<option value="{{ year.accounting_year }}" {% if year.accounting_year == accounting_year %}selected="selected"{% endif %}>{{ year.accounting_year }}</option>{% endfor %}</select><label class="mdc-floating-label">{% trans 'Accounting_year' %}</label><div class="mdc-line-ripple"></div></div>';
+            $("#transactionlist_filter").html(accounting_year_select + '<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
             $("#datatable-search").on('keyup', function(e) {
                 dt.search(this.value).draw();
             })
+            $("#year_filter").change(function(e){
+                window.location = "{% url 'finance:transaction_list' %}?year=" + this.value
+            });
 
             // Itemsselect
             $("#transactionlist_length").html('<div class="mdc-select"><i class="mdc-select__dropdown-icon"></i>' + $('#transactionlist_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
