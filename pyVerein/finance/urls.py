@@ -8,7 +8,6 @@ app_name = 'finance'
 # Set url-patterns
 urlpatterns = [
     url(r'^creditor/$', views.CreditorIndexView.as_view(), name='creditor_list'),
-    url(r'^creditor/data/$', views.CreditorDatatableView.as_view(), name='creditor_apiList'),
     url(r'^creditor/(?P<pk>[0-9]+)/$', views.CreditorDetailView.as_view(), name='creditor_detail'),
     url(r'^creditor/(?P<pk>[0-9]+)/edit/$', views.CreditorEditView.as_view(), name='creditor_edit'),
     url(r'^creditor/new/$', views.CreditorCreateView.as_view(), name='creditor_create'),

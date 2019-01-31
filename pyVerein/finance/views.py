@@ -37,6 +37,13 @@ class CreditorIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVie
     permission_required = 'finance.view_creditor'
     template_name = 'finance/creditor/list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(CreditorIndexView, self).get_context_data(**kwargs)
+
+        context['creditors'] = Account.objects.filter(account_type=Account.CREDITOR)
+
+        return context
+
 class CreditorCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for creditors
@@ -126,58 +133,6 @@ class CreditorClearingView(LoginRequiredMixin, PermissionRequiredMixin, Template
             context['transactions'] = Transaction.objects.filter(Q(account=account) & Q(clearing_number=None))
             context['account'] = Account.objects.get(pk=account)
         return context
-        
-
-class CreditorDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for creditors
-    """
-    permission_required = 'finance.view_creditor'
-    # Use Accountmodel
-    model = Account
-
-    # Define displayed columns.
-    columns = ['number', 'name']
-
-    # Define columns used for ordering.
-    order_columns = ['number', 'name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def get_initial_queryset(self):
-        """
-        Filter only creditors
-        """
-        return Account.objects.filter(Q(account_type=Account.CREDITOR))
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:creditor_detail', args=[item.number])})
-
-        # Return data
-        return json_data
 
 class DebitorIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
