@@ -31,7 +31,8 @@ if (fabRipple_sel != null){
 var attribution_dialog_sel = document.querySelector('#attribution-dialog');
 if (attribution_dialog_sel != null){
     var attribution_dialog = new mdc.dialog.MDCDialog(attribution_dialog_sel);    
-    $('#show-attributions').click(function() {
+    $('#show-attributions').click(function(e) {
+        e.preventDefault();
         attribution_dialog.open();
     });
 }
