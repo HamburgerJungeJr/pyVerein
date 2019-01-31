@@ -245,6 +245,13 @@ class ImpersonalIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateV
     permission_required = 'finance.view_impersonal'
     template_name = 'finance/impersonal/list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(ImpersonalIndexView, self).get_context_data(**kwargs)
+
+        context['impersonals'] = Account.objects.filter(Q(account_type=Account.INCOME) | Q(account_type=Account.COST) | Q(account_type=Account.ASSET))
+
+        return context
+
 class ImpersonalCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
     Create view for impersonal accounts

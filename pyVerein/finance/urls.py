@@ -20,7 +20,6 @@ urlpatterns = [
     url(r'^debitor/(?P<account>[0-9]+)/clearing/$', views.DebitorClearingView.as_view(), name='debitor_clear'),
 
     url(r'^impersonal/$', views.ImpersonalIndexView.as_view(), name='impersonal_list'),
-    url(r'^impersonal/data/$', views.ImpersonalDatatableView.as_view(), name='impersonal_apiList'),
     url(r'^impersonal/(?P<pk>[0-9]+)/$', views.ImpersonalDetailView.as_view(), name='impersonal_detail'),
     url(r'^impersonal/(?P<pk>[0-9]+)/edit/$', views.ImpersonalEditView.as_view(), name='impersonal_edit'),
     url(r'^impersonal/new/$', views.ImpersonalCreateView.as_view(), name='impersonal_create'),
