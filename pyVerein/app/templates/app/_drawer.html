@@ -101,15 +101,6 @@
             {% if perms.reporting.view_report %}
             <hr class="mdc-list-divider">
             {% endif %}
-            <h3 class="mdc-list-group__subheader">{% trans 'User' %}</h3>
-            <a href="{% url 'account:detail' %}" title="{% trans 'Profile' %}" class="mdc-list-item {% base_url_class 'account:detail' 'mdc-list-item--activated'%}">
-                <span class="mdc-list-item__graphic fa fa-user" aria-hidden="true"></span>
-                <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
-            </a>
-            <a href="{% url  'logout' %}" title="{% trans 'Sign out' %}" class="mdc-list-item">
-                <span class="mdc-list-item__graphic fa fa-sign-out-alt" aria-hidden="true"></span>
-                <span class="mdc-list-item__text">{% trans 'Sign out' %}</span>
-            </a>      
         </nav>
     </div>
 </aside>

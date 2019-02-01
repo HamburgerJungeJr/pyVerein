@@ -13,7 +13,7 @@ body{
 }
 
 a {
-    color: #d50000;
+    color: $link;
 }
 
 div.main{
@@ -55,6 +55,32 @@ section.main{
         margin-left: 1rem;
         border-radius: 50%;
         height: 50px;
+    }
+    .user-image:hover{
+        cursor: pointer;
+    }
+    #user-menu {
+        position: fixed;
+        top: 64px;
+        background: $mdc-theme-background;
+        width: 250px;
+        display: none;
+
+        .header{
+            text-align: center;
+            margin-bottom: 10px;
+            margin-top: 10px;
+
+            img{
+                height: 75px;
+                margin-left: 0px;
+            }
+        }
+
+        .logout .mdc-list-item__graphic,
+        .logout .mdc-list-item__text{
+            color: $link;
+        }
     }
 }
 div.dataTables_wrapper{

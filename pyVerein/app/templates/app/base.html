@@ -64,10 +64,33 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
                     {{ user.get_full_name }}
                     {% if user.avatar %}
-                        <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4">
+                        <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4" id="user-image">
                     {% else %}
-                        <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4">
+                        <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4" id="user-image">
                     {% endif %}
+                    <div id="user-menu" class="mdc-elevation--z4">
+                        <nav class="mdc-list">
+                            <div class="header">
+                                {% if user.avatar %}
+                                    <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4">
+                                {% else %}
+                                    <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4">
+                                {% endif %}
+                                <div class="heading mdc-typography--overline">
+                                    {{ user.get_full_name }}
+                                </div>
+                            </div>
+                            <a href="{% url 'account:detail' %}" title="{% trans 'Profile' %}" class="mdc-list-item {% base_url_class 'account:detail' 'mdc-list-item--activated'%}">
+                                <span class="mdc-list-item__graphic fa fa-user" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
+                            </a>
+                            <hr class="mdc-list-divider">
+                            <a href="{% url  'logout' %}" title="{% trans 'Sign out' %}" class="mdc-list-item logout">
+                                <span class="mdc-list-item__graphic fa fa-sign-out-alt" aria-hidden="true"></span>
+                                <span class="mdc-list-item__text">{% trans 'Sign out' %}</span>
+                            </a>      
+                        </nav>
+                    </div>
                 </section>
             </div>
         </header>
@@ -162,6 +185,19 @@
     <script src="{% static 'app/js/material-components-web.js' %}"></script> 
     {% block foot %} {% endblock %}
     <script src="{% static 'app/js/material.js' %}"></script> 
+    <script>
+        $("#user-image").click(function(e){
+            $("#user-menu").toggle();
+        });
+        $(document).mouseup(function (e){
+            var user_menu = $("#user-menu");
+            var user_image = $("#user-image");
+
+            if (!user_menu.is(e.target) && user_menu.has(e.target).length === 0 && !user_image.is(e.target)){
+                user_menu.hide();
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@ body {
   font-size: 16px; }
 
 a {
-  color: #d50000; }
+  color: #D50000; }
 
 div.main {
   width: 100%; }
@@ -42,6 +42,26 @@ section.main {
   margin-left: 1rem;
   border-radius: 50%;
   height: 50px; }
+
+.mdc-top-app-bar .user-image:hover {
+  cursor: pointer; }
+
+.mdc-top-app-bar #user-menu {
+  position: fixed;
+  top: 64px;
+  background: #FFFFFF;
+  width: 250px;
+  display: none; }
+  .mdc-top-app-bar #user-menu .header {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px; }
+    .mdc-top-app-bar #user-menu .header img {
+      height: 75px;
+      margin-left: 0px; }
+  .mdc-top-app-bar #user-menu .logout .mdc-list-item__graphic,
+  .mdc-top-app-bar #user-menu .logout .mdc-list-item__text {
+    color: #D50000; }
 
 div.dataTables_wrapper div.dataTables_length .mdc-select {
   width: 150px; }

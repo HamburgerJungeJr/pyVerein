@@ -1396,7 +1396,7 @@ a.mdc-list-item {
 :root {
   --mdc-theme-primary: #2979FF;
   --mdc-theme-secondary: #2979FF;
-  --mdc-theme-background: #fff;
+  --mdc-theme-background: #FFFFFF;
   --mdc-theme-surface: #fff;
   --mdc-theme-error: #b00020;
   --mdc-theme-on-primary: #FAFAFA;
@@ -1430,9 +1430,9 @@ a.mdc-list-item {
   color: var(--mdc-theme-secondary, #2979FF) !important; }
 
 .mdc-theme--background {
-  background-color: #fff;
+  background-color: #FFFFFF;
   /* @alternate */
-  background-color: var(--mdc-theme-background, #fff); }
+  background-color: var(--mdc-theme-background, #FFFFFF); }
 
 .mdc-theme--surface {
   background-color: #fff;
@@ -6247,7 +6247,7 @@ a.mdc-list-item {
   font-size: 1.2rem; }
 
 .mdc-fab {
-  background-color: #d50000;
+  background-color: #D50000;
   color: white;
   /* @alternate */
   color: var(--mdc-theme-text-primary-on-dark, white); }
@@ -6319,10 +6319,10 @@ a.mdc-fab {
   bottom: 140px; }
 
 .mdc-select:not(.mdc-select--disabled) {
-  background-color: #fff; }
+  background-color: #FFFFFF; }
 
 .mdc-text-field:not(.mdc-text-field--disabled) {
-  background-color: #fff; }
+  background-color: #FFFFFF; }
 
 .mdc-form-field {
   font-size: 1rem; }
