@@ -30,7 +30,10 @@
     {% block head %} {% endblock %}
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{% static 'app/css/app.css' %}">
-
+    
+    <!-- please-wait -->
+    <link rel="stylesheet" href="{% static 'app/vendors/please-wait/please-wait.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/spinkit/spinner.css' %}">
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'app/images/favicon/apple-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app/images/favicon/apple-icon-60x60.png' %}">
@@ -52,57 +55,66 @@
 </head>
 
 <body class="mdc-typography">
-    {% include "app/_drawer.html" %}
-    <div class="mdc-drawer-scrim"></div>
-    <div class="mdc-drawer-app-content main">
-        <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
-            <div class="mdc-top-app-bar__row">
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                    <a href="#" class="material-icons mdc-top-app-bar__navigation-icon menu">menu</a>
-                    <span class="mdc-top-app-bar__title">{% block title %} {% endblock %}</span>
-                </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                    {{ user.get_full_name }}
-                    {% if user.avatar %}
-                        <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4" id="user-image">
-                    {% else %}
-                        <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4" id="user-image">
-                    {% endif %}
-                    <div id="user-menu" class="mdc-elevation--z4">
-                        <nav class="mdc-list">
-                            <div class="header">
-                                {% if user.avatar %}
-                                    <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4">
-                                {% else %}
-                                    <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4">
-                                {% endif %}
-                                <div class="heading mdc-typography--overline">
-                                    {{ user.get_full_name }}
+    <div class="inner">
+        {% include "app/_drawer.html" %}
+        <div class="mdc-drawer-scrim"></div>
+        <div class="mdc-drawer-app-content main">
+            <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+                <div class="mdc-top-app-bar__row">
+                    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                        <a href="#" class="material-icons mdc-top-app-bar__navigation-icon menu">menu</a>
+                        <span class="mdc-top-app-bar__title">{% block title %} {% endblock %}</span>
+                    </section>
+                    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                        {{ user.get_full_name }}
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4" id="user-image">
+                        {% else %}
+                            <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4" id="user-image">
+                        {% endif %}
+                        <div id="user-menu" class="mdc-elevation--z4">
+                            <nav class="mdc-list">
+                                <div class="header">
+                                    {% if user.avatar %}
+                                        <img src="{{ user.avatar.url }}" alt="" class="user-image mdc-elevation--z4">
+                                    {% else %}
+                                        <img src="{% static 'app/images/avatar.svg' %}" alt="" class="user-image mdc-elevation--z4">
+                                    {% endif %}
+                                    <div class="heading mdc-typography--overline">
+                                        {{ user.get_full_name }}
+                                    </div>
                                 </div>
-                            </div>
-                            <a href="{% url 'account:detail' %}" title="{% trans 'Profile' %}" class="mdc-list-item {% base_url_class 'account:detail' 'mdc-list-item--activated'%}">
-                                <span class="mdc-list-item__graphic fa fa-user" aria-hidden="true"></span>
-                                <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
-                            </a>
-                            <hr class="mdc-list-divider">
-                            <a href="{% url  'logout' %}" title="{% trans 'Sign out' %}" class="mdc-list-item logout">
-                                <span class="mdc-list-item__graphic fa fa-sign-out-alt" aria-hidden="true"></span>
-                                <span class="mdc-list-item__text">{% trans 'Sign out' %}</span>
-                            </a>      
-                        </nav>
-                    </div>
-                </section>
-            </div>
-        </header>
-        <section class="main mdc-top-app-bar--fixed-adjust">
-            {% block content %} {% endblock %}
-        </section>
-        {% include "app/_attributions.html" %}
-        <footer id="page-footer">
-            pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="#" id="show-attributions" class="mdc-theme--on-primary" title="{% trans 'Attributions' %}">{% trans 'Attributions' %}</a>
-        </footer>
+                                <a href="{% url 'account:detail' %}" title="{% trans 'Profile' %}" class="mdc-list-item {% base_url_class 'account:detail' 'mdc-list-item--activated'%}">
+                                    <span class="mdc-list-item__graphic fa fa-user" aria-hidden="true"></span>
+                                    <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
+                                </a>
+                                <hr class="mdc-list-divider">
+                                <a href="{% url  'logout' %}" title="{% trans 'Sign out' %}" class="mdc-list-item logout">
+                                    <span class="mdc-list-item__graphic fa fa-sign-out-alt" aria-hidden="true"></span>
+                                    <span class="mdc-list-item__text">{% trans 'Sign out' %}</span>
+                                </a>      
+                            </nav>
+                        </div>
+                    </section>
+                </div>
+            </header>
+            <section class="main mdc-top-app-bar--fixed-adjust">
+                {% block content %} {% endblock %}
+            </section>
+            {% include "app/_attributions.html" %}
+            <footer id="page-footer">
+                pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="#" id="show-attributions" class="mdc-theme--on-primary" title="{% trans 'Attributions' %}">{% trans 'Attributions' %}</a>
+            </footer>
+        </div>
     </div>
-
+    <script src="{% static 'app/vendors/please-wait/please-wait.min.js' %}"></script>
+    <script>
+        please_wait = pleaseWait({
+            logo: "{% static 'app/images/logo_white.png' %}",
+            backgroundColor: '#2979FF',
+            loadingHtml: "<div class='spinner'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>"
+        });
+    </script>
     <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
     <script src="{% static 'app/vendors/notify/notify.js' %}"></script> 
 
@@ -197,6 +209,9 @@
                 user_menu.hide();
             }
         });
+    </script>
+    <script>
+        please_wait.finish();
     </script>
 </body>
 
