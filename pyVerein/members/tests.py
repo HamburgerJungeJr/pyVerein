@@ -145,172 +145,172 @@ class MemberTestMethods(TestCase):
         response = self.client.get(reverse('members:create'))
         self.assertEqual(response.status_code, 200)
 
-    # def test_member_field_permission(self):
-        # "User should only be able to see field if permission is set"
+    def test_member_field_permission(self):
+        "User should only be able to see field if permission is set"
 
-        # user = User.objects.get(username='temp')
-        # user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        user = User.objects.get(username='temp')
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
 
-        # global_preferences_registry.manager()['Members__show_additional_field_1'] = True
-        # global_preferences_registry.manager()['Members__show_additional_field_2'] = True
-        # global_preferences_registry.manager()['Members__show_additional_field_3'] = True
-        # global_preferences_registry.manager()['Members__show_additional_field_4'] = True
-        # global_preferences_registry.manager()['Members__show_additional_field_5'] = True
+        global_preferences_registry.manager()['Members__show_additional_field_1'] = True
+        global_preferences_registry.manager()['Members__show_additional_field_2'] = True
+        global_preferences_registry.manager()['Members__show_additional_field_3'] = True
+        global_preferences_registry.manager()['Members__show_additional_field_4'] = True
+        global_preferences_registry.manager()['Members__show_additional_field_5'] = True
 
-        # permissions = [
-        #     'view_field_salutation',
-        #     'view_field_last_name',
-        #     'view_field_first_name',
-        #     'view_field_street',
-        #     'view_field_zipcode',
-        #     'view_field_city',
-        #     'view_field_birthday',
-        #     'view_field_phone',
-        #     'view_field_mobile',
-        #     'view_field_fax',
-        #     'view_field_email',
-        #     'view_field_membership_number',
-        #     'view_field_joined_at',
-        #     'view_field_terminated_at',
-        #     'view_field_division',
-        #     'view_field_payment_method',
-        #     'view_field_iban',
-        #     'view_field_bic',
-        #     'view_field_debit_mandate_at',
-        #     'view_field_debit_reference',
-        #     'view_field_subscription',
-        #     'view_field_field_1',
-        #     'view_field_field_2',
-        #     'view_field_field_3',
-        #     'view_field_field_4',
-        #     'view_field_field_5'
-        # ]
+        permissions = [
+            'view_field_salutation',
+            'view_field_last_name',
+            'view_field_first_name',
+            'view_field_street',
+            'view_field_zipcode',
+            'view_field_city',
+            'view_field_birthday',
+            'view_field_phone',
+            'view_field_mobile',
+            'view_field_fax',
+            'view_field_email',
+            'view_field_membership_number',
+            'view_field_joined_at',
+            'view_field_terminated_at',
+            'view_field_division',
+            'view_field_payment_method',
+            'view_field_iban',
+            'view_field_bic',
+            'view_field_debit_mandate_at',
+            'view_field_debit_reference',
+            'view_field_subscription',
+            'view_field_field_1',
+            'view_field_field_2',
+            'view_field_field_3',
+            'view_field_field_4',
+            'view_field_field_5'
+        ]
 
-        # permissionmap = {
-        #     'salutation': {
-        #         'text': 'Salutation',
-        #         'permission': 'view_field_salutation'
-        #     },
-        #     'last_name': {
-        #         'text': 'Lastname',
-        #         'permission': 'view_field_last_name'
-        #     },
-        #     'first_name': {
-        #         'text': 'Firstname',
-        #         'permission': 'view_field_first_name'
-        #     },
-        #     'street': {
-        #         'text': 'Street',
-        #         'permission': 'view_field_street'
-        #     },
-        #     'zipcode': {
-        #         'text': 'Zip-Code',
-        #         'permission': 'view_field_zipcode'
-        #     },
-        #     'city': {
-        #         'text': 'City',
-        #         'permission': 'view_field_city'
-        #     },
-        #     'birthday': {
-        #         'text': 'Birthday',
-        #         'permission': 'view_field_birthday'
-        #     },
-        #     'phone': {
-        #         'text': 'Phone',
-        #         'permission': 'view_field_phone'
-        #     },
-        #     'mobile': {
-        #         'text': 'Mobile',
-        #         'permission': 'view_field_mobile'
-        #     },
-        #     'fax': {
-        #         'text': 'Fax',
-        #         'permission': 'view_field_fax'
-        #     },
-        #     'email': {
-        #         'text': 'EMail',
-        #         'permission': 'view_field_email'
-        #     },
-        #     'membership_number': {
-        #         'text': 'Membership number',
-        #         'permission': 'view_field_membership_number'
-        #     },
-        #     'joined_at': {
-        #         'text': 'Joined at',
-        #         'permission': 'view_field_joined_at'
-        #     },
-        #     'terminated_at': {
-        #         'text': 'Terminated at',
-        #         'permission': 'view_field_terminated_at'
-        #     },
-        #     'division': {
-        #         'text': 'Division',
-        #         'permission': 'view_field_division'
-        #     },
-        #     'payment_method': {
-        #         'text': 'Method',
-        #         'permission': 'view_field_payment_method'
-        #     },
-        #     'iban': {
-        #         'text': 'IBAN',
-        #         'permission': 'view_field_iban'
-        #     },
-        #     'bic': {
-        #         'text': 'BIC',
-        #         'permission': 'view_field_bic'
-        #     },
-        #     'debit_mandate_at': {
-        #         'text': 'Direct debit mandate granted at',
-        #         'permission': 'view_field_debit_mandate_at'
-        #     },
-        #     'debit_reference': {
-        #         'text': 'Direct debit reference',
-        #         'permission': 'view_field_debit_reference'
-        #     },
-        #     'subscription': {
-        #         'text': 'Subscription',
-        #         'permission': 'view_field_subscription'
-        #     },
-        #     'field_1': {
-        #         'text': 'Additional field 1',
-        #         'permission': 'view_field_field_1'
-        #     },
-        #     'field_2': {
-        #         'text': 'Additional field 2',
-        #         'permission': 'view_field_field_2'
-        #     },
-        #     'field_3': {
-        #         'text': 'Additional field 3',
-        #         'permission': 'view_field_field_3'
-        #     },
-        #     'field_4': {
-        #         'text': 'Additional field 4',
-        #         'permission': 'view_field_field_4'
-        #     },
-        #     'field_5': {
-        #         'text': 'Additional field 5',
-        #         'permission': 'view_field_field_5'
-        #     },
-        # }
+        permissionmap = {
+            'salutation': {
+                'text': 'Salutation',
+                'permission': 'view_field_salutation'
+            },
+            'last_name': {
+                'text': 'Lastname',
+                'permission': 'view_field_last_name'
+            },
+            'first_name': {
+                'text': 'Firstname',
+                'permission': 'view_field_first_name'
+            },
+            'street': {
+                'text': 'Street',
+                'permission': 'view_field_street'
+            },
+            'zipcode': {
+                'text': 'Zip-Code',
+                'permission': 'view_field_zipcode'
+            },
+            'city': {
+                'text': 'City',
+                'permission': 'view_field_city'
+            },
+            'birthday': {
+                'text': 'Birthday',
+                'permission': 'view_field_birthday'
+            },
+            'phone': {
+                'text': 'Phone',
+                'permission': 'view_field_phone'
+            },
+            'mobile': {
+                'text': 'Mobile',
+                'permission': 'view_field_mobile'
+            },
+            'fax': {
+                'text': 'Fax',
+                'permission': 'view_field_fax'
+            },
+            'email': {
+                'text': 'EMail',
+                'permission': 'view_field_email'
+            },
+            'membership_number': {
+                'text': 'Membership number',
+                'permission': 'view_field_membership_number'
+            },
+            'joined_at': {
+                'text': 'Joined at',
+                'permission': 'view_field_joined_at'
+            },
+            'terminated_at': {
+                'text': 'Terminated at',
+                'permission': 'view_field_terminated_at'
+            },
+            'division': {
+                'text': 'Division',
+                'permission': 'view_field_division'
+            },
+            'payment_method': {
+                'text': 'Method',
+                'permission': 'view_field_payment_method'
+            },
+            'iban': {
+                'text': 'IBAN',
+                'permission': 'view_field_iban'
+            },
+            'bic': {
+                'text': 'BIC',
+                'permission': 'view_field_bic'
+            },
+            'debit_mandate_at': {
+                'text': 'Direct debit mandate granted at',
+                'permission': 'view_field_debit_mandate_at'
+            },
+            'debit_reference': {
+                'text': 'Direct debit reference',
+                'permission': 'view_field_debit_reference'
+            },
+            'subscription': {
+                'text': 'Subscription',
+                'permission': 'view_field_subscription'
+            },
+            'field_1': {
+                'text': 'Additional field 1',
+                'permission': 'view_field_field_1'
+            },
+            'field_2': {
+                'text': 'Additional field 2',
+                'permission': 'view_field_field_2'
+            },
+            'field_3': {
+                'text': 'Additional field 3',
+                'permission': 'view_field_field_3'
+            },
+            'field_4': {
+                'text': 'Additional field 4',
+                'permission': 'view_field_field_4'
+            },
+            'field_5': {
+                'text': 'Additional field 5',
+                'permission': 'view_field_field_5'
+            },
+        }
 
 
-        # for _, value in permissionmap.items():
-        #     with translation.override('en'):
-        #         response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
-        #     self.assertEqual(response.status_code, 200)
-        #     self.assertNotContains(response, value['text'])
+        for _, value in permissionmap.items():
+            with translation.override('en'):
+                response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+            self.assertEqual(response.status_code, 200)
+            self.assertNotContains(response, value['text'])
 
-        #     for permission in permissions:
-        #         p = Permission.objects.get(codename=permission)
-        #         user.user_permissions.add(p)
-        #         with translation.override('en'):
-        #             response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
-        #         if permission == value['permission']:
-        #             self.assertContains(response, value['text'])
-        #         else:
-        #             self.assertNotContains(response, value['text'])
+            for permission in permissions:
+                p = Permission.objects.get(codename=permission)
+                user.user_permissions.add(p)
+                with translation.override('en'):
+                    response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+                if permission == value['permission']:
+                    self.assertContains(response, value['text'])
+                else:
+                    self.assertNotContains(response, value['text'])
 
-        #         user.user_permissions.remove(p)
+                user.user_permissions.remove(p)
     
     def test_member_list_division_access_restrictions(self):
         "Member should only be listed if user is not restricted to access the assigned division"
