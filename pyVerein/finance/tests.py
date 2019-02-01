@@ -121,19 +121,6 @@ class DebitorTestMethods(TestCase):
         response = self.client.get(reverse('finance:debitor_create'))
         self.assertEqual(response.status_code, 200)
     
-    def test_debitor_apiList_permission(self):
-        "User should only access debitor api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('finance:debitor_apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_debitor'))
-
-        response = self.client.get(reverse('finance:debitor_apiList'))
-        self.assertEqual(response.status_code, 200)
-    
     def test_debitor_clearing_permission(self):
         "User should only access clearing if view & add & change transation permissions are set"
 
@@ -268,20 +255,6 @@ class CreditorTestMethods(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='view_creditor'))
         response = self.client.get(reverse('finance:creditor_create'))
         self.assertEqual(response.status_code, 200)
-    
-    def test_creditor_apiList_permission(self):
-        "User should only access creditor api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('finance:creditor_apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_creditor'))
-
-        response = self.client.get(reverse('finance:creditor_apiList'))
-        self.assertEqual(response.status_code, 200)
-
         
     def test_creditor_clearing_perm7ssion(self):
         "User should only access clearing if view & add & change transation permissions are set"
@@ -417,19 +390,6 @@ class ImpersonalTestMethods(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='view_impersonal'))
         response = self.client.get(reverse('finance:impersonal_create'))
         self.assertEqual(response.status_code, 200)
-    
-    def test_impersonal_apiList_permission(self):
-        "User should only access impersonal api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('finance:impersonal_apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_impersonal'))
-
-        response = self.client.get(reverse('finance:impersonal_apiList'))
-        self.assertEqual(response.status_code, 200)
 
 class CostCenterTestMethods(TestCase):
     def setUp(self):
@@ -514,19 +474,6 @@ class CostCenterTestMethods(TestCase):
 
         user.user_permissions.add(Permission.objects.get(codename='view_costcenter'))
         response = self.client.get(reverse('finance:costcenter_create'))
-        self.assertEqual(response.status_code, 200)
-    
-    def test_costcenter_apiList_permission(self):
-        "User should only access costcenter api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('finance:costcenter_apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_costcenter'))
-
-        response = self.client.get(reverse('finance:costcenter_apiList'))
         self.assertEqual(response.status_code, 200)
 
     def test_costcenter_search_api_permission(self):
@@ -626,19 +573,6 @@ class CostObjectTestMethods(TestCase):
 
         user.user_permissions.add(Permission.objects.get(codename='view_costobject'))
         response = self.client.get(reverse('finance:costobject_create'))
-        self.assertEqual(response.status_code, 200)
-    
-    def test_costobject_apiList_permission(self):
-        "User should only access costobject api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('finance:costobject_apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_costobject'))
-
-        response = self.client.get(reverse('finance:costobject_apiList'))
         self.assertEqual(response.status_code, 200)
 
     def test_costobject_search_api_permission(self):
@@ -740,19 +674,6 @@ class TransactionTestMethods(TestCase):
 
         user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
         response = self.client.get(reverse('finance:transaction_create'))
-        self.assertEqual(response.status_code, 200)
-    
-    def test_transaction_apiList_permission(self):
-        "User should only access transaction api if view permission is set"
-
-        user = User.objects.get(username='temp')
-        
-        response = self.client.get(reverse('finance:transaction_apiList'))
-        self.assertEqual(response.status_code, 403)
-
-        user.user_permissions.add(Permission.objects.get(codename='view_transaction'))
-
-        response = self.client.get(reverse('finance:transaction_apiList'))
         self.assertEqual(response.status_code, 200)
 
     def test_transaction_reset_permission(self):
