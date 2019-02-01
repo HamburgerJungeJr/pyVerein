@@ -3,7 +3,7 @@ from .models import Member, Division, Subscription
 from datetime import datetime, timedelta
 from account.models import User
 from django.urls import reverse
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission, Group
 from django.utils import translation
 from dynamic_preferences.registries import global_preferences_registry
 
@@ -15,11 +15,24 @@ class MemberTestMethods(TestCase):
         user.last_name = 'temp_last'
         user.save()
 
+        user2 = User.objects.create_user('temp2', 'temp2@temp.tld', 'temp2pass')
+        user2.first_name = 'temp2_first'
+        user2.last_name = 'temp2_last'
+        user2.save()
+
+        group = Group.objects.create(name='group').save()
+        group2 = Group.objects.create(name='group2').save()
+
         # login with user
         self.client.login(username='temp', password='temppass')
 
+        # Create division
+        division = Division.objects.create(name='Temp')
+        division.save()
+
         # Create member
         member = Member.objects.create(salutation=Member.MR, first_name='Temp', last_name='Temp')
+        member.division = division
         member.save()
 
     # Test for get_full_name method.
@@ -132,172 +145,280 @@ class MemberTestMethods(TestCase):
         response = self.client.get(reverse('members:create'))
         self.assertEqual(response.status_code, 200)
 
-    def test_member_field_permission(self):
-        "User should only be able to see field if permission is set"
+    # def test_member_field_permission(self):
+        # "User should only be able to see field if permission is set"
 
-        user = User.objects.get(username='temp')
+        # user = User.objects.get(username='temp')
+        # user.user_permissions.add(Permission.objects.get(codename='view_member'))
+
+        # global_preferences_registry.manager()['Members__show_additional_field_1'] = True
+        # global_preferences_registry.manager()['Members__show_additional_field_2'] = True
+        # global_preferences_registry.manager()['Members__show_additional_field_3'] = True
+        # global_preferences_registry.manager()['Members__show_additional_field_4'] = True
+        # global_preferences_registry.manager()['Members__show_additional_field_5'] = True
+
+        # permissions = [
+        #     'view_field_salutation',
+        #     'view_field_last_name',
+        #     'view_field_first_name',
+        #     'view_field_street',
+        #     'view_field_zipcode',
+        #     'view_field_city',
+        #     'view_field_birthday',
+        #     'view_field_phone',
+        #     'view_field_mobile',
+        #     'view_field_fax',
+        #     'view_field_email',
+        #     'view_field_membership_number',
+        #     'view_field_joined_at',
+        #     'view_field_terminated_at',
+        #     'view_field_division',
+        #     'view_field_payment_method',
+        #     'view_field_iban',
+        #     'view_field_bic',
+        #     'view_field_debit_mandate_at',
+        #     'view_field_debit_reference',
+        #     'view_field_subscription',
+        #     'view_field_field_1',
+        #     'view_field_field_2',
+        #     'view_field_field_3',
+        #     'view_field_field_4',
+        #     'view_field_field_5'
+        # ]
+
+        # permissionmap = {
+        #     'salutation': {
+        #         'text': 'Salutation',
+        #         'permission': 'view_field_salutation'
+        #     },
+        #     'last_name': {
+        #         'text': 'Lastname',
+        #         'permission': 'view_field_last_name'
+        #     },
+        #     'first_name': {
+        #         'text': 'Firstname',
+        #         'permission': 'view_field_first_name'
+        #     },
+        #     'street': {
+        #         'text': 'Street',
+        #         'permission': 'view_field_street'
+        #     },
+        #     'zipcode': {
+        #         'text': 'Zip-Code',
+        #         'permission': 'view_field_zipcode'
+        #     },
+        #     'city': {
+        #         'text': 'City',
+        #         'permission': 'view_field_city'
+        #     },
+        #     'birthday': {
+        #         'text': 'Birthday',
+        #         'permission': 'view_field_birthday'
+        #     },
+        #     'phone': {
+        #         'text': 'Phone',
+        #         'permission': 'view_field_phone'
+        #     },
+        #     'mobile': {
+        #         'text': 'Mobile',
+        #         'permission': 'view_field_mobile'
+        #     },
+        #     'fax': {
+        #         'text': 'Fax',
+        #         'permission': 'view_field_fax'
+        #     },
+        #     'email': {
+        #         'text': 'EMail',
+        #         'permission': 'view_field_email'
+        #     },
+        #     'membership_number': {
+        #         'text': 'Membership number',
+        #         'permission': 'view_field_membership_number'
+        #     },
+        #     'joined_at': {
+        #         'text': 'Joined at',
+        #         'permission': 'view_field_joined_at'
+        #     },
+        #     'terminated_at': {
+        #         'text': 'Terminated at',
+        #         'permission': 'view_field_terminated_at'
+        #     },
+        #     'division': {
+        #         'text': 'Division',
+        #         'permission': 'view_field_division'
+        #     },
+        #     'payment_method': {
+        #         'text': 'Method',
+        #         'permission': 'view_field_payment_method'
+        #     },
+        #     'iban': {
+        #         'text': 'IBAN',
+        #         'permission': 'view_field_iban'
+        #     },
+        #     'bic': {
+        #         'text': 'BIC',
+        #         'permission': 'view_field_bic'
+        #     },
+        #     'debit_mandate_at': {
+        #         'text': 'Direct debit mandate granted at',
+        #         'permission': 'view_field_debit_mandate_at'
+        #     },
+        #     'debit_reference': {
+        #         'text': 'Direct debit reference',
+        #         'permission': 'view_field_debit_reference'
+        #     },
+        #     'subscription': {
+        #         'text': 'Subscription',
+        #         'permission': 'view_field_subscription'
+        #     },
+        #     'field_1': {
+        #         'text': 'Additional field 1',
+        #         'permission': 'view_field_field_1'
+        #     },
+        #     'field_2': {
+        #         'text': 'Additional field 2',
+        #         'permission': 'view_field_field_2'
+        #     },
+        #     'field_3': {
+        #         'text': 'Additional field 3',
+        #         'permission': 'view_field_field_3'
+        #     },
+        #     'field_4': {
+        #         'text': 'Additional field 4',
+        #         'permission': 'view_field_field_4'
+        #     },
+        #     'field_5': {
+        #         'text': 'Additional field 5',
+        #         'permission': 'view_field_field_5'
+        #     },
+        # }
+
+
+        # for _, value in permissionmap.items():
+        #     with translation.override('en'):
+        #         response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        #     self.assertEqual(response.status_code, 200)
+        #     self.assertNotContains(response, value['text'])
+
+        #     for permission in permissions:
+        #         p = Permission.objects.get(codename=permission)
+        #         user.user_permissions.add(p)
+        #         with translation.override('en'):
+        #             response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        #         if permission == value['permission']:
+        #             self.assertContains(response, value['text'])
+        #         else:
+        #             self.assertNotContains(response, value['text'])
+
+        #         user.user_permissions.remove(p)
+    
+    def test_member_list_division_access_restrictions(self):
+        "Member should only be listed if user is not restricted to access the assigned division"
+        
+        user = User.objects.get(username='temp')    
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_field_last_name'))
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
 
-        global_preferences_registry.manager()['Members__show_additional_field_1'] = True
-        global_preferences_registry.manager()['Members__show_additional_field_2'] = True
-        global_preferences_registry.manager()['Members__show_additional_field_3'] = True
-        global_preferences_registry.manager()['Members__show_additional_field_4'] = True
-        global_preferences_registry.manager()['Members__show_additional_field_5'] = True
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.get(reverse('members:list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Temp')
 
-        permissions = [
-            'view_field_salutation',
-            'view_field_last_name',
-            'view_field_first_name',
-            'view_field_street',
-            'view_field_zipcode',
-            'view_field_city',
-            'view_field_birthday',
-            'view_field_phone',
-            'view_field_mobile',
-            'view_field_fax',
-            'view_field_email',
-            'view_field_membership_number',
-            'view_field_joined_at',
-            'view_field_terminated_at',
-            'view_field_division',
-            'view_field_payment_method',
-            'view_field_iban',
-            'view_field_bic',
-            'view_field_debit_mandate_at',
-            'view_field_debit_reference',
-            'view_field_subscription',
-            'view_field_field_1',
-            'view_field_field_2',
-            'view_field_field_3',
-            'view_field_field_4',
-            'view_field_field_5'
-        ]
+        division.user.add(user)
+        response = self.client.get(reverse('members:list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Temp')
 
-        permissionmap = {
-            'salutation': {
-                'text': 'Salutation',
-                'permission': 'view_field_salutation'
-            },
-            'last_name': {
-                'text': 'Lastname',
-                'permission': 'view_field_last_name'
-            },
-            'first_name': {
-                'text': 'Firstname',
-                'permission': 'view_field_first_name'
-            },
-            'street': {
-                'text': 'Street',
-                'permission': 'view_field_street'
-            },
-            'zipcode': {
-                'text': 'Zip-Code',
-                'permission': 'view_field_zipcode'
-            },
-            'city': {
-                'text': 'City',
-                'permission': 'view_field_city'
-            },
-            'birthday': {
-                'text': 'Birthday',
-                'permission': 'view_field_birthday'
-            },
-            'phone': {
-                'text': 'Phone',
-                'permission': 'view_field_phone'
-            },
-            'mobile': {
-                'text': 'Mobile',
-                'permission': 'view_field_mobile'
-            },
-            'fax': {
-                'text': 'Fax',
-                'permission': 'view_field_fax'
-            },
-            'email': {
-                'text': 'EMail',
-                'permission': 'view_field_email'
-            },
-            'membership_number': {
-                'text': 'Membership number',
-                'permission': 'view_field_membership_number'
-            },
-            'joined_at': {
-                'text': 'Joined at',
-                'permission': 'view_field_joined_at'
-            },
-            'terminated_at': {
-                'text': 'Terminated at',
-                'permission': 'view_field_terminated_at'
-            },
-            'division': {
-                'text': 'Division',
-                'permission': 'view_field_division'
-            },
-            'payment_method': {
-                'text': 'Method',
-                'permission': 'view_field_payment_method'
-            },
-            'iban': {
-                'text': 'IBAN',
-                'permission': 'view_field_iban'
-            },
-            'bic': {
-                'text': 'BIC',
-                'permission': 'view_field_bic'
-            },
-            'debit_mandate_at': {
-                'text': 'Direct debit mandate granted at',
-                'permission': 'view_field_debit_mandate_at'
-            },
-            'debit_reference': {
-                'text': 'Direct debit reference',
-                'permission': 'view_field_debit_reference'
-            },
-            'subscription': {
-                'text': 'Subscription',
-                'permission': 'view_field_subscription'
-            },
-            'field_1': {
-                'text': 'Additional field 1',
-                'permission': 'view_field_field_1'
-            },
-            'field_2': {
-                'text': 'Additional field 2',
-                'permission': 'view_field_field_2'
-            },
-            'field_3': {
-                'text': 'Additional field 3',
-                'permission': 'view_field_field_3'
-            },
-            'field_4': {
-                'text': 'Additional field 4',
-                'permission': 'view_field_field_4'
-            },
-            'field_5': {
-                'text': 'Additional field 5',
-                'permission': 'view_field_field_5'
-            },
-        }
+        division.user.remove(user)
+        division.user.remove(user2)
 
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
 
-        for _, value in permissionmap.items():
-            with translation.override('en'):
-                response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
-            self.assertEqual(response.status_code, 200)
-            self.assertNotContains(response, value['text'])
+        division.groups.add(group2)
+        response = self.client.get(reverse('members:list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Temp')
 
-            for permission in permissions:
-                p = Permission.objects.get(codename=permission)
-                user.user_permissions.add(p)
-                with translation.override('en'):
-                    response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
-                if permission == value['permission']:
-                    self.assertContains(response, value['text'])
-                else:
-                    self.assertNotContains(response, value['text'])
+        division.groups.add(group)
+        response = self.client.get(reverse('members:list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Temp')
 
-                user.user_permissions.remove(p)
+    def test_member_detail_division_access_restrictions(self):
+        "Member should only be viewable if user is not restricted to access the assigned division"
+        
+        user = User.objects.get(username='temp')    
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
+
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.user.add(user)
+        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+
+        division.user.remove(user)
+        division.user.remove(user2)
+
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
+
+        division.groups.add(group2)
+        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.groups.add(group)
+        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_member_edit_division_access_restrictions(self):
+        "Member should only be editable if user is not restricted to access the assigned division"
+        
+        user = User.objects.get(username='temp')    
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
+
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.user.add(user)
+        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+
+        division.user.remove(user)
+        division.user.remove(user2)
+
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
+
+        division.groups.add(group2)
+        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.groups.add(group)
+        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
 
 class DivisionTestMethods(TestCase):
     def setUp(self):
@@ -306,6 +427,14 @@ class DivisionTestMethods(TestCase):
         user.first_name = 'temp_first'
         user.last_name = 'temp_last'
         user.save()
+
+        user2 = User.objects.create_user('temp2', 'temp2@temp.tld', 'temp2pass')
+        user2.first_name = 'temp2_first'
+        user2.last_name = 'temp2_last'
+        user2.save()
+
+        group = Group.objects.create(name='group').save()
+        group2 = Group.objects.create(name='group2').save()
 
         # login with user
         self.client.login(username='temp', password='temppass')
@@ -388,6 +517,113 @@ class DivisionTestMethods(TestCase):
 
         user.user_permissions.add(Permission.objects.get(codename='view_division'))
         response = self.client.get(reverse('members:division_create'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_division_list_access_restrictions(self):
+        "Division should only be listed if user is not restricted to access the division"
+        
+        user = User.objects.get(username='temp')    
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
+
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.get(reverse('members:division_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Temp')
+
+        division.user.add(user)
+        response = self.client.get(reverse('members:division_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Temp')
+
+        division.user.remove(user)
+        division.user.remove(user2)
+
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
+
+        division.groups.add(group2)
+        response = self.client.get(reverse('members:division_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Temp')
+
+        division.groups.add(group)
+        response = self.client.get(reverse('members:division_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Temp')
+
+    def test_division_detail_access_restrictions(self):
+        "Division should only be viewable if user is not restricted to access the division"
+        
+        user = User.objects.get(username='temp')    
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
+
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.get(reverse('members:division_detail', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.user.add(user)
+        response = self.client.get(reverse('members:division_detail', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+
+        division.user.remove(user)
+        division.user.remove(user2)
+
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
+
+        division.groups.add(group2)
+        response = self.client.get(reverse('members:division_detail', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.groups.add(group)
+        response = self.client.get(reverse('members:division_detail', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_division_edit_access_restrictions(self):
+        "Division should only be editable if user is not restricted to access the division"
+        
+        user = User.objects.get(username='temp')    
+        user.user_permissions.add(Permission.objects.get(codename='view_division'))
+        user.user_permissions.add(Permission.objects.get(codename='change_division'))
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
+
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.get(reverse('members:division_edit', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.user.add(user)
+        response = self.client.get(reverse('members:division_edit', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+
+        division.user.remove(user)
+        division.user.remove(user2)
+
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
+
+        division.groups.add(group2)
+        response = self.client.get(reverse('members:division_edit', args={Division.objects.get(name='Temp').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.groups.add(group)
+        response = self.client.get(reverse('members:division_edit', args={Division.objects.get(name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
 
 class SubscriptionTestMethods(TestCase):

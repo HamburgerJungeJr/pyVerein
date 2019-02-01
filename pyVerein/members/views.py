@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404 as get
 # Import reverse.
 from django.urls import reverse, reverse_lazy
 # Import members.
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
 # Import Member.
 from .forms import MemberForm, DivisionForm, SubscriptionForm
 from .models import Member, Division, Subscription
@@ -19,11 +19,24 @@ from django.contrib.messages.views import SuccessMessageMixin
 from dynamic_preferences.registries import global_preferences_registry
 
 # Index-View.
-class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'members.view_member'
     template_name = 'members/member/list.html'
-    model = Member
-    context_object_name = 'members'
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberIndexView, self).get_context_data(**kwargs)
+
+        members = []
+        for member in Member.objects.all():
+            if member.division:
+                if member.division.is_access_granted(self.request.user):
+                    members.append(member)
+            else:
+                members.append(member)
+
+        context['members'] = members
+
+        return context
 
 # Detail-View.
 class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -31,6 +44,15 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Member
     context_object_name = 'member'
     template_name = 'members/member/detail.html'
+
+    def has_permission(self):
+        super_perm = super(MemberDetailView, self).has_permission()
+
+        member = Member.objects.get(pk=self.kwargs['pk'])
+        if member.division:
+            return super_perm and member.division.is_access_granted(self.request.user)
+        else:
+            return super_perm
 
 # Edit-View.
 class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -43,9 +65,18 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
+    
+    def has_permission(self):
+        super_perm = super(MemberEditView, self).has_permission()
+
+        member = Member.objects.get(pk=self.kwargs['pk'])
+        if member.division:
+            return super_perm and member.division.is_access_granted(self.request.user)
+        else:
+            return super_perm
 
 
-# Edit-View.
+# Create-View.
 class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = ('members.view_member', 'members.add_member')
     model = Member
@@ -68,7 +99,8 @@ class DivisionIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         context = super(DivisionIndexView, self).get_context_data(**kwargs)
 
         context['divisions'] = []
-        for division in Division.objects.all():
+        divisions = [division for division in Division.objects.all() if division.is_access_granted(self.request.user)]
+        for division in divisions:
             context['divisions'].append({
                 'pk': division.pk,
                 'name': division.name,
@@ -89,6 +121,10 @@ class DivisionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
         context['members'] = Member.objects.filter(division=self.object.pk)
 
         return context
+    
+    def has_permission(self):
+        super_perm = super(DivisionDetailView, self).has_permission()
+        return super_perm and Division.objects.get(pk=self.kwargs['pk']).is_access_granted(self.request.user)
 
 # Edit-View.
 class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -102,6 +138,9 @@ class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
     def get_success_url(self):
         return reverse_lazy('members:division_detail', args={self.object.pk})
 
+    def has_permission(self):
+        super_perm = super(DivisionEditView, self).has_permission()
+        return super_perm and Division.objects.get(pk=self.kwargs['pk']).is_access_granted(self.request.user)
 
 # Edit-View.
 class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -145,8 +184,15 @@ class SubscriptionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Detail
     def get_context_data(self, **kwargs):
         context = super(SubscriptionDetailView, self).get_context_data(**kwargs)
 
-        context['members'] = Member.objects.filter(subscription=self.object.pk)
+        members = []
+        for member in Member.objects.filter(subscription=self.object.pk):
+            if member.division:
+                if member.division.is_access_granted(self.request.user):
+                    members.append(member)
+            else:
+                members.append(member)
 
+        context['members'] = members
         return context
 
 # Edit-View.

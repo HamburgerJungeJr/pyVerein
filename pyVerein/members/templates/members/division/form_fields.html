@@ -25,3 +25,22 @@
     {% trans 'Cost object' as name_label%}
     {% include "utils/_textfield.html" with field=form.cost_object label=name_label %}
 </div>
+<div class="heading mdc-typography--overline">
+    {% trans 'Access restrictions' %}
+</div>
+<div class="form-group full-width">
+    <label>
+        {% trans 'User' %}
+    </label>
+</div>
+<div class="form-group full-width">
+    {% include "utils/_checkboxmultipleselect.html" with field=form.user %}
+</div>
+<div class="form-group full-width">
+    <label>
+        {% trans 'Groups' %}
+    </label>
+</div>
+<div class="form-group full-width">
+    {% include "utils/_checkboxmultipleselect.html" with field=form.groups %}
+</div>

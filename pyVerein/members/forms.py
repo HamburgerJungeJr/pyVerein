@@ -1,6 +1,6 @@
 from django import forms
 from .models import Member, Division, Subscription
-
+from django.forms.widgets import TextInput, CheckboxSelectMultiple
 
 class MemberForm(forms.ModelForm):
     class Meta:
@@ -18,12 +18,14 @@ class MemberForm(forms.ModelForm):
 class DivisionForm(forms.ModelForm):
     class Meta:
         model = Division
-        fields = ('name', 'income_account', 'debitor_account', 'cost_center', 'cost_object')
+        fields = ('name', 'income_account', 'debitor_account', 'cost_center', 'cost_object', 'user', 'groups')
         widgets = {
-            'income_account': forms.TextInput(),
-            'debitor_account': forms.TextInput(),
-            'cost_center': forms.TextInput(),
-            'cost_object': forms.TextInput(),
+            'income_account': TextInput(),
+            'debitor_account': TextInput(),
+            'cost_center': TextInput(),
+            'cost_object': TextInput(),
+            'user': CheckboxSelectMultiple(attrs={'class': 'mdc-checkbox__native-control'}),
+            'groups': CheckboxSelectMultiple(attrs={'class': 'mdc-checkbox__native-control'})
         }
 
 class SubscriptionForm(forms.ModelForm):

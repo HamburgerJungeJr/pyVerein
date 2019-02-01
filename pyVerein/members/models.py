@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from datetime import datetime
 from finance.models import Account, CostCenter, CostObject
 from dynamic_preferences.registries import global_preferences_registry
+from utils.models import AccessRestrictedModel
 
 # Member model.
 class Member(models.Model):
@@ -129,7 +130,7 @@ class Member(models.Model):
     def __str__(self):
         return self.get_full_name()
 
-class Division(models.Model):
+class Division(AccessRestrictedModel):
     """
     Division model
     """
