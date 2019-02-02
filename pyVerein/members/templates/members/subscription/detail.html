@@ -20,38 +20,60 @@
     <table id="members" class="mdl-data-table mdl-js-data-table" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'Lastname' %}</th>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'Firstname' %}</th>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'Street' %}</th>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'Zip-Code' %}</th>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'City' %}</th>
+                {% if perms.members.view_field_last_name %}
+                    <th class="mdl-data-table__cell--non-numeric">{% trans 'Lastname' %}</th>
+                {% endif %}
+                {% if perms.members.view_field_first_name %}
+                    <th class="mdl-data-table__cell--non-numeric">{% trans 'Firstname' %}</th>
+                {% endif %}
+                {% if perms.members.view_field_street %}
+                    <th class="mdl-data-table__cell--non-numeric">{% trans 'Street' %}</th>
+                {% endif %}
+                {% if perms.members.view_field_zipcode %}
+                    <th class="mdl-data-table__cell--non-numeric">{% trans 'Zip-Code' %}</th>
+                {% endif %}
+                {% if perms.members.view_field_city %}
+                    <th class="mdl-data-table__cell--non-numeric">{% trans 'City' %}</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
             {% for member in members %}
                 <tr data-member="{% url 'members:detail' pk=member.pk %}">
-                    <td class="mdl-data-table__cell--non-numeric">
-                        {{ member.last_name}}
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">
-                        {{ member.first_name }}
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">
-                        {{ member.street }}
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">
-                        {{ member.zip_code }}
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">
-                        {{ member.city }}
-                    </td>
+                    {% if perms.members.view_field_last_name %}
+                        <td class="mdl-data-table__cell--non-numeric">
+                            {{ member.last_name}}
+                        </td>
+                    {% endif %}
+                    {% if perms.members.view_field_first_name %}
+                        <td class="mdl-data-table__cell--non-numeric">
+                            {{ member.first_name }}
+                        </td>
+                    {% endif %}
+                    {% if perms.members.view_field_street %}
+                        <td class="mdl-data-table__cell--non-numeric">
+                            {{ member.street }}
+                        </td>
+                    {% endif %}
+                    {% if perms.members.view_field_zipcode %}
+                        <td class="mdl-data-table__cell--non-numeric">
+                            {{ member.zipcode }}
+                        </td>
+                    {% endif %}
+                    {% if perms.members.view_field_city %}
+                        <td class="mdl-data-table__cell--non-numeric">
+                            {{ member.city }}
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% if perms.members.change_subscription %}
     <a href ="{% url 'members:subscription_edit' pk=subscription.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
+    {% endif %}
 {% endblock %}
 
 {% block foot %}<!-- Datatables -->

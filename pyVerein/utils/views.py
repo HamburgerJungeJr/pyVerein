@@ -30,9 +30,9 @@ def render_ajax(request, template, context={}, additional_json={}):
 
 def generate_document_number():
     global_preferences = global_preferences_registry.manager()
-    max_document_number = Transaction.objects.filter(Q(document_number_generated=True) & ~Q(document_number__startswith=global_preferences['Finance__reset_prefix'])).aggregate(Max('document_number'))['document_number__max']
+    max_document_number = Transaction.objects.filter(Q(document_number_generated=True) & ~Q(document_number__startswith=global_preferences['Finance__reset_prefix']) & Q(accounting_year=global_preferences['Finance__accounting_year'])).aggregate(Max('document_number'))['document_number__max']
     next_document_number =  '1' if max_document_number is None else str(int(max_document_number) + 1)[2:]
-    return str(datetime.date.today().strftime('%y')) + next_document_number.zfill(5)
+    return global_preferences['Finance__accounting_year'][2:] + next_document_number.zfill(5)
 
 def generate_internal_number():
     max_internal_number = Transaction.objects.all().aggregate(Max('internal_number'))['internal_number__max']

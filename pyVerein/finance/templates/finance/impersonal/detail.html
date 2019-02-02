@@ -62,9 +62,11 @@
             </tr>
         </tfoot>
     </table>
+    {% if perms.finance.change_impersonal %}
     <a href="{% url 'finance:impersonal_edit' pk=impersonal.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>    
+    {% endif %}
 {% endblock %}
 
 {% block foot %}<!-- Datatables -->

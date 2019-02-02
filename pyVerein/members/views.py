@@ -1,30 +1,42 @@
-# Import django render shortcut.
-from django.shortcuts import render, get_object_or_404 as get
 # Import reverse.
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 # Import members.
-from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
 # Import Member.
 from .forms import MemberForm, DivisionForm, SubscriptionForm
-from .models import Member, Division, Subscription
-from finance.models import Transaction
-# Import datatablesview.
-from django_datatables_view.base_datatable_view import BaseDatatableView
-# Import Q for extended filtering.
-from django.db.models import Q
+from .models import Member, Division, Subscription, File
 
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from dynamic_preferences.registries import global_preferences_registry
+from django.contrib.auth.decorators import login_required, permission_required
+from django.http import HttpResponseForbidden, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.db import Error
+import os
+from django.conf import settings
+from sendfile import sendfile
 
 # Index-View.
 class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'members.view_member'
     template_name = 'members/member/list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(MemberIndexView, self).get_context_data(**kwargs)
+
+        members = []
+        for member in Member.objects.all():
+            if member.division:
+                if member.division.is_access_granted(self.request.user):
+                    members.append(member)
+            else:
+                members.append(member)
+
+        context['members'] = members
+
+        return context
 
 # Detail-View.
 class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -32,6 +44,22 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Member
     context_object_name = 'member'
     template_name = 'members/member/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberDetailView, self).get_context_data(**kwargs)
+
+        context['files'] = File.objects.filter(member=self.object)
+
+        return context
+
+    def has_permission(self):
+        super_perm = super(MemberDetailView, self).has_permission()
+
+        member = Member.objects.get(pk=self.kwargs['pk'])
+        if member.division:
+            return super_perm and member.division.is_access_granted(self.request.user)
+        else:
+            return super_perm
 
 # Edit-View.
 class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -44,9 +72,18 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
+    
+    def has_permission(self):
+        super_perm = super(MemberEditView, self).has_permission()
+
+        member = Member.objects.get(pk=self.kwargs['pk'])
+        if member.division:
+            return super_perm and member.division.is_access_granted(self.request.user)
+        else:
+            return super_perm
 
 
-# Edit-View.
+# Create-View.
 class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = ('members.view_member', 'members.add_member')
     model = Member
@@ -58,55 +95,84 @@ class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
 
+@login_required
+@permission_required(['members.view_member', 'members.change_member', 'members.view_files'], raise_exception=True)
+def upload_file(request, pk):
+    """
+    Upload for member files
+    """
+    if request.method == 'POST':
+        member = Member.objects.get(pk=pk)
 
-# Datatable api view.
-class MemberDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    permission_required = 'members.view_member'
-    # Use Membermodel
-    model = Member
+        # Check if user can access member
+        if member.division and not member.division.is_access_granted(request.user):
+            return HttpResponseForbidden()
 
-    # Define displayed columns.
-    columns = ['last_name', 'first_name', 'street', 'zipcode', 'city']
+        try:
+            file = File(member=member, file=request.FILES['file'])
+            file.save()
+        except Error as err:
+            return JsonResponse({'error': err})
+        
+        return JsonResponse({'state': 'success'})
+    else:
+        return HttpResponseBadRequest()    
 
-    # Define columns used for ordering.
-    order_columns = ['last_name', 'first_name', 'street', 'zipcode', 'city']
+@login_required
+@permission_required(['members.view_member', 'members.change_member', 'members.view_files'], raise_exception=True)
+def delete_file(request, pk):
+    """
+    Delete member files
+    """
+    if request.method == 'POST':
+        file = File.objects.get(pk=pk)
+        member = file.member
 
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
+        # Check if user can access member
+        if member.division and not member.division.is_access_granted(request.user):
+            return HttpResponseForbidden()
 
-    # Filter rows.
-    def filter_queryset(self, qs):
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(
-                Q(last_name__icontains=search) | Q(first_name__icontains=search) | Q(street__icontains=search) | Q(
-                    zipcode__icontains=search) | Q(city__icontains=search))
+        file.delete()
+        if os.path.isfile(os.path.join(settings.MEDIA_ROOT, file.file.path)):
+            os.remove(os.path.join(settings.MEDIA_ROOT, file.file.path))
+        return HttpResponseRedirect(reverse_lazy('members:detail', kwargs={'pk': member.pk}))
+    else:
+        return HttpResponseBadRequest() 
+        
+@login_required
+@permission_required(['members.view_member', 'members.view_files'], raise_exception=True)
+def download_file(request, pk):
+    """
+    Download file with X-SENDFILE header
+    """
+    file = File.objects.get(pk=pk)
+    # Check if user can access member
+    if file.member.division and not file.member.division.is_access_granted(request.user):
+        return HttpResponseForbidden()
 
-        # Return filtered data.
-        return qs
-
-    # Prepare results to return as dict with urls
-    def prepare_results(self, qs):
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'last_name': item.last_name, 'first_name': item.first_name, 'street': item.street,
-                              'zipcode': item.zipcode, 'city': item.city,
-                              'detail_url': reverse('members:detail', args=[item.id])})
-
-        # Return data
-        return json_data
+    file = file.file
+    return sendfile(request, file.path, attachment=True, attachment_filename=os.path.basename(file.name))
 
 # Index-View.
-class DivisionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class DivisionIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'members.view_division'
     template_name = 'members/division/list.html'
+    model = Division
+    context_object_name = 'divisions'
 
+    def get_context_data(self, **kwargs):
+        context = super(DivisionIndexView, self).get_context_data(**kwargs)
 
+        context['divisions'] = []
+        divisions = [division for division in Division.objects.all() if division.is_access_granted(self.request.user)]
+        for division in divisions:
+            context['divisions'].append({
+                'pk': division.pk,
+                'name': division.name,
+                'members': Member.objects.filter(division=division.pk).count()
+            })
+
+        return context
 # Detail-View.
 class DivisionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = 'members.view_division'
@@ -120,6 +186,10 @@ class DivisionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView
         context['members'] = Member.objects.filter(division=self.object.pk)
 
         return context
+    
+    def has_permission(self):
+        super_perm = super(DivisionDetailView, self).has_permission()
+        return super_perm and Division.objects.get(pk=self.kwargs['pk']).is_access_granted(self.request.user)
 
 # Edit-View.
 class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -133,6 +203,9 @@ class DivisionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
     def get_success_url(self):
         return reverse_lazy('members:division_detail', args={self.object.pk})
 
+    def has_permission(self):
+        super_perm = super(DivisionEditView, self).has_permission()
+        return super_perm and Division.objects.get(pk=self.kwargs['pk']).is_access_granted(self.request.user)
 
 # Edit-View.
 class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -146,52 +219,25 @@ class DivisionCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     def get_success_url(self):
         return reverse_lazy('members:division_detail', args={self.object.pk})
 
-
-# Datatable api view.
-class DivisionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    permission_required = 'members.view_division'
-    # Use Divisionmodel
-    model = Division
-
-    # Define displayed columns.
-    columns = ['name']
-
-    # Define columns used for ordering.
-    order_columns = ['name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    # Filter rows.
-    def filter_queryset(self, qs):
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(
-                Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    # Prepare results to return as dict with urls
-    def prepare_results(self, qs):
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'name': item.name, 'count': Member.objects.filter(division=item.id).count(),
-                              'detail_url': reverse('members:division_detail', args=[item.id])})
-
-        # Return data
-        return json_data
-
 # Index-View.
-class SubscriptionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class SubscriptionIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'members.view_subscription'
     template_name = 'members/subscription/list.html'
+    model = Subscription
+    context_object_name = 'subscriptions'
 
+    def get_context_data(self, **kwargs):
+        context = super(SubscriptionIndexView, self).get_context_data(**kwargs)
+
+        context['subscriptions'] = []
+        for subscription in Subscription.objects.all():
+            context['subscriptions'].append({
+                'pk': subscription.pk,
+                'name': subscription.name,
+                'members': Member.objects.filter(subscription=subscription.pk).count()
+            })
+
+        return context
 
 # Detail-View.
 class SubscriptionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -203,8 +249,15 @@ class SubscriptionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Detail
     def get_context_data(self, **kwargs):
         context = super(SubscriptionDetailView, self).get_context_data(**kwargs)
 
-        context['members'] = Member.objects.filter(subscription=self.object.pk)
+        members = []
+        for member in Member.objects.filter(subscription=self.object.pk):
+            if member.division:
+                if member.division.is_access_granted(self.request.user):
+                    members.append(member)
+            else:
+                members.append(member)
 
+        context['members'] = members
         return context
 
 # Edit-View.
@@ -231,44 +284,3 @@ class SubscriptionCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
 
     def get_success_url(self):
         return reverse_lazy('members:subscription_detail', args={self.object.pk})
-
-
-# Datatable api view.
-class SubscriptionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    permission_required = 'members.view_subscription'
-    # Use Subscriptionmodel
-    model = Subscription
-
-    # Define displayed columns.
-    columns = ['name']
-
-    # Define columns used for ordering.
-    order_columns = ['name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    # Filter rows.
-    def filter_queryset(self, qs):
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(
-                Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    # Prepare results to return as dict with urls
-    def prepare_results(self, qs):
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'name': item.name, 'amount': item.amount, 'payment_frequency': item.payment_frequency, 'count': Member.objects.filter(subscription=item.id).count(),
-                              'detail_url': reverse('members:subscription_detail', args=[item.id])})
-
-        # Return data
-        return json_data

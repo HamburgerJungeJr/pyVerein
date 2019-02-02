@@ -55,11 +55,11 @@ class MemberJSONSerializer:
                 'bic': member.bic,
                 'debit_mandate_at': None if not member.debit_mandate_at else datetime.strftime(member.debit_mandate_at, '%Y-%m-%d'),
                 'debit_reference': member.debit_reference,
-                'subscription': None if not member.subscription else {
-                    'name': member.subscription.name,
-                    'amount': str(member.subscription.amount),
-                    'payment_frequency': member.subscription.get_payment_frequency_display()
-                },
+                'subscription': None if not member.subscription else [{
+                    'name': subscription.name,
+                    'amount': str(subscription.amount),
+                    'payment_frequency': subscription.get_payment_frequency_display()
+                } for subscription in member.subscription.all()],
                 'field_1': member.field_1,
                 'field_2': member.field_2,
                 'field_3': member.field_3,

@@ -134,6 +134,20 @@ def delete_resource(request, pk):
         return HttpResponseBadRequest() 
 
 @login_required
+@permission_required(['reporting.view_report'], raise_exception=True)
+def download_resource(request, pk):
+    """
+    Download resource with X-SENDFILE header
+    """
+    resource = Resource.objects.get(pk=pk)
+    # Check if user can access member
+    if not resource.report.is_access_granted(request.user):
+        return HttpResponseForbidden()
+
+    file = resource.resource
+    return sendfile(request, file.path, attachment=True, attachment_filename=os.path.basename(file.name))
+
+@login_required
 @permission_required(['reporting.view_report', 'reporting.change_report'], raise_exception=True)
 def download_report(request, pk):
     """

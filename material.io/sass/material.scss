@@ -45,7 +45,7 @@ $mdc-typography-styles-button: (
 }
 
 .mdc-fab{
-    @include mdc-fab-accessible(#d50000);
+    @include mdc-fab-accessible($link);
 }
 
 .mdc-button--on-primary{

@@ -43,3 +43,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SENDFILE_URL = '/sendfile/'
 SENDFILE_ROOT = os.path.join(BASE_DIR, 'sendfile')
+SENDFILE_BACKEND = 'sendfile.backends.development'

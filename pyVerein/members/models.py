@@ -5,12 +5,40 @@ from django.utils.translation import ugettext_lazy as _
 from datetime import datetime
 from finance.models import Account, CostCenter, CostObject
 from dynamic_preferences.registries import global_preferences_registry
+from utils.models import AccessRestrictedModel, ModelBase
+import uuid
 
 # Member model.
 class Member(models.Model):
     class Meta:
         permissions = ( 
-            ('view_payment', 'Can view payment details'), 
+            ('view_field_salutation', 'Can view field salutation'),
+            ('view_field_last_name', 'Can view field last_name'),
+            ('view_field_first_name', 'Can view field first_name'),
+            ('view_field_street', 'Can view field street'),
+            ('view_field_zipcode', 'Can view field zipcode'),
+            ('view_field_city', 'Can view field city'),
+            ('view_field_birthday', 'Can view field birthday'),
+            ('view_field_phone', 'Can view field phone'),
+            ('view_field_mobile', 'Can view field mobile'),
+            ('view_field_fax', 'Can view field fax'),
+            ('view_field_email', 'Can view field email'),
+            ('view_field_membership_number', 'Can view field membership number'),
+            ('view_field_joined_at', 'Can view field joined at'),
+            ('view_field_terminated_at', 'Can view field terminated at'),
+            ('view_field_division', 'Can view field division'),
+            ('view_field_payment_method', 'Can view field payment method'),
+            ('view_field_iban', 'Can view field iban'),
+            ('view_field_bic', 'Can view field bic'),
+            ('view_field_debit_mandate_at', 'Can view field debit mandate at'),
+            ('view_field_debit_reference', 'Can view field debit reference'),
+            ('view_field_subscription', 'Can view field subscription'),
+            ('view_field_field_1', 'Can view field field 1'),
+            ('view_field_field_2', 'Can view field field 2'),
+            ('view_field_field_3', 'Can view field field 3'),
+            ('view_field_field_4', 'Can view field field 4'),
+            ('view_field_field_5', 'Can view field field 5'),
+            ('view_files', 'Can view files')
         )
 
     # Choices for salutation
@@ -75,7 +103,7 @@ class Member(models.Model):
     # Direct debit reference
     debit_reference = models.CharField(blank=True, null=True, max_length=100)
     # Subscription
-    subscription = models.ForeignKey('Subscription', on_delete=models.PROTECT, blank=True, null=True)
+    subscription = models.ManyToManyField('Subscription', blank=True)
 
     # Additional field 1
     field_1 = models.CharField(blank=True, null=True, max_length=255)
@@ -87,6 +115,8 @@ class Member(models.Model):
     field_4 = models.CharField(blank=True, null=True, max_length=255)
     # Additional field 5
     field_5 = models.CharField(blank=True, null=True, max_length=255)
+
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
     # Return full name
@@ -104,7 +134,22 @@ class Member(models.Model):
     def __str__(self):
         return self.get_full_name()
 
-class Division(models.Model):
+def get_file_path(instance, filename):
+    """
+    Return filepath with member id folder
+    """
+    return "protected/members/{}/file/{}".format(instance.member.uuid, filename)
+
+
+class File(ModelBase):
+    """
+    Model for member-files
+    """
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+
+    file = models.FileField(null=False, blank=False, upload_to=get_file_path)
+
+class Division(AccessRestrictedModel):
     """
     Division model
     """

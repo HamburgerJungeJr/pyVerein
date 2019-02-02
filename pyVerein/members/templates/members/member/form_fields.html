@@ -75,7 +75,13 @@
     {% include "utils/_textfield.html" with field=form.joined_at label=joined_at_label next='id_terminated_at' %}
 
     {% trans 'Terminated at' as terminated_at_label%}
-    {% include "utils/_textfield.html" with field=form.terminated_at label=terminated_at_label next='id_payment_method' %}
+    {% include "utils/_textfield.html" with field=form.terminated_at label=terminated_at_label next='id_subscription' %}
+</div>
+<div class="heading mdc-typography--overline">
+    {% trans 'Subscription' %}
+</div>
+<div class="form-group">
+    {% include "utils/_checkboxmultipleselect.html" with field=form.subscription next='id_payment_method' %}
 </div>
 
 <div class="heading mdc-typography--overline">
@@ -83,10 +89,7 @@
 </div>
 <div class="form-group">
     {% trans 'Method' as method_label%}
-    {% include "utils/_select.html" with field=form.payment_method label=method_label next='id_subscription' %}
-
-    {% trans 'Subscription' as subscription_label%}
-    {% include "utils/_select.html" with field=form.subscription label=subscription_label next='id_iban' %}
+    {% include "utils/_select.html" with field=form.payment_method label=method_label next='id_iban' %}
 </div>
 
 <div class="form-group">

@@ -2,6 +2,7 @@
 
 html {
     height: 100%;
+    overflow-y: scroll;
 }
 
 body{
@@ -10,10 +11,18 @@ body{
     padding-top: 0.1px;
     height: 100%;
     font-size: 16px;
-}
 
+    .inner{
+        width: 100%;
+        height: auto;
+        display: none;
+    }
+}
+body.pg-loaded .inner{
+    display: inherit;
+}
 a {
-    color: #d50000;
+    color: $link;
 }
 
 div.main{
@@ -55,6 +64,32 @@ section.main{
         margin-left: 1rem;
         border-radius: 50%;
         height: 50px;
+    }
+    .user-image:hover{
+        cursor: pointer;
+    }
+    #user-menu {
+        position: fixed;
+        top: 64px;
+        background: $mdc-theme-background;
+        width: 250px;
+        display: none;
+
+        .header{
+            text-align: center;
+            margin-bottom: 10px;
+            margin-top: 10px;
+
+            img{
+                height: 75px;
+                margin-left: 0px;
+            }
+        }
+
+        .logout .mdc-list-item__graphic,
+        .logout .mdc-list-item__text{
+            color: $link;
+        }
     }
 }
 div.dataTables_wrapper{
@@ -309,12 +344,6 @@ footer#page-footer{
     }
 }
 
-.c3-legend-item text,
-.c3-chart-arc text,
-.c3-tooltip td{
-    font-size: 16px;
-}
-
 .c3-chart-arcs-title{
     font-size: 30px;
 }
@@ -341,7 +370,7 @@ table .mdc-select{
         color: $mdc-theme-primary;
     }
 }
-ul.ckeckbox-multiple-select{
+ul.checkbox-multiple-select{
     width: 100%;
     display: flex;
     flex-wrap: wrap;

@@ -153,10 +153,11 @@
             {% endif %}
         </div>
     </div>
-
+    {% if perms.finance.change_transaction %}
     <a href ="{% url 'finance:transaction_edit' internal_number=internal_number pk=transactions.0.pk%}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
+    {% endif %}
     {% if cleared_transactions %}
         <a href="#" id="btn-reset-clearing" class="mdc-fab mdc-fab--absolute-bottom-right second" aria-label="" title="{% trans 'Reset clearing' %}">
             <i class="mdc-fab__icon fa fa-eraser"></i>

@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="{% static 'app/css/app.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/login.css' %}">
 
+    <!-- please-wait -->
+    <link rel="stylesheet" href="{% static 'app/vendors/please-wait/please-wait.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/spinkit/spinner.css' %}">
+
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'app/images/favicon/apple-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app/images/favicon/apple-icon-60x60.png' %}">
@@ -42,59 +46,72 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body class="mdc-typography">
-    <div class="main login">
-        <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
-            <div class="mdc-top-app-bar__row">
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                    <span class="mdc-top-app-bar__title">{% trans 'Log In' %}</span>
-                </section>
-            </div>
-        </header>
-        <section class="main mdc-top-app-bar--fixed-adjust">
-            <div class="form-block">
-                <img src="{% static 'app/images/logo.png' %}" />
-                {% if form.errors %}
-                    <div class="alert alert-danger">{% trans 'Your username and password didnt match. Please try again.' %}</div>
-                {% endif %}
-
-                {% if next %}
-                    {% if user.is_authenticated %}
-                        <div class="alert alert-danger">{% trans 'Your account doesnt have access to this page. To proceed, please login with an account that has access.' %}
-                        </div>
+    <div class="inner">
+        <div class="main login">
+            <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+                <div class="mdc-top-app-bar__row">
+                    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                        <span class="mdc-top-app-bar__title">{% trans 'Log In' %}</span>
+                    </section>
+                </div>
+            </header>
+            <section class="main mdc-top-app-bar--fixed-adjust">
+                <div class="form-block">
+                    <img src="{% static 'app/images/logo.png' %}" />
+                    {% if form.errors %}
+                        <div class="alert alert-danger">{% trans 'Your username and password didnt match. Please try again.' %}</div>
                     {% endif %}
-                {% endif %}
 
-                <form role="form" method="post" action="{% url 'login' %}" class="form-login">
-                    {% csrf_token %}
-                    <div class="mdc-text-field">
-                        <input type="text" id="username" name="username" class="mdc-text-field__input">
-                        <label class="mdc-floating-label" for="username">
-                            {% trans 'Username' %}
-                        </label>
-                        <div class="mdc-line-ripple"></div>
-                    </div>
-                    <div class="mdc-text-field">
-                            <input type="password" id="password" name="password" class="mdc-text-field__input">
+                    {% if next %}
+                        {% if user.is_authenticated %}
+                            <div class="alert alert-danger">{% trans 'Your account doesnt have access to this page. To proceed, please login with an account that has access.' %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <form role="form" method="post" action="{% url 'login' %}" class="form-login">
+                        {% csrf_token %}
+                        <div class="mdc-text-field">
+                            <input type="text" id="username" name="username" class="mdc-text-field__input">
                             <label class="mdc-floating-label" for="username">
-                                {% trans 'Password' %}
+                                {% trans 'Username' %}
                             </label>
                             <div class="mdc-line-ripple"></div>
                         </div>
-                    <div>
-                        <button type="submit" class="mdc-button mdc-button--raised" title="{% trans 'Login' %}">{% trans 'Login' %}</button>
-                        <input type="hidden" name="next" value="{{ next }}"/>
-                    </div>
-                </form>
-            </div>
-        </section>
-        {% include "app/_attributions.html" %}
-        <footer id="page-footer">
-            pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="javascript:showAttributions();" class="mdc-theme--on-primary" title="{% trans 'Attributions' %}">{% trans 'Attributions' %}</a>
-        </footer>
+                        <div class="mdc-text-field">
+                                <input type="password" id="password" name="password" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="username">
+                                    {% trans 'Password' %}
+                                </label>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                        <div>
+                            <button type="submit" class="mdc-button mdc-button--raised" title="{% trans 'Login' %}">{% trans 'Login' %}</button>
+                            <input type="hidden" name="next" value="{{ next }}"/>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            {% include "app/_attributions.html" %}
+            <footer id="page-footer">
+                pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="javascript:showAttributions();" class="mdc-theme--on-primary" title="{% trans 'Attributions' %}">{% trans 'Attributions' %}</a>
+            </footer>
+        </div>
     </div>
+    <script src="{% static 'app/vendors/please-wait/please-wait.min.js' %}"></script>
+    <script>
+        please_wait = pleaseWait({
+            logo: "{% static 'app/images/logo_white.png' %}",
+            backgroundColor: '#2979FF',
+            loadingHtml: "<div class='spinner'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>"
+        });
+    </script>
     <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
     <script src="{% static 'app/js/material-components-web.js' %}"></script> 
     <script src="{% static 'app/js/material.js' %}"></script> 
+    <script>
+        please_wait.finish();
+    </script>
 </body>
 
 </html>

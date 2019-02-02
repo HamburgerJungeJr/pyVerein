@@ -9,8 +9,6 @@ from django.views.generic import TemplateView, DetailView, UpdateView, CreateVie
 from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountCreateForm, ImpersonalAccountEditForm, CostCenterCreateForm, CostCenterEditForm, CostObjectCreateForm, CostObjectEditForm, TransactionCreateForm, TransactionEditForm
 # Import reverse.
 from django.urls import reverse, reverse_lazy
-# Import datatablesview.
-from django_datatables_view.base_datatable_view import BaseDatatableView
 # Import Q for extended filtering.
 from django.db.models import Q, Max, Sum
 # Import localization
@@ -36,6 +34,13 @@ class CreditorIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVie
     """
     permission_required = 'finance.view_creditor'
     template_name = 'finance/creditor/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreditorIndexView, self).get_context_data(**kwargs)
+
+        context['creditors'] = Account.objects.filter(account_type=Account.CREDITOR)
+
+        return context
 
 class CreditorCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
@@ -126,58 +131,6 @@ class CreditorClearingView(LoginRequiredMixin, PermissionRequiredMixin, Template
             context['transactions'] = Transaction.objects.filter(Q(account=account) & Q(clearing_number=None))
             context['account'] = Account.objects.get(pk=account)
         return context
-        
-
-class CreditorDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for creditors
-    """
-    permission_required = 'finance.view_creditor'
-    # Use Accountmodel
-    model = Account
-
-    # Define displayed columns.
-    columns = ['number', 'name']
-
-    # Define columns used for ordering.
-    order_columns = ['number', 'name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def get_initial_queryset(self):
-        """
-        Filter only creditors
-        """
-        return Account.objects.filter(Q(account_type=Account.CREDITOR))
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:creditor_detail', args=[item.number])})
-
-        # Return data
-        return json_data
 
 class DebitorIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
@@ -185,6 +138,13 @@ class DebitorIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView
     """
     permission_required = 'finance.view_debitor'
     template_name = 'finance/debitor/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DebitorIndexView, self).get_context_data(**kwargs)
+
+        context['debitors'] = Account.objects.filter(account_type=Account.DEBITOR)
+
+        return context
 
 class DebitorCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
@@ -276,63 +236,19 @@ class DebitorClearingView(LoginRequiredMixin, PermissionRequiredMixin, TemplateV
             context['account'] = Account.objects.get(pk=account)
         return context
 
-class DebitorDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for debitors
-    """
-    permission_required = 'finance.view_debitor'
-    # Use Accountmodel
-    model = Account
-
-    # Define displayed columns.
-    columns = ['number', 'name']
-
-    # Define columns used for ordering.
-    order_columns = ['number', 'name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def get_initial_queryset(self):
-        """
-        Fiter only debitors
-        """
-        return Account.objects.filter(Q(account_type=Account.DEBITOR))
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by giver searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:debitor_detail', args=[item.number])})
-
-        # Return data
-        return json_data
-
 class ImpersonalIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for impersonal accounts
     """
     permission_required = 'finance.view_impersonal'
     template_name = 'finance/impersonal/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ImpersonalIndexView, self).get_context_data(**kwargs)
+
+        context['impersonals'] = Account.objects.filter(Q(account_type=Account.INCOME) | Q(account_type=Account.COST) | Q(account_type=Account.ASSET))
+
+        return context
 
 class ImpersonalCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
@@ -402,63 +318,19 @@ class ImpersonalEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
         """
         return reverse_lazy('finance:impersonal_detail', args={self.object.pk})
 
-class ImpersonalDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for impersonal accounts
-    """
-    permission_required = 'finance.view_impersonal'
-    # Use Accountmodel
-    model = Account
-
-    # Define displayed columns.
-    columns = ['number', 'name']
-
-    # Define columns used for ordering.
-    order_columns = ['number', 'name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def get_initial_queryset(self):
-        """
-        Filter only impersonal accounts
-        """
-        return Account.objects.filter(Q(account_type=Account.INCOME) | Q(account_type=Account.COST) | Q(account_type=Account.ASSET))
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:impersonal_detail', args=[item.number])})
-
-        # Return data
-        return json_data
-
 class CostCenterIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for costcenter
     """
     permission_required = 'finance.view_costcenter'
     template_name = 'finance/costcenter/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CostCenterIndexView, self).get_context_data(**kwargs)
+
+        context['costcenters'] = CostCenter.objects.all()
+
+        return context
 
 class CostCenterCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
@@ -526,57 +398,19 @@ class CostCenterEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
         """
         return reverse_lazy('finance:costcenter_detail', args={self.object.pk})
 
-class CostCenterDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for costcenter
-    """
-    permission_required = 'finance.view_costcenter'
-    # Use CostCentermodel
-    model = CostCenter
-
-    # Define displayed columns.
-    columns = ['number', 'name']
-
-    # Define columns used for ordering.
-    order_columns = ['number', 'name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:costcenter_detail', args=[item.number])})
-
-        # Return data
-        return json_data
-
 class CostObjectIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for costobject
     """
     permission_required = 'finance.view_costobject'
     template_name = 'finance/costobject/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CostObjectIndexView, self).get_context_data(**kwargs)
+
+        context['costobjects'] = CostObject.objects.all()
+
+        return context
 
 class CostObjectCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     """
@@ -644,57 +478,28 @@ class CostObjectEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
         """
         return reverse_lazy('finance:costobject_detail', args={self.object.pk})
 
-class CostObjectDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for costobject
-    """
-    permission_required = 'finance.view_costobject'
-    # Use CostObjectmodel
-    model = CostObject
-
-    # Define displayed columns.
-    columns = ['number', 'name']
-
-    # Define columns used for ordering.
-    order_columns = ['number', 'name']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(Q(number__icontains=search) | Q(name__icontains=search))
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-
-        # Loop through all items in queryset
-        for item in qs:
-            # Append dictionary with all columns and urls
-            json_data.append({'number': item.number, 'name': item.name, 
-                                          'detail_url': reverse('finance:costobject_detail', args=[item.number])})
-
-        # Return data
-        return json_data
-
 class TransactionIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for transaction
     """
     permission_required = 'finance.view_transaction'
     template_name = 'finance/transaction/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TransactionIndexView, self).get_context_data(**kwargs)
+
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.all()
+        else:
+            context['transactions'] = Transaction.objects.filter(Q(accounting_year=year))
+    
+        context['accounting_years'] = Transaction.objects.values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
+
+        return context
 
 class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
@@ -770,13 +575,6 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
         session_id = self.kwargs.get('session_id', '')
         global_preferences = global_preferences_registry.manager()
 
-        # Generate document_number
-        if self.object.document_number is None:
-            self.object.document_number = generate_document_number()
-            self.object.document_number_generated = True
-        # Save object to commit the changes
-        #self.object.save()
-
         # Save object to session
         transactions = self.request.session.get(session_id + 'transactions')
         if (transactions is None):
@@ -827,23 +625,31 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
             if debit_sum != credit_sum:
                 self.request.session[session_id + 'transactions'] = transactions
             else:
+                # Generate document_number
+                if transactions['0']['document_number'] is None:
+                    document_number = generate_document_number()
+                    document_number_generated = True
+                else:
+                    document_number = transactions['0']['document_number']
+                    document_number_generated = False
+
                 internal_number = generate_internal_number()
                 # Save transactions from session to db
                 for transaction in transactions.values():
                     obj = Transaction()
                     obj.account = Account.objects.get(number=transaction['account'])
                     obj.date = datetime.datetime.strptime(transaction['date'], '%d.%m.%Y')
-                    obj.document_number = transaction['document_number']
+                    obj.document_number = document_number if document_number else transaction['document_number']
                     obj.text = transaction['text']
                     obj.debit = Decimal(transaction['debit']) if transaction['debit'] is not None else None
                     obj.credit = Decimal(transaction['credit']) if transaction['credit'] is not None else None
                     obj.cost_center = CostCenter.objects.get(number=transaction['cost_center']) if transaction['cost_center'] is not None else None
                     obj.cost_object = CostObject.objects.get(number=transaction['cost_object']) if transaction['cost_object'] is not None else None
-                    obj.document_number_generated = transaction['document_number_generated']
+                    obj.document_number_generated = document_number_generated
                     obj.internal_number = internal_number
                     obj.accounting_year = global_preferences['Finance__accounting_year']
                     obj.save()
-                messages.success(self.request, _('Transaction {0:s} saved successfully').format(transactions['0']['document_number']))
+                messages.success(self.request, _('Transaction {0:s} saved successfully').format(document_number))
                 # Clear session
                 del self.request.session[session_id + 'transactions']
                 return HttpResponseRedirect(reverse_lazy('finance:transaction_create'))
@@ -897,77 +703,6 @@ class TransactionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMe
 
     def get_success_message(self, cleaned_data):
         return _('Receipt {0:s} updated successfully').format(str(self.object.document_number))
- 
-class TransactionDatatableView(LoginRequiredMixin, PermissionRequiredMixin, BaseDatatableView):
-    """
-    Datatables.net view for transaction
-    """
-    permission_required = 'finance.view_transaction'
-    # Use Transactionmodel
-    model = Transaction
-
-    # Define displayed columns.
-    columns = ['date','document_number',  'account', 'text', 'debit', 'credit', 'cost_center', 'cost_object']
-
-    # Define columns used for ordering.
-    order_columns = ['date', 'document_number', 'account', 'text', 'debit', 'credit', 'cost_center', 'cost_object']
-
-    # Set maximum returned rows to prevent attacks.
-    max_rows = 500
-
-    def filter_queryset(self, qs):
-        """
-        Filter rows by given searchterm
-        """
-        # Read GET parameters.
-        search = self.request.GET.get(u'search[value]', None)
-        if search:
-            qs = qs.filter(
-                Q(document_number__icontains=search) | 
-                Q(account__number__icontains=search) | 
-                Q(text__icontains=search) | 
-                Q(cost_center__number__icontains=search) | 
-                Q(cost_object__number__icontains=search)
-            )
-
-        # Return filtered data.
-        return qs
-
-    def prepare_results(self, qs):
-        """
-        Prepare results to return as dict with urls
-        """
-        # Initialize data array
-        json_data = []
-        # Loop through all items in queryset
-        for item in qs:
-            # Retrieve accounttype
-            account_url = None
-            if item.account.account_type == Account.DEBITOR: 
-                account_url = reverse('finance:debitor_detail', args=[item.account.number])
-            if item.account.account_type == Account.CREDITOR: 
-                account_url = reverse('finance:creditor_detail', args=[item.account.number])
-            if item.account.account_type == Account.COST or item.account.account_type == Account.INCOME or item.account.account_type == Account.ASSET: 
-                account_url = reverse('finance:impersonal_detail', args=[item.account.number])
-
-            # Append dictionary with all columns and urls
-            json_data.append({
-                'document_number': item.document_number, 
-                'date': item.date.strftime('%d.%m.%Y'), 
-                'account': item.account.number, 
-                'text': item.text, 
-                'debit': item.debit, 
-                'credit': item.credit, 
-                'cost_center': item.cost_center.number if item.cost_center is not None else '', 
-                'cost_object': item.cost_object.number if item.cost_object is not None else '', 
-                'transaction_url': reverse('finance:transaction_detail', args=[item.internal_number]),
-                'account_url': account_url,
-                'cost_center_url': reverse('finance:costcenter_detail', args=[item.cost_center.number]) if item.cost_center is not None else '',
-                'cost_object_url': reverse('finance:costobject_detail', args=[item.cost_object.number]) if item.cost_object is not None else ''
-            })
-
-        # Return data
-        return json_data
 
 @login_required
 @permission_required('finance.view_account', raise_exception=True)
