@@ -85,6 +85,7 @@
                                     {{ resource.resource|filename }}
                                 </td>
                                 <td class="mdl-data-table__cell--non-numeric">
+                                    <a href="{% url 'reporting:download_resource' pk=resource.pk %}" title="{% trans 'Download' %}">{% trans 'Download' %}</a>
                                     <form action="{% url 'reporting:delete_resource' pk=resource.pk %}" method="POST">{% csrf_token %}<a href="#" class="submit" title="{% trans 'Delete' %}">{% trans 'Delete' %}</a></form>
                                 </td>
                             </tr>

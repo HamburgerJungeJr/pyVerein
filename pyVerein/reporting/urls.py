@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^download_report/(?P<pk>[0-9]+)/$', views.download_report, name='download_report'),
     url(r'^upload_resource/(?P<pk>[0-9]+)/$', views.upload_resource, name='upload_resource'),
     url(r'^delete_resource/(?P<pk>[0-9]+)/$', views.delete_resource, name='delete_resource'),
+    url(r'^download_resource/(?P<pk>[0-9]+)/$', views.download_resource, name='download_resource'),
     url(r'^download_data/$', views.download_data, name='download_data'),
 ] 
