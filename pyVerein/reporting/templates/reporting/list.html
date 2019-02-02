@@ -41,9 +41,11 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if perms.reporting.add_report %}
     <a href="{% url 'reporting:create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Create' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
     </a>
+    {% endif %}
     <a href="{% url 'reporting:download_data' %}" class="mdc-fab mdc-fab--absolute-bottom-right second" aria-label="" title="{% trans 'Download data' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-download"></i>
     </a>

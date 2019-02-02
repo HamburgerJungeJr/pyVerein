@@ -39,9 +39,11 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if perms.finance.add_creditor %}
     <a href ="{% url 'finance:creditor_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
     </a>
+    {% endif %}
 {% endblock %}
 
 {% block foot %}<!-- Datatables -->
