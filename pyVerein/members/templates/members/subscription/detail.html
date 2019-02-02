@@ -69,9 +69,11 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if perms.members.change_subscription %}
     <a href ="{% url 'members:subscription_edit' pk=subscription.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
+    {% endif %}
 {% endblock %}
 
 {% block foot %}<!-- Datatables -->

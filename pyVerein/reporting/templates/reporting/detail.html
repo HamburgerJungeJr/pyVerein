@@ -105,9 +105,11 @@
             </div>
         </div>
     </div>
+    {% if perms.reporting.change_report %}
     <a href ="{% url 'reporting:edit' pk=report.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
+    {% endif %}
 {% endblock %}
 
 {% block foot %}

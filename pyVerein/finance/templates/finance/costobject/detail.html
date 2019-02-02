@@ -75,9 +75,11 @@
             </tr>
         </tfoot>
     </table>
+    {% if perms.finance.change_costobject %}
     <a href ="{% url 'finance:costobject_edit' pk=costobject.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>    
+    {% endif %}
 {% endblock %}
 {% block foot %}
 <!-- Datatables -->
