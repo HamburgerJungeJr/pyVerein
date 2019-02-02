@@ -69,9 +69,11 @@
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>    
     {% endif %}
-    <a href ="{% url 'finance:creditor_clear' account=creditor.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right second" aria-label="" title="{% trans 'Clearing' %}" target="_blank">
+    {% if perms.finance.add_transaction and perms.finance.change_transaction %}
+    <a href ="{% url 'finance:creditor_clear' account=creditor.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right{% if perms.finance.change_creditor %} second{% endif %}" aria-label="" title="{% trans 'Clearing' %}" target="_blank">
         <i class="mdc-fab__icon far fa-check-square"></i>
     </a>   
+    {% endif %}
 {% endblock %}
 
 {% block foot %}<!-- Datatables -->
