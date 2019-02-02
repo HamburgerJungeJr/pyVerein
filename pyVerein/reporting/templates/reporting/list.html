@@ -46,9 +46,11 @@
         <i class="mdc-fab__icon fa fa-plus"></i>
     </a>
     {% endif %}
-    <a href="{% url 'reporting:download_data' %}" class="mdc-fab mdc-fab--absolute-bottom-right second" aria-label="" title="{% trans 'Download data' %}" target="_blank">
+    {% if perms.reporting.download_data %}
+    <a href="{% url 'reporting:download_data' %}" class="mdc-fab mdc-fab--absolute-bottom-right{% if perms.reporting.add_report %} second{% endif %}" aria-label="" title="{% trans 'Download data' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-download"></i>
     </a>
+    {% endif %}
 {% endblock %}
 
 {% block foot %}<!-- Datatables -->
