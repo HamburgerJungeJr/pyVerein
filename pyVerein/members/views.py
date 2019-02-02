@@ -138,6 +138,7 @@ def delete_file(request, pk):
         return HttpResponseRedirect(reverse_lazy('members:detail', kwargs={'pk': member.pk}))
     else:
         return HttpResponseBadRequest() 
+        
 @login_required
 @permission_required(['members.view_member', 'members.view_files'], raise_exception=True)
 def download_file(request, pk):
