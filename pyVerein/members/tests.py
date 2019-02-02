@@ -1,13 +1,27 @@
 from django.test import TestCase
-from .models import Member, Division, Subscription
+from .models import Member, Division, Subscription, File
 from datetime import datetime, timedelta
 from account.models import User
 from django.urls import reverse
 from django.contrib.auth.models import Permission, Group
 from django.utils import translation
 from dynamic_preferences.registries import global_preferences_registry
+from shutil import rmtree
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
+from tempfile import mkdtemp
 
 class MemberTestMethods(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Create tempdir
+        cls.temp_dir = mkdtemp()
+         
+    @classmethod
+    def tearDownClass(self):
+        super().tearDownClass()
+        rmtree(self.temp_dir)
+
     def setUp(self):
         # Create user
         user = User.objects.create_user('temp', 'temp@temp.tld', 'temppass')
@@ -102,7 +116,25 @@ class MemberTestMethods(TestCase):
 
         response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
+
+    def test_member_files_detail_permission(self):
+        "User should only be able to view member files if view permission is set"
+
+        user = User.objects.get(username='temp')
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        with translation.override('en'):
+            response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Files')
+        self.assertNotContains(response, 'Filename')
     
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        with translation.override('en'):
+            response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Files')
+        self.assertContains(response, 'Filename')
+
     def test_member_edit_permission(self):
         "User should only access member edit if change permission is set"
 
@@ -419,6 +451,232 @@ class MemberTestMethods(TestCase):
         division.groups.add(group)
         response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
+
+    def test_member_file_upload_permission(self):
+        "User should only be able to upload files if permission is set"
+        user = User.objects.get(username='temp')
+        
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_files'))
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 200)
+
+    def test_member_file_delete_permission(self):
+        "User should only be able to delete files if permission is set"
+        user = User.objects.get(username='temp')
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        user.user_permissions.remove(Permission.objects.get(codename='view_member'))
+        user.user_permissions.remove(Permission.objects.get(codename='change_member'))
+        user.user_permissions.remove(Permission.objects.get(codename='view_files'))
+
+                
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_files'))
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 302)
+    
+    def test_member_file_download_permission(self):
+        "User should only be able to download files if permission is set"
+        user = User.objects.get(username='temp')
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        user.user_permissions.remove(Permission.objects.get(codename='view_member'))
+        user.user_permissions.remove(Permission.objects.get(codename='change_member'))
+        user.user_permissions.remove(Permission.objects.get(codename='view_files'))
+
+                
+        response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_member_upload_file_access_restrictions(self):
+        "User should only be able to upload files if user is not restricted to access the assigned division"
+        
+        user = User.objects.get(username='temp')    
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
+
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        division.user.add(user)
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 200)
+
+        division.user.remove(user)
+        division.user.remove(user2)
+
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
+
+        division.groups.add(group2)
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 403)
+
+        division.groups.add(group)
+        response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        self.assertEqual(response.status_code, 200)
+    
+    def test_member_download_file_access_restrictions(self):
+        "User should only be able to download files if user is not restricted to access the assigned division"
+        
+        user = User.objects.get(username='temp')    
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
+
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.user.add(user)
+        response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 200)
+
+        division.user.remove(user)
+        division.user.remove(user2)
+
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
+
+        division.groups.add(group2)
+        response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.groups.add(group)
+        response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_member_delete_file_access_restrictions(self):
+        "User should only be able to delete files if user is not restricted to access the assigned division"
+        
+        user = User.objects.get(username='temp')    
+        user.user_permissions.add(Permission.objects.get(codename='view_member'))
+        user.user_permissions.add(Permission.objects.get(codename='change_member'))
+        user.user_permissions.add(Permission.objects.get(codename='view_files'))
+        self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        division = Division.objects.get(name='Temp')
+        user2 = User.objects.get(username='temp2')
+        group = Group.objects.get(name='group')
+        group2 = Group.objects.get(name='group2')
+
+        # Access restrictions for user
+        division.user.add(user2)
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.user.add(user)
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 302)
+
+        division.user.remove(user)
+        division.user.remove(user2)
+
+        # Access restrictions for groups
+        group.user_set.add(user)
+        group2.user_set.add(user2)
+        self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+        
+        division.groups.add(group2)
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 403)
+
+        division.groups.add(group)
+        response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+        self.assertEqual(response.status_code, 302)
 
 class DivisionTestMethods(TestCase):
     def setUp(self):

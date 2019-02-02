@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-31 16:56+0100\n"
+"POT-Creation-Date: 2019-02-02 15:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/app/_attributions.html:6 app/templates/app/base.html:79
-#: app/templates/registration/login.html:92
+#: app/templates/app/_attributions.html:6 app/templates/app/base.html:106
+#: app/templates/registration/login.html:97
 msgid "Attributions"
 msgstr "Lizenzen"
 
@@ -35,6 +35,8 @@ msgstr "Lizenzen"
 #: app/templates/app/_attributions.html:75
 #: app/templates/app/_attributions.html:82
 #: app/templates/app/_attributions.html:89
+#: app/templates/app/_attributions.html:96
+#: app/templates/app/_attributions.html:103
 msgid "by"
 msgstr "von"
 
@@ -50,6 +52,8 @@ msgstr "von"
 #: app/templates/app/_attributions.html:76
 #: app/templates/app/_attributions.html:83
 #: app/templates/app/_attributions.html:90
+#: app/templates/app/_attributions.html:97
+#: app/templates/app/_attributions.html:104
 msgid "Published under"
 msgstr "Veröffentlicht unter"
 
@@ -65,6 +69,8 @@ msgstr "Veröffentlicht unter"
 #: app/templates/app/_attributions.html:76
 #: app/templates/app/_attributions.html:83
 #: app/templates/app/_attributions.html:90
+#: app/templates/app/_attributions.html:97
+#: app/templates/app/_attributions.html:104
 msgid "at"
 msgstr "auf"
 
@@ -80,10 +86,12 @@ msgstr "auf"
 #: app/templates/app/_attributions.html:76
 #: app/templates/app/_attributions.html:83
 #: app/templates/app/_attributions.html:90
+#: app/templates/app/_attributions.html:97
+#: app/templates/app/_attributions.html:104
 msgid "Open at"
 msgstr "Öffnen auf"
 
-#: app/templates/app/_attributions.html:94
+#: app/templates/app/_attributions.html:108
 msgid "Close"
 msgstr "Schließen"
 
@@ -146,19 +154,15 @@ msgstr "Berichtswesen"
 msgid "Reports"
 msgstr "Berichte"
 
-#: app/templates/app/_drawer.html:104
-msgid "User"
-msgstr "Benutzer"
-
-#: app/templates/app/_drawer.html:105 app/templates/app/_drawer.html:107
+#: app/templates/app/base.html:87 app/templates/app/base.html:89
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/_drawer.html:109 app/templates/app/_drawer.html:111
+#: app/templates/app/base.html:92 app/templates/app/base.html:94
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: app/templates/app/base.html:118 app/templates/app/base.html:155
+#: app/templates/app/base.html:153 app/templates/app/base.html:190
 msgid "Dismiss"
 msgstr "Ausblenden"
 
@@ -182,29 +186,29 @@ msgstr "Keine Auswahl"
 msgid "Balance"
 msgstr "Saldo"
 
-#: app/templates/registration/login.html:49
+#: app/templates/registration/login.html:54
 msgid "Log In"
 msgstr "Anmeldung"
 
-#: app/templates/registration/login.html:57
+#: app/templates/registration/login.html:62
 msgid "Your username and password didnt match. Please try again."
 msgstr ""
 "Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
 
-#: app/templates/registration/login.html:62
+#: app/templates/registration/login.html:67
 msgid ""
 "Your account doesnt have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr "Dieser Benutzer hat keine Berechtigung für diese Seite."
 
-#: app/templates/registration/login.html:72
+#: app/templates/registration/login.html:77
 msgid "Username"
 msgstr "Benutzername"
 
-#: app/templates/registration/login.html:79
+#: app/templates/registration/login.html:84
 msgid "Password"
 msgstr "Passwort"
 
-#: app/templates/registration/login.html:84
+#: app/templates/registration/login.html:89
 msgid "Login"
 msgstr "Anmelden"

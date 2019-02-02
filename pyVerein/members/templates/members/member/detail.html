@@ -1,6 +1,7 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
 {% load static %}
+{% load filename %}
 
 {% block page_title %}
     {% trans 'Member-Detail' %}
@@ -10,7 +11,35 @@
     {{ member.get_full_name }}
 {% endblock %}
 
+{% block head %}
+    {% if perms.members.view_files %}
+        <link rel="stylesheet" href="{% static 'app/vendors/dropzone.js/dropzone.min.css' %}">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+        <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+    {% endif %}
+{% endblock %}
+
 {% block content %}
+    {% if perms.members.view_files %}
+        <div class="mdc-dialog" id="confirm-dialog">
+            <div class="mdc-dialog__scrim"></div>
+            <div class="mdc-dialog__container">
+                <div class="mdc-dialog__surface">
+                    <h2 class="mdc-dialog__title">
+                        {% trans 'Delete file' %}
+                    </h2>
+                    <section class="mdc-dialog__content">
+                        {% trans 'Do you really want to delete the file?' %}
+                    </section>
+                    <footer class="mdc-dialog__actions">
+                        <button type="button" class="mdc-button mdc-dialog__button mdc-button--outlined" title="{% trans 'No' %}" data-mdc-dialog-action="close">{% trans 'No' %}</button>
+                        <button type="button" class="mdc-button mdc-dialog__button mdc-button--outlined" title="{% trans 'Yes' %}" data-mdc-dialog-action="close" id="confirm">{% trans 'Yes' %}</button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <div class="main-narrow form">
         <div class="detail-content mdc-elevation--z4">
             {% if perms.members.view_field_salutation or perms.members.view_field_first_name or perms.members.view_field_last_name or perms.members.view_field_birthday %}
@@ -212,9 +241,73 @@
                     <div class="field-value">{{ member.field_5|default_if_none:"" }}</div>
                 </div>
             {% endif %}
+            {% if perms.members.view_files %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Files' %}
+                </div>
+                <div class="row">
+                    <table id="files" class="mdl-data-table mdl-js-data-table mdl-data-table--non-linkable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="mdl-data-table__cell--non-numeric">{% trans 'Filename' %}</th>
+                                <th class="mdl-data-table__cell--non-numeric">{% trans 'Action' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for file in files %}
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        {{ file.file|filename }}
+                                    </td>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        <a href="{% url 'members:download_file' pk=file.pk %}" title="{% trans 'Download' %}">{% trans 'Download' %}</a>
+                                        <form action="{% url 'members:delete_file' pk=file.pk %}" method="POST">{% csrf_token %}<a href="#" class="submit" title="{% trans 'Delete' %}">{% trans 'Delete' %}</a></form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <form action="{% url 'members:upload_file' pk=member.pk %}" method="POST" enctype="multipart/form-data" class="dropzone" id="file_upload">
+                        <div class="dz-message">
+                            <div class="drag-icon-cph">
+                                <i class="mdc-fab__icon fa fa-upload"></i>
+                            </div>
+                            <h3>{% trans 'Drop files here or click to upload.' %}</h3>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
         </div>
     </div>
     <a href ="{% url 'members:edit' pk=member.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
+{% endblock %}
+{% block foot %}
+    {% if perms.members.view_files %}
+        <!-- Cookie.js -->
+        <script src="{% static 'app/js/cookie.js' %}"></script>
+        <script src="{% static 'app/vendors/dropzone.js/dropzone.min.js' %}"></script>
+        <script>
+            const confirm_dialog = new mdc.dialog.MDCDialog(document.querySelector('#confirm-dialog'));
+            Dropzone.options.fileUpload = {
+                paramName: "file",
+                uploadMultiple: false,
+                headers: {
+                    "X-CSRFToken": getCookie('csrftoken')
+                }
+            }
+            var file_form;
+            
+            $('a.submit').on('click', function(){
+                file_form = $(this).parent();
+                confirm_dialog.open();
+            });
+            $('button#confirm').on('click', function(){
+                file_form.submit();
+            })
+        </script>
+    {% endif %}
 {% endblock %}

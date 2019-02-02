@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-31 16:56+0100\n"
+"POT-Creation-Date: 2019-02-02 15:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -157,10 +157,13 @@ msgstr "Folgende Fehler traten auf:"
 
 #: tasks/views.py:49 tasks/views.py:55 tasks/views.py:60 tasks/views.py:65
 #: tasks/views.py:74 tasks/views.py:83
+#, python-brace-format
 msgid ""
 "Subscription - {subscription_name} - {membership_number} - {last_name}, "
 "{first_name}"
-msgstr "Beitrag - {subscription_name} - {membership_number} - {last_name}, {first_name}"
+msgstr ""
+"Beitrag - {subscription_name} - {membership_number} - {last_name}, "
+"{first_name}"
 
 #: tasks/views.py:173
 msgid "No year selected or year already closed."

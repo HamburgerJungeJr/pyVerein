@@ -11,6 +11,9 @@ urlpatterns = [
     url(r'^member/(?P<pk>[0-9]+)/$', views.MemberDetailView.as_view(), name='detail'),
     url(r'^member/edit/(?P<pk>[0-9]+)/$', views.MemberEditView.as_view(), name='edit'),
     url(r'^member/new/$', views.MemberCreateView.as_view(), name='create'),
+    url(r'^upload_file/(?P<pk>[0-9]+)/$', views.upload_file, name='upload_file'),
+    url(r'^delete_file/(?P<pk>[0-9]+)/$', views.delete_file, name='delete_file'),
+    url(r'^download_file/(?P<pk>[0-9]+)/$', views.download_file, name='download_file'),
 
     url(r'^division/$', views.DivisionIndexView.as_view(), name='division_list'),
     url(r'^division/(?P<pk>[0-9]+)/$', views.DivisionDetailView.as_view(), name='division_detail'),

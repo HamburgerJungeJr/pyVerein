@@ -1,22 +1,22 @@
-# Import django render shortcut.
-from django.shortcuts import render, get_object_or_404 as get
 # Import reverse.
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 # Import members.
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
 # Import Member.
 from .forms import MemberForm, DivisionForm, SubscriptionForm
-from .models import Member, Division, Subscription
-from finance.models import Transaction
-# Import Q for extended filtering.
-from django.db.models import Q
+from .models import Member, Division, Subscription, File
 
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from dynamic_preferences.registries import global_preferences_registry
+from django.contrib.auth.decorators import login_required, permission_required
+from django.http import HttpResponseForbidden, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.db import Error
+import os
+from django.conf import settings
+from sendfile import sendfile
 
 # Index-View.
 class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
@@ -44,6 +44,13 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Member
     context_object_name = 'member'
     template_name = 'members/member/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberDetailView, self).get_context_data(**kwargs)
+
+        context['files'] = File.objects.filter(member=self.object)
+
+        return context
 
     def has_permission(self):
         super_perm = super(MemberDetailView, self).has_permission()
@@ -87,6 +94,63 @@ class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
 
     def get_success_url(self):
         return reverse_lazy('members:detail', args={self.object.pk})
+
+@login_required
+@permission_required(['members.view_member', 'members.change_member', 'members.view_files'], raise_exception=True)
+def upload_file(request, pk):
+    """
+    Upload for member files
+    """
+    if request.method == 'POST':
+        member = Member.objects.get(pk=pk)
+
+        # Check if user can access member
+        if member.division and not member.division.is_access_granted(request.user):
+            return HttpResponseForbidden()
+
+        try:
+            file = File(member=member, file=request.FILES['file'])
+            file.save()
+        except Error as err:
+            return JsonResponse({'error': err})
+        
+        return JsonResponse({'state': 'success'})
+    else:
+        return HttpResponseBadRequest()    
+
+@login_required
+@permission_required(['members.view_member', 'members.change_member', 'members.view_files'], raise_exception=True)
+def delete_file(request, pk):
+    """
+    Delete member files
+    """
+    if request.method == 'POST':
+        file = File.objects.get(pk=pk)
+        member = file.member
+
+        # Check if user can access member
+        if member.division and not member.division.is_access_granted(request.user):
+            return HttpResponseForbidden()
+
+        file.delete()
+        if os.path.isfile(os.path.join(settings.MEDIA_ROOT, file.file.path)):
+            os.remove(os.path.join(settings.MEDIA_ROOT, file.file.path))
+        return HttpResponseRedirect(reverse_lazy('members:detail', kwargs={'pk': member.pk}))
+    else:
+        return HttpResponseBadRequest() 
+@login_required
+@permission_required(['members.view_member', 'members.view_files'], raise_exception=True)
+def download_file(request, pk):
+    """
+    Download file with X-SENDFILE header
+    """
+    file = File.objects.get(pk=pk)
+    # Check if user can access member
+    if file.member.division and not file.member.division.is_access_granted(request.user):
+        return HttpResponseForbidden()
+
+    file = file.file
+    return sendfile(request, file.path, attachment=True, attachment_filename=os.path.basename(file.name))
 
 # Index-View.
 class DivisionIndexView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

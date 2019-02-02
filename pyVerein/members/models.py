@@ -5,7 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from datetime import datetime
 from finance.models import Account, CostCenter, CostObject
 from dynamic_preferences.registries import global_preferences_registry
-from utils.models import AccessRestrictedModel
+from utils.models import AccessRestrictedModel, ModelBase
+import uuid
 
 # Member model.
 class Member(models.Model):
@@ -37,6 +38,7 @@ class Member(models.Model):
             ('view_field_field_3', 'Can view field field 3'),
             ('view_field_field_4', 'Can view field field 4'),
             ('view_field_field_5', 'Can view field field 5'),
+            ('view_files', 'Can view files')
         )
 
     # Choices for salutation
@@ -114,6 +116,8 @@ class Member(models.Model):
     # Additional field 5
     field_5 = models.CharField(blank=True, null=True, max_length=255)
 
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
 
     # Return full name
     def get_full_name(self):
@@ -129,6 +133,21 @@ class Member(models.Model):
     # Return full name as string representation
     def __str__(self):
         return self.get_full_name()
+
+def get_file_path(instance, filename):
+    """
+    Return filepath with member id folder
+    """
+    return "protected/members/{}/file/{}".format(instance.member.uuid, filename)
+
+
+class File(ModelBase):
+    """
+    Model for member-files
+    """
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+
+    file = models.FileField(null=False, blank=False, upload_to=get_file_path)
 
 class Division(AccessRestrictedModel):
     """
