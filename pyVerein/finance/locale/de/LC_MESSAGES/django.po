@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-02 15:12+0100\n"
+"POT-Creation-Date: 2019-02-02 19:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,281 +224,281 @@ msgstr "Kostenträger anzeigen"
 msgid "Saldo"
 msgstr "Saldo"
 
-#: finance/templates/finance/costcenter/detail.html:78
-#: finance/templates/finance/creditor/detail.html:67
-#: finance/templates/finance/debitor/detail.html:65
-#: finance/templates/finance/impersonal/detail.html:65
+#: finance/templates/finance/costcenter/detail.html:79
+#: finance/templates/finance/creditor/detail.html:68
+#: finance/templates/finance/debitor/detail.html:66
+#: finance/templates/finance/impersonal/detail.html:66
 #: finance/templates/finance/transaction/detail.html:157
 msgid "Edit"
 msgstr "Bearbeiten"
-
-#: finance/templates/finance/costcenter/detail.html:95
-#: finance/templates/finance/costcenter/list.html:59
-#: finance/templates/finance/costobject/detail.html:95
-#: finance/templates/finance/costobject/list.html:59
-#: finance/templates/finance/creditor/clearing.html:113
-#: finance/templates/finance/creditor/detail.html:87
-#: finance/templates/finance/creditor/list.html:59
-#: finance/templates/finance/debitor/clearing.html:113
-#: finance/templates/finance/debitor/detail.html:85
-#: finance/templates/finance/debitor/list.html:59
-#: finance/templates/finance/impersonal/detail.html:82
-#: finance/templates/finance/impersonal/list.html:59
-#: finance/templates/finance/transaction/list.html:95
-msgid "sEmptyTable"
-msgstr "Keine Daten in der Tabelle vorhanden."
-
-#: finance/templates/finance/costcenter/detail.html:96
-#: finance/templates/finance/costcenter/list.html:60
-#: finance/templates/finance/costobject/detail.html:96
-#: finance/templates/finance/costobject/list.html:60
-#: finance/templates/finance/creditor/clearing.html:114
-#: finance/templates/finance/creditor/detail.html:88
-#: finance/templates/finance/creditor/list.html:60
-#: finance/templates/finance/debitor/clearing.html:114
-#: finance/templates/finance/debitor/detail.html:86
-#: finance/templates/finance/debitor/list.html:60
-#: finance/templates/finance/impersonal/detail.html:83
-#: finance/templates/finance/impersonal/list.html:60
-#: finance/templates/finance/transaction/list.html:96
-msgid "sInfo"
-msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
 #: finance/templates/finance/costcenter/detail.html:97
 #: finance/templates/finance/costcenter/list.html:61
 #: finance/templates/finance/costobject/detail.html:97
 #: finance/templates/finance/costobject/list.html:61
-#: finance/templates/finance/creditor/clearing.html:115
-#: finance/templates/finance/creditor/detail.html:89
+#: finance/templates/finance/creditor/clearing.html:113
+#: finance/templates/finance/creditor/detail.html:91
 #: finance/templates/finance/creditor/list.html:61
-#: finance/templates/finance/debitor/clearing.html:115
-#: finance/templates/finance/debitor/detail.html:87
+#: finance/templates/finance/debitor/clearing.html:113
+#: finance/templates/finance/debitor/detail.html:89
 #: finance/templates/finance/debitor/list.html:61
 #: finance/templates/finance/impersonal/detail.html:84
 #: finance/templates/finance/impersonal/list.html:61
 #: finance/templates/finance/transaction/list.html:97
-msgid "sInfoEmpty"
-msgstr "0 bis 0 von 0 Einträgen"
+msgid "sEmptyTable"
+msgstr "Keine Daten in der Tabelle vorhanden."
 
 #: finance/templates/finance/costcenter/detail.html:98
 #: finance/templates/finance/costcenter/list.html:62
 #: finance/templates/finance/costobject/detail.html:98
 #: finance/templates/finance/costobject/list.html:62
-#: finance/templates/finance/creditor/clearing.html:116
-#: finance/templates/finance/creditor/detail.html:90
+#: finance/templates/finance/creditor/clearing.html:114
+#: finance/templates/finance/creditor/detail.html:92
 #: finance/templates/finance/creditor/list.html:62
-#: finance/templates/finance/debitor/clearing.html:116
-#: finance/templates/finance/debitor/detail.html:88
+#: finance/templates/finance/debitor/clearing.html:114
+#: finance/templates/finance/debitor/detail.html:90
 #: finance/templates/finance/debitor/list.html:62
 #: finance/templates/finance/impersonal/detail.html:85
 #: finance/templates/finance/impersonal/list.html:62
 #: finance/templates/finance/transaction/list.html:98
-msgid "sInfoFiltered"
-msgstr "(gefiltert von _MAX_ Einträgen)"
+msgid "sInfo"
+msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
 #: finance/templates/finance/costcenter/detail.html:99
 #: finance/templates/finance/costcenter/list.html:63
 #: finance/templates/finance/costobject/detail.html:99
 #: finance/templates/finance/costobject/list.html:63
-#: finance/templates/finance/creditor/clearing.html:117
-#: finance/templates/finance/creditor/detail.html:91
+#: finance/templates/finance/creditor/clearing.html:115
+#: finance/templates/finance/creditor/detail.html:93
 #: finance/templates/finance/creditor/list.html:63
-#: finance/templates/finance/debitor/clearing.html:117
-#: finance/templates/finance/debitor/detail.html:89
+#: finance/templates/finance/debitor/clearing.html:115
+#: finance/templates/finance/debitor/detail.html:91
 #: finance/templates/finance/debitor/list.html:63
 #: finance/templates/finance/impersonal/detail.html:86
 #: finance/templates/finance/impersonal/list.html:63
 #: finance/templates/finance/transaction/list.html:99
-msgid "sInfoPostfix"
-msgstr " "
+msgid "sInfoEmpty"
+msgstr "0 bis 0 von 0 Einträgen"
 
 #: finance/templates/finance/costcenter/detail.html:100
 #: finance/templates/finance/costcenter/list.html:64
 #: finance/templates/finance/costobject/detail.html:100
 #: finance/templates/finance/costobject/list.html:64
-#: finance/templates/finance/creditor/clearing.html:118
-#: finance/templates/finance/creditor/detail.html:92
+#: finance/templates/finance/creditor/clearing.html:116
+#: finance/templates/finance/creditor/detail.html:94
 #: finance/templates/finance/creditor/list.html:64
-#: finance/templates/finance/debitor/clearing.html:118
-#: finance/templates/finance/debitor/detail.html:90
+#: finance/templates/finance/debitor/clearing.html:116
+#: finance/templates/finance/debitor/detail.html:92
 #: finance/templates/finance/debitor/list.html:64
 #: finance/templates/finance/impersonal/detail.html:87
 #: finance/templates/finance/impersonal/list.html:64
 #: finance/templates/finance/transaction/list.html:100
-msgid "sInfoThousands"
-msgstr "."
+msgid "sInfoFiltered"
+msgstr "(gefiltert von _MAX_ Einträgen)"
 
 #: finance/templates/finance/costcenter/detail.html:101
 #: finance/templates/finance/costcenter/list.html:65
 #: finance/templates/finance/costobject/detail.html:101
 #: finance/templates/finance/costobject/list.html:65
-#: finance/templates/finance/creditor/clearing.html:119
-#: finance/templates/finance/creditor/detail.html:93
+#: finance/templates/finance/creditor/clearing.html:117
+#: finance/templates/finance/creditor/detail.html:95
 #: finance/templates/finance/creditor/list.html:65
-#: finance/templates/finance/debitor/clearing.html:119
-#: finance/templates/finance/debitor/detail.html:91
+#: finance/templates/finance/debitor/clearing.html:117
+#: finance/templates/finance/debitor/detail.html:93
 #: finance/templates/finance/debitor/list.html:65
 #: finance/templates/finance/impersonal/detail.html:88
 #: finance/templates/finance/impersonal/list.html:65
 #: finance/templates/finance/transaction/list.html:101
-msgid "sLoadingRecords"
-msgstr "Wird geladen..."
+msgid "sInfoPostfix"
+msgstr " "
 
 #: finance/templates/finance/costcenter/detail.html:102
 #: finance/templates/finance/costcenter/list.html:66
 #: finance/templates/finance/costobject/detail.html:102
 #: finance/templates/finance/costobject/list.html:66
-#: finance/templates/finance/creditor/clearing.html:120
-#: finance/templates/finance/creditor/detail.html:94
+#: finance/templates/finance/creditor/clearing.html:118
+#: finance/templates/finance/creditor/detail.html:96
 #: finance/templates/finance/creditor/list.html:66
-#: finance/templates/finance/debitor/clearing.html:120
-#: finance/templates/finance/debitor/detail.html:92
+#: finance/templates/finance/debitor/clearing.html:118
+#: finance/templates/finance/debitor/detail.html:94
 #: finance/templates/finance/debitor/list.html:66
 #: finance/templates/finance/impersonal/detail.html:89
 #: finance/templates/finance/impersonal/list.html:66
 #: finance/templates/finance/transaction/list.html:102
-msgid "sZeroRecords"
-msgstr "Keine Einträge vorhanden."
+msgid "sInfoThousands"
+msgstr "."
+
+#: finance/templates/finance/costcenter/detail.html:103
+#: finance/templates/finance/costcenter/list.html:67
+#: finance/templates/finance/costobject/detail.html:103
+#: finance/templates/finance/costobject/list.html:67
+#: finance/templates/finance/creditor/clearing.html:119
+#: finance/templates/finance/creditor/detail.html:97
+#: finance/templates/finance/creditor/list.html:67
+#: finance/templates/finance/debitor/clearing.html:119
+#: finance/templates/finance/debitor/detail.html:95
+#: finance/templates/finance/debitor/list.html:67
+#: finance/templates/finance/impersonal/detail.html:90
+#: finance/templates/finance/impersonal/list.html:67
+#: finance/templates/finance/transaction/list.html:103
+msgid "sLoadingRecords"
+msgstr "Wird geladen..."
 
 #: finance/templates/finance/costcenter/detail.html:104
 #: finance/templates/finance/costcenter/list.html:68
 #: finance/templates/finance/costobject/detail.html:104
 #: finance/templates/finance/costobject/list.html:68
-#: finance/templates/finance/creditor/clearing.html:122
-#: finance/templates/finance/creditor/detail.html:96
+#: finance/templates/finance/creditor/clearing.html:120
+#: finance/templates/finance/creditor/detail.html:98
 #: finance/templates/finance/creditor/list.html:68
-#: finance/templates/finance/debitor/clearing.html:122
-#: finance/templates/finance/debitor/detail.html:94
+#: finance/templates/finance/debitor/clearing.html:120
+#: finance/templates/finance/debitor/detail.html:96
 #: finance/templates/finance/debitor/list.html:68
 #: finance/templates/finance/impersonal/detail.html:91
 #: finance/templates/finance/impersonal/list.html:68
 #: finance/templates/finance/transaction/list.html:104
-msgid "sFirst"
-msgstr "Erste"
-
-#: finance/templates/finance/costcenter/detail.html:105
-#: finance/templates/finance/costcenter/list.html:69
-#: finance/templates/finance/costobject/detail.html:105
-#: finance/templates/finance/costobject/list.html:69
-#: finance/templates/finance/creditor/clearing.html:123
-#: finance/templates/finance/creditor/detail.html:97
-#: finance/templates/finance/creditor/list.html:69
-#: finance/templates/finance/debitor/clearing.html:123
-#: finance/templates/finance/debitor/detail.html:95
-#: finance/templates/finance/debitor/list.html:69
-#: finance/templates/finance/impersonal/detail.html:92
-#: finance/templates/finance/impersonal/list.html:69
-#: finance/templates/finance/transaction/list.html:105
-msgid "sLast"
-msgstr "Letzte"
+msgid "sZeroRecords"
+msgstr "Keine Einträge vorhanden."
 
 #: finance/templates/finance/costcenter/detail.html:106
 #: finance/templates/finance/costcenter/list.html:70
 #: finance/templates/finance/costobject/detail.html:106
 #: finance/templates/finance/costobject/list.html:70
-#: finance/templates/finance/creditor/clearing.html:124
-#: finance/templates/finance/creditor/detail.html:98
+#: finance/templates/finance/creditor/clearing.html:122
+#: finance/templates/finance/creditor/detail.html:100
 #: finance/templates/finance/creditor/list.html:70
-#: finance/templates/finance/debitor/clearing.html:124
-#: finance/templates/finance/debitor/detail.html:96
+#: finance/templates/finance/debitor/clearing.html:122
+#: finance/templates/finance/debitor/detail.html:98
 #: finance/templates/finance/debitor/list.html:70
 #: finance/templates/finance/impersonal/detail.html:93
 #: finance/templates/finance/impersonal/list.html:70
 #: finance/templates/finance/transaction/list.html:106
-msgid "sNext"
-msgstr "Nächste"
+msgid "sFirst"
+msgstr "Erste"
 
 #: finance/templates/finance/costcenter/detail.html:107
 #: finance/templates/finance/costcenter/list.html:71
 #: finance/templates/finance/costobject/detail.html:107
 #: finance/templates/finance/costobject/list.html:71
-#: finance/templates/finance/creditor/clearing.html:125
-#: finance/templates/finance/creditor/detail.html:99
+#: finance/templates/finance/creditor/clearing.html:123
+#: finance/templates/finance/creditor/detail.html:101
 #: finance/templates/finance/creditor/list.html:71
-#: finance/templates/finance/debitor/clearing.html:125
-#: finance/templates/finance/debitor/detail.html:97
+#: finance/templates/finance/debitor/clearing.html:123
+#: finance/templates/finance/debitor/detail.html:99
 #: finance/templates/finance/debitor/list.html:71
 #: finance/templates/finance/impersonal/detail.html:94
 #: finance/templates/finance/impersonal/list.html:71
 #: finance/templates/finance/transaction/list.html:107
+msgid "sLast"
+msgstr "Letzte"
+
+#: finance/templates/finance/costcenter/detail.html:108
+#: finance/templates/finance/costcenter/list.html:72
+#: finance/templates/finance/costobject/detail.html:108
+#: finance/templates/finance/costobject/list.html:72
+#: finance/templates/finance/creditor/clearing.html:124
+#: finance/templates/finance/creditor/detail.html:102
+#: finance/templates/finance/creditor/list.html:72
+#: finance/templates/finance/debitor/clearing.html:124
+#: finance/templates/finance/debitor/detail.html:100
+#: finance/templates/finance/debitor/list.html:72
+#: finance/templates/finance/impersonal/detail.html:95
+#: finance/templates/finance/impersonal/list.html:72
+#: finance/templates/finance/transaction/list.html:108
+msgid "sNext"
+msgstr "Nächste"
+
+#: finance/templates/finance/costcenter/detail.html:109
+#: finance/templates/finance/costcenter/list.html:73
+#: finance/templates/finance/costobject/detail.html:109
+#: finance/templates/finance/costobject/list.html:73
+#: finance/templates/finance/creditor/clearing.html:125
+#: finance/templates/finance/creditor/detail.html:103
+#: finance/templates/finance/creditor/list.html:73
+#: finance/templates/finance/debitor/clearing.html:125
+#: finance/templates/finance/debitor/detail.html:101
+#: finance/templates/finance/debitor/list.html:73
+#: finance/templates/finance/impersonal/detail.html:96
+#: finance/templates/finance/impersonal/list.html:73
+#: finance/templates/finance/transaction/list.html:109
 msgid "sPrevious"
 msgstr "Vorherige"
 
-#: finance/templates/finance/costcenter/detail.html:110
-#: finance/templates/finance/costcenter/list.html:74
-#: finance/templates/finance/costobject/detail.html:110
-#: finance/templates/finance/costobject/list.html:74
+#: finance/templates/finance/costcenter/detail.html:112
+#: finance/templates/finance/costcenter/list.html:76
+#: finance/templates/finance/costobject/detail.html:112
+#: finance/templates/finance/costobject/list.html:76
 #: finance/templates/finance/creditor/clearing.html:128
-#: finance/templates/finance/creditor/detail.html:102
-#: finance/templates/finance/creditor/list.html:74
+#: finance/templates/finance/creditor/detail.html:106
+#: finance/templates/finance/creditor/list.html:76
 #: finance/templates/finance/debitor/clearing.html:128
-#: finance/templates/finance/debitor/detail.html:100
-#: finance/templates/finance/debitor/list.html:74
-#: finance/templates/finance/impersonal/detail.html:97
-#: finance/templates/finance/impersonal/list.html:74
-#: finance/templates/finance/transaction/list.html:110
+#: finance/templates/finance/debitor/detail.html:104
+#: finance/templates/finance/debitor/list.html:76
+#: finance/templates/finance/impersonal/detail.html:99
+#: finance/templates/finance/impersonal/list.html:76
+#: finance/templates/finance/transaction/list.html:112
 msgid "sSortAscending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: finance/templates/finance/costcenter/detail.html:111
-#: finance/templates/finance/costcenter/list.html:75
-#: finance/templates/finance/costobject/detail.html:111
-#: finance/templates/finance/costobject/list.html:75
+#: finance/templates/finance/costcenter/detail.html:113
+#: finance/templates/finance/costcenter/list.html:77
+#: finance/templates/finance/costobject/detail.html:113
+#: finance/templates/finance/costobject/list.html:77
 #: finance/templates/finance/creditor/clearing.html:129
-#: finance/templates/finance/creditor/detail.html:103
-#: finance/templates/finance/creditor/list.html:75
+#: finance/templates/finance/creditor/detail.html:107
+#: finance/templates/finance/creditor/list.html:77
 #: finance/templates/finance/debitor/clearing.html:129
-#: finance/templates/finance/debitor/detail.html:101
-#: finance/templates/finance/debitor/list.html:75
-#: finance/templates/finance/impersonal/detail.html:98
-#: finance/templates/finance/impersonal/list.html:75
-#: finance/templates/finance/transaction/list.html:111
+#: finance/templates/finance/debitor/detail.html:105
+#: finance/templates/finance/debitor/list.html:77
+#: finance/templates/finance/impersonal/detail.html:100
+#: finance/templates/finance/impersonal/list.html:77
+#: finance/templates/finance/transaction/list.html:113
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: finance/templates/finance/costcenter/detail.html:116
-#: finance/templates/finance/costobject/detail.html:116
-#: finance/templates/finance/impersonal/detail.html:103
-#: finance/templates/finance/transaction/list.html:116
+#: finance/templates/finance/costcenter/detail.html:118
+#: finance/templates/finance/costobject/detail.html:118
+#: finance/templates/finance/impersonal/detail.html:105
+#: finance/templates/finance/transaction/list.html:118
 msgid "All"
 msgstr ""
 
-#: finance/templates/finance/costcenter/detail.html:116
-#: finance/templates/finance/costobject/detail.html:116
-#: finance/templates/finance/impersonal/detail.html:103
-#: finance/templates/finance/transaction/list.html:116
+#: finance/templates/finance/costcenter/detail.html:118
+#: finance/templates/finance/costobject/detail.html:118
+#: finance/templates/finance/impersonal/detail.html:105
+#: finance/templates/finance/transaction/list.html:118
 msgid "Accounting_year"
 msgstr "Wirtschaftsjahr"
 
-#: finance/templates/finance/costcenter/detail.html:117
-#: finance/templates/finance/costcenter/list.html:80
-#: finance/templates/finance/costobject/detail.html:117
-#: finance/templates/finance/costobject/list.html:80
+#: finance/templates/finance/costcenter/detail.html:119
+#: finance/templates/finance/costcenter/list.html:82
+#: finance/templates/finance/costobject/detail.html:119
+#: finance/templates/finance/costobject/list.html:82
 #: finance/templates/finance/creditor/clearing.html:151
-#: finance/templates/finance/creditor/detail.html:108
-#: finance/templates/finance/creditor/list.html:80
+#: finance/templates/finance/creditor/detail.html:112
+#: finance/templates/finance/creditor/list.html:82
 #: finance/templates/finance/debitor/clearing.html:151
-#: finance/templates/finance/debitor/detail.html:106
-#: finance/templates/finance/debitor/list.html:80
-#: finance/templates/finance/impersonal/detail.html:104
-#: finance/templates/finance/impersonal/list.html:80
-#: finance/templates/finance/transaction/list.html:117
+#: finance/templates/finance/debitor/detail.html:110
+#: finance/templates/finance/debitor/list.html:82
+#: finance/templates/finance/impersonal/detail.html:106
+#: finance/templates/finance/impersonal/list.html:82
+#: finance/templates/finance/transaction/list.html:119
 msgid "sSearch"
 msgstr "Suchen"
 
-#: finance/templates/finance/costcenter/detail.html:126
-#: finance/templates/finance/costcenter/list.html:86
-#: finance/templates/finance/costobject/detail.html:126
-#: finance/templates/finance/costobject/list.html:86
+#: finance/templates/finance/costcenter/detail.html:128
+#: finance/templates/finance/costcenter/list.html:88
+#: finance/templates/finance/costobject/detail.html:128
+#: finance/templates/finance/costobject/list.html:88
 #: finance/templates/finance/creditor/clearing.html:157
-#: finance/templates/finance/creditor/detail.html:114
-#: finance/templates/finance/creditor/list.html:86
+#: finance/templates/finance/creditor/detail.html:118
+#: finance/templates/finance/creditor/list.html:88
 #: finance/templates/finance/debitor/clearing.html:157
-#: finance/templates/finance/debitor/detail.html:112
-#: finance/templates/finance/debitor/list.html:86
-#: finance/templates/finance/impersonal/detail.html:113
-#: finance/templates/finance/impersonal/list.html:86
-#: finance/templates/finance/transaction/list.html:126
+#: finance/templates/finance/debitor/detail.html:116
+#: finance/templates/finance/debitor/list.html:88
+#: finance/templates/finance/impersonal/detail.html:115
+#: finance/templates/finance/impersonal/list.html:88
+#: finance/templates/finance/transaction/list.html:128
 msgid "sLengthMenu"
 msgstr "_MENU_ Einträge anzeigen"
 
@@ -512,13 +512,13 @@ msgstr "Kostenstelle bearbeiten"
 msgid "Cost centers"
 msgstr "Kostenstellen"
 
-#: finance/templates/finance/costcenter/list.html:42
-#: finance/templates/finance/costobject/detail.html:78
-#: finance/templates/finance/costobject/list.html:42
-#: finance/templates/finance/creditor/list.html:42
-#: finance/templates/finance/debitor/list.html:42
-#: finance/templates/finance/impersonal/list.html:42
-#: finance/templates/finance/transaction/list.html:78
+#: finance/templates/finance/costcenter/list.html:43
+#: finance/templates/finance/costobject/detail.html:79
+#: finance/templates/finance/costobject/list.html:43
+#: finance/templates/finance/creditor/list.html:43
+#: finance/templates/finance/debitor/list.html:43
+#: finance/templates/finance/impersonal/list.html:43
+#: finance/templates/finance/transaction/list.html:79
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -560,9 +560,9 @@ msgid "Cost objects"
 msgstr "Kostenträger"
 
 #: finance/templates/finance/creditor/clearing.html:14
-#: finance/templates/finance/creditor/detail.html:70
+#: finance/templates/finance/creditor/detail.html:73
 #: finance/templates/finance/debitor/clearing.html:14
-#: finance/templates/finance/debitor/detail.html:68
+#: finance/templates/finance/debitor/detail.html:71
 msgid "Clearing"
 msgstr "Auszifferung"
 
@@ -612,8 +612,8 @@ msgstr "Bezeichnung"
 msgid "Creditor detail"
 msgstr "Kreditordetails"
 
-#: finance/templates/finance/creditor/detail.html:114
-#: finance/templates/finance/debitor/detail.html:112
+#: finance/templates/finance/creditor/detail.html:118
+#: finance/templates/finance/debitor/detail.html:116
 msgid "Show cleared transactions"
 msgstr "Auch ausgezifferte Buchungen anzeigen"
 
@@ -755,7 +755,7 @@ msgstr "Belegdetails"
 
 #: finance/templates/finance/transaction/detail.html:25
 #: finance/templates/finance/transaction/detail.html:31
-#: finance/templates/finance/transaction/detail.html:161
+#: finance/templates/finance/transaction/detail.html:162
 msgid "Reset clearing"
 msgstr "Auszifferung aufheben"
 
