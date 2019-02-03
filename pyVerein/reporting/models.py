@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.forms import ValidationError
 import uuid
 from separatedvaluesfield.models import SeparatedValuesField
+from author.decorators import with_author
 
 def get_report_path(instance, filename):
     """
@@ -12,6 +13,7 @@ def get_report_path(instance, filename):
     """
     return "protected/reports/{}/definition/{}".format(instance.uuid, filename)
 
+@with_author
 class Report(ModelBase, AccessRestrictedModel):
     """
     Model for storing reports
@@ -77,6 +79,7 @@ def get_resource_path(instance, filename):
     """
     return "protected/reports/{}/resource/{}".format(instance.report.uuid, filename)
 
+@with_author
 class Resource(ModelBase):
     """
     Model for report-resource

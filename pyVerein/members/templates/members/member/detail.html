@@ -287,6 +287,13 @@
     </a>
     {% endif %}
 {% endblock %}
+
+{% block history %}
+    {% with member as instance %}
+        {{block.super}}
+    {% endwith %}
+{% endblock %}
+
 {% block foot %}
     {% if perms.members.view_files %}
         <!-- Cookie.js -->

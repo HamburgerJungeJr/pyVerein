@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-02 19:36+0100\n"
+"POT-Creation-Date: 2019-02-03 01:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -240,7 +240,7 @@ msgstr "Bearbeiten"
 #: finance/templates/finance/creditor/detail.html:91
 #: finance/templates/finance/creditor/list.html:61
 #: finance/templates/finance/debitor/clearing.html:113
-#: finance/templates/finance/debitor/detail.html:89
+#: finance/templates/finance/debitor/detail.html:95
 #: finance/templates/finance/debitor/list.html:61
 #: finance/templates/finance/impersonal/detail.html:84
 #: finance/templates/finance/impersonal/list.html:61
@@ -256,7 +256,7 @@ msgstr "Keine Daten in der Tabelle vorhanden."
 #: finance/templates/finance/creditor/detail.html:92
 #: finance/templates/finance/creditor/list.html:62
 #: finance/templates/finance/debitor/clearing.html:114
-#: finance/templates/finance/debitor/detail.html:90
+#: finance/templates/finance/debitor/detail.html:96
 #: finance/templates/finance/debitor/list.html:62
 #: finance/templates/finance/impersonal/detail.html:85
 #: finance/templates/finance/impersonal/list.html:62
@@ -272,7 +272,7 @@ msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 #: finance/templates/finance/creditor/detail.html:93
 #: finance/templates/finance/creditor/list.html:63
 #: finance/templates/finance/debitor/clearing.html:115
-#: finance/templates/finance/debitor/detail.html:91
+#: finance/templates/finance/debitor/detail.html:97
 #: finance/templates/finance/debitor/list.html:63
 #: finance/templates/finance/impersonal/detail.html:86
 #: finance/templates/finance/impersonal/list.html:63
@@ -288,7 +288,7 @@ msgstr "0 bis 0 von 0 Einträgen"
 #: finance/templates/finance/creditor/detail.html:94
 #: finance/templates/finance/creditor/list.html:64
 #: finance/templates/finance/debitor/clearing.html:116
-#: finance/templates/finance/debitor/detail.html:92
+#: finance/templates/finance/debitor/detail.html:98
 #: finance/templates/finance/debitor/list.html:64
 #: finance/templates/finance/impersonal/detail.html:87
 #: finance/templates/finance/impersonal/list.html:64
@@ -304,7 +304,7 @@ msgstr "(gefiltert von _MAX_ Einträgen)"
 #: finance/templates/finance/creditor/detail.html:95
 #: finance/templates/finance/creditor/list.html:65
 #: finance/templates/finance/debitor/clearing.html:117
-#: finance/templates/finance/debitor/detail.html:93
+#: finance/templates/finance/debitor/detail.html:99
 #: finance/templates/finance/debitor/list.html:65
 #: finance/templates/finance/impersonal/detail.html:88
 #: finance/templates/finance/impersonal/list.html:65
@@ -320,7 +320,7 @@ msgstr " "
 #: finance/templates/finance/creditor/detail.html:96
 #: finance/templates/finance/creditor/list.html:66
 #: finance/templates/finance/debitor/clearing.html:118
-#: finance/templates/finance/debitor/detail.html:94
+#: finance/templates/finance/debitor/detail.html:100
 #: finance/templates/finance/debitor/list.html:66
 #: finance/templates/finance/impersonal/detail.html:89
 #: finance/templates/finance/impersonal/list.html:66
@@ -336,7 +336,7 @@ msgstr "."
 #: finance/templates/finance/creditor/detail.html:97
 #: finance/templates/finance/creditor/list.html:67
 #: finance/templates/finance/debitor/clearing.html:119
-#: finance/templates/finance/debitor/detail.html:95
+#: finance/templates/finance/debitor/detail.html:101
 #: finance/templates/finance/debitor/list.html:67
 #: finance/templates/finance/impersonal/detail.html:90
 #: finance/templates/finance/impersonal/list.html:67
@@ -352,7 +352,7 @@ msgstr "Wird geladen..."
 #: finance/templates/finance/creditor/detail.html:98
 #: finance/templates/finance/creditor/list.html:68
 #: finance/templates/finance/debitor/clearing.html:120
-#: finance/templates/finance/debitor/detail.html:96
+#: finance/templates/finance/debitor/detail.html:102
 #: finance/templates/finance/debitor/list.html:68
 #: finance/templates/finance/impersonal/detail.html:91
 #: finance/templates/finance/impersonal/list.html:68
@@ -368,7 +368,7 @@ msgstr "Keine Einträge vorhanden."
 #: finance/templates/finance/creditor/detail.html:100
 #: finance/templates/finance/creditor/list.html:70
 #: finance/templates/finance/debitor/clearing.html:122
-#: finance/templates/finance/debitor/detail.html:98
+#: finance/templates/finance/debitor/detail.html:104
 #: finance/templates/finance/debitor/list.html:70
 #: finance/templates/finance/impersonal/detail.html:93
 #: finance/templates/finance/impersonal/list.html:70
@@ -384,7 +384,7 @@ msgstr "Erste"
 #: finance/templates/finance/creditor/detail.html:101
 #: finance/templates/finance/creditor/list.html:71
 #: finance/templates/finance/debitor/clearing.html:123
-#: finance/templates/finance/debitor/detail.html:99
+#: finance/templates/finance/debitor/detail.html:105
 #: finance/templates/finance/debitor/list.html:71
 #: finance/templates/finance/impersonal/detail.html:94
 #: finance/templates/finance/impersonal/list.html:71
@@ -400,7 +400,7 @@ msgstr "Letzte"
 #: finance/templates/finance/creditor/detail.html:102
 #: finance/templates/finance/creditor/list.html:72
 #: finance/templates/finance/debitor/clearing.html:124
-#: finance/templates/finance/debitor/detail.html:100
+#: finance/templates/finance/debitor/detail.html:106
 #: finance/templates/finance/debitor/list.html:72
 #: finance/templates/finance/impersonal/detail.html:95
 #: finance/templates/finance/impersonal/list.html:72
@@ -416,7 +416,7 @@ msgstr "Nächste"
 #: finance/templates/finance/creditor/detail.html:103
 #: finance/templates/finance/creditor/list.html:73
 #: finance/templates/finance/debitor/clearing.html:125
-#: finance/templates/finance/debitor/detail.html:101
+#: finance/templates/finance/debitor/detail.html:107
 #: finance/templates/finance/debitor/list.html:73
 #: finance/templates/finance/impersonal/detail.html:96
 #: finance/templates/finance/impersonal/list.html:73
@@ -432,7 +432,7 @@ msgstr "Vorherige"
 #: finance/templates/finance/creditor/detail.html:106
 #: finance/templates/finance/creditor/list.html:76
 #: finance/templates/finance/debitor/clearing.html:128
-#: finance/templates/finance/debitor/detail.html:104
+#: finance/templates/finance/debitor/detail.html:110
 #: finance/templates/finance/debitor/list.html:76
 #: finance/templates/finance/impersonal/detail.html:99
 #: finance/templates/finance/impersonal/list.html:76
@@ -448,7 +448,7 @@ msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 #: finance/templates/finance/creditor/detail.html:107
 #: finance/templates/finance/creditor/list.html:77
 #: finance/templates/finance/debitor/clearing.html:129
-#: finance/templates/finance/debitor/detail.html:105
+#: finance/templates/finance/debitor/detail.html:111
 #: finance/templates/finance/debitor/list.html:77
 #: finance/templates/finance/impersonal/detail.html:100
 #: finance/templates/finance/impersonal/list.html:77
@@ -478,7 +478,7 @@ msgstr "Wirtschaftsjahr"
 #: finance/templates/finance/creditor/detail.html:112
 #: finance/templates/finance/creditor/list.html:82
 #: finance/templates/finance/debitor/clearing.html:151
-#: finance/templates/finance/debitor/detail.html:110
+#: finance/templates/finance/debitor/detail.html:116
 #: finance/templates/finance/debitor/list.html:82
 #: finance/templates/finance/impersonal/detail.html:106
 #: finance/templates/finance/impersonal/list.html:82
@@ -494,7 +494,7 @@ msgstr "Suchen"
 #: finance/templates/finance/creditor/detail.html:118
 #: finance/templates/finance/creditor/list.html:88
 #: finance/templates/finance/debitor/clearing.html:157
-#: finance/templates/finance/debitor/detail.html:116
+#: finance/templates/finance/debitor/detail.html:122
 #: finance/templates/finance/debitor/list.html:88
 #: finance/templates/finance/impersonal/detail.html:115
 #: finance/templates/finance/impersonal/list.html:88
@@ -613,7 +613,7 @@ msgid "Creditor detail"
 msgstr "Kreditordetails"
 
 #: finance/templates/finance/creditor/detail.html:118
-#: finance/templates/finance/debitor/detail.html:116
+#: finance/templates/finance/debitor/detail.html:122
 msgid "Show cleared transactions"
 msgstr "Auch ausgezifferte Buchungen anzeigen"
 

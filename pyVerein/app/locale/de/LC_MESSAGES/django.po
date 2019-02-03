@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-02 19:36+0100\n"
+"POT-Creation-Date: 2019-02-03 01:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/app/_attributions.html:6 app/templates/app/base.html:106
+#: app/templates/app/_attributions.html:6 app/templates/app/base.html:114
 #: app/templates/registration/login.html:97
 msgid "Attributions"
 msgstr "Lizenzen"
@@ -162,7 +162,14 @@ msgstr "Profil"
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: app/templates/app/base.html:153 app/templates/app/base.html:190
+#: app/templates/app/base.html:109
+#, python-format
+msgid ""
+"Created at %(created_at)s by %(created_by)s.<br/>Last modified at "
+"%(modified_at)s by %(modified_by)s."
+msgstr "Erstellt am %(created_at)s von %(created_by)s.<br/>Zuletzt geändert am %(modified_at)s von %(modified_by)s."
+
+#: app/templates/app/base.html:162 app/templates/app/base.html:199
 msgid "Dismiss"
 msgstr "Ausblenden"
 

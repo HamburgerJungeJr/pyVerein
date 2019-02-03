@@ -669,6 +669,7 @@ class TransactionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Templat
         
         transactions = Transaction.objects.filter(internal_number=kwargs['internal_number']).order_by('-clearing_number')
         context['transactions'] = transactions
+        context['history_transaction'] = transactions[0]
         context['date'] = transactions[0].date
         context['document_number'] = transactions[0].document_number
         context['internal_number'] = transactions[0].internal_number
