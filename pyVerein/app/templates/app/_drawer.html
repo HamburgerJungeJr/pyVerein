@@ -94,7 +94,7 @@
             {% endif %}
             {% if perms.reporting.view_report %}
             <a href="{% url 'reporting:list' %}" title="{% trans 'Reports' %}" class="mdc-list-item {% base_url_class 'reporting:list' 'mdc-list-item--activated'%}">
-                <span class="mdc-list-item__graphic fa fa-tasks" aria-hidden="true"></span>
+                <span class="mdc-list-item__graphic fa fa-chart-pie" aria-hidden="true"></span>
                 <span class="mdc-list-item__text">{% trans 'Reports' %}</span>
             </a>
             {% endif %}

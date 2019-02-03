@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-02 15:12+0100\n"
+"POT-Creation-Date: 2019-02-03 01:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgid "Generate transaction for subscription of each member."
 msgstr "Erstellt Buchungen für die Beiträge der Mitglieder"
 
 #: tasks/templates/tasks/list.html:54 tasks/templates/tasks/list.html:74
-#: tasks/templates/tasks/list.html:83
+#: tasks/templates/tasks/list.html:83 tasks/templates/tasks/list.html:92
 msgid "Run"
 msgstr "Ausführen"
 
@@ -82,81 +82,89 @@ msgstr ""
 "Alle Mitglieder löschen, deren Austritsdatum mehr als die festgelegte anzahl "
 "an Tagen zurückliegt."
 
-#: tasks/templates/tasks/list.html:105
+#: tasks/templates/tasks/list.html:89
+msgid "Delete report data"
+msgstr "Bereichtsdaten löschen"
+
+#: tasks/templates/tasks/list.html:90
+msgid "Delete data and output files of reports"
+msgstr "Zwischendaten und Ausgaben von Berichten löschen"
+
+#: tasks/templates/tasks/list.html:114
 msgid "sEmptyTable"
 msgstr "Keine Daten in der Tabelle vorhanden."
 
-#: tasks/templates/tasks/list.html:106
+#: tasks/templates/tasks/list.html:115
 msgid "sInfo"
 msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: tasks/templates/tasks/list.html:107
+#: tasks/templates/tasks/list.html:116
 msgid "sInfoEmpty"
 msgstr "0 bis 0 von 0 Einträgen"
 
-#: tasks/templates/tasks/list.html:108
+#: tasks/templates/tasks/list.html:117
 msgid "sInfoFiltered"
 msgstr "(gefiltert von _MAX_ Einträgen)"
 
-#: tasks/templates/tasks/list.html:109
+#: tasks/templates/tasks/list.html:118
 msgid "sInfoPostfix"
 msgstr " "
 
-#: tasks/templates/tasks/list.html:110
+#: tasks/templates/tasks/list.html:119
 msgid "sInfoThousands"
 msgstr "."
 
-#: tasks/templates/tasks/list.html:111
+#: tasks/templates/tasks/list.html:120
 msgid "sLoadingRecords"
 msgstr "Wird geladen..."
 
-#: tasks/templates/tasks/list.html:112
+#: tasks/templates/tasks/list.html:121
 msgid "sZeroRecords"
 msgstr "Keine Einträge vorhanden."
 
-#: tasks/templates/tasks/list.html:114
+#: tasks/templates/tasks/list.html:123
 msgid "sFirst"
 msgstr "Erste"
 
-#: tasks/templates/tasks/list.html:115
+#: tasks/templates/tasks/list.html:124
 msgid "sLast"
 msgstr "Letzte"
 
-#: tasks/templates/tasks/list.html:116
+#: tasks/templates/tasks/list.html:125
 msgid "sNext"
 msgstr "Nächste"
 
-#: tasks/templates/tasks/list.html:117
+#: tasks/templates/tasks/list.html:126
 msgid "sPrevious"
 msgstr "Vorherige"
 
-#: tasks/templates/tasks/list.html:120
+#: tasks/templates/tasks/list.html:129
 msgid "sSortAscending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: tasks/templates/tasks/list.html:121
+#: tasks/templates/tasks/list.html:130
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: tasks/templates/tasks/list.html:126
+#: tasks/templates/tasks/list.html:135
 msgid "sSearch"
 msgstr "Suchen"
 
-#: tasks/templates/tasks/list.html:132
+#: tasks/templates/tasks/list.html:141
 msgid "sLengthMenu"
 msgstr "_MENU_ Einträge anzeigen"
 
-#: tasks/templates/tasks/list.html:190
+#: tasks/templates/tasks/list.html:211
 msgid "Members for which subscription could not be applied:"
 msgstr ""
 "Mitglieder, für die keine Beitragsinformationen übernommen werden konnten:"
 
-#: tasks/templates/tasks/list.html:196
+#: tasks/templates/tasks/list.html:217
 msgid "The following error occured:"
 msgstr "Folgende Fehler traten auf:"
 
-#: tasks/views.py:49 tasks/views.py:55 tasks/views.py:60 tasks/views.py:65
-#: tasks/views.py:74 tasks/views.py:83
+#: tasks/views.py:51 tasks/views.py:57 tasks/views.py:62 tasks/views.py:67
+#: tasks/views.py:76 tasks/views.py:85
 #, python-brace-format
 msgid ""
 "Subscription - {subscription_name} - {membership_number} - {last_name}, "
@@ -165,6 +173,6 @@ msgstr ""
 "Beitrag - {subscription_name} - {membership_number} - {last_name}, "
 "{first_name}"
 
-#: tasks/views.py:173
+#: tasks/views.py:175
 msgid "No year selected or year already closed."
 msgstr "Kein Wirtschaftsjahr ausgewählt, oder Jahr wurde bereits abgeschlossen"

@@ -71,9 +71,11 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if perms.members.add_member %}
     <a href ="{% url 'members:create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
     </a>
+    {% endif %}
 {% endblock %}
 
 {% block foot %}<!-- Datatables -->

@@ -17,7 +17,9 @@ from utils.views import generate_document_number, generate_internal_number
 import datetime
 from decimal import Decimal
 from django.db.models import Q
-
+import os
+from django.conf import settings
+from shutil import rmtree
 class TaskIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     Index view for creditors
@@ -189,6 +191,27 @@ def delete_terminated_members(request):
         # Delete these members
         for member in Member.objects.filter(pk__in=members):
             member.delete()
+        
+        return JsonResponse({
+            'state': 'Success'
+        })
+    else:
+        return HttpResponseBadRequest()
+
+@login_required
+@permission_required(['tasks.view_tasks', 'tasks.run_tasks', 'tasks.run_delete_report_data_task'], raise_exception=True)
+def delete_report_data(request):
+    """
+    Deletes report data
+    """
+
+    if request.method == "POST":
+        for subdir in os.listdir(os.path.join(settings.MEDIA_ROOT, 'protected', 'reports')):
+            print(subdir)
+            if os.path.exists(os.path.join(settings.MEDIA_ROOT, 'protected', 'reports', subdir, 'data')):
+                rmtree(os.path.join(settings.MEDIA_ROOT, 'protected', 'reports', subdir, 'data'))
+            if os.path.exists(os.path.join(settings.MEDIA_ROOT, 'protected', 'reports', subdir, 'output')):
+                rmtree(os.path.join(settings.MEDIA_ROOT, 'protected', 'reports', subdir, 'output'))
         
         return JsonResponse({
             'state': 'Success'

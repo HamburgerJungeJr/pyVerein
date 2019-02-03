@@ -81,6 +81,13 @@
     </a>    
     {% endif %}
 {% endblock %}
+
+{% block history %}
+    {% with costcenter as instance %}
+        {{block.super}}
+    {% endwith %}
+{% endblock %}
+
 {% block foot %}
 <!-- Datatables -->
 <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>

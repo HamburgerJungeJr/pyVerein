@@ -68,8 +68,7 @@
             memberData.push([val['name'], val['members']]);
             memberSum += val['members'];
         });
-        var chart = c3.generate({
-            bindto: '#membersChart',
+        var memberschart = c3.generate({
             data: {
               columns: memberData,
               type: 'donut',
@@ -95,6 +94,7 @@
                 width: 400
             },
         });
+        $("#membersChart").append(memberschart.element);
         {% endif %}
         {% if perms.finance.view_account %}
         // Bankaccounts
@@ -114,8 +114,7 @@
             bankAccountsData.push([val['name'], balance]);
             bankAccountsSum = bankAccountsSum.plus(balance);
         });
-        var chart = c3.generate({
-            bindto: '#bankAccountsChart',
+        var bankaccountschart = c3.generate({
             data: {
               columns: bankAccountsData,
               type: 'donut',
@@ -141,6 +140,7 @@
                 width: 400
             },
         });
+        $("#bankAccountsChart").append(bankaccountschart.element);
         {% endif %}
         {% if perms.finance.view_costcenter %}
         // costcenter
@@ -161,7 +161,6 @@
             costCenterCategories.push(val['name']);
         });
         var costcenterchart = c3.generate({
-            bindto: '#costCenterChart',
             data: {
                 columns: [costCenterData],
                 type: 'bar',
@@ -176,6 +175,7 @@
             },
             size: {
                 height: 400,
+                width: $('body').width() * 0.8 - 20
             },
             legend: {
                 show: false, 
@@ -193,6 +193,12 @@
                     ]
                 }
             }
+        });
+        $("#costCenterChart").append(costcenterchart.element);
+        $(window).resize(function(){
+            costcenterchart.resize({
+                width: $('body').width() * 0.8 - 20
+            });
         });
         {% endif %}
         {% if perms.finance.view_costobject %}
@@ -214,7 +220,6 @@
             costObjectCategories.push(val['name']);
         });
         var costobjectchart = c3.generate({
-            bindto: '#costObjectChart',
             data: {
                 columns: [costObjectData],
                 type: 'bar',
@@ -229,6 +234,7 @@
             },
             size: {
                 height: 400,
+                width: $('body').width() * 0.8 - 20
             },
             legend: {
                 show: false, 
@@ -245,7 +251,13 @@
                         {value: 0},
                     ]
                 }
-            }
+            },
+        });
+        $("#costObjectChart").append(costobjectchart.element);
+        $(window).resize(function(){
+            costobjectchart.resize({
+                width: $('body').width() * 0.8 - 20
+            });
         });
         {% endif %}
     </script>

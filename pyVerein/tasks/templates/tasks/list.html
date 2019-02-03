@@ -83,6 +83,15 @@
                     <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
                 </tr>
             {% endif %}
+            {% if perms.tasks.run_delete_report_data_task %}
+                <tr id="delete_report_data">
+                    <td class="mdl-data-table__cell--non-numeric state"></td>
+                    <td class="mdl-data-table__cell--non-numeric">{% trans 'Delete report data' %}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{% trans 'Delete data and output files of reports' %}</td>
+                    <td class="mdl-data-table__cell--non-numeric"></td>
+                    <td class="mdl-data-table__cell--non-numeric"><button class="run mdc-button mdc-button--outlined">{% trans 'Run' %}</button></td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 {% endblock %}
@@ -177,6 +186,18 @@
                     switch (data["state"].toLowerCase()){
                         case "success":
                             $("#delete_terminated_members .state").html('<i class="fas fa-check-circle"></i>');
+                            break;
+                    }
+                    
+                });
+            });
+            
+            $("#delete_report_data .run").click(function() {
+                $("#delete_report_data .state").html('<i class="fas fa-spin fa-sync-alt"></i>');
+                $.post("{% url 'tasks:delete_report_data' %}", function(data) {
+                    switch (data["state"].toLowerCase()){
+                        case "success":
+                            $("#delete_report_data .state").html('<i class="fas fa-check-circle"></i>');
                             break;
                     }
                     

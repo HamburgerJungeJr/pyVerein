@@ -7,9 +7,11 @@ from finance.models import Account, CostCenter, CostObject
 from dynamic_preferences.registries import global_preferences_registry
 from utils.models import AccessRestrictedModel, ModelBase
 import uuid
+from author.decorators import with_author
 
 # Member model.
-class Member(models.Model):
+@with_author
+class Member(ModelBase):
     class Meta:
         permissions = ( 
             ('view_field_salutation', 'Can view field salutation'),
@@ -140,7 +142,7 @@ def get_file_path(instance, filename):
     """
     return "protected/members/{}/file/{}".format(instance.member.uuid, filename)
 
-
+@with_author
 class File(ModelBase):
     """
     Model for member-files
@@ -149,7 +151,8 @@ class File(ModelBase):
 
     file = models.FileField(null=False, blank=False, upload_to=get_file_path)
 
-class Division(AccessRestrictedModel):
+@with_author
+class Division(AccessRestrictedModel, ModelBase):
     """
     Division model
     """
@@ -204,7 +207,8 @@ class Division(AccessRestrictedModel):
             global_preferences = global_preferences_registry.manager()
             return CostCenter.objects.get(pk=global_preferences['Members__division_cost_object'])
 
-class Subscription(models.Model):
+@with_author
+class Subscription(ModelBase):
     """
     Subscription model
     """

@@ -112,6 +112,12 @@
     {% endif %}
 {% endblock %}
 
+{% block history %}
+    {% with report as instance %}
+        {{block.super}}
+    {% endwith %}
+{% endblock %}
+
 {% block foot %}
     <!-- Cookie.js -->
     <script src="{% static 'app/js/cookie.js' %}"></script>
