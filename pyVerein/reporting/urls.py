@@ -1,5 +1,5 @@
 # Import django-urls.
-from django.conf.urls import url
+from django.urls import path
 # Import views.
 from . import views
 
@@ -7,14 +7,14 @@ from . import views
 app_name = 'reporting'
 # Set url-patterns
 urlpatterns = [
-    url(r'^$', views.ReportIndexView.as_view(), name='list'),
-    url(r'^(?P<pk>[0-9]+)/$', views.ReportDetailView.as_view(), name='detail'),
-    url(r'^edit/(?P<pk>[0-9]+)/$', views.ReportEditView.as_view(), name='edit'),
-    url(r'^new/$', views.ReportCreateView.as_view(), name='create'),
-    url(r'^run/(?P<pk>[0-9]+)/$', views.run_report, name='run'),
-    url(r'^download_report/(?P<pk>[0-9]+)/$', views.download_report, name='download_report'),
-    url(r'^upload_resource/(?P<pk>[0-9]+)/$', views.upload_resource, name='upload_resource'),
-    url(r'^delete_resource/(?P<pk>[0-9]+)/$', views.delete_resource, name='delete_resource'),
-    url(r'^download_resource/(?P<pk>[0-9]+)/$', views.download_resource, name='download_resource'),
-    url(r'^download_data/$', views.download_data, name='download_data'),
+    path('', views.ReportIndexView.as_view(), name='list'),
+    path('<int:pk>/', views.ReportDetailView.as_view(), name='detail'),
+    path('edit/<int:pk>/', views.ReportEditView.as_view(), name='edit'),
+    path('new/', views.ReportCreateView.as_view(), name='create'),
+    path('run/<int:pk>/', views.run_report, name='run'),
+    path('download_report/<int:pk>/', views.download_report, name='download_report'),
+    path('upload_resource/<int:pk>/', views.upload_resource, name='upload_resource'),
+    path('delete_resource/<int:pk>/', views.delete_resource, name='delete_resource'),
+    path('download_resource/<int:pk>/', views.download_resource, name='download_resource'),
+    path('download_data/', views.download_data, name='download_data'),
 ] 

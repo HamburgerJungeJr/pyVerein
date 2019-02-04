@@ -1,5 +1,5 @@
 # Import django-urls.
-from django.conf.urls import url
+from django.urls import path
 # Import views.
 from . import views
 
@@ -7,45 +7,45 @@ from . import views
 app_name = 'finance'
 # Set url-patterns
 urlpatterns = [
-    url(r'^creditor/$', views.CreditorIndexView.as_view(), name='creditor_list'),
-    url(r'^creditor/(?P<pk>[0-9]+)/$', views.CreditorDetailView.as_view(), name='creditor_detail'),
-    url(r'^creditor/(?P<pk>[0-9]+)/edit/$', views.CreditorEditView.as_view(), name='creditor_edit'),
-    url(r'^creditor/new/$', views.CreditorCreateView.as_view(), name='creditor_create'),
-    url(r'^creditor/(?P<account>[0-9]+)/clearing/$', views.CreditorClearingView.as_view(), name='creditor_clear'),
+    path('creditor/', views.CreditorIndexView.as_view(), name='creditor_list'),
+    path('creditor/<int:pk>/', views.CreditorDetailView.as_view(), name='creditor_detail'),
+    path('creditor/<int:pk>/edit/', views.CreditorEditView.as_view(), name='creditor_edit'),
+    path('creditor/new/', views.CreditorCreateView.as_view(), name='creditor_create'),
+    path('creditor/<int:account>/clearing/', views.CreditorClearingView.as_view(), name='creditor_clear'),
 
-    url(r'^debitor/$', views.DebitorIndexView.as_view(), name='debitor_list'),
-    url(r'^debitor/(?P<pk>[0-9]+)/$', views.DebitorDetailView.as_view(), name='debitor_detail'),
-    url(r'^debitor/(?P<pk>[0-9]+)/edit/$', views.DebitorEditView.as_view(), name='debitor_edit'),
-    url(r'^debitor/new/$', views.DebitorCreateView.as_view(), name='debitor_create'),
-    url(r'^debitor/(?P<account>[0-9]+)/clearing/$', views.DebitorClearingView.as_view(), name='debitor_clear'),
+    path('debitor/', views.DebitorIndexView.as_view(), name='debitor_list'),
+    path('debitor/<int:pk>/', views.DebitorDetailView.as_view(), name='debitor_detail'),
+    path('debitor/<int:pk>/edit/', views.DebitorEditView.as_view(), name='debitor_edit'),
+    path('debitor/new/', views.DebitorCreateView.as_view(), name='debitor_create'),
+    path('debitor/<int:account>/clearing/', views.DebitorClearingView.as_view(), name='debitor_clear'),
 
-    url(r'^impersonal/$', views.ImpersonalIndexView.as_view(), name='impersonal_list'),
-    url(r'^impersonal/(?P<pk>[0-9]+)/$', views.ImpersonalDetailView.as_view(), name='impersonal_detail'),
-    url(r'^impersonal/(?P<pk>[0-9]+)/edit/$', views.ImpersonalEditView.as_view(), name='impersonal_edit'),
-    url(r'^impersonal/new/$', views.ImpersonalCreateView.as_view(), name='impersonal_create'),
+    path('impersonal/', views.ImpersonalIndexView.as_view(), name='impersonal_list'),
+    path('impersonal/<int:pk>/', views.ImpersonalDetailView.as_view(), name='impersonal_detail'),
+    path('impersonal/<int:pk>/edit/', views.ImpersonalEditView.as_view(), name='impersonal_edit'),
+    path('impersonal/new/', views.ImpersonalCreateView.as_view(), name='impersonal_create'),
 
-    url(r'^costcenter/$', views.CostCenterIndexView.as_view(), name='costcenter_list'),
-    url(r'^costcenter/(?P<pk>[0-9]+)/$', views.CostCenterDetailView.as_view(), name='costcenter_detail'),
-    url(r'^costcenter/(?P<pk>[0-9]+)/edit/$', views.CostCenterEditView.as_view(), name='costcenter_edit'),
-    url(r'^costcenter/new/$', views.CostCenterCreateView.as_view(), name='costcenter_create'),
+    path('costcenter/', views.CostCenterIndexView.as_view(), name='costcenter_list'),
+    path('costcenter/<int:pk>/', views.CostCenterDetailView.as_view(), name='costcenter_detail'),
+    path('costcenter/<int:pk>/edit/', views.CostCenterEditView.as_view(), name='costcenter_edit'),
+    path('costcenter/new/', views.CostCenterCreateView.as_view(), name='costcenter_create'),
 
-    url(r'^costobject/$', views.CostObjectIndexView.as_view(), name='costobject_list'),
-    url(r'^costobject/(?P<pk>[0-9]+)/$', views.CostObjectDetailView.as_view(), name='costobject_detail'),
-    url(r'^costobject/(?P<pk>[0-9]+)/edit/$', views.CostObjectEditView.as_view(), name='costobject_edit'),
-    url(r'^costobject/new/$', views.CostObjectCreateView.as_view(), name='costobject_create'),
+    path('costobject/', views.CostObjectIndexView.as_view(), name='costobject_list'),
+    path('costobject/<int:pk>/', views.CostObjectDetailView.as_view(), name='costobject_detail'),
+    path('costobject/<int:pk>/edit/', views.CostObjectEditView.as_view(), name='costobject_edit'),
+    path('costobject/new/', views.CostObjectCreateView.as_view(), name='costobject_create'),
 
-    url(r'^transaction/$', views.TransactionIndexView.as_view(), name='transaction_list'),
-    url(r'^transaction/(?P<internal_number>[0-9]+)/$', views.TransactionDetailView.as_view(), name='transaction_detail'),
-    url(r'^transaction/(?P<internal_number>[0-9]+)/edit/(?P<pk>[0-9]+)/$', views.TransactionEditView.as_view(), name='transaction_edit'),
-    url(r'^transaction/new/$', views.TransactionCreateView.as_view(), name='transaction_create'),
-    url(r'^transaction/new/(?P<session_id>[a-zA-Z0-9]+)/$', views.TransactionCreateView.as_view(), name='transaction_create_session'),
-    url(r'^transaction/new/(?P<session_id>[a-zA-Z0-9]+)/(?P<step>[0-9]+)/$', views.TransactionCreateView.as_view(), name='transaction_create_step'),
-    url(r'^transaction/(?P<internal_number>[0-9]+)/reset$', views.reset_transaction, name='transaction_reset'),
-    url(r'^transaction/(?P<internal_number>[0-9]+)/reset_new$', views.reset_new_transaction, name='transaction_reset_new'),
+    path('transaction/', views.TransactionIndexView.as_view(), name='transaction_list'),
+    path('transaction/<int:internal_number>/', views.TransactionDetailView.as_view(), name='transaction_detail'),
+    path('transaction/<int:internal_number>/edit/<int:pk>/', views.TransactionEditView.as_view(), name='transaction_edit'),
+    path('transaction/new/', views.TransactionCreateView.as_view(), name='transaction_create'),
+    path('transaction/new/<str:session_id>/', views.TransactionCreateView.as_view(), name='transaction_create_session'),
+    path('transaction/new/<str:session_id>/<int:step>/', views.TransactionCreateView.as_view(), name='transaction_create_step'),
+    path('transaction/<int:internal_number>/reset', views.reset_transaction, name='transaction_reset'),
+    path('transaction/<int:internal_number>/reset_new', views.reset_new_transaction, name='transaction_reset_new'),
 
-    url(r'^api/account/(?P<search>.+)$', views.get_account, name='account_search'),
-    url(r'^api/costcenter/(?P<search>.+)$', views.get_cost_center, name='costcenter_search'),
-    url(r'^api/costobject/(?P<search>.+)$', views.get_cost_object, name='costobject_search'),
-    url(r'^api/clearing/$', views.clear_transaction, name='clear_transactions'),
-    url(r'^api/clearing/reset/$', views.reset_cleared_transaction, name='reset_cleared_transactions'),
+    path('api/account/<str:search>', views.get_account, name='account_search'),
+    path('api/costcenter/<str:search>', views.get_cost_center, name='costcenter_search'),
+    path('api/costobject/<str:search>', views.get_cost_object, name='costobject_search'),
+    path('api/clearing/', views.clear_transaction, name='clear_transactions'),
+    path('api/clearing/reset/', views.reset_cleared_transaction, name='reset_cleared_transactions'),
 ] 
