@@ -11,3 +11,11 @@
     .login .main .form-block .mdc-text-field {
       width: 100%;
       margin-bottom: 10px; }
+    .login .main .form-block .logo {
+      margin-bottom: 40px; }
+    .login .main .form-block .row.submit {
+      display: flex;
+      justify-content: space-evenly;
+      flex-direction: row-reverse; }
+    .login .main .form-block .row {
+      margin-bottom: 10px; }

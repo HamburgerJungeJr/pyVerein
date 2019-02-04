@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import re_path
 from django.views.static import serve
+from two_factor.urls import urlpatterns as tf_urls
 
 urlpatterns = i18n_patterns(
     url(r'^', include('app.urls')),
@@ -28,7 +29,7 @@ urlpatterns = i18n_patterns(
     url(r'^reporting/', include('reporting.urls'), name='reporting'),
     url(r'^tasks/', include('tasks.urls'), name='tasks'),
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'', include(tf_urls)),
                             )
 if settings.DEBUG:
     import debug_toolbar

@@ -12,6 +12,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
+from two_factor.utils import default_device
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     """
@@ -22,6 +23,18 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
+    
+    def get_context_data(self, **kwargs):
+        try:
+            backup_tokens = self.request.user.staticdevice_set.all()[0].token_set.count()
+        except Exception:
+            backup_tokens = 0
+
+        return {
+            'default_device': default_device(self.request.user),
+            'default_device_type': default_device(self.request.user).__class__.__name__,
+            'backup_tokens': backup_tokens,
+        }
 
 class UserEditView(LoginRequiredMixin, UpdateView):
     """

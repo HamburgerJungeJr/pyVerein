@@ -81,3 +81,7 @@ a.mdc-fab{
 .mdc-form-field{
     font-size: 1rem;
 }
+
+.mdc-button.mdc-button--danger{
+    @include mdc-button-container-fill-color(#d50000)
+}
