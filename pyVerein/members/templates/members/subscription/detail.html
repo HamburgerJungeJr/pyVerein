@@ -39,7 +39,7 @@
         </thead>
         <tbody>
             {% for member in members %}
-                <tr data-member="{% url 'members:detail' pk=member.pk %}">
+                <tr data-member="{% url 'members:member_detail' pk=member.pk %}">
                     {% if perms.members.view_field_last_name %}
                         <td class="mdl-data-table__cell--non-numeric">
                             {{ member.last_name}}

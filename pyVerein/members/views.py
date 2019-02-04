@@ -71,7 +71,7 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     success_message = _('Member saved sucessfully')
 
     def get_success_url(self):
-        return reverse_lazy('members:detail', args={self.object.pk})
+        return reverse_lazy('members:member_detail', args={self.object.pk})
     
     def has_permission(self):
         super_perm = super(MemberEditView, self).has_permission()
@@ -93,7 +93,7 @@ class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessa
     success_message = _('Member created successfully')
 
     def get_success_url(self):
-        return reverse_lazy('members:detail', args={self.object.pk})
+        return reverse_lazy('members:member_detail', args={self.object.pk})
 
 @login_required
 @permission_required(['members.view_member', 'members.change_member', 'members.view_files'], raise_exception=True)
@@ -135,7 +135,7 @@ def delete_file(request, pk):
         file.delete()
         if os.path.isfile(os.path.join(settings.MEDIA_ROOT, file.file.path)):
             os.remove(os.path.join(settings.MEDIA_ROOT, file.file.path))
-        return HttpResponseRedirect(reverse_lazy('members:detail', kwargs={'pk': member.pk}))
+        return HttpResponseRedirect(reverse_lazy('members:member_detail', kwargs={'pk': member.pk}))
     else:
         return HttpResponseBadRequest() 
         

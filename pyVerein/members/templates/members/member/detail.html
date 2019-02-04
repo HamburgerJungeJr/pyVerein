@@ -260,8 +260,8 @@
                                         {{ file.file|filename }}
                                     </td>
                                     <td class="mdl-data-table__cell--non-numeric">
-                                        <a href="{% url 'members:download_file' pk=file.pk %}" title="{% trans 'Download' %}">{% trans 'Download' %}</a>
-                                        <form action="{% url 'members:delete_file' pk=file.pk %}" method="POST">{% csrf_token %}<a href="#" class="submit" title="{% trans 'Delete' %}">{% trans 'Delete' %}</a></form>
+                                        <a href="{% url 'members:member_download_file' pk=file.pk %}" title="{% trans 'Download' %}">{% trans 'Download' %}</a>
+                                        <form action="{% url 'members:member_delete_file' pk=file.pk %}" method="POST">{% csrf_token %}<a href="#" class="submit" title="{% trans 'Delete' %}">{% trans 'Delete' %}</a></form>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -269,7 +269,7 @@
                     </table>
                 </div>
                 <div class="row">
-                    <form action="{% url 'members:upload_file' pk=member.pk %}" method="POST" enctype="multipart/form-data" class="dropzone" id="file_upload">
+                    <form action="{% url 'members:member_upload_file' pk=member.pk %}" method="POST" enctype="multipart/form-data" class="dropzone" id="file_upload">
                         <div class="dz-message">
                             <div class="drag-icon-cph">
                                 <i class="mdc-fab__icon fa fa-upload"></i>
@@ -282,7 +282,7 @@
         </div>
     </div>
     {% if perms.members.change_member %}
-    <a href ="{% url 'members:edit' pk=member.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+    <a href ="{% url 'members:member_edit' pk=member.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
         <i class="mdc-fab__icon fa fa-pencil-alt"></i>
     </a>
     {% endif %}

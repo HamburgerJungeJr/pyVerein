@@ -15,7 +15,7 @@
             <h3 class="mdc-list-group__subheader">{% trans 'Members' %}</h3>
             {% endif %}
             {% if perms.members.view_member%}
-            <a href="{% url 'members:list' %}" title="{% trans 'Members' %}" class="mdc-list-item {% base_url_class 'members:list' 'mdc-list-item--activated'%}" target="_blank">
+            <a href="{% url 'members:member_list' %}" title="{% trans 'Members' %}" class="mdc-list-item {% base_url_class 'members:member_list' 'mdc-list-item--activated'%}" target="_blank">
                 <span class="mdc-list-item__graphic fa fa-users" aria-hidden="true"></span>
                 <span class="mdc-list-item__text">{% trans 'Members' %}</span>
             </a>

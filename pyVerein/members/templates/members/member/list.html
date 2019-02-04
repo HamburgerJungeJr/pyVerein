@@ -41,7 +41,7 @@
         </thead>
         <tbody>
             {% for member in members %}
-                <tr data-member="{% url 'members:detail' pk=member.pk %}">
+                <tr data-member="{% url 'members:member_detail' pk=member.pk %}">
                     {% if perms.members.view_field_last_name %}
                         <td class="mdl-data-table__cell--non-numeric">
                             {{ member.last_name}}
@@ -72,7 +72,7 @@
         </tbody>
     </table>
     {% if perms.members.add_member %}
-    <a href ="{% url 'members:create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
+    <a href ="{% url 'members:member_create' %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Add' %}" target="_blank">
         <i class="mdc-fab__icon fa fa-plus"></i>
     </a>
     {% endif %}

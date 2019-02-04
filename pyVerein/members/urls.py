@@ -7,13 +7,13 @@ from . import views
 app_name = 'members'
 # Set url-patterns
 urlpatterns = [
-    path('member/', views.MemberIndexView.as_view(), name='list'),
-    path('member/<int:pk>/', views.MemberDetailView.as_view(), name='detail'),
-    path('member/edit/<int:pk>/', views.MemberEditView.as_view(), name='edit'),
-    path('member/new/', views.MemberCreateView.as_view(), name='create'),
-    path('upload_file/<int:pk>/', views.upload_file, name='upload_file'),
-    path('delete_file/<int:pk>/', views.delete_file, name='delete_file'),
-    path('download_file/<int:pk>/', views.download_file, name='download_file'),
+    path('member/', views.MemberIndexView.as_view(), name='member_list'),
+    path('member/<int:pk>/', views.MemberDetailView.as_view(), name='member_detail'),
+    path('member/edit/<int:pk>/', views.MemberEditView.as_view(), name='member_edit'),
+    path('member/new/', views.MemberCreateView.as_view(), name='member_create'),
+    path('upload_file/<int:pk>/', views.upload_file, name='member_upload_file'),
+    path('delete_file/<int:pk>/', views.delete_file, name='member_delete_file'),
+    path('download_file/<int:pk>/', views.download_file, name='member_download_file'),
 
     path('division/', views.DivisionIndexView.as_view(), name='division_list'),
     path('division/<int:pk>/', views.DivisionDetailView.as_view(), name='division_detail'),
