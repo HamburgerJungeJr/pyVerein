@@ -1,3 +1,4 @@
+var drawer;
 $(document).ready(function () {
 // Top App Bar
 const topAppBarElement = document.querySelector('.mdc-top-app-bar');
@@ -16,7 +17,7 @@ if (account_menu_sel != null){
 // Drawer
 var drawer_sel = document.querySelector('.mdc-drawer--modal');
 if (drawer_sel != null){
-    let drawer = mdc.drawer.MDCDrawer.attachTo(drawer_sel);
+    drawer = mdc.drawer.MDCDrawer.attachTo(drawer_sel);
     document.querySelector('.menu').addEventListener('click', () => drawer.open = !drawer.open);
 }
 // Floating action button

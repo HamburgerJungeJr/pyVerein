@@ -218,6 +218,26 @@
                 user_menu.hide();
             }
         });
+        $('a').click(function(e){
+            e.preventDefault();
+            link = $(this);
+            if (!link.attr('href').includes('javascript:')){
+                target = link.attr('target');
+                if (!target){
+                    target = "_self";
+                }
+                window.open(link.attr('href'), target);
+                if($(this).parents('mdc-drawer main-navigation')){
+                    drawer.open = false;
+                }
+            }
+        });
+        $(window).keydown(function (event) {
+            if (event.which == 27) {
+                event.preventDefault();
+                window.close();
+            }
+        });
     </script>
     <script>
         please_wait.finish();
