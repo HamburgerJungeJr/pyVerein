@@ -125,9 +125,9 @@ LANGUAGES = (
 
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_URL = 'two_factor:login'
+LOGIN_URL = 'account:login'
 LOGIN_REDIRECT_URL = 'app:index'
-LOGOUT_REDIRECT_URL = 'two_factor:login'
+LOGOUT_REDIRECT_URL = 'account:login'
 
 AUTHOR_CREATED_BY_FIELD_NAME = 'created_by'
 AUTHOR_UPDATED_BY_FIELD_NAME = 'last_modified_by'

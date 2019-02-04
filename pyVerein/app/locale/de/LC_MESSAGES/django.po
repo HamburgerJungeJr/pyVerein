@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-03 01:02+0100\n"
+"POT-Creation-Date: 2019-02-04 21:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: app/templates/app/_attributions.html:6 app/templates/app/base.html:114
-#: app/templates/registration/login.html:97
 msgid "Attributions"
 msgstr "Lizenzen"
 
@@ -167,7 +166,9 @@ msgstr "Abmelden"
 msgid ""
 "Created at %(created_at)s by %(created_by)s.<br/>Last modified at "
 "%(modified_at)s by %(modified_by)s."
-msgstr "Erstellt am %(created_at)s von %(created_by)s.<br/>Zuletzt geändert am %(modified_at)s von %(modified_by)s."
+msgstr ""
+"Erstellt am %(created_at)s von %(created_by)s.<br/>Zuletzt geändert am "
+"%(modified_at)s von %(modified_by)s."
 
 #: app/templates/app/base.html:162 app/templates/app/base.html:199
 msgid "Dismiss"
@@ -189,33 +190,6 @@ msgstr "Kostenträger"
 msgid "Not selected"
 msgstr "Keine Auswahl"
 
-#: app/templates/app/dashboard.html:156 app/templates/app/dashboard.html:209
+#: app/templates/app/dashboard.html:156 app/templates/app/dashboard.html:215
 msgid "Balance"
 msgstr "Saldo"
-
-#: app/templates/registration/login.html:54
-msgid "Log In"
-msgstr "Anmeldung"
-
-#: app/templates/registration/login.html:62
-msgid "Your username and password didnt match. Please try again."
-msgstr ""
-"Der Benutzername oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
-
-#: app/templates/registration/login.html:67
-msgid ""
-"Your account doesnt have access to this page. To proceed, please login with "
-"an account that has access."
-msgstr "Dieser Benutzer hat keine Berechtigung für diese Seite."
-
-#: app/templates/registration/login.html:77
-msgid "Username"
-msgstr "Benutzername"
-
-#: app/templates/registration/login.html:84
-msgid "Password"
-msgstr "Passwort"
-
-#: app/templates/registration/login.html:89
-msgid "Login"
-msgstr "Anmelden"

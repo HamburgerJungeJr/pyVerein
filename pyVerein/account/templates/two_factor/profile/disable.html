@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block page_title %}
+    {% trans 'Disable Two-Factor-Authentication' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Disable Two-Factor-Authentication' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow account form">
+        <div class="detail-content mdc-elevation--z4">
+
+            <form method="POST" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% blocktrans %}You are about to disable two-factor authentication. This weakens your account security, are you sure?{% endblocktrans %}
+                </div>
+                <div class="form-group full-width">
+                    <div class="mdc-form-field">
+                        <div class="mdc-checkbox">
+                            <input class="mdc-checkbox__native-control" type="checkbox" name="understand" required id="understand">
+                            <div class="mdc-checkbox__background">
+                            <svg class="mdc-checkbox__checkmark"
+                                    viewBox="0 0 24 24">
+                                <path class="mdc-checkbox__checkmark-path"
+                                    fill="none"
+                                    d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                            </svg>
+                            <div class="mdc-checkbox__mixedmark"></div>
+                            </div>
+                        </div>
+                        <label for="understand">
+                            {% trans 'Yes, I am sure' %}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Deactivate' %}" title="{% trans 'Deactivate Two-Factor-Authentication' %}" />
+                    <a href="{% url 'account:detail' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+    </script>
+{% endblock %}

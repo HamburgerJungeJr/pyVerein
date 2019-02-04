@@ -99,7 +99,7 @@
                                     <div class="mdc-line-ripple"></div>
                                 </div>
                             </div>
-                            <div class="row submit">
+                            <div class="form-submit">
                                 <button type="submit" class="mdc-button mdc-button--raised" title="{% trans 'Login' %}">{% trans 'Login' %}</button>
                                 <input type="hidden" name="next" value="{{ next }}"/>
                             </div>
@@ -113,7 +113,7 @@
                                     <div class="mdc-line-ripple"></div>
                                 </div>
                             </div>
-                            <div class="row submit">
+                            <div class="form-submit">
                                 <button type="submit" class="mdc-button mdc-button--raised" title="{% trans 'Confirm' %}">{% trans 'Confirm' %}</button>
                                 {% if wizard.steps.prev %}
                                     <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="mdc-button mdc-button">{% trans "Back" %}</button>
@@ -130,7 +130,7 @@
                                     <div class="mdc-line-ripple"></div>
                                 </div>
                             </div>
-                            <div class="row submit">
+                            <div class="form-submit">
                                 <button type="submit" class="mdc-button mdc-button--raised" title="{% trans 'Confirm' %}">{% trans 'Confirm' %}</button>
                                 {% if wizard.steps.prev %}
                                     <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="mdc-button mdc-button">{% trans "Back" %}</button>

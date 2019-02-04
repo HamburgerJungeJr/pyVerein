@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-03 01:02+0100\n"
+"POT-Creation-Date: 2019-02-04 21:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: reporting/models.py:46 reporting/templates/reporting/download_data.html:41
+#: reporting/models.py:48 reporting/templates/reporting/download_data.html:41
 msgid "Member"
 msgstr "Mitglied"
 
-#: reporting/models.py:47 reporting/templates/reporting/download_data.html:62
+#: reporting/models.py:49 reporting/templates/reporting/download_data.html:62
 msgid "Division"
 msgstr "Sparte"
 
-#: reporting/models.py:48 reporting/templates/reporting/download_data.html:83
+#: reporting/models.py:50 reporting/templates/reporting/download_data.html:83
 msgid "Subscription"
 msgstr "Beitrag"
 
-#: reporting/models.py:49 reporting/templates/reporting/download_data.html:104
+#: reporting/models.py:51 reporting/templates/reporting/download_data.html:104
 msgid "Account"
 msgstr "Konto"
 
-#: reporting/models.py:50
+#: reporting/models.py:52
 msgid "Costcenter"
 msgstr "Kostenstelle"
 
-#: reporting/models.py:51
+#: reporting/models.py:53
 msgid "Costobject"
 msgstr "Kostenträger"
 
-#: reporting/models.py:52 reporting/templates/reporting/download_data.html:167
+#: reporting/models.py:54 reporting/templates/reporting/download_data.html:167
 msgid "Transaction"
 msgstr "Buchung"
 
-#: reporting/models.py:53 reporting/templates/reporting/download_data.html:188
+#: reporting/models.py:55 reporting/templates/reporting/download_data.html:188
 msgid "Closuretransaction"
 msgstr "Abschlussbuchung"
 
-#: reporting/models.py:54 reporting/templates/reporting/download_data.html:209
+#: reporting/models.py:56 reporting/templates/reporting/download_data.html:209
 msgid "Closurebalance"
 msgstr "Abschlusssaldo"
 
-#: reporting/models.py:72
+#: reporting/models.py:74
 msgid "Report must not be empty"
 msgstr "Berichtsdefinition darf nicht leer sein"
 

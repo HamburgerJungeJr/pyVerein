@@ -196,10 +196,13 @@ div.dataTables_wrapper{
 
     .form-submit{
         margin-top: 30px;
-
-        input{
+        display: flex;
+        .mdc-button{
             margin-right:10px;
         }
+    }
+    .form-submit.reverse{
+        flex-direction: row-reverse;
     }
 }
 .detail-content{

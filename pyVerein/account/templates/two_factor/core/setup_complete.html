@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block page_title %}
+    {% trans 'Activate Two-Factor-Authentication' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Activate Two-Factor-Authentication' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow account form">
+        <div class="detail-content mdc-elevation--z4">
+            <div class="heading mdc-typography--overline">
+                {% blocktrans %}Congratulations, you've successfully enabled two-factor authentication.{% endblocktrans %}
+            </div>
+            <div class="row">
+                {% blocktrans %}You may now set up backup codes to access your account if your generator device is not available.{% endblocktrans %}
+            </div>
+            <div class="form-submit">
+                <a href="{% url 'account:detail' %}" class="mdc-button" title="{% trans 'Done' %}">{% trans 'Done' %}</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block foot %}
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+    </script>
+{% endblock %}

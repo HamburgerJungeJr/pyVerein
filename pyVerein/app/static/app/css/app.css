@@ -146,9 +146,13 @@ div.dataTables_wrapper div.dataTables_filter {
   margin-right: 0px; }
 
 .form .form-submit {
-  margin-top: 30px; }
-  .form .form-submit input {
+  margin-top: 30px;
+  display: flex; }
+  .form .form-submit .mdc-button {
     margin-right: 10px; }
+
+.form .form-submit.reverse {
+  flex-direction: row-reverse; }
 
 .detail-content {
   padding: 20px;
