@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'dynamic_preferences',
     'author',
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'author.middlewares.AuthorDefaultBackendMiddleware',
+    'django_otp.middleware.OTPMiddleware',
 ]
 
 ROOT_URLCONF = 'pyVerein.urls'
@@ -120,8 +125,9 @@ LANGUAGES = (
 
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_URL = 'account:login'
 LOGIN_REDIRECT_URL = 'app:index'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'account:login'
 
 AUTHOR_CREATED_BY_FIELD_NAME = 'created_by'
 AUTHOR_UPDATED_BY_FIELD_NAME = 'last_modified_by'

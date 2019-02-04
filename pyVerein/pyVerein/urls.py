@@ -28,7 +28,6 @@ urlpatterns = i18n_patterns(
     url(r'^reporting/', include('reporting.urls'), name='reporting'),
     url(r'^tasks/', include('tasks.urls'), name='tasks'),
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
                             )
 if settings.DEBUG:
     import debug_toolbar

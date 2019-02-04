@@ -12,6 +12,9 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
+from two_factor.utils import default_device
+from django_otp.plugins.otp_static.models import StaticDevice
+from two_factor import views
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     """
@@ -22,6 +25,18 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
+    
+    def get_context_data(self, **kwargs):
+        try:
+            backup_device = self.request.user.staticdevice_set.get(name='backup')
+        except StaticDevice.DoesNotExist:
+            backup_device = None
+
+        return {
+            'default_device': default_device(self.request.user),
+            'default_device_type': default_device(self.request.user).__class__.__name__,
+            'backup_device': backup_device,
+        }
 
 class UserEditView(LoginRequiredMixin, UpdateView):
     """
@@ -52,3 +67,10 @@ def change_password(request):
     return render(request, 'account/change_password.html', {
         'form': form
     })
+
+class BackupTokensView(views.BackupTokensView):
+    success_url = 'account:detail'
+
+class SetupView(views.SetupView):
+    success_url = 'account:two_factor_setup_complete'
+    qrcode_url = 'account:two_factor_qr'

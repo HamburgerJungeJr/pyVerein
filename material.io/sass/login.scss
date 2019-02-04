@@ -15,7 +15,18 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
+            .logo{
+                margin-bottom: 40px;
+            }
+            .row.submit {
+                display: flex;
+                justify-content: space-evenly;
+                flex-direction: row-reverse;
+            }
+            .row {
+                margin-bottom: 10px;
+            }
         }
-
+        
     }
 }
