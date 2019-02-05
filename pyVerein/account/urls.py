@@ -5,7 +5,6 @@ from . import views
 from django.contrib.auth.views import LogoutView
 from two_factor.views import DisableView, LoginView, QRGeneratorView, SetupCompleteView, SetupView
 
-
 # Set app name
 app_name = 'account'
 # Set url-patterns
