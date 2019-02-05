@@ -96,12 +96,12 @@ class MemberTestMethods(TestCase):
 
         user = User.objects.get(username='temp')
         
-        response = self.client.get(reverse('members:list'))
+        response = self.client.get(reverse('members:member_list'))
         self.assertEqual(response.status_code, 403)
 
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
 
-        response = self.client.get(reverse('members:list'))
+        response = self.client.get(reverse('members:member_list'))
         self.assertEqual(response.status_code, 200)
   
     def test_member_detail_permission(self):
@@ -109,12 +109,12 @@ class MemberTestMethods(TestCase):
 
         user = User.objects.get(username='temp')
         
-        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
 
-        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
 
     def test_member_files_detail_permission(self):
@@ -123,14 +123,14 @@ class MemberTestMethods(TestCase):
         user = User.objects.get(username='temp')
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
         with translation.override('en'):
-            response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+            response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'Files')
         self.assertNotContains(response, 'Filename')
     
         user.user_permissions.add(Permission.objects.get(codename='view_files'))
         with translation.override('en'):
-            response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+            response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Files')
         self.assertContains(response, 'Filename')
@@ -140,20 +140,20 @@ class MemberTestMethods(TestCase):
 
         user = User.objects.get(username='temp')
         
-        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
-        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
         user.user_permissions.remove(Permission.objects.get(codename='view_member'))
         user.user_permissions.add(Permission.objects.get(codename='change_member'))
-        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
-        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
     
     def test_member_create_permission(self):
@@ -161,20 +161,20 @@ class MemberTestMethods(TestCase):
 
         user = User.objects.get(username='temp')
         
-        response = self.client.get(reverse('members:create'))
+        response = self.client.get(reverse('members:member_create'))
         self.assertEqual(response.status_code, 403)
 
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
-        response = self.client.get(reverse('members:create'))
+        response = self.client.get(reverse('members:member_create'))
         self.assertEqual(response.status_code, 403)
 
         user.user_permissions.remove(Permission.objects.get(codename='view_member'))
         user.user_permissions.add(Permission.objects.get(codename='add_member'))
-        response = self.client.get(reverse('members:create'))
+        response = self.client.get(reverse('members:member_create'))
         self.assertEqual(response.status_code, 403)
 
         user.user_permissions.add(Permission.objects.get(codename='view_member'))
-        response = self.client.get(reverse('members:create'))
+        response = self.client.get(reverse('members:member_create'))
         self.assertEqual(response.status_code, 200)
 
     def test_member_field_permission(self):
@@ -328,7 +328,7 @@ class MemberTestMethods(TestCase):
 
         for _, value in permissionmap.items():
             with translation.override('en'):
-                response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+                response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
             self.assertEqual(response.status_code, 200)
             self.assertNotContains(response, value['text'])
 
@@ -336,7 +336,7 @@ class MemberTestMethods(TestCase):
                 p = Permission.objects.get(codename=permission)
                 user.user_permissions.add(p)
                 with translation.override('en'):
-                    response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+                    response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
                 if permission == value['permission']:
                     self.assertContains(response, value['text'])
                 else:
@@ -357,12 +357,12 @@ class MemberTestMethods(TestCase):
 
         # Access restrictions for user
         division.user.add(user2)
-        response = self.client.get(reverse('members:list'))
+        response = self.client.get(reverse('members:member_list'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'Temp')
 
         division.user.add(user)
-        response = self.client.get(reverse('members:list'))
+        response = self.client.get(reverse('members:member_list'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Temp')
 
@@ -374,12 +374,12 @@ class MemberTestMethods(TestCase):
         group2.user_set.add(user2)
 
         division.groups.add(group2)
-        response = self.client.get(reverse('members:list'))
+        response = self.client.get(reverse('members:member_list'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'Temp')
 
         division.groups.add(group)
-        response = self.client.get(reverse('members:list'))
+        response = self.client.get(reverse('members:member_list'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Temp')
 
@@ -395,11 +395,11 @@ class MemberTestMethods(TestCase):
 
         # Access restrictions for user
         division.user.add(user2)
-        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
         division.user.add(user)
-        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
 
         division.user.remove(user)
@@ -410,11 +410,11 @@ class MemberTestMethods(TestCase):
         group2.user_set.add(user2)
 
         division.groups.add(group2)
-        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
         division.groups.add(group)
-        response = self.client.get(reverse('members:detail', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_detail', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
     
     def test_member_edit_division_access_restrictions(self):
@@ -430,11 +430,11 @@ class MemberTestMethods(TestCase):
 
         # Access restrictions for user
         division.user.add(user2)
-        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
         division.user.add(user)
-        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
 
         division.user.remove(user)
@@ -445,11 +445,11 @@ class MemberTestMethods(TestCase):
         group2.user_set.add(user2)
 
         division.groups.add(group2)
-        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 403)
 
         division.groups.add(group)
-        response = self.client.get(reverse('members:edit', args={Member.objects.get(last_name='Temp').pk}))
+        response = self.client.get(reverse('members:member_edit', args={Member.objects.get(last_name='Temp').pk}))
         self.assertEqual(response.status_code, 200)
 
     def test_member_file_upload_permission(self):
@@ -458,39 +458,39 @@ class MemberTestMethods(TestCase):
         with self.settings(MEDIA_ROOT=self.temp_dir):
             user = User.objects.get(username='temp')
             
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='view_member'))
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='view_files'))
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 200)
 
     def test_member_file_delete_permission(self):
@@ -501,45 +501,45 @@ class MemberTestMethods(TestCase):
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             user.user_permissions.remove(Permission.objects.get(codename='view_member'))
             user.user_permissions.remove(Permission.objects.get(codename='change_member'))
             user.user_permissions.remove(Permission.objects.get(codename='view_files'))
 
                     
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='view_member'))
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='view_files'))
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 302)
         
     def test_member_file_download_permission(self):
@@ -550,26 +550,26 @@ class MemberTestMethods(TestCase):
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             user.user_permissions.remove(Permission.objects.get(codename='view_member'))
             user.user_permissions.remove(Permission.objects.get(codename='change_member'))
             user.user_permissions.remove(Permission.objects.get(codename='view_files'))
 
                     
-            response = self.client.get(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.get(reverse('members:member_download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
-            response = self.client.get(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.get(reverse('members:member_download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.remove(Permission.objects.get(codename='view_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            response = self.client.get(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.get(reverse('members:member_download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
-            response = self.client.get(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.get(reverse('members:member_download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 200)
 
     def test_member_upload_file_access_restrictions(self):
@@ -580,7 +580,7 @@ class MemberTestMethods(TestCase):
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             division = Division.objects.get(name='Temp')
             user2 = User.objects.get(username='temp2')
             group = Group.objects.get(name='group')
@@ -588,11 +588,11 @@ class MemberTestMethods(TestCase):
 
             # Access restrictions for user
             division.user.add(user2)
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             division.user.add(user)
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 200)
 
             division.user.remove(user)
@@ -603,11 +603,11 @@ class MemberTestMethods(TestCase):
             group2.user_set.add(user2)
 
             division.groups.add(group2)
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 403)
 
             division.groups.add(group)
-            response = self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            response = self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             self.assertEqual(response.status_code, 200)
         
     def test_member_download_file_access_restrictions(self):
@@ -618,7 +618,7 @@ class MemberTestMethods(TestCase):
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             division = Division.objects.get(name='Temp')
             user2 = User.objects.get(username='temp2')
             group = Group.objects.get(name='group')
@@ -626,11 +626,11 @@ class MemberTestMethods(TestCase):
 
             # Access restrictions for user
             division.user.add(user2)
-            response = self.client.get(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.get(reverse('members:member_download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             division.user.add(user)
-            response = self.client.get(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.get(reverse('members:member_download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 200)
 
             division.user.remove(user)
@@ -641,11 +641,11 @@ class MemberTestMethods(TestCase):
             group2.user_set.add(user2)
 
             division.groups.add(group2)
-            response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             division.groups.add(group)
-            response = self.client.post(reverse('members:download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_download_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 200)
 
     def test_member_delete_file_access_restrictions(self):
@@ -656,7 +656,7 @@ class MemberTestMethods(TestCase):
             user.user_permissions.add(Permission.objects.get(codename='view_member'))
             user.user_permissions.add(Permission.objects.get(codename='change_member'))
             user.user_permissions.add(Permission.objects.get(codename='view_files'))
-            self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             division = Division.objects.get(name='Temp')
             user2 = User.objects.get(username='temp2')
             group = Group.objects.get(name='group')
@@ -664,11 +664,11 @@ class MemberTestMethods(TestCase):
 
             # Access restrictions for user
             division.user.add(user2)
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             division.user.add(user)
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 302)
 
             division.user.remove(user)
@@ -677,14 +677,14 @@ class MemberTestMethods(TestCase):
             # Access restrictions for groups
             group.user_set.add(user)
             group2.user_set.add(user2)
-            self.client.post(reverse('members:upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
+            self.client.post(reverse('members:member_upload_file', args={Member.objects.get(last_name='Temp').pk}), {'file': SimpleUploadedFile('Testfile.txt', bytes('Test', 'utf-8'))})
             
             division.groups.add(group2)
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 403)
 
             division.groups.add(group)
-            response = self.client.post(reverse('members:delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
+            response = self.client.post(reverse('members:member_delete_file', args={File.objects.get(member=Member.objects.get(last_name='Temp')).pk}))
             self.assertEqual(response.status_code, 302)
 
 class DivisionTestMethods(TestCase):

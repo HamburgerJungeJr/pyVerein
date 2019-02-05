@@ -14,25 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include
+from django.urls import path
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import re_path
 from django.views.static import serve
 
 urlpatterns = i18n_patterns(
-    url(r'^', include('app.urls')),
-    url(r'^account/', include('account.urls'), name='account'),
-    url(r'^members/', include('members.urls'), name='members'),
-    url(r'^finance/', include('finance.urls'), name='finance'),
-    url(r'^reporting/', include('reporting.urls'), name='reporting'),
-    url(r'^tasks/', include('tasks.urls'), name='tasks'),
-    url(r'^admin/', admin.site.urls),
+    path('', include('app.urls')),
+    path('account/', include('account.urls'), name='account'),
+    path('members/', include('members.urls'), name='members'),
+    path('finance/', include('finance.urls'), name='finance'),
+    path('reporting/', include('reporting.urls'), name='reporting'),
+    path('tasks/', include('tasks.urls'), name='tasks'),
+    path('admin/', admin.site.urls),
                             )
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+        path('__debug__/', include(debug_toolbar.urls)),
         re_path(r'^media/(?P<path>.*)$', serve, {
             'document_root': settings.MEDIA_ROOT,
         }),
