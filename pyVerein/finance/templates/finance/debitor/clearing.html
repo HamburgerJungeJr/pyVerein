@@ -169,6 +169,7 @@
 
         $("body").keydown(function (event) {
             if (event.which == 106) {
+                event.preventDefault();
                 clear();
             }            
         });
@@ -177,8 +178,12 @@
         });
         function clear(){
             if (transactions.length > 0 && clearing_amount == 0) {
-                event.preventDefault();
                 $.post("{% url 'finance:clear_transactions' %}", {"transactions": transactions}, function (){
+                    $(".select-clearing").each(function(index){
+                        $(this).prop("checked", false);
+                    });
+                    clearing_amount = new Decimal(0)
+                    transactions = []
                     location.reload();
                 }, "json");
             }
