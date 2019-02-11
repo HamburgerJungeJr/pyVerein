@@ -522,7 +522,7 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
 
         context['transactions'] = self.request.session.get(session_id + 'transactions')
         step = self.kwargs.get('step', None)
-        if step:
+        if step is not None:
             context['save_url'] = reverse_lazy('finance:transaction_create_step', kwargs={'step':step, 'session_id':session_id})
         else:
             context['save_url'] = reverse_lazy('finance:transaction_create_session', kwargs={'session_id':session_id})
@@ -536,15 +536,15 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
         session_id = self.kwargs.get('session_id', '')
         transactions = self.request.session.get(session_id + 'transactions')
         step = self.kwargs.get('step', None)
-        if step and transactions:
-            initial['account'] = transactions[step]['account'] 
-            initial['date'] = transactions[step]['date']
-            initial['document_number'] = transactions[step]['document_number']
-            initial['text'] = transactions[step]['text']
-            initial['debit'] = transactions[step]['debit']
-            initial['credit'] = transactions[step]['credit']
-            initial['cost_center'] = transactions[step]['cost_center']
-            initial['cost_object'] = transactions[step]['cost_object']
+        if step is not None and transactions:
+            initial['account'] = transactions[str(step)]['account'] 
+            initial['date'] = transactions[str(step)]['date']
+            initial['document_number'] = transactions[str(step)]['document_number']
+            initial['text'] = transactions[str(step)]['text']
+            initial['debit'] = transactions[str(step)]['debit']
+            initial['credit'] = transactions[str(step)]['credit']
+            initial['cost_center'] = transactions[str(step)]['cost_center']
+            initial['cost_object'] = transactions[str(step)]['cost_object']
         else:
             if transactions is not None:
                 initial['date'] = transactions['0']['date']
@@ -579,7 +579,7 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
         transactions = self.request.session.get(session_id + 'transactions')
         if (transactions is None):
             transactions = {
-                0: {
+                '0': {
                     'account':  str(self.object.account.number) if self.object.account is not None else None,
                     'date':  self.object.date.strftime('%d.%m.%Y'),
                     'document_number': self.object.document_number,
@@ -595,8 +595,8 @@ class TransactionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateV
         else:
             key = None
             step = self.kwargs.get('step', None)
-            if step:
-                key = step
+            if step is not None:
+                key = str(step)
             else:
                 key = str(int(max(transactions.keys())) + 1)
             transactions[key] = {
