@@ -581,7 +581,7 @@ msgstr "Datum"
 #: finance/templates/finance/creditor/clearing.html:83
 #: finance/templates/finance/debitor/clearing.html:83
 msgid "Clearingamount"
-msgstr "Auszfferungsbetrag"
+msgstr "Auszifferungsbetrag"
 
 #: finance/templates/finance/creditor/clearing.html:88
 #: finance/templates/finance/debitor/clearing.html:88
@@ -777,8 +777,6 @@ msgstr "Buchungen"
 #: finance/templates/finance/transaction/detail.html:70
 #: finance/templates/finance/transaction/detail.html:75
 #: finance/templates/finance/transaction/detail.html:80
-#, fuzzy
-#| msgid "Show account"
 msgid "Show Account"
 msgstr "Konto anzeigen"
 
