@@ -85,8 +85,8 @@ class TransactionJSONSerializer:
                     'date': datetime.strftime(transaction.date, '%Y-%m-%d'),
                     'document_number': transaction.document_number,
                     'text': transaction.text,
-                    'debit': str(transaction.debit),
-                    'credit': str(transaction.credit),
+                    'debit': None if not transaction.debit else str(transaction.debit),
+                    'credit': None if not transaction.credit else str(transaction.credit),
                     'cost_center': None if not transaction.cost_center else {
                         'number': transaction.cost_center.number,
                         'name': transaction.cost_center.name
