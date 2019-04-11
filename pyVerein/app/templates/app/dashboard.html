@@ -121,7 +121,6 @@
             },
             donut: {
                 width: 70,
-                title: bankAccountsSum.toFixed(2) + ' {{ global_preferences.Finance__currency }}',
                 label: {
                     format: function (value, ratio, id) {
                         return value.toFixed(2);
@@ -139,6 +138,13 @@
                 height: 400,
                 width: 400
             },
+            onrendered: function(){
+                bankAccountsSum = new Decimal(0);
+                bankaccountschart.data.shown().forEach(function(val){
+                    bankAccountsSum = bankAccountsSum.plus(val.values[0].value);
+                });
+                d3.select('#bankAccountsChart .c3-chart-arcs-title').node().innerHTML = bankAccountsSum.toFixed(2) + ' {{ global_preferences.Finance__currency }}';
+            }
         });
         $("#bankAccountsChart").append(bankaccountschart.element);
         {% endif %}
