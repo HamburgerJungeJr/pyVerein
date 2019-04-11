@@ -110,6 +110,7 @@
             <table id="transactions" class="mdl-data-table dataTable" cellspacing="0" width="100%">
                 <thead>
                     <tr>
+                        <th></th>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Account' %}</th>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
                         <th>{% trans 'Debit' %}</th>
@@ -120,7 +121,12 @@
                 </thead>
                 <tbody>
                     {% for key, transaction in transactions.items %}
-                        <tr data-step="{% url 'finance:transaction_create_step' step=key session_id=session_id%}">
+                        <tr>
+                            <td>
+                                <a href="{% url 'finance:transaction_create_step' step=key session_id=session_id%}">
+                                    <i class="fa fas-arrow-left"></i>
+                                </a>
+                            </td>
                             <td class="mdl-data-table__cell--non-numeric">
                                 {{ transaction.account }}
                             </td>
@@ -251,10 +257,5 @@
             input_field.val(field_val);
             info_field.html(info_val);
         }
-
-        // Steps
-        $('tr').on('click', function(){
-            window.location = $(this).data('step');
-        })
     </script>
 {% endblock %}

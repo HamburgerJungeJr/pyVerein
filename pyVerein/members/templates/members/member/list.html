@@ -22,6 +22,7 @@
         width="100%">
         <thead>
             <tr>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Membership number' %}</th>
                 {% if perms.members.view_field_last_name %}
                     <th class="mdl-data-table__cell--non-numeric">{% trans 'Lastname' %}</th>
                 {% endif %}
@@ -41,7 +42,12 @@
         </thead>
         <tbody>
             {% for member in members %}
-                <tr data-member="{% url 'members:member_detail' pk=member.pk %}">
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <a href="{% url 'members:member_detail' pk=member.pk %}" target="_blank">
+                            {{ member.membership_number}}
+                        </a>
+                    </td>
                     {% if perms.members.view_field_last_name %}
                         <td class="mdl-data-table__cell--non-numeric">
                             {{ member.last_name}}
@@ -122,10 +128,6 @@
             $('#memberslist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
-            $('tbody tr').click(function () {
-                window.open($(this).data('member'));
-            });
-        })
-        ;
+        });
     </script>
 {% endblock %}

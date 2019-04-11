@@ -28,9 +28,11 @@
         </thead>
         <tbody>
             {% for costcenter in costcenters %}
-                <tr data-costcenter="{% url 'finance:costcenter_detail' pk=costcenter.pk %}">
+                <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        {{ costcenter.number}}
+                        <a href="{% url 'finance:costcenter_detail' pk=costcenter.pk %}" target="_blank">
+                            {{ costcenter.number}}
+                        </a>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {{ costcenter.name }}
@@ -90,10 +92,6 @@
             $('#costcenterlist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
-            $('tbody tr').click(function () {
-                window.open($(this).data('costcenter'));
-            });
-        })
-        ;
+        });
     </script>
 {% endblock %}
