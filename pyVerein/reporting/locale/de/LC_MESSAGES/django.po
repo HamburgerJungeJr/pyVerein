@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-04 21:17+0100\n"
+"POT-Creation-Date: 2019-04-12 18:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,7 +163,7 @@ msgstr "Bearbeiten"
 
 #: reporting/templates/reporting/download_data.html:7
 #: reporting/templates/reporting/download_data.html:11
-#: reporting/templates/reporting/list.html:50
+#: reporting/templates/reporting/list.html:52
 msgid "Download data"
 msgstr "Daten herunterladen"
 
@@ -206,76 +206,76 @@ msgstr "Berichtsdefinition auswählen"
 msgid "Report-List"
 msgstr "Berichte"
 
-#: reporting/templates/reporting/list.html:38
+#: reporting/templates/reporting/list.html:40
 #: reporting/templates/reporting/run.html:52
 msgid "Run"
 msgstr "Ausführen"
 
-#: reporting/templates/reporting/list.html:45
+#: reporting/templates/reporting/list.html:47
 msgid "Create"
 msgstr "Hinzufügen"
 
-#: reporting/templates/reporting/list.html:69
+#: reporting/templates/reporting/list.html:71
 msgid "sEmptyTable"
 msgstr "Keine Daten in der Tabelle vorhanden."
 
-#: reporting/templates/reporting/list.html:70
+#: reporting/templates/reporting/list.html:72
 msgid "sInfo"
 msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: reporting/templates/reporting/list.html:71
+#: reporting/templates/reporting/list.html:73
 msgid "sInfoEmpty"
 msgstr "0 bis 0 von 0 Einträgen"
 
-#: reporting/templates/reporting/list.html:72
+#: reporting/templates/reporting/list.html:74
 msgid "sInfoFiltered"
 msgstr "(gefiltert von _MAX_ Einträgen)"
 
-#: reporting/templates/reporting/list.html:73
+#: reporting/templates/reporting/list.html:75
 msgid "sInfoPostfix"
 msgstr " "
 
-#: reporting/templates/reporting/list.html:74
+#: reporting/templates/reporting/list.html:76
 msgid "sInfoThousands"
 msgstr "."
 
-#: reporting/templates/reporting/list.html:75
+#: reporting/templates/reporting/list.html:77
 msgid "sLoadingRecords"
 msgstr "Wird geladen..."
 
-#: reporting/templates/reporting/list.html:76
+#: reporting/templates/reporting/list.html:78
 msgid "sZeroRecords"
 msgstr "Keine Einträge vorhanden."
 
-#: reporting/templates/reporting/list.html:78
+#: reporting/templates/reporting/list.html:80
 msgid "sFirst"
 msgstr "Erste"
 
-#: reporting/templates/reporting/list.html:79
+#: reporting/templates/reporting/list.html:81
 msgid "sLast"
 msgstr "Letzte"
 
-#: reporting/templates/reporting/list.html:80
+#: reporting/templates/reporting/list.html:82
 msgid "sNext"
 msgstr "Nächste"
 
-#: reporting/templates/reporting/list.html:81
+#: reporting/templates/reporting/list.html:83
 msgid "sPrevious"
 msgstr "Vorherige"
 
-#: reporting/templates/reporting/list.html:84
+#: reporting/templates/reporting/list.html:86
 msgid "sSortAscending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: reporting/templates/reporting/list.html:85
+#: reporting/templates/reporting/list.html:87
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: reporting/templates/reporting/list.html:90
+#: reporting/templates/reporting/list.html:92
 msgid "sSearch"
 msgstr "Suchen"
 
-#: reporting/templates/reporting/list.html:96
+#: reporting/templates/reporting/list.html:98
 msgid "sLengthMenu"
 msgstr "Einträge anzeigen"
 

@@ -28,9 +28,11 @@
         </thead>
         <tbody>
             {% for debitor in debitors %}
-                <tr data-debitor="{% url 'finance:debitor_detail' pk=debitor.pk %}">
+                <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        {{ debitor.number}}
+                        <a href="{% url 'finance:debitor_detail' pk=debitor.pk %}" target="_blank">
+                            {{ debitor.number}}
+                        </a>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {{ debitor.name }}

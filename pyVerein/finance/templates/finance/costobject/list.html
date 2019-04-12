@@ -28,9 +28,11 @@
         </thead>
         <tbody>
             {% for costobject in costobjects %}
-                <tr data-costobject="{% url 'finance:costobject_detail' pk=costobject.pk %}">
+                <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        {{ costobject.number}}
+                        <a href="{% url 'finance:costobject_detail' pk=costobject.pk %}" target="_blank">
+                            {{ costobject.number}}
+                        </a>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {{ costobject.name }}
@@ -90,10 +92,6 @@
             $('#costobjectlist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
-            $('tbody tr').click(function () {
-                window.open($(this).data('costobject'));
-            });
-        })
-        ;
+        });
     </script>
 {% endblock %}

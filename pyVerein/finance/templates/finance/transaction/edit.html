@@ -93,6 +93,7 @@
             <table id="transactions" class="mdl-data-table dataTable" cellspacing="0" width="100%">
                 <thead>
                     <tr>
+                        <th width="20px"></th>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Account' %}</th>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
                         <th>{% trans 'Debit' %}</th>
@@ -103,7 +104,12 @@
                 </thead>
                 <tbody>
                     {% for transaction in transactions %}
-                        <tr data-step="{% url 'finance:transaction_edit' internal_number=internal_number pk=transaction.pk %}">
+                        <tr>
+                            <td style="width: 15px;">
+                                <a href="{% url 'finance:transaction_edit' internal_number=internal_number pk=transaction.pk %}">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </td>
                             <td class="mdl-data-table__cell--non-numeric">
                                 {{ transaction.account.number }}
                             </td>
@@ -164,10 +170,5 @@
         $('#reset_new_button').click(function() {
             window.location = "{% url 'finance:transaction_reset_new' internal_number=internal_number %}"
         });
-
-        // Steps
-        $('tr').on('click', function(){
-            window.location = $(this).data('step');
-        })
     </script>
 {% endblock %}

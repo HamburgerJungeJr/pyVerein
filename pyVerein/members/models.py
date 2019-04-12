@@ -159,13 +159,38 @@ class Division(AccessRestrictedModel, ModelBase):
 
     # Name
     name = models.CharField(blank=False, null=False, max_length=255)
+
+    def __str__(self):
+        return self.name
+
+@with_author
+class Subscription(ModelBase):
+    """
+    Subscription model
+    """
+
+    MONTHLY = 'MON'
+    QUARTERLY = 'QUA'
+    HALFYEARLY = 'HAL'
+    YEARLY = 'YEA'
+    PAYMENT_FREQUENCY = (
+        (MONTHLY, _('Monthly')),
+        (QUARTERLY, _('Quarterly')),
+        (HALFYEARLY, _('Half-Yearly')),
+        (YEARLY, _('Yearly'))
+    )
+
+    # Name
+    name = models.CharField(blank=False, null=False, max_length=255)
+    # Amount
+    amount = models.DecimalField(blank=False, null=False, max_digits=12, decimal_places=2)
+    # Payment frequency
+    payment_frequency = models.CharField(choices=PAYMENT_FREQUENCY, max_length=3, default=YEARLY)
+
     income_account = models.ForeignKey(Account, blank=True, null=True, on_delete=models.PROTECT, related_name='+')
     debitor_account = models.ForeignKey(Account, blank=True, null=True, on_delete=models.PROTECT, related_name='+')
     cost_center = models.ForeignKey(CostCenter, blank=True, null=True, on_delete=models.PROTECT, related_name='+')
     cost_object = models.ForeignKey(CostObject, blank=True, null=True, on_delete=models.PROTECT, related_name='+')
-
-    def __str__(self):
-        return self.name
 
     def get_income_account(self):
         """
@@ -206,30 +231,6 @@ class Division(AccessRestrictedModel, ModelBase):
         else:
             global_preferences = global_preferences_registry.manager()
             return CostCenter.objects.get(pk=global_preferences['Members__division_cost_object'])
-
-@with_author
-class Subscription(ModelBase):
-    """
-    Subscription model
-    """
-
-    MONTHLY = 'MON'
-    QUARTERLY = 'QUA'
-    HALFYEARLY = 'HAL'
-    YEARLY = 'YEA'
-    PAYMENT_FREQUENCY = (
-        (MONTHLY, _('Monthly')),
-        (QUARTERLY, _('Quarterly')),
-        (HALFYEARLY, _('Half-Yearly')),
-        (YEARLY, _('Yearly'))
-    )
-
-    # Name
-    name = models.CharField(blank=False, null=False, max_length=255)
-    # Amount
-    amount = models.DecimalField(blank=False, null=False, max_digits=12, decimal_places=2)
-    # Payment frequency
-    payment_frequency = models.CharField(choices=PAYMENT_FREQUENCY, max_length=3, default=YEARLY)
 
     def __str__(self):
         return self.name

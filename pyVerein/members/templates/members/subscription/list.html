@@ -28,9 +28,11 @@
         </thead>
         <tbody>
             {% for subscription in subscriptions %}
-                <tr data-subscription="{% url 'members:subscription_detail' pk=subscription.pk %}">
+                <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        {{ subscription.name}}
+                        <a href="{% url 'members:subscription_detail' pk=subscription.pk %}" target="_blank">
+                            {{ subscription.name}}
+                        </a>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {{ subscription.members }}
@@ -90,10 +92,6 @@
             $('#subscriptionslist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
-            $('tbody tr').click(function () {
-                window.open($(this).data('subscription'));
-            });
-        })
-        ;
+        });
     </script>
 {% endblock %}

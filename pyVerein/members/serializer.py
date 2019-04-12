@@ -33,22 +33,6 @@ class MemberJSONSerializer:
                 'terminated_at': None if not member.terminated_at else datetime.strftime(member.terminated_at, '%Y-%m-%d'),
                 'division': None if not member.division else {
                     'name': member.division.name,
-                    'income_account': None if not member.division.get_income_account() else {
-                        'number': member.division.get_income_account().number,
-                        'name': member.division.get_income_account().name
-                    },
-                    'debitor_account': None if not member.division.get_debitor_account() else {
-                        'number': member.division.get_debitor_account().number,
-                        'name': member.division.get_debitor_account().name
-                    },
-                    'cost_center': None if not member.division.get_cost_center() else {
-                        'number': member.division.get_cost_center().number,
-                        'name': member.division.get_cost_center().name
-                    },
-                    'cost_object': None if not member.division.get_cost_object() else {
-                        'number': member.division.get_cost_object().number,
-                        'name': member.division.get_cost_object().name
-                    },
                 },
                 'payment_method': member.payment_method,
                 'iban': member.iban,
@@ -58,7 +42,23 @@ class MemberJSONSerializer:
                 'subscription': None if not member.subscription else [{
                     'name': subscription.name,
                     'amount': str(subscription.amount),
-                    'payment_frequency': subscription.get_payment_frequency_display()
+                    'payment_frequency': subscription.get_payment_frequency_display(),
+                    'income_account': None if not subscription.get_income_account() else {
+                        'number': subscription.get_income_account().number,
+                        'name': subscription.get_income_account().name
+                    },
+                    'debitor_account': None if not subscription.get_debitor_account() else {
+                        'number': subscription.get_debitor_account().number,
+                        'name': subscription.get_debitor_account().name
+                    },
+                    'cost_center': None if not subscription.get_cost_center() else {
+                        'number': subscription.get_cost_center().number,
+                        'name': subscription.get_cost_center().name
+                    },
+                    'cost_object': None if not subscription.get_cost_object() else {
+                        'number': subscription.get_cost_object().number,
+                        'name': subscription.get_cost_object().name
+                    },
                 } for subscription in member.subscription.all()],
                 'field_1': member.field_1,
                 'field_2': member.field_2,
@@ -80,22 +80,6 @@ class DivisionJSONSerializer():
         for division in divisions:
             division_data['divisions'].append({
                 'name': division.name,
-                'income_account': None if not division.get_income_account() else {
-                    'number': division.get_income_account().number,
-                    'name': division.get_income_account().name
-                },
-                'debitor_account': None if not division.get_debitor_account() else {
-                    'number': division.get_debitor_account().number,
-                    'name': division.get_debitor_account().name
-                },
-                'cost_center': None if not division.get_cost_center() else {
-                    'number': division.get_cost_center().number,
-                    'name': division.get_cost_center().name
-                },
-                'cost_object': None if not division.get_cost_object() else {
-                    'number': division.get_cost_object().number,
-                    'name': division.get_cost_object().name
-                }
             })
         return division_data
 
@@ -112,6 +96,22 @@ class SubscriptionJSONSerializer():
             subscription_data['subscriptions'].append({
                 'name': subscription.name,
                 'amount': str(subscription.amount),
-                'payment_frequency': subscription.get_payment_frequency_display()
+                'payment_frequency': subscription.get_payment_frequency_display(),
+                'income_account': None if not subscription.get_income_account() else {
+                    'number': subscription.get_income_account().number,
+                    'name': subscription.get_income_account().name
+                },
+                'debitor_account': None if not subscription.get_debitor_account() else {
+                    'number': subscription.get_debitor_account().number,
+                    'name': subscription.get_debitor_account().name
+                },
+                'cost_center': None if not subscription.get_cost_center() else {
+                    'number': subscription.get_cost_center().number,
+                    'name': subscription.get_cost_center().name
+                },
+                'cost_object': None if not subscription.get_cost_object() else {
+                    'number': subscription.get_cost_object().number,
+                    'name': subscription.get_cost_object().name
+                }
             })
         return subscription_data

@@ -101,7 +101,6 @@
                             </div>
                             <div class="form-submit">
                                 <button type="submit" class="mdc-button mdc-button--raised" title="{% trans 'Login' %}">{% trans 'Login' %}</button>
-                                <input type="hidden" name="next" value="{{ next }}"/>
                             </div>
                         {% elif wizard.steps.current == 'token' %}
                             <div class="row">
@@ -118,7 +117,6 @@
                                 {% if wizard.steps.prev %}
                                     <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="mdc-button mdc-button">{% trans "Back" %}</button>
                                 {% endif %}
-                                <input type="hidden" name="next" value="{{ next }}"/>
                             </div>
                         {% elif wizard.steps.current == 'backup' %}
                             <div class="row">
@@ -135,7 +133,6 @@
                                 {% if wizard.steps.prev %}
                                     <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="mdc-button mdc-button">{% trans "Back" %}</button>
                                 {% endif %}
-                                <input type="hidden" name="next" value="{{ next }}"/>
                             </div>
                         {% endif %}
                         {% if backup_tokens %}
