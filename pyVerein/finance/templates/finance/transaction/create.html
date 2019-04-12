@@ -110,7 +110,7 @@
             <table id="transactions" class="mdl-data-table dataTable" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th width="20px"></th>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Account' %}</th>
                         <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
                         <th>{% trans 'Debit' %}</th>
@@ -124,7 +124,7 @@
                         <tr>
                             <td>
                                 <a href="{% url 'finance:transaction_create_step' step=key session_id=session_id%}">
-                                    <i class="fa fas-arrow-left"></i>
+                                    <i class="fa fa-arrow-right"></i>
                                 </a>
                             </td>
                             <td class="mdl-data-table__cell--non-numeric">
