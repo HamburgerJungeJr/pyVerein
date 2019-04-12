@@ -208,13 +208,13 @@
         });
         
         function missed_info(){
-            $("#info-dialog .mdc-dialog__body p").html("<h5>{% trans 'Members for which subscription could not be applied:' %}</h5>" + $("#apply-subscriptions .state a").data("missed"));
+            $("#info-dialog .mdc-dialog__content p").html("<h5>{% trans 'Members for which subscription could not be applied:' %}</h5>" + $("#apply-subscriptions .state a").data("missed"));
             info_dialog.lastFocusedTarget = this;
             info_dialog.open();
         }
 
         function annualclosure_info(){
-            $("#info-dialog .mdc-dialog__body p").html("<h5>{% trans 'The following error occured:' %}</h5>" + $("#apply-annualclosure .state a").data("message"));
+            $("#info-dialog .mdc-dialog__content p").html("<h5>{% trans 'The following error occured:' %}</h5>" + $("#apply-annualclosure .state a").data("message"));
             info_dialog.lastFocusedTarget = this;
             info_dialog.open();
         }

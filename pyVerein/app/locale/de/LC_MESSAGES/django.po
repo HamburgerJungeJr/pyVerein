@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-04 21:17+0100\n"
+"POT-Creation-Date: 2019-04-12 18:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,6 +36,13 @@ msgstr "Lizenzen"
 #: app/templates/app/_attributions.html:89
 #: app/templates/app/_attributions.html:96
 #: app/templates/app/_attributions.html:103
+#: app/templates/app/_attributions.html:110
+#: app/templates/app/_attributions.html:117
+#: app/templates/app/_attributions.html:124
+#: app/templates/app/_attributions.html:131
+#: app/templates/app/_attributions.html:138
+#: app/templates/app/_attributions.html:145
+#: app/templates/app/_attributions.html:152
 msgid "by"
 msgstr "von"
 
@@ -53,6 +60,13 @@ msgstr "von"
 #: app/templates/app/_attributions.html:90
 #: app/templates/app/_attributions.html:97
 #: app/templates/app/_attributions.html:104
+#: app/templates/app/_attributions.html:111
+#: app/templates/app/_attributions.html:118
+#: app/templates/app/_attributions.html:125
+#: app/templates/app/_attributions.html:132
+#: app/templates/app/_attributions.html:139
+#: app/templates/app/_attributions.html:146
+#: app/templates/app/_attributions.html:153
 msgid "Published under"
 msgstr "Veröffentlicht unter"
 
@@ -70,6 +84,13 @@ msgstr "Veröffentlicht unter"
 #: app/templates/app/_attributions.html:90
 #: app/templates/app/_attributions.html:97
 #: app/templates/app/_attributions.html:104
+#: app/templates/app/_attributions.html:111
+#: app/templates/app/_attributions.html:118
+#: app/templates/app/_attributions.html:125
+#: app/templates/app/_attributions.html:132
+#: app/templates/app/_attributions.html:139
+#: app/templates/app/_attributions.html:146
+#: app/templates/app/_attributions.html:153
 msgid "at"
 msgstr "auf"
 
@@ -87,10 +108,17 @@ msgstr "auf"
 #: app/templates/app/_attributions.html:90
 #: app/templates/app/_attributions.html:97
 #: app/templates/app/_attributions.html:104
+#: app/templates/app/_attributions.html:111
+#: app/templates/app/_attributions.html:118
+#: app/templates/app/_attributions.html:125
+#: app/templates/app/_attributions.html:132
+#: app/templates/app/_attributions.html:139
+#: app/templates/app/_attributions.html:146
+#: app/templates/app/_attributions.html:153
 msgid "Open at"
 msgstr "Öffnen auf"
 
-#: app/templates/app/_attributions.html:108
+#: app/templates/app/_attributions.html:157
 msgid "Close"
 msgstr "Schließen"
 
@@ -190,6 +218,6 @@ msgstr "Kostenträger"
 msgid "Not selected"
 msgstr "Keine Auswahl"
 
-#: app/templates/app/dashboard.html:156 app/templates/app/dashboard.html:215
+#: app/templates/app/dashboard.html:162 app/templates/app/dashboard.html:221
 msgid "Balance"
 msgstr "Saldo"

@@ -18,12 +18,8 @@ class MemberForm(forms.ModelForm):
 class DivisionForm(forms.ModelForm):
     class Meta:
         model = Division
-        fields = ('name', 'income_account', 'debitor_account', 'cost_center', 'cost_object', 'user', 'groups')
+        fields = ('name', 'user', 'groups')
         widgets = {
-            'income_account': TextInput(),
-            'debitor_account': TextInput(),
-            'cost_center': TextInput(),
-            'cost_object': TextInput(),
             'user': CheckboxSelectMultiple(attrs={'class': 'mdc-checkbox__native-control'}),
             'groups': CheckboxSelectMultiple(attrs={'class': 'mdc-checkbox__native-control'})
         }
@@ -31,8 +27,12 @@ class DivisionForm(forms.ModelForm):
 class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ('name', 'amount', 'payment_frequency')
+        fields = ('name', 'amount', 'payment_frequency', 'income_account', 'debitor_account', 'cost_center', 'cost_object',)
         widgets = {
             'amount': forms.TextInput(),
+            'income_account': TextInput(),
+            'debitor_account': TextInput(),
+            'cost_center': TextInput(),
+            'cost_object': TextInput(),
             'payment_frequency': forms.RadioSelect(attrs={'class':'mdc-radio__native-control'})
         }
