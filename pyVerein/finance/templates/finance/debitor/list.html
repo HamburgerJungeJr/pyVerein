@@ -30,7 +30,7 @@
             {% for debitor in debitors %}
                 <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        <a href="% url 'finance:debitor_detail' pk=debitor.pk %}" target="_blank">
+                        <a href="{% url 'finance:debitor_detail' pk=debitor.pk %}" target="_blank">
                             {{ debitor.number}}
                         </a>
                     </td>
