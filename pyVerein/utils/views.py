@@ -25,7 +25,7 @@ class DetailView(generic.DetailView):
             entry = {
                 'type': record.history_type,
                 'date': record.history_date,
-                'user': record.history_user.get_full_name(),
+                'user': record.history_user.get_full_name() if record.history_user else None,
                 'changes': []
             }
             
