@@ -165,12 +165,6 @@
     {% endif %}
 {% endblock %}
 
-{% block history %}
-    {% with history_transaction as instance %}
-        {{block.super}}
-    {% endwith %}
-{% endblock %}
-
 {% block foot %}{% if cleared_transactions %}
         <script>
             $(document).ready(function () {
