@@ -1,7 +1,7 @@
 # Import reverse.
 from django.urls import reverse_lazy
 # Import members.
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
+from django.views.generic import ListView, UpdateView, CreateView, TemplateView
 # Import Member.
 from .forms import MemberForm, DivisionForm, SubscriptionForm
 from .models import Member, Division, Subscription, File
@@ -13,10 +13,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.db import Error
+from django.db import Error, connection
 import os
 from django.conf import settings
 from sendfile import sendfile
+from utils.views import DetailView
 
 # Index-View.
 class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
@@ -82,6 +83,16 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
         else:
             return super_perm
 
+    def form_valid(self, form):
+        # Save validated data
+        self.object = form.save(commit = False)
+
+        # Update subscription list for history
+        
+        self.object.subscriptions = ",".join([s.name for s in Subscription.objects.filter(pk__in=self.request.POST.getlist('subscription'))])
+        
+        return super().form_valid(form)
+
 
 # Create-View.
 class MemberCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -111,9 +122,13 @@ def upload_file(request, pk):
         try:
             file = File(member=member, file=request.FILES['file'])
             file.save()
+
+            # Update file list for history
+            member.files = ",".join([os.path.basename(f.file.file.name) for f in File.objects.filter(member=member)])
+            member.save()
         except Error as err:
             return JsonResponse({'error': err})
-        
+
         return JsonResponse({'state': 'success'})
     else:
         return HttpResponseBadRequest()    
@@ -135,6 +150,10 @@ def delete_file(request, pk):
         file.delete()
         if os.path.isfile(os.path.join(settings.MEDIA_ROOT, file.file.path)):
             os.remove(os.path.join(settings.MEDIA_ROOT, file.file.path))
+
+        # Update file list for history
+        member.files = ",".join([os.path.basename(f.file.file.name) for f in File.objects.filter(member=member)])
+        member.save()
         return HttpResponseRedirect(reverse_lazy('members:member_detail', kwargs={'pk': member.pk}))
     else:
         return HttpResponseBadRequest() 

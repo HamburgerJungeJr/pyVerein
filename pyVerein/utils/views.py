@@ -11,22 +11,38 @@ from finance.models import Transaction
 import datetime
 from dynamic_preferences.registries import global_preferences_registry
 from django.db.models import Q, Max
+from django.views import generic
 
+class DetailView(generic.DetailView):
 
-# Helper for rendering a template and return it as JSON with optional parameters.
-def render_ajax(request, template, context={}, additional_json={}):
-    # Load template.
-    template = loader.get_template(template)
-    # Render template.
-    renderedTemplate = template.render(context, request)
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
 
-    # Create JSON dict with additional json
-    json_data = additional_json
-    # Add Base64 encoded template to JSON
-    json_data['data'] = base64.b64encode(renderedTemplate.encode()).decode('utf-8')
+        context['instance'] = self.object
 
-    # Return JSON.
-    return HttpResponse(json.dumps(json_data), 'application/json')
+        history = []
+        for record in self.object.history.all():
+            entry = {
+                'type': record.history_type,
+                'date': record.history_date,
+                'user': record.history_user.get_full_name(),
+                'changes': []
+            }
+            
+            if record.prev_record:
+                delta = record.diff_against(record.prev_record)
+                for change in delta.changes:
+                    entry['changes'].append({
+                        'field': change.field,
+                        'old': change.old,
+                        'new': change.new
+                    })
+
+            history.append(entry)
+
+        context['history'] = history
+
+        return context
 
 def generate_document_number():
     global_preferences = global_preferences_registry.manager()

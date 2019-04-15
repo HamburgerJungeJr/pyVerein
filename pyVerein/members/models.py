@@ -120,6 +120,8 @@ class Member(ModelBase):
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    subscriptions = models.CharField(blank=True, null=True, max_length=255)
+    files = models.CharField(blank=True, null=True, max_length=255)
 
     # Return full name
     def get_full_name(self):
