@@ -30,8 +30,10 @@ class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
         members = []
         for member in Member.objects.all():
             if member.division:
-                if member.division.is_access_granted(self.request.user):
-                    members.append(member)
+               for division in member.division.all():
+                    if division.is_access_granted(self.request.user):
+                        members.append(member)
+                        break
             else:
                 members.append(member)
 
@@ -59,8 +61,9 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
         member = Member.objects.get(pk=self.kwargs['pk'])
         if member.division:
             for division in member.division.all():
-                if not division.is_access_granted(self.request.user):
-                    return False
+                if division.is_access_granted(self.request.user):
+                    return super_perm
+            return False
         return super_perm
 
 # Edit-View.
@@ -81,8 +84,9 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
         member = Member.objects.get(pk=self.kwargs['pk'])
         if member.division:
             for division in member.division.all():
-                if not division.is_access_granted(self.request.user):
-                    return False
+                if division.is_access_granted(self.request.user):
+                    return super_perm 
+            return False
         return super_perm
 
     def form_valid(self, form):
@@ -119,8 +123,14 @@ def upload_file(request, pk):
         member = Member.objects.get(pk=pk)
 
         # Check if user can access member
-        if member.division and not member.division.is_access_granted(request.user):
-            return HttpResponseForbidden()
+        if member.division:
+            access = False
+            for division in member.division.all():
+                if division.is_access_granted(request.user):
+                    access = True
+                    break
+            if not access:        
+                return HttpResponseForbidden()
 
         try:
             file = File(member=member, file=request.FILES['file'])
@@ -147,8 +157,14 @@ def delete_file(request, pk):
         member = file.member
 
         # Check if user can access member
-        if member.division and not member.division.is_access_granted(request.user):
-            return HttpResponseForbidden()
+        if member.division:
+            access = False
+            for division in member.division.all():
+                if division.is_access_granted(request.user):
+                    access = True
+                    break
+            if not access:        
+                return HttpResponseForbidden()
 
         file.delete()
         if os.path.isfile(os.path.join(settings.MEDIA_ROOT, file.file.path)):
@@ -169,8 +185,15 @@ def download_file(request, pk):
     """
     file = File.objects.get(pk=pk)
     # Check if user can access member
-    if file.member.division and not file.member.division.is_access_granted(request.user):
-        return HttpResponseForbidden()
+    if file.member.division:
+        access = False
+        for division in file.member.division.all():
+            if division.is_access_granted(request.user):
+                access = True
+                break
+        if not access:        
+            return HttpResponseForbidden()
+
 
     file = file.file
     return sendfile(request, file.path, attachment=True, attachment_filename=os.path.basename(file.name))
