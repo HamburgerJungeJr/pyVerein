@@ -380,6 +380,21 @@ ul.checkbox-multiple-select{
     }
 }
 
+.timeline-step {
+    .step-text.heading.mdc-typography--overline{
+        margin-top: 0px;
+    }
+    .step-icon.history_create{
+        background-color: $history_create;
+    }
+    .step-icon.history_change{
+        background-color: $history_change;
+    }
+    .step-icon.history_delete{
+        background-color: $history_delete;
+    }
+}
+
 @media(max-width: 600px){
     .form{
         .form-group{

@@ -1,0 +1,108 @@
+.timeline-wrapper {
+	position: relative;
+	height: auto;
+	min-height: 32px;
+	padding: 16px;
+	margin: 16px 0;
+	background: #fff;
+	border-radius: 2px;
+}
+
+.timeline-header {
+	margin: 0 0 24px 0 !important;
+}
+
+.timeline-wrapper .timeline-step:first-of-type {
+	margin-top: 16px;
+}
+
+.timeline-step {
+    height: auto;
+    position: relative;
+    margin: 0 8px;
+	transition: .3s all cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.timeline-step.no-connector .step-connector {
+	visibility: hidden;
+}
+
+.timeline-step.no-connector .step-inner {
+	margin-bottom: 0px;
+}
+
+.step-header {
+	display: flex;
+	align-items: center;
+	cursor: default;
+	padding: 8px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	position: relative;
+}
+
+.step-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+    min-width: 24px;
+    min-height: 24px;
+	border-radius: 50%;
+	color: rgba(255,255,255, .87);
+}
+
+.step-text {
+	display: inline-block;
+	margin-left: 12px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.step-content {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+    overflow: hidden;
+	padding-left: 8px;
+}
+
+.timeline-wrapper.timeline-accordion .timeline-step {
+	margin-bottom: 16px;
+}
+
+.timeline-wrapper.timeline-accordion .timeline-step.active {
+	margin-bottom: 0px;
+}
+.timeline-wrapper.timeline-accordion.pop-out .timeline-step {
+	margin-left: 48px;
+}
+
+.timeline-wrapper.timeline-accordion.pop-out .timeline-step.active {
+	margin-left: 0px;
+}
+
+.step-connector {
+	min-width: 24px;
+	width: 24px;
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+}
+
+.step-connector:before {
+	content: '';
+	position: relative;
+	width: 1px;
+	background-color: #bdb;
+    margin-bottom: 8px;
+}
+
+.step-inner {
+	position: relative;
+	padding: 12px;
+	min-height: 32px;
+	width: 100%;
+	word-break: break-all;
+	text-overflow: ellipsis;
+}

@@ -279,6 +279,18 @@ ul.checkbox-multiple-select {
     ul.checkbox-multiple-select li.mdc-list-item span.mdc-list-item__graphic {
       margin-right: 10px; }
 
+.timeline-step .step-text.heading.mdc-typography--overline {
+  margin-top: 0px; }
+
+.timeline-step .step-icon.history_create {
+  background-color: #149414; }
+
+.timeline-step .step-icon.history_change {
+  background-color: #2979FF; }
+
+.timeline-step .step-icon.history_delete {
+  background-color: #D50000; }
+
 @media (max-width: 600px) {
   .form .form-group {
     flex-wrap: wrap; }

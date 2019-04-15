@@ -1,0 +1,41 @@
+{% load i18n %}{% load historytype %}
+<div class="mdc-dialog" id="history-dialog">
+    <div class="mdc-dialog__scrim"></div>
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface">
+            <h2 class="mdc-dialog__title">{% trans 'History' %}</h2>
+            <section class="mdc-dialog__content">
+                <div class="timeline-wrapper">
+                    {% for record in history %}
+                        <div class="timeline-step">
+                            <div class="step-header">
+                                <div class="step-icon {% historytype record.type %}"></div>
+                                <div class="step-text heading mdc-typography--overline">{{ record.date }} - {{ record.user }}</div>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-connector">
+                                </div>
+                                <div class="step-inner">
+                                    {% if record.type == "+" %}
+                                        {% trans 'Record created' %}
+                                    {% elif record.type == "~" %}
+                                        {% for change in record.changes %}
+                                            <p>
+                                                {% blocktrans with field=change.field old=change.old new=change.new %}{{ field }} changed from {{ old }} to {{ new }}{% endblocktrans %}
+                                            </p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% trans 'History could not be parsed!' %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <footer class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" title="{% trans 'Close' %}" data-mdc-dialog-action="close">{% trans 'Close' %}</button>
+            </footer>
+        </div>
+    </div>
+</div>

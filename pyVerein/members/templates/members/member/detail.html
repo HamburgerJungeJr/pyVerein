@@ -288,11 +288,13 @@
     {% endif %}
 {% endblock %}
 
+{% comment %}
 {% block history %}
     {% with member as instance %}
         {{block.super}}
     {% endwith %}
 {% endblock %}
+{% endcomment %}
 
 {% block foot %}
     {% if perms.members.view_files %}
