@@ -678,6 +678,30 @@ class TransactionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Templat
             context['cleared_transactions'] = Transaction.objects.filter(clearing_number=transactions[0].clearing_number)
             context['clearing_number'] = transactions[0].clearing_number
 
+        context['instance'] = transactions[0]
+
+        history = []
+        for record in transactions[0].history.all():
+            entry = {
+                'type': record.history_type,
+                'date': record.history_date,
+                'user': record.history_user.get_full_name(),
+                'changes': []
+            }
+            
+            if record.prev_record:
+                delta = record.diff_against(record.prev_record)
+                for change in delta.changes:
+                    entry['changes'].append({
+                        'field': change.field,
+                        'old': change.old,
+                        'new': change.new
+                    })
+
+            history.append(entry)
+
+        context['history'] = history
+
         return context
 
 class TransactionEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
