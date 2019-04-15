@@ -22,8 +22,8 @@
     <table id="transactions" class="mdl-data-table mdl-js-data-table" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th class="mdl-data-table__cell--non-numeric">{% trans 'Document number' %}</th>
                 <th class="mdl-data-table__cell--non-numeric">{% trans 'Date' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Document number' %}</th>
                 <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
                 <th>{% trans 'Debit' %}</th>
                 <th>{% trans 'Credit' %}</th>
@@ -32,13 +32,13 @@
         <tbody>
             {% for transaction in transactions %}
                 <tr>
+                    <td class="mdl-data-table__cell--non-numeric" data-sort="{{ transaction.date|date:"Ymd"}}">
+                        {{ transaction.date }}
+                    </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}" target="_blank">
                             {{ transaction.document_number }}
                         </a>
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">
-                        {{ transaction.date }}
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
                         {{ transaction.text }}
