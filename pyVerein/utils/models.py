@@ -54,3 +54,13 @@ class AccessRestrictedModel(models.Model):
         
         # No access granted for user
         return False
+
+class HistoryPermissionModel(models.Model):
+
+    class Meta:
+
+        managed = False 
+
+        permissions = ( 
+            ('view_history', 'Can view history'), 
+        )
