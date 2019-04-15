@@ -67,6 +67,8 @@ class Report(ModelBase, AccessRestrictedModel):
     jsonql_query = models.TextField(null=False, blank=False)
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    resources = models.CharField(blank=True, null=True, max_length=255)
         
     def clean(self, *args, **kwargs):
         super(Report, self).clean(*args, **kwargs)

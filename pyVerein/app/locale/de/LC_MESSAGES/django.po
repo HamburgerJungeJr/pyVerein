@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-12 18:08+0200\n"
+"POT-Creation-Date: 2019-04-15 12:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,7 +118,7 @@ msgstr "auf"
 msgid "Open at"
 msgstr "Öffnen auf"
 
-#: app/templates/app/_attributions.html:157
+#: app/templates/app/_attributions.html:157 app/templates/app/_history.html:37
 msgid "Close"
 msgstr "Schließen"
 
@@ -181,11 +181,28 @@ msgstr "Berichtswesen"
 msgid "Reports"
 msgstr "Berichte"
 
-#: app/templates/app/base.html:87 app/templates/app/base.html:89
+#: app/templates/app/_history.html:6 app/templates/app/base.html:109
+msgid "History"
+msgstr "Änderungshistorie"
+
+#: app/templates/app/_history.html:20
+msgid "Record created"
+msgstr "Datensatz erstellt."
+
+#: app/templates/app/_history.html:24
+#, python-format
+msgid "%(field)s changed from %(old)s to %(new)s"
+msgstr "%(field)s von %(old)s zu %(new)s geändert"
+
+#: app/templates/app/_history.html:28
+msgid "History could not be parsed!"
+msgstr "Änderungshistorie konnte nicht verarbeitet werden."
+
+#: app/templates/app/base.html:88 app/templates/app/base.html:90
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/base.html:92 app/templates/app/base.html:94
+#: app/templates/app/base.html:93 app/templates/app/base.html:95
 msgid "Sign out"
 msgstr "Abmelden"
 

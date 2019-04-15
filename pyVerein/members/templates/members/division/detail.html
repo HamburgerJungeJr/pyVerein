@@ -82,12 +82,6 @@
     {% endif %}
 {% endblock %}
 
-{% block history %}
-    {% with division as instance %}
-        {{block.super}}
-    {% endwith %}
-{% endblock %}
-
 {% block foot %}<!-- Datatables -->
     <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
     <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>

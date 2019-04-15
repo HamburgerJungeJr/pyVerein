@@ -1,6 +1,6 @@
 # Import reverse.
 from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
+from django.views.generic import TemplateView, UpdateView, CreateView
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseBadRequest, JsonResponse, HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.db import Error
@@ -27,6 +27,8 @@ import json
 from pyreportjasper.jasperpy import JasperPy, FORMATS as JASPER_FORMATS
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+import os
+from utils.views import DetailView
 
 # Index-View.
 class ReportIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
@@ -105,6 +107,10 @@ def upload_resource(request, pk):
         try:
             resource = Resource(report=report, resource=request.FILES['resource'])
             resource.save()
+
+            # Update resource list for history
+            report.resources = ",".join([os.path.basename(r.resource.file.name) for r in Resource.objects.filter(report=report)])
+            report.save()
         except Error as err:
             return JsonResponse({'error': err})
         
@@ -129,6 +135,10 @@ def delete_resource(request, pk):
         resource.delete()
         if os.path.isfile(os.path.join(settings.MEDIA_ROOT, resource.resource.path)):
             os.remove(os.path.join(settings.MEDIA_ROOT, resource.resource.path))
+        
+        # Update resource list for history
+        report.resources = ",".join([os.path.basename(r.resource.file.name) for r in Resource.objects.filter(report=report)])
+        report.save()
         return HttpResponseRedirect(reverse_lazy('reporting:detail', kwargs={'pk': report.pk}))
     else:
         return HttpResponseBadRequest() 

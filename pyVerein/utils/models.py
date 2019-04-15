@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group
 from account.models import User
+from simple_history.models import HistoricalRecords
 
 class ModelBase(models.Model):
     class Meta:
@@ -10,6 +11,15 @@ class ModelBase(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     # Modified at
     modified_at = models.DateTimeField(auto_now=True)
+
+    history = HistoricalRecords(inherit=True, excluded_fields=['created_at', 'created_by', 'modified_at', 'last_modified_by'])
+
+    @property
+    def _history_user(self):
+        if self.history.all().count() == 0:
+            return self.created_by
+        else:
+            return self.last_modified_by
 
 class AccessRestrictedModel(models.Model):
     class Meta:

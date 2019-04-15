@@ -28,17 +28,6 @@ if (fabRipple_sel != null){
     });
 }
 
-//Atrribution dialog
-var attribution_dialog_sel = document.querySelector('#attribution-dialog');
-if (attribution_dialog_sel != null){
-    var attribution_dialog = new mdc.dialog.MDCDialog(attribution_dialog_sel);    
-    $('#show-attributions').click(function(e) {
-        e.preventDefault();
-        attribution_dialog.open();
-    });
-}
-
-
 // Lineripple
 var ripple_sel = document.querySelectorAll('.mdc-line-ripple');
 if (ripple_sel != null){

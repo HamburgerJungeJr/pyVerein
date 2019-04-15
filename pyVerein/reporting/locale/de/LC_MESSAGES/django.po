@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-12 18:08+0200\n"
+"POT-Creation-Date: 2019-04-15 12:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr "Abschlussbuchung"
 msgid "Closurebalance"
 msgstr "Abschlusssaldo"
 
-#: reporting/models.py:74
+#: reporting/models.py:76
 msgid "Report must not be empty"
 msgstr "Berichtsdefinition darf nicht leer sein"
 
@@ -300,10 +300,10 @@ msgstr "Optionen"
 msgid "Fileformat"
 msgstr "Dateiformat"
 
-#: reporting/views.py:71
+#: reporting/views.py:72
 msgid "Report saved sucessfully"
 msgstr "Bericht wurde erfolgreich gespeichert"
 
-#: reporting/views.py:87
+#: reporting/views.py:88
 msgid "Report created successfully"
 msgstr "Bericht wurde erfolgreich erstellt"

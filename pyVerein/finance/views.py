@@ -4,7 +4,7 @@ Viewmodule for finance app
 import datetime
 from django.http import JsonResponse, HttpResponseRedirect
 # Import views
-from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
+from django.views.generic import TemplateView, UpdateView, CreateView
 # Import forms
 from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountCreateForm, ImpersonalAccountEditForm, CostCenterCreateForm, CostCenterEditForm, CostObjectCreateForm, CostObjectEditForm, TransactionCreateForm, TransactionEditForm
 # Import reverse.
@@ -27,6 +27,7 @@ from decimal import Decimal
 import random
 import string
 from dynamic_preferences.registries import global_preferences_registry
+from utils.views import DetailView
 
 class CreditorIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
@@ -676,6 +677,30 @@ class TransactionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Templat
         if transactions[0].clearing_number:
             context['cleared_transactions'] = Transaction.objects.filter(clearing_number=transactions[0].clearing_number)
             context['clearing_number'] = transactions[0].clearing_number
+
+        context['instance'] = transactions[0]
+
+        history = []
+        for record in transactions[0].history.all():
+            entry = {
+                'type': record.history_type,
+                'date': record.history_date,
+                'user': record.history_user.get_full_name() if record.history_user else None,
+                'changes': []
+            }
+            
+            if record.prev_record:
+                delta = record.diff_against(record.prev_record)
+                for change in delta.changes:
+                    entry['changes'].append({
+                        'field': change.field,
+                        'old': change.old,
+                        'new': change.new
+                    })
+
+            history.append(entry)
+
+        context['history'] = history
 
         return context
 

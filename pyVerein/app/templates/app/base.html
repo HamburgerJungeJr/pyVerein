@@ -1,4 +1,4 @@
-{% load static %} {% load i18n %} {% load menu %}
+{% load static %} {% load i18n %} {% load menu %} 
 <!DOCTYPE html>
 <html>
 
@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="{% static 'app/vendors/font-awesome/css/fontawesome-all.min.css' %}">
     <!-- Animate.css -->
     <link rel="stylesheet" href="{% static 'app/vendors/animate.css/animate.css' %}">
-
+    <!-- Material Timeline -->
+    <link rel="stylesheet" href="{% static 'app/vendors/material-timeline/material-timeline.css' %}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -104,11 +105,10 @@
             {% include "app/_attributions.html" %}
             <footer id="page-footer">
                 <div class="history">
-                    {% block history %}
-                        {% if instance %}
-                            {% blocktrans with created_at=instance.created_at created_by=instance.created_by.get_full_name modified_by=instance.last_modified_by.get_full_name modified_at=instance.modified_at %}Created at {{ created_at }} by {{ created_by }}.<br/>Last modified at {{ modified_at }} by {{ modified_by }}.{% endblocktrans %}
-                        {% endif %}
-                    {% endblock %}
+                    {% if instance %}
+                        {% blocktrans with created_at=instance.created_at created_by=instance.created_by.get_full_name modified_by=instance.last_modified_by.get_full_name modified_at=instance.modified_at %}Created at {{ created_at }} by {{ created_by }}.<br/>Last modified at {{ modified_at }} by {{ modified_by }}.{% endblocktrans %} &nbsp;|&nbsp;<a href="#" id="show-history" class="mdc-theme--on-primary" title="{% trans 'History' %}">{% trans 'History' %}</a>
+                        {% include "app/_history.html" with history=history %}
+                    {% endif %}
                 </div>
                 <div class="attributions">
                         pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="#" id="show-attributions" class="mdc-theme--on-primary" title="{% trans 'Attributions' %}">{% trans 'Attributions' %}</a>
@@ -236,6 +236,26 @@
             if (event.which == 27) {
                 event.preventDefault();
                 window.close();
+            }
+        });
+        $(document).ready(function() {
+            //Attribution dialog
+            var attribution_dialog_sel = document.querySelector('#attribution-dialog');
+            if (attribution_dialog_sel != null){
+                var attribution_dialog = new mdc.dialog.MDCDialog(attribution_dialog_sel);    
+                $('#show-attributions').click(function(e) {
+                    e.preventDefault();
+                    attribution_dialog.open();
+                });
+            }
+            //History dialog
+            var history_dialog_sel = document.querySelector('#history-dialog');
+            if (history_dialog_sel != null){
+                var history_dialog = new mdc.dialog.MDCDialog(history_dialog_sel);    
+                $('#show-history').click(function(e) {
+                    e.preventDefault();
+                    history_dialog.open();
+                });
             }
         });
     </script>
