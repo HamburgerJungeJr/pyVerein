@@ -8,30 +8,30 @@ app_name = 'finance'
 # Set url-patterns
 urlpatterns = [
     path('creditor/', views.CreditorIndexView.as_view(), name='creditor_list'),
-    path('creditor/<int:pk>/', views.CreditorDetailView.as_view(), name='creditor_detail'),
-    path('creditor/<int:pk>/edit/', views.CreditorEditView.as_view(), name='creditor_edit'),
+    path('creditor/<str:pk>/', views.CreditorDetailView.as_view(), name='creditor_detail'),
+    path('creditor/<str:pk>/edit/', views.CreditorEditView.as_view(), name='creditor_edit'),
     path('creditor/new/', views.CreditorCreateView.as_view(), name='creditor_create'),
-    path('creditor/<int:account>/clearing/', views.CreditorClearingView.as_view(), name='creditor_clear'),
+    path('creditor/<str:account>/clearing/', views.CreditorClearingView.as_view(), name='creditor_clear'),
 
     path('debitor/', views.DebitorIndexView.as_view(), name='debitor_list'),
-    path('debitor/<int:pk>/', views.DebitorDetailView.as_view(), name='debitor_detail'),
-    path('debitor/<int:pk>/edit/', views.DebitorEditView.as_view(), name='debitor_edit'),
+    path('debitor/<str:pk>/', views.DebitorDetailView.as_view(), name='debitor_detail'),
+    path('debitor/<str:pk>/edit/', views.DebitorEditView.as_view(), name='debitor_edit'),
     path('debitor/new/', views.DebitorCreateView.as_view(), name='debitor_create'),
-    path('debitor/<int:account>/clearing/', views.DebitorClearingView.as_view(), name='debitor_clear'),
+    path('debitor/<str:account>/clearing/', views.DebitorClearingView.as_view(), name='debitor_clear'),
 
     path('impersonal/', views.ImpersonalIndexView.as_view(), name='impersonal_list'),
-    path('impersonal/<int:pk>/', views.ImpersonalDetailView.as_view(), name='impersonal_detail'),
-    path('impersonal/<int:pk>/edit/', views.ImpersonalEditView.as_view(), name='impersonal_edit'),
+    path('impersonal/<str:pk>/', views.ImpersonalDetailView.as_view(), name='impersonal_detail'),
+    path('impersonal/<str:pk>/edit/', views.ImpersonalEditView.as_view(), name='impersonal_edit'),
     path('impersonal/new/', views.ImpersonalCreateView.as_view(), name='impersonal_create'),
 
     path('costcenter/', views.CostCenterIndexView.as_view(), name='costcenter_list'),
-    path('costcenter/<int:pk>/', views.CostCenterDetailView.as_view(), name='costcenter_detail'),
-    path('costcenter/<int:pk>/edit/', views.CostCenterEditView.as_view(), name='costcenter_edit'),
+    path('costcenter/<str:pk>/', views.CostCenterDetailView.as_view(), name='costcenter_detail'),
+    path('costcenter/<str:pk>/edit/', views.CostCenterEditView.as_view(), name='costcenter_edit'),
     path('costcenter/new/', views.CostCenterCreateView.as_view(), name='costcenter_create'),
 
     path('costobject/', views.CostObjectIndexView.as_view(), name='costobject_list'),
-    path('costobject/<int:pk>/', views.CostObjectDetailView.as_view(), name='costobject_detail'),
-    path('costobject/<int:pk>/edit/', views.CostObjectEditView.as_view(), name='costobject_edit'),
+    path('costobject/<str:pk>/', views.CostObjectDetailView.as_view(), name='costobject_detail'),
+    path('costobject/<str:pk>/edit/', views.CostObjectEditView.as_view(), name='costobject_edit'),
     path('costobject/new/', views.CostObjectCreateView.as_view(), name='costobject_create'),
 
     path('transaction/', views.TransactionIndexView.as_view(), name='transaction_list'),
