@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{% static 'app/vendors/animate.css/animate.css' %}">
     <!-- Material Timeline -->
     <link rel="stylesheet" href="{% static 'app/vendors/material-timeline/material-timeline.css' %}">
+    <!-- Simplebar -->
+    <link rel="stylesheet" href="{% static 'app/vendors/overlay-scrollbars/css/OverlayScrollbars.min.css' %}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,7 +61,7 @@
     <div class="inner">
         {% include "app/_drawer.html" %}
         <div class="mdc-drawer-scrim"></div>
-        <div class="mdc-drawer-app-content main">
+        <div class="mdc-drawer-app-content main" >
             <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
                 <div class="mdc-top-app-bar__row">
                     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
@@ -126,7 +128,7 @@
     </script>
     <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
     <script src="{% static 'app/vendors/notify/notify.js' %}"></script> 
-
+    <script src="{% static 'app/vendors/overlay-scrollbars/js/jquery.overlayScrollbars.min.js' %}"></script> 
     <script>
         {% if messages %}
             var messages = [
@@ -239,6 +241,7 @@
             }
         });
         $(document).ready(function() {
+            
             //Attribution dialog
             var attribution_dialog_sel = document.querySelector('#attribution-dialog');
             if (attribution_dialog_sel != null){
@@ -261,6 +264,11 @@
     </script>
     <script>
         please_wait.finish();
+        $("body>.inner").overlayScrollbars({
+            scrollbars : {
+                autoHide: "scroll",
+            },
+        });
     </script>
 </body>
 
