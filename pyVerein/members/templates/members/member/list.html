@@ -92,6 +92,7 @@
             dt = $('#memberslist').on('processing.dt', function (e, settings, processing) {
                 $('#memberslist').css('opacity', processing ? '0.3' : '1.0');
             }).DataTable({
+                "order": [[1,"asc"]],
                 "processing": true,
                 "serverSide": false,
                 "language": {

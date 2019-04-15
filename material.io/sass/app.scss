@@ -2,7 +2,6 @@
 
 html {
     height: 100%;
-    overflow-y: scroll;
 }
 
 body{
@@ -30,12 +29,16 @@ div.main{
 }
 
 section.main{
-    min-height: 100%;
+    min-height: 100vh;
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 60px;
     margin-bottom: 60px;
+}
+
+aside.mdc-drawer{
+    top: 0px;
 }
 
 .fa{
@@ -57,6 +60,8 @@ section.main{
 }
 
 .mdc-top-app-bar{
+    top: 0px; 
+    
     .mdc-top-app-bar__title{
         font-size: 1.5rem;
     }
@@ -395,7 +400,30 @@ ul.checkbox-multiple-select{
     }
 }
 
+body > .inner > .os-scrollbar-vertical{
+    top: 68px !important;
+    height: calc(100% - 68px - 68px);
+}
+
+
 @media(max-width: 600px){
+    section.main{
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        .main-narrow{
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        .detail-content{
+            .row{
+                .field-title{
+                    width: 50%;
+                    word-break: break-all;
+                }
+            }
+        }
+    }
     .form{
         .form-group{
             flex-wrap: wrap;
@@ -409,5 +437,8 @@ ul.checkbox-multiple-select{
             margin-right: 0px !important;
         }
     }
-    
+    footer#page-footer{
+        height: auto;
+        min-height: 64px;
+    }
 }

@@ -35,7 +35,7 @@
         <tbody>
             {% for transaction in transactions %}
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric">
+                    <td class="mdl-data-table__cell--non-numeric" data-sort="{{ transaction.date|date:"Ymd"}}">
                         {{ transaction.date}}
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">
@@ -90,6 +90,9 @@
             dt = $('#transactionlist').on('processing.dt', function (e, settings, processing) {
                 $('#transactionlist').css('opacity', processing ? '0.3' : '1.0');
             }).DataTable({
+                "columnDefs": [
+                    { "type": "date-de", targets: 3 }
+                ],
                 "processing": true,
                 "serverSide": false,
                 "language": {

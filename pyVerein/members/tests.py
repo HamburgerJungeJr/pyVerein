@@ -46,7 +46,7 @@ class MemberTestMethods(TestCase):
 
         # Create member
         member = Member.objects.create(salutation=Member.MR, first_name='Temp', last_name='Temp')
-        member.division = division
+        member.division.add(division)
         member.save()
 
     # Test for get_full_name method.
