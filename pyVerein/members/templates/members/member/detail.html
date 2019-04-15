@@ -137,7 +137,13 @@
             {% if perms.members.view_field_division %}
                 <div class="row">
                     <div class="field-title">{% trans 'Division' %}</div>
-                    <div class="field-value">{{ member.division.name|default_if_none:"" }}</div>
+                    <div class="field-value">
+                        {% if member.division %}
+                            {% for division in member.division.all %}
+                                {{ division.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
             {% endif %}
             {% if perms.members.view_field_joined_at %}

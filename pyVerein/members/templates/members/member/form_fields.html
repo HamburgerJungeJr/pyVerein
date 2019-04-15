@@ -66,9 +66,7 @@
 <div class="form-group">
     {% trans 'Membership number' as membership_number_label%}
     {% include "utils/_textfield.html" with field=form.membership_number label=membership_number_label next='id_division' %}
-    
-    {% trans 'Division' as division_label%}
-    {% include "utils/_select.html" with field=form.division label=division_label next='id_joined_at' %}
+    <div class="spacer">&nbsp;</div>
 </div>
 <div class="form-group">
     {% trans 'Joined at' as joined_at_label%}
@@ -76,6 +74,12 @@
 
     {% trans 'Terminated at' as terminated_at_label%}
     {% include "utils/_textfield.html" with field=form.terminated_at label=terminated_at_label next='id_subscription' %}
+</div>
+<div class="heading mdc-typography--overline">
+    {% trans 'Division' %}
+</div>
+<div class="form-group">
+    {% include "utils/_checkboxmultipleselect.html" with field=form.division next='id_subscription' %}
 </div>
 <div class="heading mdc-typography--overline">
     {% trans 'Subscription' %}

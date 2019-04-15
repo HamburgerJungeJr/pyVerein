@@ -83,7 +83,7 @@ class Member(ModelBase):
     # Terminated at
     terminated_at = models.DateField(blank=True, null=True)
     # Division
-    division = models.ForeignKey('Division', on_delete=models.PROTECT, blank=True, null=True)
+    division = models.ManyToManyField('Division', blank=True)
 
     # Choices for payment method
     CASH = 'CA'
@@ -122,6 +122,7 @@ class Member(ModelBase):
 
     subscriptions = models.CharField(blank=True, null=True, max_length=255)
     files = models.CharField(blank=True, null=True, max_length=255)
+    divisions = models.CharField(blank=True, null=True, max_length=255)
 
     # Return full name
     def get_full_name(self):

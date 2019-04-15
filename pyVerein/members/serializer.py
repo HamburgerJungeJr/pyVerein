@@ -31,9 +31,9 @@ class MemberJSONSerializer:
                 'membership_number': member.membership_number,
                 'joined_at': None if not member.joined_at else datetime.strftime(member.joined_at, '%Y-%m-%d'),
                 'terminated_at': None if not member.terminated_at else datetime.strftime(member.terminated_at, '%Y-%m-%d'),
-                'division': None if not member.division else {
-                    'name': member.division.name,
-                },
+                'division': None if not member.division else [{
+                    'name': division.name,
+                } for division in member.division.all()],
                 'payment_method': member.payment_method,
                 'iban': member.iban,
                 'bic': member.bic,
