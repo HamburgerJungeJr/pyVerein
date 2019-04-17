@@ -128,6 +128,11 @@
             backgroundColor: '#2979FF',
             loadingHtml: "<div class='spinner'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>"
         });
+        $("body>.inner").overlayScrollbars({
+            scrollbars : {
+                autoHide: "scroll",
+            },
+        });
     </script>
     <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
     <script src="{% static 'app/vendors/notify/notify.js' %}"></script> 
@@ -267,11 +272,6 @@
     </script>
     <script>
         please_wait.finish();
-        $("body>.inner").overlayScrollbars({
-            scrollbars : {
-                autoHide: "scroll",
-            },
-        });
     </script>
 </body>
 
