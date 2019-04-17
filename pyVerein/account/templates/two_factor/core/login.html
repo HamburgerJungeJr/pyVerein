@@ -145,27 +145,13 @@
             </section>
             {% include "app/_attributions.html" %}
             <footer id="page-footer">
-                pyVerein by Jannik Heuer&nbsp;|&nbsp;<a href="javascript:showAttributions();" class="mdc-theme--on-primary" title="{% trans 'Attributions' %}">{% trans 'Attributions' %}</a>
+                pyVerein by Jannik Heuer
             </footer>
         </div>
     </div>
-    <script src="{% static 'app/vendors/please-wait/please-wait.min.js' %}"></script>
-    <script>
-        please_wait = pleaseWait({
-            logo: "{% static 'app/images/logo_white.png' %}",
-            backgroundColor: '#2979FF',
-            loadingHtml: "<div class='spinner'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>"
-        });
-    </script>
     <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
     <script src="{% static 'app/js/material-components-web.js' %}"></script> 
     <script src="{% static 'app/js/material.js' %}"></script> 
-    <script>
-        $("#")
-    </script>
-    <script>
-        please_wait.finish();
-    </script>
 </body>
 
 </html>

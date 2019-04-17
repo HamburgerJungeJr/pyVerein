@@ -1,16 +1,18 @@
 .login{
     .main{
-        height: calc(100% - 64px - 65px);
+        height: calc(100vh - 64px - 65px);
         min-height: 0px;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 10px;
+        margin-top: 0px;
+        margin-bottom: 0px;
         
         .form-block{
             width: 20%;
             text-align: center;
-        
+            min-width:280px;
+
             .mdc-text-field{
                 width: 100%;
                 margin-bottom: 10px;
@@ -28,5 +30,15 @@
             }
         }
         
+    }
+}
+@media(max-width: 600px){
+    .login{
+        .main{
+            height: calc(100vh - 56px - 64px);
+            .form-block{
+                width: 80%;
+            }
+        }
     }
 }
