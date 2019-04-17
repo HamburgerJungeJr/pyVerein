@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-15 12:25+0200\n"
+"POT-Creation-Date: 2019-04-17 18:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -245,10 +245,6 @@ msgstr "Zurück"
 msgid "Use Backup Token"
 msgstr "Ersatz-Code verwenden"
 
-#: account/templates/two_factor/core/login.html:148
-msgid "Attributions"
-msgstr "Lizenzen"
-
 #: account/templates/two_factor/core/setup.html:26
 msgid ""
 "You are about to take your account security to the next level. Follow the "
@@ -320,3 +316,6 @@ msgstr "Zwei-Faktor-Authentifizierung deaktivieren."
 #: account/views.py:63
 msgid "Your password was successfully updated!"
 msgstr "Passwort wurde erfolgreich geändert"
+
+#~ msgid "Attributions"
+#~ msgstr "Lizenzen"
