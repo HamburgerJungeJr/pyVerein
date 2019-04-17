@@ -61,3 +61,11 @@ class SkipFirstSubscription(BooleanPreference):
     name = 'skip_first_subscription'
     default = False
     verbose_name = "Skip first subscription"
+
+# Register switch for skipping subscription fee for period of joining
+@global_preferences_registry.register
+class IBANFormat(StringPreference):
+    section = members
+    name = 'iban_format'
+    default = "AA99 9999 9999 9999 9999 99"
+    verbose_name = "IBAN format"

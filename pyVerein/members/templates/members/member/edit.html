@@ -50,6 +50,14 @@
             mask:"99.99.9999",
             showMaskOnHover: false,
         });
+        $("#id_iban").inputmask({
+            mask:"{{ global_preferences.Members__iban_format }}",
+            showMaskOnHover: false,
+        });
+        $("#id_bic").inputmask({
+            mask:"AAAAAAAAAAA",
+            showMaskOnHover: false,
+        });
     </script>
     
     <!-- Keys -->
