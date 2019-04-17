@@ -121,22 +121,19 @@
             </footer>
         </div>
     </div>
-    <script src="{% static 'app/vendors/please-wait/please-wait.min.js' %}"></script>
+    <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
+    <script src="{% static 'app/js/material-components-web.js' %}"></script> 
+    {% block foot %} {% endblock %}
+    <script src="{% static 'app/js/material.js' %}"></script> 
+    <script src="{% static 'app/vendors/overlay-scrollbars/js/jquery.overlayScrollbars.min.js' %}"></script> 
     <script>
-        please_wait = pleaseWait({
-            logo: "{% static 'app/images/logo_white.png' %}",
-            backgroundColor: '#2979FF',
-            loadingHtml: "<div class='spinner'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>"
-        });
         $("body>.inner").overlayScrollbars({
             scrollbars : {
                 autoHide: "scroll",
             },
         });
     </script>
-    <script src="{% static 'app/vendors/jquery/dist/jquery.min.js' %}"></script> 
     <script src="{% static 'app/vendors/notify/notify.js' %}"></script> 
-    <script src="{% static 'app/vendors/overlay-scrollbars/js/jquery.overlayScrollbars.min.js' %}"></script> 
     <script>
         {% if messages %}
             var messages = [
@@ -213,9 +210,6 @@
             });
         {% endif %}
     </script>
-    <script src="{% static 'app/js/material-components-web.js' %}"></script> 
-    {% block foot %} {% endblock %}
-    <script src="{% static 'app/js/material.js' %}"></script> 
     <script>
         $("#user-image").click(function(e){
             $("#user-menu").toggle();
@@ -269,9 +263,6 @@
                 });
             }
         });
-    </script>
-    <script>
-        please_wait.finish();
     </script>
 </body>
 
