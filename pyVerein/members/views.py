@@ -185,7 +185,7 @@ def download_file(request, pk):
     """
     file = File.objects.get(pk=pk)
     # Check if user can access member
-    if file.member.division:
+    if file.member.division.all():
         access = False
         for division in file.member.division.all():
             if division.is_access_granted(request.user):
