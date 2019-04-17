@@ -1,13 +1,15 @@
 .login .main {
-  height: calc(100% - 64px - 65px);
+  height: calc(100vh - 64px - 65px);
   min-height: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px; }
+  margin-top: 0px;
+  margin-bottom: 0px; }
   .login .main .form-block {
     width: 20%;
-    text-align: center; }
+    text-align: center;
+    min-width: 280px; }
     .login .main .form-block .mdc-text-field {
       width: 100%;
       margin-bottom: 10px; }
@@ -19,3 +21,9 @@
       flex-direction: row-reverse; }
     .login .main .form-block .row {
       margin-bottom: 10px; }
+
+@media (max-width: 600px) {
+  .login .main {
+    height: calc(100vh - 56px - 64px); }
+    .login .main .form-block {
+      width: 80%; } }

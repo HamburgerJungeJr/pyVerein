@@ -92,6 +92,13 @@
                                     <span class="mdc-list-item__text">{% trans 'Profile' %}</span>
                                 </a>
                                 <hr class="mdc-list-divider">
+                                {% if user.is_staff %}
+                                <a href="{% url 'admin:index' %}" title="{% trans 'Admin' %}" class="mdc-list-item">
+                                    <span class="mdc-list-item__graphic fa fa-cogs" aria-hidden="true"></span>
+                                    <span class="mdc-list-item__text">{% trans 'Admin' %}</span>
+                                </a>
+                                <hr class="mdc-list-divider">
+                                {% endif %}
                                 <a href="{% url  'account:logout' %}" title="{% trans 'Sign out' %}" class="mdc-list-item logout">
                                     <span class="mdc-list-item__graphic fa fa-sign-out-alt" aria-hidden="true"></span>
                                     <span class="mdc-list-item__text">{% trans 'Sign out' %}</span>

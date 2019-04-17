@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-15 12:25+0200\n"
+"POT-Creation-Date: 2019-04-17 18:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,19 +38,19 @@ msgstr "Überweisung"
 msgid "Direct Debit"
 msgstr "SEPA Lastschrift"
 
-#: members/models.py:179
+#: members/models.py:180
 msgid "Monthly"
 msgstr "Monatlich"
 
-#: members/models.py:180
+#: members/models.py:181
 msgid "Quarterly"
 msgstr "Quartalsweise"
 
-#: members/models.py:181
+#: members/models.py:182
 msgid "Half-Yearly"
 msgstr "Halbjährlich"
 
-#: members/models.py:182
+#: members/models.py:183
 msgid "Yearly"
 msgstr "Jährlich"
 
@@ -130,135 +130,135 @@ msgid "City"
 msgstr "Stadt"
 
 #: members/templates/members/division/detail.html:79
-#: members/templates/members/member/detail.html:285
+#: members/templates/members/member/detail.html:291
 #: members/templates/members/subscription/detail.html:79
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: members/templates/members/division/detail.html:104
+#: members/templates/members/division/detail.html:98
 #: members/templates/members/division/list.html:63
-#: members/templates/members/member/list.html:99
-#: members/templates/members/subscription/detail.html:104
+#: members/templates/members/member/list.html:100
+#: members/templates/members/subscription/detail.html:98
 #: members/templates/members/subscription/list.html:63
 msgid "sEmptyTable"
 msgstr "Keine Daten in der Tabelle vorhanden."
 
-#: members/templates/members/division/detail.html:105
+#: members/templates/members/division/detail.html:99
 #: members/templates/members/division/list.html:64
-#: members/templates/members/member/list.html:100
-#: members/templates/members/subscription/detail.html:105
+#: members/templates/members/member/list.html:101
+#: members/templates/members/subscription/detail.html:99
 #: members/templates/members/subscription/list.html:64
 msgid "sInfo"
 msgstr "_START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: members/templates/members/division/detail.html:106
+#: members/templates/members/division/detail.html:100
 #: members/templates/members/division/list.html:65
-#: members/templates/members/member/list.html:101
-#: members/templates/members/subscription/detail.html:106
+#: members/templates/members/member/list.html:102
+#: members/templates/members/subscription/detail.html:100
 #: members/templates/members/subscription/list.html:65
 msgid "sInfoEmpty"
 msgstr "0 bis 0 von 0 Einträgen"
 
-#: members/templates/members/division/detail.html:107
+#: members/templates/members/division/detail.html:101
 #: members/templates/members/division/list.html:66
-#: members/templates/members/member/list.html:102
-#: members/templates/members/subscription/detail.html:107
+#: members/templates/members/member/list.html:103
+#: members/templates/members/subscription/detail.html:101
 #: members/templates/members/subscription/list.html:66
 msgid "sInfoFiltered"
 msgstr "(gefiltert von _MAX_ Einträgen)"
 
-#: members/templates/members/division/detail.html:108
+#: members/templates/members/division/detail.html:102
 #: members/templates/members/division/list.html:67
-#: members/templates/members/member/list.html:103
-#: members/templates/members/subscription/detail.html:108
+#: members/templates/members/member/list.html:104
+#: members/templates/members/subscription/detail.html:102
 #: members/templates/members/subscription/list.html:67
 msgid "sInfoPostfix"
 msgstr " "
 
-#: members/templates/members/division/detail.html:109
+#: members/templates/members/division/detail.html:103
 #: members/templates/members/division/list.html:68
-#: members/templates/members/member/list.html:104
-#: members/templates/members/subscription/detail.html:109
+#: members/templates/members/member/list.html:105
+#: members/templates/members/subscription/detail.html:103
 #: members/templates/members/subscription/list.html:68
 msgid "sInfoThousands"
 msgstr "."
 
-#: members/templates/members/division/detail.html:110
+#: members/templates/members/division/detail.html:104
 #: members/templates/members/division/list.html:69
-#: members/templates/members/member/list.html:105
-#: members/templates/members/subscription/detail.html:110
+#: members/templates/members/member/list.html:106
+#: members/templates/members/subscription/detail.html:104
 #: members/templates/members/subscription/list.html:69
 msgid "sLoadingRecords"
 msgstr "Wird geladen..."
 
-#: members/templates/members/division/detail.html:111
+#: members/templates/members/division/detail.html:105
 #: members/templates/members/division/list.html:70
-#: members/templates/members/member/list.html:106
-#: members/templates/members/subscription/detail.html:111
+#: members/templates/members/member/list.html:107
+#: members/templates/members/subscription/detail.html:105
 #: members/templates/members/subscription/list.html:70
 msgid "sZeroRecords"
 msgstr "Keine Einträge vorhanden."
 
-#: members/templates/members/division/detail.html:113
+#: members/templates/members/division/detail.html:107
 #: members/templates/members/division/list.html:72
-#: members/templates/members/member/list.html:108
-#: members/templates/members/subscription/detail.html:113
+#: members/templates/members/member/list.html:109
+#: members/templates/members/subscription/detail.html:107
 #: members/templates/members/subscription/list.html:72
 msgid "sFirst"
 msgstr "Erste"
 
-#: members/templates/members/division/detail.html:114
+#: members/templates/members/division/detail.html:108
 #: members/templates/members/division/list.html:73
-#: members/templates/members/member/list.html:109
-#: members/templates/members/subscription/detail.html:114
+#: members/templates/members/member/list.html:110
+#: members/templates/members/subscription/detail.html:108
 #: members/templates/members/subscription/list.html:73
 msgid "sLast"
 msgstr "Letzte"
 
-#: members/templates/members/division/detail.html:115
+#: members/templates/members/division/detail.html:109
 #: members/templates/members/division/list.html:74
-#: members/templates/members/member/list.html:110
-#: members/templates/members/subscription/detail.html:115
+#: members/templates/members/member/list.html:111
+#: members/templates/members/subscription/detail.html:109
 #: members/templates/members/subscription/list.html:74
 msgid "sNext"
 msgstr "Nächste"
 
-#: members/templates/members/division/detail.html:116
+#: members/templates/members/division/detail.html:110
 #: members/templates/members/division/list.html:75
-#: members/templates/members/member/list.html:111
-#: members/templates/members/subscription/detail.html:116
+#: members/templates/members/member/list.html:112
+#: members/templates/members/subscription/detail.html:110
 #: members/templates/members/subscription/list.html:75
 msgid "sPrevious"
 msgstr "Vorherige"
 
-#: members/templates/members/division/detail.html:119
+#: members/templates/members/division/detail.html:113
 #: members/templates/members/division/list.html:78
-#: members/templates/members/member/list.html:114
-#: members/templates/members/subscription/detail.html:119
+#: members/templates/members/member/list.html:115
+#: members/templates/members/subscription/detail.html:113
 #: members/templates/members/subscription/list.html:78
 msgid "sSortAscending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: members/templates/members/division/detail.html:120
+#: members/templates/members/division/detail.html:114
 #: members/templates/members/division/list.html:79
-#: members/templates/members/member/list.html:115
-#: members/templates/members/subscription/detail.html:120
+#: members/templates/members/member/list.html:116
+#: members/templates/members/subscription/detail.html:114
 #: members/templates/members/subscription/list.html:79
 msgid "sSortDescending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: members/templates/members/division/detail.html:125
+#: members/templates/members/division/detail.html:119
 #: members/templates/members/division/list.html:84
-#: members/templates/members/member/list.html:120
-#: members/templates/members/subscription/detail.html:125
+#: members/templates/members/member/list.html:121
+#: members/templates/members/subscription/detail.html:119
 #: members/templates/members/subscription/list.html:84
 msgid "sSearch"
 msgstr "Suchen"
 
-#: members/templates/members/division/detail.html:131
+#: members/templates/members/division/detail.html:125
 #: members/templates/members/division/list.html:90
-#: members/templates/members/member/list.html:126
-#: members/templates/members/subscription/detail.html:131
+#: members/templates/members/member/list.html:127
+#: members/templates/members/subscription/detail.html:125
 #: members/templates/members/subscription/list.html:90
 msgid "sLengthMenu"
 msgstr "Einträge anzeigen"
@@ -270,7 +270,7 @@ msgstr "Sparte bearbeiten"
 
 #: members/templates/members/division/form_fields.html:6
 #: members/templates/members/member/detail.html:139
-#: members/templates/members/member/form_fields.html:70
+#: members/templates/members/member/form_fields.html:79
 msgid "Division"
 msgstr "Sparte"
 
@@ -382,104 +382,104 @@ msgstr "EMail"
 msgid "Membership"
 msgstr "Mitgliedschaft"
 
-#: members/templates/members/member/detail.html:145
-#: members/templates/members/member/form_fields.html:74
+#: members/templates/members/member/detail.html:151
+#: members/templates/members/member/form_fields.html:72
 msgid "Joined at"
 msgstr "Eingetreten am"
 
-#: members/templates/members/member/detail.html:151
-#: members/templates/members/member/form_fields.html:77
+#: members/templates/members/member/detail.html:157
+#: members/templates/members/member/form_fields.html:75
 msgid "Terminated at"
 msgstr "Ausgetreten am"
 
-#: members/templates/members/member/detail.html:157
-#: members/templates/members/member/detail.html:162
-#: members/templates/members/member/form_fields.html:81
+#: members/templates/members/member/detail.html:163
+#: members/templates/members/member/detail.html:168
+#: members/templates/members/member/form_fields.html:85
 #: members/templates/members/subscription/form_fields.html:6
 msgid "Subscription"
 msgstr "Beitrag"
 
-#: members/templates/members/member/detail.html:174
-#: members/templates/members/member/form_fields.html:88
+#: members/templates/members/member/detail.html:180
+#: members/templates/members/member/form_fields.html:92
 msgid "Payment"
 msgstr "Bezahlung"
 
-#: members/templates/members/member/detail.html:179
-#: members/templates/members/member/form_fields.html:91
+#: members/templates/members/member/detail.html:185
+#: members/templates/members/member/form_fields.html:95
 msgid "Method"
 msgstr "Zahlungsmethode"
 
-#: members/templates/members/member/detail.html:186
-#: members/templates/members/member/form_fields.html:96
+#: members/templates/members/member/detail.html:192
+#: members/templates/members/member/form_fields.html:100
 msgid "IBAN"
 msgstr "IBAN"
 
-#: members/templates/members/member/detail.html:192
-#: members/templates/members/member/form_fields.html:99
+#: members/templates/members/member/detail.html:198
+#: members/templates/members/member/form_fields.html:103
 msgid "BIC"
 msgstr "BIC"
 
-#: members/templates/members/member/detail.html:198
-#: members/templates/members/member/form_fields.html:103
+#: members/templates/members/member/detail.html:204
+#: members/templates/members/member/form_fields.html:107
 msgid "Direct debit mandate granted at"
 msgstr "SEPA Lastschriftmandat erteilt am"
 
-#: members/templates/members/member/detail.html:204
-#: members/templates/members/member/form_fields.html:106
+#: members/templates/members/member/detail.html:210
+#: members/templates/members/member/form_fields.html:110
 msgid "Direct debit reference"
 msgstr "SEPA Lastschrift Referenz"
 
-#: members/templates/members/member/detail.html:211
-#: members/templates/members/member/form_fields.html:113
+#: members/templates/members/member/detail.html:217
+#: members/templates/members/member/form_fields.html:117
 msgid "Additional Information"
 msgstr "Zusätzliche Informationen"
 
-#: members/templates/members/member/detail.html:216
-#: members/templates/members/member/form_fields.html:118
+#: members/templates/members/member/detail.html:222
+#: members/templates/members/member/form_fields.html:122
 msgid "Additional field 1"
 msgstr "Zusatzfeld 1"
 
-#: members/templates/members/member/detail.html:222
-#: members/templates/members/member/form_fields.html:124
+#: members/templates/members/member/detail.html:228
+#: members/templates/members/member/form_fields.html:128
 msgid "Additional field 2"
 msgstr "Zusatzfeld 2"
 
-#: members/templates/members/member/detail.html:228
-#: members/templates/members/member/form_fields.html:130
+#: members/templates/members/member/detail.html:234
+#: members/templates/members/member/form_fields.html:134
 msgid "Additional field 3"
 msgstr "Zusatzfeld 3"
 
-#: members/templates/members/member/detail.html:234
-#: members/templates/members/member/form_fields.html:136
+#: members/templates/members/member/detail.html:240
+#: members/templates/members/member/form_fields.html:140
 msgid "Additional field 4"
 msgstr "Zusatzfeld 4"
 
-#: members/templates/members/member/detail.html:240
-#: members/templates/members/member/form_fields.html:142
+#: members/templates/members/member/detail.html:246
+#: members/templates/members/member/form_fields.html:146
 msgid "Additional field 5"
 msgstr "Zusatzfeld 5"
 
-#: members/templates/members/member/detail.html:246
+#: members/templates/members/member/detail.html:252
 msgid "Files"
 msgstr "Dateien"
 
-#: members/templates/members/member/detail.html:252
+#: members/templates/members/member/detail.html:258
 msgid "Filename"
 msgstr "Dateiname"
 
-#: members/templates/members/member/detail.html:253
+#: members/templates/members/member/detail.html:259
 msgid "Action"
 msgstr "Aktion"
 
-#: members/templates/members/member/detail.html:263
+#: members/templates/members/member/detail.html:269
 msgid "Download"
 msgstr "Herunterladen"
 
-#: members/templates/members/member/detail.html:264
+#: members/templates/members/member/detail.html:270
 msgid "Delete"
 msgstr "Löschen"
 
-#: members/templates/members/member/detail.html:277
+#: members/templates/members/member/detail.html:283
 msgid "Drop files here or click to upload."
 msgstr "Ziehen und Ablegen oder hier klicken, um Dateien hochzuladen"
 
@@ -536,26 +536,26 @@ msgstr "Kostenträger"
 msgid "Subscription-List"
 msgstr "Beiträge"
 
-#: members/views.py:72
+#: members/views.py:76
 msgid "Member saved sucessfully"
 msgstr "Mitglied wurde erfolgreich gespeichert"
 
-#: members/views.py:104
+#: members/views.py:111
 msgid "Member created successfully"
 msgstr "Mitglied wurde erfolgreich erstellt"
 
-#: members/views.py:220
+#: members/views.py:246
 msgid "Division saved succesfully"
 msgstr "Sparte wurde erfolgreich gespeichert"
 
-#: members/views.py:236
+#: members/views.py:262
 msgid "Division created successfully"
 msgstr "Sparte wurde erfolgreich erstellt"
 
-#: members/views.py:289
+#: members/views.py:315
 msgid "Subscription saved succesfully"
 msgstr "Beitrag wurde erfolgreich gespeichert"
 
-#: members/views.py:302
+#: members/views.py:328
 msgid "Subscription created successfully"
 msgstr "Beitrag wurde erfolgreich erstellt"
