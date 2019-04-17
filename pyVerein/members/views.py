@@ -29,7 +29,7 @@ class MemberIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView)
 
         members = []
         for member in Member.objects.all():
-            if member.division:
+            if member.division.all():
                for division in member.division.all():
                     if division.is_access_granted(self.request.user):
                         members.append(member)
@@ -59,7 +59,7 @@ class MemberDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
         super_perm = super(MemberDetailView, self).has_permission()
 
         member = Member.objects.get(pk=self.kwargs['pk'])
-        if member.division:
+        if member.division.all():
             for division in member.division.all():
                 if division.is_access_granted(self.request.user):
                     return super_perm
@@ -82,7 +82,7 @@ class MemberEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
         super_perm = super(MemberEditView, self).has_permission()
 
         member = Member.objects.get(pk=self.kwargs['pk'])
-        if member.division:
+        if member.division.all():
             for division in member.division.all():
                 if division.is_access_granted(self.request.user):
                     return super_perm 
@@ -123,7 +123,7 @@ def upload_file(request, pk):
         member = Member.objects.get(pk=pk)
 
         # Check if user can access member
-        if member.division:
+        if member.division.all():
             access = False
             for division in member.division.all():
                 if division.is_access_granted(request.user):
@@ -157,7 +157,7 @@ def delete_file(request, pk):
         member = file.member
 
         # Check if user can access member
-        if member.division:
+        if member.division.all():
             access = False
             for division in member.division.all():
                 if division.is_access_granted(request.user):
@@ -296,7 +296,7 @@ class SubscriptionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Detail
 
         members = []
         for member in Member.objects.filter(subscription=self.object.pk):
-            if member.division:
+            if member.division.all():
                 if member.division.is_access_granted(self.request.user):
                     members.append(member)
             else:
