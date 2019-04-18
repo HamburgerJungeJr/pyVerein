@@ -5,6 +5,7 @@ from django.db.models import Count, Sum
 from members.models import Member
 from finance.models import Transaction, CostCenter, CostObject
 from dynamic_preferences.registries import global_preferences_registry
+from django.db.models import Q
 
 # Create your views here.
 @login_required
@@ -17,8 +18,8 @@ def index(request):
     bank_account_pref = global_preferences['Dashboard__bank_accounts'].split(',')
     bank_accounts = Transaction.objects.filter(account__in=bank_account_pref).order_by('account__number').values('account__name').annotate(debit=Sum('debit'), credit=Sum('credit'))
 
-    cost_center = CostCenter.objects.order_by('number').values('name').annotate(debit=Sum('transaction__debit'), credit=Sum('transaction__credit'))
+    cost_center = CostCenter.objects.order_by('number').values('name').annotate(debit=Sum('transaction__debit', filter=Q(transaction__accounting_year=global_preferences['Finance__accounting_year'])), credit=Sum('transaction__credit', filter=Q(transaction__accounting_year=global_preferences['Finance__accounting_year'])))
 
-    cost_object = CostObject.objects.order_by('number').values('name').annotate(debit=Sum('transaction__debit'), credit=Sum('transaction__credit'))
+    cost_object = CostObject.objects.order_by('number').values('name').annotate(debit=Sum('transaction__debit', filter=Q(transaction__accounting_year=global_preferences['Finance__accounting_year'])), credit=Sum('transaction__credit', filter=Q(transaction__accounting_year=global_preferences['Finance__accounting_year'])))
 
     return render(request, 'app/dashboard.html', {'divisions': divisions, 'bank_accounts': bank_accounts, 'cost_center': cost_center, 'cost_object': cost_object, 'member_count': len(members)})
