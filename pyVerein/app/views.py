@@ -21,4 +21,4 @@ def index(request):
 
     cost_object = CostObject.objects.order_by('number').values('name').annotate(debit=Sum('transaction__debit'), credit=Sum('transaction__credit'))
 
-    return render(request, 'app/dashboard.html', {'divisions': divisions, 'bank_accounts': bank_accounts, 'cost_center': cost_center, 'cost_object': cost_object})
+    return render(request, 'app/dashboard.html', {'divisions': divisions, 'bank_accounts': bank_accounts, 'cost_center': cost_center, 'cost_object': cost_object, 'member_count': len(members)})

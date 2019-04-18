@@ -63,10 +63,8 @@
             {% endfor %}
         ];
         memberData = [];
-        memberSum = 0;
         memberRawData.forEach(function(val){
             memberData.push([val['name'], val['members']]);
-            memberSum += val['members'];
         });
         var memberschart = c3.generate({
             data: {
@@ -75,7 +73,7 @@
             },
             donut: {
                 width: 70,
-                title: memberSum,
+                title: {{ member_count }},
                 label: {
                   format: function (value, ratio, id) {
                     return value;
