@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # Application definition
 
 INSTALLED_APPS = [
-    'custom_translations.apps.CustomTranslationsConfig',
+    'customization.apps.CustomizationConfig',
     'account.apps.AccountConfig',
     'app.apps.AppConfig',
     'members.apps.MembersConfig',
