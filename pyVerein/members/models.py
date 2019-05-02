@@ -176,11 +176,13 @@ class Subscription(ModelBase):
     QUARTERLY = 'QUA'
     HALFYEARLY = 'HAL'
     YEARLY = 'YEA'
+    ONCE = 'ONE'
     PAYMENT_FREQUENCY = (
+        (ONCE, _('Once')),
         (MONTHLY, _('Monthly')),
         (QUARTERLY, _('Quarterly')),
         (HALFYEARLY, _('Half-Yearly')),
-        (YEARLY, _('Yearly'))
+        (YEARLY, _('Yearly')),
     )
 
     # Name

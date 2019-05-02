@@ -297,11 +297,13 @@ class SubscriptionDetailView(LoginRequiredMixin, PermissionRequiredMixin, Detail
         members = []
         for member in Member.objects.filter(subscription=self.object.pk):
             if member.division.all():
-                if member.division.is_access_granted(self.request.user):
-                    members.append(member)
+               for division in member.division.all():
+                    if division.is_access_granted(self.request.user):
+                        members.append(member)
+                        break
             else:
                 members.append(member)
-
+                
         context['members'] = members
         return context
 
