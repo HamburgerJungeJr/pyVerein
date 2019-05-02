@@ -74,6 +74,12 @@
                 <span class="mdc-list-item__text">{% trans 'Cost objects' %}</span>
             </a>
             {% endif %}
+            {% if perms.finance.view_virtualaccount %}
+            <a href="{% url 'finance:virtual_account_list' %}" title="{% trans 'Virtual accounts' %}" class="mdc-list-item {% base_url_class 'finance:virtual_account_list' 'mdc-list-item--activated'%}" target="_blank">
+                <span class="mdc-list-item__graphic fas fa-funnel-dollar" aria-hidden="true"></span>
+                <span class="mdc-list-item__text">{% trans 'Virtual accounts' %}</span>
+            </a>
+            {% endif %}
             {% if perms.finance.view_transaction or perms.finance.view_debitor or perms.finance.view_creditor or perms.finance.view_costcenter or perms.finance.view_costobject %}
             <hr class="mdc-list-divider">
             {% endif %}

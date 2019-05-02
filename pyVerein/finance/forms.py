@@ -6,7 +6,7 @@ from django import forms
 # Import localization
 from django.utils.translation import ugettext_lazy as _
 # Import Accountmodel
-from .models import Account, CostCenter, CostObject, Transaction
+from .models import Account, CostCenter, CostObject, Transaction, VirtualAccount
 
 class PersonalAccountCreateForm(forms.ModelForm):
     """
@@ -142,6 +142,40 @@ class TransactionEditForm(forms.ModelForm):
         model = Transaction
         fields = ('text', 'cost_center', 'cost_object')
         widgets = {
+            'cost_center': forms.TextInput(),
+            'cost_object': forms.TextInput(),
+        }
+
+class VirtualAccountCreateForm(forms.ModelForm):
+    """
+    Formclass for creating virtual accounts
+    """
+    class Meta:
+        """
+        Form metadata
+        """
+        model = VirtualAccount
+        fields = ('number', 'name', 'initial', 'active_from', 'cost_center', 'cost_objects')
+        localized_fields = ('initial',)
+        widgets = {
+            'initial': forms.TextInput(),
+            'cost_center': forms.TextInput(),
+            'cost_object': forms.TextInput(),
+        }
+       
+class VirtualAccountEditForm(forms.ModelForm):
+    """
+    Formclass for editing virtual accounts
+    """
+    class Meta:
+        """
+        Form metadata
+        """
+        model = VirtualAccount
+        fields = ('name', 'initial', 'active_from', 'cost_center', 'cost_objects')
+        localized_fields = ('initial',)
+        widgets = {
+            'initial': forms.TextInput(),
             'cost_center': forms.TextInput(),
             'cost_object': forms.TextInput(),
         }

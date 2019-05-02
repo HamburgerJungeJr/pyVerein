@@ -1,0 +1,122 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/vendors/datatables.net/datatables.material.min.css' %}">
+    
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Virtual account detail' %}
+{% endblock %}
+
+{% block title %}
+    {{ virtual_account.number }} {{ virtual_account.name }}
+{% endblock %}
+
+
+{% block content %}
+    <table id="transactions" class="mdl-data-table mdl-js-data-table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Date' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Document number' %}</th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Transaction text' %}</th>
+                <th>{% trans 'Revenues' %}</th>
+                <th>{% trans 'Expenditures' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric" data-sort="{{ transaction.date|date:"Ymd"}}">
+                        {{ transaction.date }}
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <a href="{% url 'finance:transaction_detail' internal_number=transaction.internal_number %}" title="{% trans 'Show receipt' %}" target="_blank">
+                            {{ transaction.document_number }}
+                        </a>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ transaction.text }}
+                    </td>
+                    <td>
+                        {{ transaction.credit|default_if_none:"" }}
+                    </td>
+                    <td>
+                        {{ transaction.debit|default_if_none:"" }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th class="mdl-data-table__cell--non-numeric">{% trans 'Saldo' %} {{ saldo|floatformat:2 }}</th>
+                <th>{{ credit_sum|floatformat:2 }}</th>
+                <th>{{ debit_sum|floatformat:2 }}</th>
+            </tr>
+        </tfoot>
+    </table>
+    {% if perms.finance.change_virtualaccount %}
+    <a href="{% url 'finance:virtual_account_edit' pk=virtual_account.pk %}" class="mdc-fab mdc-fab--absolute-bottom-right" aria-label="" title="{% trans 'Edit' %}">
+        <i class="mdc-fab__icon fa fa-pencil-alt"></i>
+    </a>    
+    {% endif %}
+{% endblock %}
+
+{% block foot %}<!-- Datatables -->
+    <script src="{% static 'app/vendors/datatables.net/datatables.min.js' %}"></script>
+    <script src="{% static 'app/vendors/datatables.net/datatables.material.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            dt = $('#transactions').on('processing.dt', function (e, settings, processing) {
+                $('#transactions').css('opacity', processing ? '0.3' : '1.0');
+            }).DataTable({
+                "processing": true,
+                "serverSide": false,
+                "language": {
+                    "sProcessing": "<i class='fa fa-spin fa-spinner fa-3x'></i>",
+                    "sEmptyTable": "{% trans 'sEmptyTable' %}",
+                    "sInfo": "{% trans 'sInfo' %}",
+                    "sInfoEmpty": "{% trans 'sInfoEmpty' %}",
+                    "sInfoFiltered": "{% trans 'sInfoFiltered' %}",
+                    "sInfoPostFix": "{% trans 'sInfoPostfix' %}",
+                    "sInfoThousands": "{% trans 'sInfoThousands' %}",
+                    "sLoadingRecords": "{% trans 'sLoadingRecords' %}",
+                    "sZeroRecords": "{% trans 'sZeroRecords' %}",
+                    "oPaginate": {
+                        "sFirst": "{% trans 'sFirst' %}",
+                        "sLast": "{% trans 'sLast' %}",
+                        "sNext": "{% trans 'sNext' %}",
+                        "sPrevious": "{% trans 'sPrevious' %}"
+                    },
+                    "oAria": {
+                        "sSortAscending": "{% trans 'sSortAscending' %}",
+                        "sSortDescending": "{% trans 'sSortDescending' %}"
+                    }
+                },
+            });
+            // Search & Year
+            accounting_year_select = '<div class="mdc-select" id="accounting_year_filter"><i class="mdc-select__dropdown-icon"></i><select id="year_filter" name="year_filter" class="form-control input-sm"><option value="0" {% if year.accounting_year == accounting_year %}selected="selected"{% endif %}>{% trans 'All' %}</option>{% for year in accounting_years %}<option value="{{ year.accounting_year }}" {% if year.accounting_year == accounting_year %}selected="selected"{% endif %}>{{ year.accounting_year }}</option>{% endfor %}</select><label class="mdc-floating-label">{% trans 'Accounting_year' %}</label><div class="mdc-line-ripple"></div></div>';
+            $("#transactions_filter").html(accounting_year_select + '<div class="mdc-text-field"><input type="text" id="datatable-search" class="mdc-text-field__input"><label class="mdc-floating-label" for="datatable-search">{% trans 'sSearch' %}</label><div class="mdc-line-ripple"></div></div>');
+            $("#datatable-search").on('keyup', function(e) {
+                dt.search(this.value).draw();
+            })
+            $("#year_filter").change(function(e){
+                window.location = "{% url 'finance:virtual_account_detail' pk=virtual_account.pk %}?year=" + this.value
+            });
+
+            // Itemsselect
+            $("#transactions_length").html('<div class="mdc-select"><i class="mdc-select__dropdown-icon"></i>' + $('#transactions_length select')[0].outerHTML + '<label class="mdc-floating-label">{% trans 'sLengthMenu' %}</label><div class="mdc-line-ripple"></div></div>');
+            $(".mdc-select select").addClass("mdc-select__native-control");
+            $('#transactions_length select').on('change', function (e) {
+                dt.page.len(this.value).draw();
+            });
+        });
+    </script>
+{% endblock foot %}

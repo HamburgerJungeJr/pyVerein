@@ -1,0 +1,72 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block page_title %}
+    {% trans 'Create virtual account' %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'Create virtual account' %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-narrow form">
+        <div class="detail-content  mdc-elevation--z4">
+            <form action="{% url 'finance:virtual_account_create' %}" method="POST" id="form">
+                {% csrf_token %}
+                <div class="heading mdc-typography--overline">
+                    {% trans 'Virtual account' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Virtual account number' as number_label%}
+                    {% include "utils/_textfield.html" with field=form.number label=number_label next='id_name' %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Virtual account name' as name_label%}
+                    {% include "utils/_textfield.html" with field=form.name label=name_label %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Initial value' as initial_label%}
+                    {% include "utils/_textfield.html" with field=form.initial label=initial_label %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Active from' as active_from_label%}
+                    {% include "utils/_textfield.html" with field=form.active_from label=active_from_label %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Cost center' as cost_center_label%}
+                    {% include "utils/_textfield.html" with field=form.cost_center label=cost_center_label %}
+                </div>
+                <div class="form-group full-width">
+                    {% trans 'Cost objects' as cost_objects_label%}
+                    {% include "utils/_textfield.html" with field=form.cost_objects label=cost_objects_label %}
+                </div>
+                <div class="form-group form-submit">
+                    <input type="submit" class="mdc-button mdc-button--raised" value="{% trans 'Save' %}" title="{% trans 'Save' %}" />
+                    <a href="{% url 'finance:virtual_account_list' %}" class="mdc-button" title="{% trans 'Cancel' %}">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <script src="{% static 'app/vendors/jquery.inputmask/dist/jquery.inputmask.bundle.js' %}"></script>
+    <script>
+        $("#id_active_from").inputmask({
+            mask:"99.99.9999",
+            showMaskOnHover: false,
+        });
+    </script>
+    <!-- Keys -->
+    <script src="{% static 'app/js/keys.js' %}"></script>
+    <script>
+        $('#form').saveOnTimes();
+        $('#form').nextOnEnter();
+    </script>
+{% endblock %}
