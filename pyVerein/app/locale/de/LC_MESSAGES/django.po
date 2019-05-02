@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-17 18:09+0200\n"
+"POT-Creation-Date: 2019-05-02 17:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/app/_attributions.html:6 app/templates/app/base.html:126
+#: app/templates/app/_attributions.html:6 app/templates/app/base.html:123
 msgid "Attributions"
 msgstr "Lizenzen"
 
@@ -172,20 +172,24 @@ msgstr "Kostenstellen"
 msgid "Cost objects"
 msgstr "Kostenträger"
 
-#: app/templates/app/_drawer.html:81 app/templates/app/_drawer.html:84
-#: app/templates/app/_drawer.html:86
+#: app/templates/app/_drawer.html:78 app/templates/app/_drawer.html:80
+msgid "Virtual accounts"
+msgstr "Virtuelle Konten"
+
+#: app/templates/app/_drawer.html:87 app/templates/app/_drawer.html:90
+#: app/templates/app/_drawer.html:92
 msgid "Tasks"
 msgstr "Aufgaben"
 
-#: app/templates/app/_drawer.html:93
+#: app/templates/app/_drawer.html:99
 msgid "Reporting"
 msgstr "Berichtswesen"
 
-#: app/templates/app/_drawer.html:96 app/templates/app/_drawer.html:98
+#: app/templates/app/_drawer.html:102 app/templates/app/_drawer.html:104
 msgid "Reports"
 msgstr "Berichte"
 
-#: app/templates/app/_history.html:6 app/templates/app/base.html:120
+#: app/templates/app/_history.html:6 app/templates/app/base.html:117
 msgid "History"
 msgstr "Änderungshistorie"
 
@@ -202,19 +206,19 @@ msgstr "%(field)s von %(old)s zu %(new)s geändert"
 msgid "History could not be parsed!"
 msgstr "Änderungshistorie konnte nicht verarbeitet werden."
 
-#: app/templates/app/base.html:90 app/templates/app/base.html:92
+#: app/templates/app/base.html:87 app/templates/app/base.html:89
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/app/base.html:96 app/templates/app/base.html:98
+#: app/templates/app/base.html:93 app/templates/app/base.html:95
 msgid "Admin"
 msgstr "Administration"
 
-#: app/templates/app/base.html:102 app/templates/app/base.html:104
+#: app/templates/app/base.html:99 app/templates/app/base.html:101
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: app/templates/app/base.html:118
+#: app/templates/app/base.html:115
 #, python-format
 msgid ""
 "Created at %(created_at)s by %(created_by)s.<br/>Last modified at "
@@ -223,7 +227,7 @@ msgstr ""
 "Erstellt am %(created_at)s von %(created_by)s.<br/>Zuletzt geändert am "
 "%(modified_at)s von %(modified_by)s."
 
-#: app/templates/app/base.html:176 app/templates/app/base.html:213
+#: app/templates/app/base.html:173 app/templates/app/base.html:210
 msgid "Dismiss"
 msgstr "Ausblenden"
 
@@ -243,6 +247,6 @@ msgstr "Kostenträger"
 msgid "Not selected"
 msgstr "Keine Auswahl"
 
-#: app/templates/app/dashboard.html:162 app/templates/app/dashboard.html:221
+#: app/templates/app/dashboard.html:160 app/templates/app/dashboard.html:219
 msgid "Balance"
 msgstr "Saldo"

@@ -3,7 +3,7 @@ from account.models import User
 from django.urls import reverse
 from django.contrib.auth.models import Permission
 from datetime import date
-from .models import Account, CostObject, CostCenter, Transaction
+from .models import Account, CostObject, CostCenter, Transaction, VirtualAccount
 from dynamic_preferences.registries import global_preferences_registry
 
 class AccountTestMethods(TestCase):
@@ -775,3 +775,89 @@ class TransactionTestMethods(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='change_transaction'))
         response = self.client.get(reverse('finance:transaction_reset_new', args={Transaction.objects.get(document_number='12345').internal_number}))
         self.assertEqual(response.status_code, 302)
+
+class VirtualAccountTestMethods(TestCase):
+    def setUp(self):
+        # Create user
+        user = User.objects.create_user('temp', 'temp@temp.tld', 'temppass')
+        user.first_name = 'temp_first'
+        user.last_name = 'temp_last'
+        user.save()
+
+        # login with user
+        self.client.login(username='temp', password='temppass')
+
+        # Create virtualaccount
+        virtualaccount = VirtualAccount.objects.create(number='101', name='TempVirtualAccount', initial=1000, active_from=date.today())
+        virtualaccount.save()
+
+        global_preferences_registry.manager()['Finance__accounting_year'] = str(date.today().year)
+
+
+    def test_virtualaccount_list_permission(self):
+        "User should only access virtualaccount list if view permission is set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('finance:virtual_account_list'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_virtualaccount'))
+
+        response = self.client.get(reverse('finance:virtual_account_list'))
+        self.assertEqual(response.status_code, 200)
+  
+    def test_virtualaccount_detail_permission(self):
+        "User should only access virtualaccount detail if view permission is set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('finance:virtual_account_detail', args={VirtualAccount.objects.get(number='101').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_virtualaccount'))
+
+        response = self.client.get(reverse('finance:virtual_account_detail', args={VirtualAccount.objects.get(number='101').pk}))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_virtualaccount_edit_permission(self):
+        "User should only access virtualaccount edit if view & change permissions are set"
+
+        user = User.objects.get(username='temp')
+        
+        response = self.client.get(reverse('finance:virtual_account_edit', args={VirtualAccount.objects.get(number='101').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_virtualaccount'))
+        response = self.client.get(reverse('finance:virtual_account_edit', args={VirtualAccount.objects.get(number='101').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_virtualaccount'))
+        user.user_permissions.add(Permission.objects.get(codename='change_virtualaccount'))
+        response = self.client.get(reverse('finance:virtual_account_edit', args={VirtualAccount.objects.get(number='101').pk}))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_virtualaccount'))
+        response = self.client.get(reverse('finance:virtual_account_edit', args={VirtualAccount.objects.get(number='101').pk}))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_virtualaccount_create_permission(self):
+        "User should only access virtualaccount create if view & add permissions are set"
+
+        user = User.objects.get(username='temp')
+
+        response = self.client.get(reverse('finance:virtual_account_create'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_virtualaccount'))
+        response = self.client.get(reverse('finance:virtual_account_create'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.remove(Permission.objects.get(codename='view_virtualaccount'))
+        user.user_permissions.add(Permission.objects.get(codename='add_virtualaccount'))
+        response = self.client.get(reverse('finance:virtual_account_create'))
+        self.assertEqual(response.status_code, 403)
+
+        user.user_permissions.add(Permission.objects.get(codename='view_virtualaccount'))
+        response = self.client.get(reverse('finance:virtual_account_create'))
+        self.assertEqual(response.status_code, 200)

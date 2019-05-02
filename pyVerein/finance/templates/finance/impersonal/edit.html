@@ -21,10 +21,10 @@
             <form action="{% url 'finance:impersonal_edit' impersonal.pk %}" method="POST" id="form">
                 {% csrf_token %}
                 <div class="heading mdc-typography--overline">
-                    {% trans 'Creditor' %}
+                    {% trans 'Impersonal account' %}
                 </div>
                 <div class="form-group full-width">
-                        {% trans 'Creditor name' as name_label%}
+                        {% trans 'Impersonal account name' as name_label%}
                         {% include "utils/_textfield.html" with field=form.name label=name_label %}
                     </div>
                 <div class="form-group form-submit">

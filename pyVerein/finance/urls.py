@@ -43,6 +43,11 @@ urlpatterns = [
     path('transaction/<int:internal_number>/reset', views.reset_transaction, name='transaction_reset'),
     path('transaction/<int:internal_number>/reset_new', views.reset_new_transaction, name='transaction_reset_new'),
 
+    path('virtual_account/', views.VirtualAccountIndexView.as_view(), name='virtual_account_list'),
+    path('virtual_account/new/', views.VirtualAccountCreateView.as_view(), name='virtual_account_create'),
+    path('virtual_account/<str:pk>/', views.VirtualAccountDetailView.as_view(), name='virtual_account_detail'),
+    path('virtual_account/<str:pk>/edit/', views.VirtualAccountEditView.as_view(), name='virtual_account_edit'),
+
     path('api/account/<str:search>', views.get_account, name='account_search'),
     path('api/costcenter/<str:search>', views.get_cost_center, name='costcenter_search'),
     path('api/costobject/<str:search>', views.get_cost_object, name='costobject_search'),

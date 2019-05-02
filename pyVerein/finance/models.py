@@ -175,3 +175,21 @@ class ClosureBalance(ModelBase):
     # Liabilities at end of year
     liabilities = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
+@with_author
+class VirtualAccount(ModelBase):
+    """
+    Virtual account model
+    """
+    # Virtual account number
+    number = models.CharField(max_length=10, blank=False, null=False, unique=True, primary_key=True)
+    # Virtual account name
+    name = models.CharField(max_length=255, blank=False, null=False)
+
+    # Initial value
+    initial = models.DecimalField(max_digits=12, decimal_places=2, blank=False, null=False)
+    # Active from
+    active_from = models.DateField(null=False, blank=False)
+    # Costcenter
+    cost_center = models.CharField(max_length=255, blank=True, null=True)
+    # Costobjects
+    cost_objects = models.CharField(max_length=255, blank=True, null=True)

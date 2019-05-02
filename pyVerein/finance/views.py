@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 # Import views
 from django.views.generic import TemplateView, UpdateView, CreateView
 # Import forms
-from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountCreateForm, ImpersonalAccountEditForm, CostCenterCreateForm, CostCenterEditForm, CostObjectCreateForm, CostObjectEditForm, TransactionCreateForm, TransactionEditForm
+from .forms import PersonalAccountCreateForm, PersonalAccountEditForm, ImpersonalAccountCreateForm, ImpersonalAccountEditForm, CostCenterCreateForm, CostCenterEditForm, CostObjectCreateForm, CostObjectEditForm, TransactionCreateForm, TransactionEditForm, VirtualAccountCreateForm, VirtualAccountEditForm
 # Import reverse.
 from django.urls import reverse, reverse_lazy
 # Import Q for extended filtering.
@@ -18,7 +18,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.messages import get_messages
 # Import Account model
-from .models import Account, CostCenter, CostObject, Transaction
+from .models import Account, CostCenter, CostObject, Transaction, VirtualAccount
 from utils.views import generate_document_number, generate_internal_number
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -907,3 +907,86 @@ def reset_cleared_transaction(request):
             transaction.save()
         messages.success(request, _('Receipt clearing reset successfully'))
     return JsonResponse({'success': True})
+
+class VirtualAccountIndexView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    """
+    Index view for virtual accounts
+    """
+    permission_required = 'finance.view_virtualaccount'
+    template_name = 'finance/virtual_account/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VirtualAccountIndexView, self).get_context_data(**kwargs)
+
+        context['virtual_accounts'] = VirtualAccount.objects.all()
+
+        return context
+
+class VirtualAccountCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    """
+    Create view for virtual accounts
+    """
+    permission_required = ('finance.view_virtualaccount', 'finance.add_virtualaccount')
+    model = VirtualAccount
+    context_object_name = 'virtual_account'
+    template_name = 'finance/virtual_account/create.html'
+    form_class = VirtualAccountCreateForm
+    success_message = _('Virtual account created successfully')
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:virtual_account_detail', args={self.object.pk})
+
+class VirtualAccountDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """
+    Detail view for virtual accounts
+    """
+    permission_required = 'finance.view_virtualaccount'
+    model = VirtualAccount
+    context_object_name = 'virtual_account'
+    template_name = 'finance/virtual_account/detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(VirtualAccountDetailView, self).get_context_data(**kwargs)
+
+        # Get cost center and cost objects to calculate virtual account
+        cost_center = self.object.cost_center.split(',') if self.object.cost_center else []
+        cost_objects = self.object.cost_objects.split(',') if self.object.cost_objects else []
+
+        year = str(self.request.GET.get('year'))
+        if year == 'None':
+            year = global_preferences_registry.manager()['Finance__accounting_year']
+        if year == '0':
+            context['transactions'] = Transaction.objects.filter((Q(cost_center__in=cost_center) | Q(cost_object__in=cost_objects)) & Q(date__gte=self.object.active_from))
+            debit_sum = Transaction.objects.filter((Q(cost_center__in=cost_center) | Q(cost_object__in=cost_objects)) & Q(date__gte=self.object.active_from)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter((Q(cost_center__in=cost_center) | Q(cost_object__in=cost_objects)) & Q(date__gte=self.object.active_from)).aggregate(Sum('credit'))['credit__sum']
+        else:
+            context['transactions'] = Transaction.objects.filter((Q(cost_center__in=cost_center) | Q(cost_object__in=cost_objects)) & Q(date__gte=self.object.active_from) & Q(accounting_year=year))
+            debit_sum = Transaction.objects.filter((Q(cost_center__in=cost_center) | Q(cost_object__in=cost_objects)) & Q(date__gte=self.object.active_from) & Q(accounting_year=year)).aggregate(Sum('debit'))['debit__sum']
+            credit_sum = Transaction.objects.filter((Q(cost_center__in=cost_center) | Q(cost_object__in=cost_objects)) & Q(date__gte=self.object.active_from) & Q(accounting_year=year)).aggregate(Sum('credit'))['credit__sum']
+
+        context['debit_sum'] = debit_sum if debit_sum else 0
+        context['credit_sum'] = credit_sum if credit_sum else 0
+        context['saldo'] = (credit_sum if credit_sum else 0) - (debit_sum if debit_sum else 0) + self.object.initial
+        context['accounting_years'] = Transaction.objects.filter((Q(cost_center__in=cost_center) | Q(cost_object__in=cost_objects)) & Q(date__gte=self.object.active_from)).values('accounting_year').distinct().order_by('-accounting_year')
+        context['accounting_year'] = int(year)
+        return context
+    
+class VirtualAccountEditView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    """
+    Edit view for virtual accounts
+    """
+    permission_required = ('finance.view_virtualaccount', 'finance.change_virtualaccount')
+    model = VirtualAccount
+    context_object_name = 'virtual_account'
+    template_name = 'finance/virtual_account/edit.html'
+    form_class = VirtualAccountEditForm
+    success_message = _('Virtual account saved successfully')
+
+    def get_success_url(self):
+        """
+        Return detail url as success url
+        """
+        return reverse_lazy('finance:virtual_account_detail', args={self.object.pk})
