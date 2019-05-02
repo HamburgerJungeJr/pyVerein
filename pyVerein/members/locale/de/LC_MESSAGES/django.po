@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-02 17:54+0200\n"
+"POT-Creation-Date: 2019-05-03 00:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,21 +38,25 @@ msgstr "Überweisung"
 msgid "Direct Debit"
 msgstr "SEPA Lastschrift"
 
-#: members/models.py:180
+#: members/models.py:181
 msgid "Monthly"
 msgstr "Monatlich"
 
-#: members/models.py:181
+#: members/models.py:182
 msgid "Quarterly"
 msgstr "Quartalsweise"
 
-#: members/models.py:182
+#: members/models.py:183
 msgid "Half-Yearly"
 msgstr "Halbjährlich"
 
-#: members/models.py:183
+#: members/models.py:184
 msgid "Yearly"
 msgstr "Jährlich"
+
+#: members/models.py:185
+msgid "Once"
+msgstr "Einmalig"
 
 #: members/templates/members/division/create.html:12
 #: members/templates/members/division/create.html:16
@@ -552,10 +556,10 @@ msgstr "Sparte wurde erfolgreich gespeichert"
 msgid "Division created successfully"
 msgstr "Sparte wurde erfolgreich erstellt"
 
-#: members/views.py:315
+#: members/views.py:317
 msgid "Subscription saved succesfully"
 msgstr "Beitrag wurde erfolgreich gespeichert"
 
-#: members/views.py:328
+#: members/views.py:330
 msgid "Subscription created successfully"
 msgstr "Beitrag wurde erfolgreich erstellt"

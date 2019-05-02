@@ -92,9 +92,6 @@
             $('#debitorlist_length select').on('change', function (e) {
                 dt.page.len(this.value).draw();
             });
-            $('tbody tr').click(function () {
-                window.open($(this).data('debitor'));
-            });
         })
         ;
     </script>

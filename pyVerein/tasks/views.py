@@ -72,6 +72,11 @@ def apply_subscriptions(request):
                             transaction_count = (12 - (datetime.date.today().month - 1)) - Transaction.objects.filter(Q(account=subscription.get_income_account()) & Q(accounting_year=global_preferences['Finance__accounting_year']) & Q(text=_("Subscription - {subscription_name} - {membership_number} - {last_name}, {first_name}").format(subscription_name=subscription.name, membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name))).count()
                             if global_preferences['Members__skip_first_subscription'] and member.joined_at and str(member.joined_at.year) == str(global_preferences['Finance__accounting_year']):
                                 transaction_count -= 1
+                        
+                        if subscription.payment_frequency == Subscription.ONCE:
+                            transaction_count = 1
+                            member.subscription.remove(subscription)
+
                     
                         
                         for i in range(0, transaction_count):
@@ -91,11 +96,12 @@ def apply_subscriptions(request):
                             income_transaction.save()
 
                             subscription_amount += Decimal(subscription.amount)
+                            
                     if transaction_count > 0:
                         debitor_transaction = Transaction()
                         debitor_transaction.account = subscription.get_debitor_account()
                         debitor_transaction.date = datetime.datetime.now()
-                        debitor_transaction.text = _("Subscription - {membership_number} - {last_name}, {first_name}").format(subscription_name=subscription.name, membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name)
+                        debitor_transaction.text = _("Subscription - {membership_number} - {last_name}, {first_name}").format(membership_number=member.membership_number, last_name=member.last_name, first_name=member.first_name)
                         debitor_transaction.debit = subscription_amount
                         debitor_transaction.document_number = document_number
                         debitor_transaction.document_number_generated = True

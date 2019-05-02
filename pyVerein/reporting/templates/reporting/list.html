@@ -29,7 +29,7 @@
             {% for report in reports %}
                 <tr>
                     <td class="mdl-data-table__cell--non-numeric">
-                        <a href="{% url 'reporting:detail' pk=report.pk %}">
+                        <a href="{% url 'reporting:detail' pk=report.pk %}" target="_blank">
                             {{ report.name}}
                         </a>
                     </td>
