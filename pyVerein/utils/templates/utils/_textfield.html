@@ -2,7 +2,7 @@
 
 <div class="mdc-text-field mdc-input">
     {% if autofocus %}
-        {% render_field field class+="mdc-text-field__input" data-next=next autofocus="" %}
+        {% render_field field class+="mdc-text-field__input" data-next=next autofocus="autofocus" %}
     {% else %}
         {% render_field field class+="mdc-text-field__input" data-next=next %}
     {% endif %}
