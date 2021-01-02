@@ -68,7 +68,15 @@ Stay in the `pyVerein` directory and run the command:
 python manage.py compilemessages
 ```
 
-### Step 5: Run server
+### Step 5: Create an admin user
+Stay in the `pyVerein` directory and run the command:
+```
+python manage.py createsuperuser --username=admin --email=mail@domain.com
+```
+You will be prompted to set a password for the user you are creating. 
+You can use the login data for the first time login.
+
+### Step 6: Run server
 Stay in the `pyVerein` directory and run the command:
 ```
 python manage.py runserver
