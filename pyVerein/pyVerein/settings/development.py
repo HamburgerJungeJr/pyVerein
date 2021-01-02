@@ -35,11 +35,13 @@ DATABASES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = os.environ['STATIC_URL']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = os.environ['MEDIA_URL']
-MEDIA_ROOT = os.environ['MEDIA_ROOT']
+STATIC_URL = '/static/'
 
-SENDFILE_URL = os.environ['SENDFILE_URL']
-SENDFILE_ROOT = os.environ['SENDFILE_ROOT']
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SENDFILE_URL = '/sendfile/'
+SENDFILE_ROOT = os.path.join(BASE_DIR, 'sendfile')
 SENDFILE_BACKEND = 'sendfile.backends.development'
