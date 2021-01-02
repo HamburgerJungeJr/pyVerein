@@ -27,5 +27,5 @@ class Currency(StringPreference):
 class AccountingYear(StringPreference):
     section = finance
     name = 'accounting_year'
-    default = ''
+    default = '2021'
     verbose_name = "Acounting year"
